@@ -67,3 +67,5 @@ F:\Planner\Planner\Planner\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\Planner\Planner\Planner\obj\Debug\Planner.csprojResolveAssemblyReference.cache
 F:\Planner\Planner\Planner\obj\Debug\Planner.dll
 F:\Planner\Planner\Planner\obj\Debug\Planner.pdb
+F:\Planner\Planner\Planner\bin\Domain.dll
+F:\Planner\Planner\Planner\bin\Domain.pdb
