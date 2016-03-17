@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Planner.Models;
+using Domain.Models;
 
-namespace Planner
+namespace Domain
 {
     public class EmailService : IIdentityMessageService
     {

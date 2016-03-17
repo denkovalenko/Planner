@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Domain;
+using Domain.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Planner.Models;
 using System.Data.Entity;
 
 namespace Planner
@@ -28,7 +29,7 @@ namespace Planner
 
             // Create users
             var admin = new ApplicationUser { Email = "sanyaaxel94@gmail.com", UserName = "SanyaAxel" };
-            string password = "Aa123987!!!";
+            string password = "Aa123123123!!!";
             var result = userManager.Create(admin, password);
 
             // Success

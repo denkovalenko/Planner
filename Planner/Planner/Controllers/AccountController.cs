@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Domain;
+using Domain.Models;
 using Planner.Models;
 
 namespace Planner.Controllers
