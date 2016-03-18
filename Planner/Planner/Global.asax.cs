@@ -1,4 +1,5 @@
-﻿using Planner.Models;
+﻿using Domain.Models;
+using Planner.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
