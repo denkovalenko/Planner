@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EfEnumToLookup, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1fde139e1e56f7c4, processorArchitecture=MSIL">
+      <HintPath>..\packages\ef-enum-to-lookup.1.9.0\lib\net45\EfEnumToLookup.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -92,15 +96,34 @@
     <Compile Include="AppDbInitializer.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\AcademicTitle.cs" />
+    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Degree.cs" />
+    <Compile Include="Models\PublicationScientificBase.cs" />
+    <Compile Include="Models\ScientificBase.cs" />
+    <Compile Include="Models\PublicationUser.cs" />
+    <Compile Include="Models\Enums\PublicationFeatureEnum.cs" />
+    <Compile Include="Models\Enums\PublicationsAccessoryEnum.cs" />
+    <Compile Include="Models\PublicationAccessory.cs" />
+    <Compile Include="Models\PublicationFeature.cs" />
+    <Compile Include="Models\PublicationType.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DepartmentUser.cs" />
+    <Compile Include="Models\Enums\PublicationsTypeEnum.cs" />
+    <Compile Include="Models\Enums\AcademicTitleEnum.cs" />
+    <Compile Include="Models\Enums\DegreeEnum.cs" />
+    <Compile Include="Models\Faculty.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Enums\PositionEnum.cs" />
+    <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\Rate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

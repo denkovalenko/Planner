@@ -1,5 +1,6 @@
 namespace Domain.Migrations
 {
+    using EfEnumToLookup.LookupGenerator;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,7 +15,8 @@ namespace Domain.Migrations
 
         protected override void Seed(Domain.Models.ApplicationDbContext context)
         {
-
+            var enumToLookup = new EnumToLookup();
+            enumToLookup.Apply(context);
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -27,7 +29,6 @@ namespace Domain.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
         }
     }
 }

@@ -11,6 +11,14 @@ namespace Domain.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<Degree> Degrees { get; set; }
+        public DbSet<AcademicTitle> AcademicTitles { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Publication> Publications { get; set; }
+        public DbSet<PublicationType> PublicationTypes { get; set; }
+        public DbSet<Rate> Rates { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -18,6 +26,7 @@ namespace Domain.Models
 
         public static ApplicationDbContext Create()
         {
+
             return new ApplicationDbContext();
         }
     }

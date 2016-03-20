@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace Planner
 {
-    public class AppDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class AppDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         /// <summary>
         /// Add default user
@@ -14,6 +14,7 @@ namespace Planner
         /// <param name="context"></param>
         protected override void Seed(ApplicationDbContext context)
         {  
+
             //Create default user/admin
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
