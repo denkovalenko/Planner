@@ -25,6 +25,7 @@ namespace Domain.Models
         [ForeignKey("AcademicTitleId")]
         public virtual AcademicTitle AcademicTitle { get; set; }
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
+        public virtual ICollection<PublicationUser> PublicationUser { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

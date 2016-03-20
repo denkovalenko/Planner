@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-   public class Degree
+   public class PublicationAccessory
     {
-        public Degree()
+        public PublicationAccessory()
         {
             Id = Guid.NewGuid().ToString();
         }
         [Key]
         public String Id { get; set; }
-        public DegreeEnum DegreeValue { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public PublicationsAccessoryEnum PublicationAccessoryValue { get; set; }
+        public virtual ICollection<Publication> Publications { get; set; }
     }
 }

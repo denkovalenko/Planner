@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class PublicationUser
+   public class PublicationScientificBase
     {
-        public PublicationUser()
+        public PublicationScientificBase()
         {
             Id = Guid.NewGuid().ToString();
         }
@@ -18,11 +18,9 @@ namespace Domain.Models
         public String Id { get; set; }
         public String PublicationId { get; set; }
         [ForeignKey("PublicationId")]
-        public virtual Publication Publication { get; set; }
-        public String UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
-
-
+        public virtual Publication Publications { get; set; }
+        public String ScientificBaseId { get; set; }
+        [ForeignKey("ScientificBaseId")]
+        public virtual ScientificBase ScientificBase { get; set; }
     }
 }
