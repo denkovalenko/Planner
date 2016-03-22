@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Planner.Models
@@ -66,19 +67,39 @@ namespace Planner.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Електронна пошта")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Ім'я")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Прізвище")]
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "По батькові")]
+        public string ThirdName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Пiдтвердiть пароль")]
+        [Compare("Password", ErrorMessage = "Пароль та пiдтвердження паролю ен совпадае")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Вчена ступінь")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчену ступiнь")]
+        public AcademicTitleEnum AcademicTitleEnum { get; set; }
+        [Display(Name = "Вчене звання")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчене звання")]
+        public DegreeEnum DegreeEnum { get; set; }
+        [Display(Name = "Посада")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть посаду")]
+        public PositionEnum PositionEnum { get; set; }
     }
 
     public class ResetPasswordViewModel
