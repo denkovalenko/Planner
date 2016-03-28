@@ -51,19 +51,19 @@
     <div class="form-group">
         @Html.LabelFor(m => m.AcademicTitleEnum, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, new { @class = "form-control" })
+            @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, "-- Виберiть ступiнь --", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.DegreeEnum, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(m => m.DegreeEnum, new { @class = "form-control" })
+            @Html.EnumDropDownListFor(m => m.DegreeEnum, "-- Виберiть звання --", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.PositionEnum, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(m => m.PositionEnum, new { @class = "form-control" })
+            @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

@@ -10,7 +10,7 @@ namespace Domain.Models
     public enum DegreeEnum
     {
         [Display(Name = @"Кандидат наук")]
-        CandidateOfScience,
+        CandidateOfScience=1,
         [Display(Name = @"Доктор наук")]
         DoctorOfScience
     }
