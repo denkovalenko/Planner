@@ -10,7 +10,7 @@ namespace Domain.Models
     public enum PositionEnum
     {
         [Display(Name = @"Завідуючий кафедрою")]
-        HeadDepartment,
+        HeadDepartment=1,
         [Display(Name = @"Доцент кафедрою")]
         DocentDepartment,
         [Display(Name = @"Старший викладач кафедри")]

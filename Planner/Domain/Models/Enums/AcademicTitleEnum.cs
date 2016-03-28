@@ -10,7 +10,7 @@ namespace Domain.Models
     public enum AcademicTitleEnum
     {
         [Display(Name = @"Доцент")]
-        Docent,
+        Docent=1,
         [Display(Name = @"Старший науковий співробітник")]
         SeniorResearchFellow,
         [Display(Name = @"Професор")]
