@@ -178,12 +178,35 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\avatar04.png" />
+    <Content Include="Content\Images\avatar2.png" />
+    <Content Include="Content\Images\avatar3.png" />
+    <Content Include="Content\Images\avatar5.png" />
+    <Content Include="Content\Images\boxed-bg.jpg" />
+    <Content Include="Content\Images\boxed-bg.png" />
+    <Content Include="Content\Images\default-50x50.gif" />
+    <Content Include="Content\Images\icons.png" />
+    <Content Include="Content\Images\photo1.png" />
+    <Content Include="Content\Images\photo2.png" />
+    <Content Include="Content\Images\photo3.jpg" />
+    <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\user1-128x128.jpg" />
+    <Content Include="Content\Images\user2-160x160.jpg" />
+    <Content Include="Content\Images\user3-128x128.jpg" />
+    <Content Include="Content\Images\user4-128x128.jpg" />
+    <Content Include="Content\Images\user5-128x128.jpg" />
+    <Content Include="Content\Images\user6-128x128.jpg" />
+    <Content Include="Content\Images\user7-128x128.jpg" />
+    <Content Include="Content\Images\user8-128x128.jpg" />
+    <Content Include="Content\skin-blue-light.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
