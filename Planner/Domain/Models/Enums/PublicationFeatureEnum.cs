@@ -8,7 +8,7 @@ namespace Domain.Models
 {
     public enum PublicationsTypeEnum
     {
-        Teacher,
+        Teacher=1,
         Student,
         Lecter
     }

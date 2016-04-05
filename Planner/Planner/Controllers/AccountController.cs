@@ -151,9 +151,15 @@ namespace Planner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            Int32 qw = (Int32)model.DegreeEnum;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
+                    ThirdName =model.ThirdName,
+                    Degree =new Degree() { DegreeValue = model.DegreeEnum },
+                    Position = new Position() { PositionValue = model.PositionEnum },
+                    AcademicTitle = new AcademicTitle() { PositionValue = model.AcademicTitleEnum }
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
