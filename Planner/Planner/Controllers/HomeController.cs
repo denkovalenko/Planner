@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,28 +10,30 @@ namespace Planner.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        [Authorize(Roles = "User")]
+        public ActionResult Dashboard()
         {
-            var db = new ApplicationDbContext();
-       
-            var rate = new Rate() { Value = 2.0 };
-            db.Rates.Add(rate);
-            db.SaveChanges();
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
-        public ActionResult About()
+        [Authorize(Roles = "Admin")]
+        public ActionResult Register()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
     }
 }
