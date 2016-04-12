@@ -8,21 +8,20 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class PublicationUser
+    public class DepartmentUser
     {
-        public PublicationUser()
+        public DepartmentUser()
         {
             Id = Guid.NewGuid().ToString();
         }
         [Key]
         public String Id { get; set; }
-        public String PublicationId { get; set; }
-        [ForeignKey("PublicationId")]
-        public virtual Publication Publication { get; set; }
-        public String UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
-
+        public String RateId { get; set; }
+        [ForeignKey("RateId")]
+        public virtual Rate Rate { get; set; }
+        public String DepartmentId { get; set; }
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; }
 
     }
 }
