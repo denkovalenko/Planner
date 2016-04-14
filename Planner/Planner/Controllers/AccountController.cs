@@ -136,13 +136,7 @@ namespace Planner.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
+
 
         //
         // POST: /Account/Register
@@ -163,13 +157,13 @@ namespace Planner.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Register", "Home");
+                    return RedirectToAction("Register", "Home", new {username=user.Email });
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("~/Views/Home/Register.cshtml",model);
         }
 
         //

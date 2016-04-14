@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="~/Content/AdminLTE.min.css" rel="stylesheet" />
     <link href="~/Content/skin-blue-light.min.css" rel="stylesheet" />
-    <link href="~/Content/_all-skins.min.css" rel="stylesheet" />    
+    <link href="~/Content/_all-skins.min.css" rel="stylesheet" />
     <link href="~/Scripts/plugins/ng-table.css" rel="stylesheet" />
     <script src="~/Scripts/angular.js"></script>
     <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>
     <script src="~/Scripts/App/app.js"></script>
     <script src="~/Scripts/App/controllers/demoController.js"></script>
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,7 +34,7 @@
 <body class="sidebar-mini skin-blue-light">
     <div class="wrapper">
 
-      @Html.Partial("Header");
+        @Html.Partial("Header");
 
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
@@ -52,18 +52,25 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="header">НАВIГАЦIЯ</li>
-                    <li  class="active treeview">
+                    <li class="active treeview">
                         <a href="/Home//Dashboard">
-                            <i class="fa fa-dashboard"></i> 
-                            <span>Головна сторiнка</span> 
+                            <i class="fa fa-dashboard"></i>
+                            <span>Головна сторiнка</span>
                         </a>
                     </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="treeview">
+                            <a href="/Home/Register">
+                                <i class="fa fa-table"></i> <span>Новi користувачi</span>
+                            </a>
+                        </li>
+                    }
                     <li class="treeview">
-                        <a href="/Home/Register">
-                            <i class="fa fa-table"></i> <span>Новi користувачi</span>
+                        <a href="#">
+                            <i class="fa fa-table"></i> <span>Викладацька дільність</span>
                         </a>
                     </li>
-                  
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -76,7 +83,7 @@
 
 
 
-       
+
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -244,7 +251,7 @@
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
-   
+
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
@@ -264,8 +271,6 @@
     <script src="~/Scripts/app.js"></script>
     <script src="~/Scripts/dashboard.js"></script>
     <script src="~/Scripts/demo.js"></script>
-    
+
 </body>
 </html>
-
-

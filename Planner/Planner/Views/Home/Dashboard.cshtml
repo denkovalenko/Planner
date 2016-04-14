@@ -6,12 +6,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Dashboard
-            <small>Control panel</small>
+            Головна сторінка
+            <small>Панель</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
+            <li class="active">Головна сторінка</li>
         </ol>
     </section>
 
@@ -24,12 +24,12 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <h3>150</h3>
-                        <p>New Orders</p>
+                        <p>Публікацій</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Перейти<i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
@@ -37,38 +37,39 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <h3>53<sup style="font-size: 20px">%</sup></h3>
-                        <p>Bounce Rate</p>
+                        <p>Робоче навантаження</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Перейти<i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>44</h3>
-                        <p>User Registrations</p>
+                        <h3>4</h3>
+                        <p>Співавтора публікацій</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Перейти <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>65</h3>
-                        <p>Unique Visitors</p>
+                      </br>
+                        <h4>Індивідуальний план</h4>
+                      </br>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">Перейти <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div><!-- ./col -->
         </div><!-- /.row -->
@@ -78,125 +79,13 @@
             <section class="col-lg-12 connectedSortable">
 
 
-                <div ng-app="myApp" class="container-fluid">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="page-header">Batch editable table</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="bs-callout bs-callout-info">
-                                        <h4>Overview</h4>
-                                        <p>Example of how to create a batch editable table.</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="bs-callout bs-callout-warning">
-                                        <h4>Notice</h4>
-                                        <p>There are several directives in use that track dirty state and validity of the table rows. Whilst they are reasonally capable they are <em>not production tested - use at your own risk!</em> <a href="#" ng-click="isExplanationOpen = !isExplanationOpen">More details...</a></p>
-                                        <div ng-show="isExplanationOpen">
-                                            <p>If you look at the declarative markup for the <code>ngTable</code> you'll see a bunch of nested <code>ngForm</code> directives, with a common ancestor <code>ngForm</code> at the level of the table element. Each nested <code>ngForm</code>                propogates their <code>$dirty</code> and <code>$invalid</code> state to this top level <code>ngForm</code>. This works great as you can enable/disable the buttons for saving the table based on the status of this single top-level <code>ngForm</code>.</p>
-                                            <p>This works up till the point that the user select's a new page to display in the table. At which point the existing nested <code>ngForm</code> directives are swapped out for new instances as the new data page is loaded. These new <code>ngForm</code>                directives are always pristine and valid and this status propogates setting the corrosponding state on the top-level to be pristine and valid even though rows from the previous page are dirty and possibly invalid.</p>
-                                            <p>The solution is to have a set of directives that sit parallel to the <code>ngForm</code> directives that remember the state of the rows when the corrosponding <code>ngFrom</code> directives are destroyed and recreated. When <code>ngForm</code>                directives are recreated they have their status reset by the directives that have remembered this state.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6" ng-controller="demoController as demo">
-                            <h3>ngTable directive</h3>
-                            <div class="brn-group pull-right">
-                                <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-click="demo.isEditing = true">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                                <button class="btn btn-primary" ng-if="demo.isEditing" ng-disabled="!demo.hasChanges() || demo.tableTracker.$invalid" ng-click="demo.saveChanges()">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </button>
-                                <button class="btn btn-default" ng-click="demo.add()">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                            </div>
-                            <table ng-table="demo.tableParams" class="table table-bordered table-hover table-condensed editable-table" ng-form="demo.tableForm" disable-filter="demo.isAdding" demo-tracked-table="demo.tableTracker">
-                                <colgroup>
-                                    <col width="70%" />
-                                    <col width="12%" />
-                                    <col width="13%" />
-                                    <col width="5%" />
-                                </colgroup>
-                                <tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
-                                    <td title="'Name'" filter="{name: 'text'}" sortable="'name'" ng-switch="demo.isEditing" ng-class="name.$dirty ? 'bg-warning' : ''" ng-form="name" demo-tracked-table-cell>
-                                        <span ng-switch-default class="editable-text">{{row.name}}</span>
-                                        <div class="controls" ng-class="name.$invalid && name.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                                            <input type="text" name="name" ng-model="row.name" class="editable-input form-control input-sm" required />
-                                        </div>
-                                    </td>
-                                    <td title="'Age'" filter="{age: 'number'}" sortable="'age'" ng-switch="demo.isEditing" ng-class="age.$dirty ? 'bg-warning' : ''" ng-form="age" demo-tracked-table-cell>
-                                        <span ng-switch-default class="editable-text">{{row.age}}</span>
-                                        <div class="controls" ng-class="age.$invalid && age.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                                            <input type="number" name="age" ng-model="row.age" class="editable-input form-control input-sm" required />
-                                        </div>
-                                    </td>
-                                    <td title="'Money'" filter="{money: 'number'}" sortable="'money'" ng-switch="demo.isEditing" ng-class="money.$dirty ? 'bg-warning' : ''" ng-form="money" demo-tracked-table-cell>
-                                        <span ng-switch-default class="editable-text">{{row.money}}</span>
-                                        <div class="controls" ng-class="money.$invalid && money.$dirty ? 'has-error' : ''" ng-switch-when="true">
-                                            <input type="number" name="money" ng-model="row.money" class="editable-input form-control input-sm" required />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger btn-sm" ng-click="demo.del(row)" ng-disabled="!demo.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6" ng-controller="dynamicDemoController as demo">
-                            <h3>ngTableDynamic directive</h3>
-                            <div class="brn-group pull-right">
-                                <button class="btn btn-default" ng-if="demo.isEditing" ng-click="demo.cancelChanges()">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                                <button class="btn btn-primary" ng-if="!demo.isEditing" ng-click="demo.isEditing = true">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                                <button class="btn btn-primary" ng-if="demo.isEditing" ng-disabled="!demo.hasChanges() || demo.tableTracker.$invalid" ng-click="demo.saveChanges()">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </button>
-                                <button class="btn btn-default" ng-click="demo.add()">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                            </div>
-                            <table ng-table-dynamic="demo.tableParams with demo.cols" class="table table-bordered table-condensed table-hover editable-table" ng-form="demo.tableForm" disable-filter="demo.isAdding" demo-tracked-table="demo.tableTracker">
-                                <colgroup>
-                                    <col width="70%" />
-                                    <col width="12%" />
-                                    <col width="13%" />
-                                    <col width="5%" />
-                                </colgroup>
-                                <tr ng-repeat="row in $data" ng-form="rowForm" demo-tracked-table-row="row">
-                                    <td ng-repeat="col in $columns" ng-class="rowForm[col.field].$dirty ? 'bg-warning' : ''" ng-form="{{col.field}}" demo-tracked-table-cell>
-                                        <span ng-if="col.dataType !== 'command' && !demo.isEditing" class="editable-text">{{row[col.field]}}</span>
-                                        <div ng-if="col.dataType !== 'command' && demo.isEditing" class="controls" ng-class="rowForm[col.field].$invalid && rowForm[col.field].$dirty ? 'has-error' : ''" ng-switch="col.dataType">
-                                            <input ng-switch-default type="text" name="{{col.field}}" ng-model="row[col.field]" class="editable-input form-control input-sm" required />
-                                            <input ng-switch-when="number" type="number" name="{{col.field}}" ng-model="row[col.field]" class="editable-input form-control input-sm" required />
-                                        </div>
-                                        <button ng-if="col.dataType === 'command'" class="btn btn-danger btn-sm" ng-click="demo.del(row)" ng-disabled="!demo.isEditing"><span class="glyphicon glyphicon-trash"></span></button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
 
 
                 <!-- quick email widget -->
                 <div class="box box-info">
                     <div class="box-header">
                         <i class="fa fa-envelope"></i>
-                        <h3 class="box-title">Quick Email</h3>
+                        <h3 class="box-title">Публікація</h3>
                         <!-- tools box -->
                         <div class="pull-right box-tools">
                             <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
@@ -205,18 +94,25 @@
                     <div class="box-body">
                         <form action="#" method="post">
                             <div class="form-group">
-                                <input type="email" class="form-control" name="emailto" placeholder="Email to:">
+                                <input type="email" class="form-control" name="emailto" placeholder="Назва">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                <input type="text" class="form-control" name="subject" placeholder="Автори">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" placeholder="Обсяг">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" placeholder="Наукометричні бази">
                             </div>
                             <div>
-                                <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea class="textarea" placeholder="Вихідні данні" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="box-footer clearfix">
-                        <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
+                        <button class="pull-right btn btn-default" id="sendEmail">Додати<i class="fa fa-arrow-circle-right"></i></button>
                     </div>
                 </div>
                

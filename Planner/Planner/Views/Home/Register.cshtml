@@ -5,6 +5,7 @@
 
     <div class="login-box">
         <div class="login-box-body">
+                @ViewBag.userAdd
             <p class="login-box-msg">Реєстрація нового користувача</p>
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", role = "form" }))
             {

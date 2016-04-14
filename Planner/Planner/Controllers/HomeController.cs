@@ -10,7 +10,6 @@ namespace Planner.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "User")]
         public ActionResult Dashboard()
         {
             if (Request.IsAuthenticated)
@@ -24,10 +23,14 @@ namespace Planner.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Register()
+        public ActionResult Register(String username)
         {
             if (Request.IsAuthenticated)
             {
+                if (username != null)
+                {
+                    ViewBag.userAdd = "User " + username + " has been added";
+                }
                 return View();
             }
             else
