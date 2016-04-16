@@ -9,9 +9,11 @@ namespace Domain.Models
 {
     public enum DegreeEnum
     {
-        [Display(Name = @"Кандидат наук")]
-        CandidateOfScience=1,
-        [Display(Name = @"Доктор наук")]
-        DoctorOfScience
+        [Display(Name = @"Доцент")]
+        Docent = 1,
+        [Display(Name = @"Старший науковий співробітник")]
+        SeniorResearchFellow,
+        [Display(Name = @"Професор")]
+        Professor
     }
 }
