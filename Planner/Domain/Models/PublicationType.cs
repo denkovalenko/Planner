@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-   public class PublicationType
+   public class PublicationTypeEnum
     {
-        public PublicationType()
+        public PublicationTypeEnum()
         {
             Id = Guid.NewGuid().ToString();
         }

@@ -104,14 +104,14 @@
     <Compile Include="Models\PublicationScientificBase.cs" />
     <Compile Include="Models\ScientificBase.cs" />
     <Compile Include="Models\DepartmentUser.cs" />
-    <Compile Include="Models\Enums\PublicationFeatureEnum.cs" />
+    <Compile Include="Models\Enums\PublicationTypeEnum.cs" />
     <Compile Include="Models\Enums\PublicationsAccessoryEnum.cs" />
     <Compile Include="Models\PublicationAccessory.cs" />
     <Compile Include="Models\PublicationFeature.cs" />
     <Compile Include="Models\PublicationType.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\PublicationUser.cs" />
-    <Compile Include="Models\Enums\PublicationsTypeEnum.cs" />
+    <Compile Include="Models\Enums\PublicationsFeatureEnum.cs" />
     <Compile Include="Models\Enums\AcademicTitleEnum.cs" />
     <Compile Include="Models\Enums\DegreeEnum.cs" />
     <Compile Include="Models\Faculty.cs" />

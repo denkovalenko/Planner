@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Create";
 }
-@*@Model IEnumrable<ApplicationUser>*@
+@model Planner.Models.CreatePublicationViewModel
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -34,28 +34,31 @@
                         </div><!-- /. tools -->
                     </div>
                     <div class="box-body">
-                        <form action="#" method="post">
+                        <form action="~/Publication/Create" method="post">
                             <div class="form-group">
-                                <input type="email" class="form-control" name="emailto" placeholder="Назва">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Автори">
+                                <input type="text" class="form-control" name="name" placeholder="Назва">
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Обсяг">
+                                <input type="text" class="form-control" name="Pages" placeholder="Обсяг">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Наукометричні бази">
+                                <select name="">
+                                    @foreach(var sbase in Model.ScientificBases)
+                                    {
+                                        <option value="@sbase.Id">@sbase.Name</option>
+                                    }
+                                </select>
                             </div>
                             <div>
-                                <textarea class="textarea" placeholder="Вихідні данні" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                <textarea name="Text" placeholder="Текст" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <input type="submit" class="pull-right btn btn-default" value="Додати" />
                             </div>
                         </form>
                     </div>
-                    <div class="box-footer clearfix">
-                        <button class="pull-right btn btn-default" id="sendEmail">Додати<i class="fa fa-arrow-circle-right"></i></button>
-                    </div>
+                    
                 </div>
 
 

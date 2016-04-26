@@ -17,8 +17,10 @@ namespace Domain.Models
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Publication> Publications { get; set; }
-        public DbSet<PublicationType> PublicationTypes { get; set; }
+        public DbSet<PublicationTypeEnum> PublicationTypes { get; set; }
         public DbSet<Rate> Rates { get; set; }
+        public DbSet<ScientificBase> ScientificBases { get; set; }
+        public DbSet<PublicationUser> PublicationUsers { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -39,6 +39,15 @@ namespace Planner
                 userManager.AddToRole(admin.Id, role2.Name);
             }
             InitFaculties(context);
+            InitScientificBases(context);
+            base.Seed(context);
+        }
+
+        private void InitScientificBases(ApplicationDbContext context)
+        {
+            context.ScientificBases.Add(new ScientificBase() { Name = "Университет"});
+            context.ScientificBases.Add(new ScientificBase() { Name = "Google Scholar" });
+            context.ScientificBases.Add(new ScientificBase() { Name = "Science Research Portal" });
             base.Seed(context);
         }
         private void InitFaculties(ApplicationDbContext context)
