@@ -15,7 +15,7 @@ namespace Domain.Models
         }
         [Key]
         public String Id { get; set; }
-        public PublicationsTypeEnum PublicationTypeValue { get; set; }
+        public PublicationsTypeEnum Value { get; set; }
         public virtual ICollection<Publication> Publications { get; set; }
     }
 }

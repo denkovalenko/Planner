@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1785,6 +1786,7 @@
     <Content Include="Scripts\plugins\ng-table.less" />
     <Content Include="Scripts\plugins\ng-table.min.js.map" />
     <Content Include="Views\Shared\_signInLayout.cshtml" />
+    <Content Include="Views\Publication\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

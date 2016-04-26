@@ -17,7 +17,7 @@ namespace Domain.Models
         [Key]
         public String Id { get; set; }
         public String Name { get; set; }
-        public String Output { get; set; }
+        public String Text { get; set; }
         public Int32 Pages { get; set; }
 
         public String PublicationTypeId { get; set; }

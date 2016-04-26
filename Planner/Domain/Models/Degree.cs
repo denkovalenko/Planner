@@ -15,7 +15,7 @@ namespace Domain.Models
         }
         [Key]
         public String Id { get; set; }
-        public DegreeEnum DegreeValue { get; set; }
+        public DegreeEnum Value { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

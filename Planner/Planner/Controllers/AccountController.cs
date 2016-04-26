@@ -150,9 +150,9 @@ namespace Planner.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
                     ThirdName =model.ThirdName,
-                    Degree =new Degree() { DegreeValue = model.DegreeEnum },
-                    Position = new Position() { PositionValue = model.PositionEnum },
-                    AcademicTitle = new AcademicTitle() { PositionValue = model.AcademicTitleEnum }
+                    Degree =new Degree() { Value = model.DegreeEnum },
+                    Position = new Position() { Value = model.PositionEnum },
+                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum }
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
