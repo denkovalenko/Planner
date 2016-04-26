@@ -15,7 +15,7 @@ namespace Domain.Models
         }
         [Key]
         public String Id { get; set; }
-        public PositionEnum PositionValue { get; set; }
+        public PositionEnum Value { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

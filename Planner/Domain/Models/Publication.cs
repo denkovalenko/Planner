@@ -17,12 +17,13 @@ namespace Domain.Models
         [Key]
         public String Id { get; set; }
         public String Name { get; set; }
-        public String Output { get; set; }
+        public String Text { get; set; }
         public Int32 Pages { get; set; }
 
         public String PublicationTypeId { get; set; }
         public String PublicationFeatureId { get; set; }
         public String PublicationAccessoryId { get; set; }
+		public Boolean PublishedStatus { get; set; }
         [ForeignKey("PublicationTypeId")]
         public virtual PublicationType PublicationType { get; set; }
         [ForeignKey("PublicationFeatureId")]

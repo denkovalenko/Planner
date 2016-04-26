@@ -22,6 +22,7 @@ namespace Domain.Models
         public String UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
+		public Boolean MainAuthor { get; set; }
 
 
     }

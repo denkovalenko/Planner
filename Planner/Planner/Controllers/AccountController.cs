@@ -136,13 +136,7 @@ namespace Planner.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
+
 
         //
         // POST: /Account/Register
@@ -156,20 +150,20 @@ namespace Planner.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
                     ThirdName =model.ThirdName,
-                    Degree =new Degree() { DegreeValue = model.DegreeEnum },
-                    Position = new Position() { PositionValue = model.PositionEnum },
-                    AcademicTitle = new AcademicTitle() { PositionValue = model.AcademicTitleEnum }
+                    Degree =new Degree() { Value = model.DegreeEnum },
+                    Position = new Position() { Value = model.PositionEnum },
+                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum }
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Register", "Home");
+                    return RedirectToAction("Register", "Home", new {username=user.Email });
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("~/Views/Home/Register.cshtml",model);
         }
 
         //
