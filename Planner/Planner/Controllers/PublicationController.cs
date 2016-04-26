@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +15,22 @@ namespace Planner.Controllers
         {
             return View();
         }
+
+		public ActionResult Create()
+		{
+			//using (GenericRepository<ApplicationUser> repo = new GenericRepository<ApplicationUser>(new ApplicationDbContext()))
+			//{
+			//	return View(repo.GetBy(x => x.Position.Value == PositionEnum.Lecturer).ToList());
+				
+			//}
+			return View();
+
+		}
+
+		[HttpPost]
+		public ActionResult Create(Publication model)
+		{
+			return View();
+		}
     }
 }

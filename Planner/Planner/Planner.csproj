@@ -1787,6 +1787,7 @@
     <Content Include="Scripts\plugins\ng-table.min.js.map" />
     <Content Include="Views\Shared\_signInLayout.cshtml" />
     <Content Include="Views\Publication\Index.cshtml" />
+    <Content Include="Views\Publication\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

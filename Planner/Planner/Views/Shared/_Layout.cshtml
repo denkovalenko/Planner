@@ -53,7 +53,7 @@
                 <ul class="sidebar-menu">
                     <li class="header">НАВIГАЦIЯ</li>
                     <li class="active treeview">
-                        <a href="/Home//Dashboard">
+                        <a href="~/Home/Dashboard">
                             <i class="fa fa-dashboard"></i>
                             <span>Головна сторiнка</span>
                         </a>
@@ -61,7 +61,7 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">
-                            <a href="/Home/Register">
+                            <a href="~/Home/Register">
                                 <i class="fa fa-table"></i> <span>Новi користувачi</span>
                             </a>
                         </li>

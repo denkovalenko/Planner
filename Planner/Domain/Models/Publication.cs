@@ -23,6 +23,7 @@ namespace Domain.Models
         public String PublicationTypeId { get; set; }
         public String PublicationFeatureId { get; set; }
         public String PublicationAccessoryId { get; set; }
+		public Boolean PublishedStatus { get; set; }
         [ForeignKey("PublicationTypeId")]
         public virtual PublicationType PublicationType { get; set; }
         [ForeignKey("PublicationFeatureId")]
