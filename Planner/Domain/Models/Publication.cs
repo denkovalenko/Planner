@@ -17,20 +17,9 @@ namespace Domain.Models
         [Key]
         public String Id { get; set; }
         public String Name { get; set; }
-        public String Text { get; set; }
-        public Int32 Pages { get; set; }
-
-  //      public String PublicationTypeId { get; set; }
-  //      public String PublicationFeatureId { get; set; }
-  //      public String PublicationAccessoryId { get; set; }
-		//public Boolean PublishedStatus { get; set; }
-  //      [ForeignKey("PublicationTypeId")]
-  //      public virtual PublicationTypeEnum PublicationType { get; set; }
-  //      [ForeignKey("PublicationFeatureId")]
-  //      public virtual PublicationFeature PublicationFeature { get; set; }
-  //      [ForeignKey("PublicationAccessoryId")]
-  //      public virtual PublicationAccessory PublicationAccessory { get; set; }
-  //      public virtual ICollection<PublicationScientificBase> PublicationScientificBases { get; set; }
-  //      public virtual ICollection<PublicationUser> PublicationUsers { get; set; }
+        public String FilePath { get; set; }
+        public Boolean PublishedStatus { get; set; }
+        public virtual ICollection<PublicationScientificBase> PublicationScientificBases { get; set; }
+        public virtual ICollection<PublicationUser> PublicationUsers { get; set; }
     }
 }

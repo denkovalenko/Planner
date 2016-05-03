@@ -45,9 +45,8 @@ namespace Planner
 
         private void InitScientificBases(ApplicationDbContext context)
         {
-            context.ScientificBases.Add(new ScientificBase() { Name = "Университет"});
             context.ScientificBases.Add(new ScientificBase() { Name = "Google Scholar" });
-            context.ScientificBases.Add(new ScientificBase() { Name = "Science Research Portal" });
+            context.ScientificBases.Add(new ScientificBase() { Name = "ORCID" });
             base.Seed(context);
         }
         private void InitFaculties(ApplicationDbContext context)
