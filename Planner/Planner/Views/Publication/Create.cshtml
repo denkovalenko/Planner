@@ -34,14 +34,11 @@
                         </div><!-- /. tools -->
                     </div>
                     <div class="box-body">
-                        <form action="~/Publication/Create" method="post">
+                        <form action="~/Publication/Create" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="Назва">
                             </div>
 
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="Pages" placeholder="Обсяг">
-                            </div>
                             <div class="form-group">
                                 <select name="">
                                     @foreach(var sbase in Model.ScientificBases)
@@ -50,8 +47,8 @@
                                     }
                                 </select>
                             </div>
-                            <div>
-                                <textarea name="Text" placeholder="Текст" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            <div class="form-group">
+                                <input type="file" class="form-control" name="file" placeholder="Документ">
                             </div>
                             <div class="box-footer clearfix">
                                 <input type="submit" class="pull-right btn btn-default" value="Додати" />
