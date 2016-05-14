@@ -9,7 +9,7 @@ namespace Planner.Models
 {
     public class CreatePublicationViewModel
     {
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public IEnumerable<Author> Collaborators { get; set; }
         public IEnumerable<ScientificBase> ScientificBases { get; set; }
     }
 }

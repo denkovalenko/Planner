@@ -40,13 +40,29 @@
                             </div>
 
                             <div class="form-group">
-                                <select name="">
-                                    @foreach(var sbase in Model.ScientificBases)
+                                <select name="ScientificBaseId">
+                                    @foreach (var sbase in Model.ScientificBases)
                                     {
-                                        <option value="@sbase.Id">@sbase.Name</option>
+                                        <option value="@sbase.Id">@sbase.Name</option>}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="Collaborator">
+                                    @foreach (var collab in Model.Collaborators)
+                                    {
+                                        if (collab.UserId != null)
+                                        {
+                                            <option value="@collab.UserId">@collab.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@collab.CollaboratorId">@collab.Name</option>
+                                        }
+
                                     }
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <input type="file" class="form-control" name="file" placeholder="Документ">
                             </div>
@@ -55,7 +71,7 @@
                             </div>
                         </form>
                     </div>
-                    
+
                 </div>
 
 
