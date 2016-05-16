@@ -22,21 +22,5 @@ namespace Planner.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Register(String username)
-        {
-            if (Request.IsAuthenticated)
-            {
-                if (username != null)
-                {
-                    ViewBag.userAdd = "User " + username + " has been added";
-                }
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
     }
 }

@@ -7,13 +7,24 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Planner.Controllers
 {
     public class PublicationController : Controller
     {
-        // GET: Publication
-        public ActionResult Index()
+		private ApplicationUser user;
+		protected override void Initialize(RequestContext requestContext)
+		{
+			base.Initialize(requestContext);
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				user = db.Users.FirstOrDefault(x => x.UserName == requestContext.HttpContext.User.Identity.Name);
+			}
+
+		}
+		// GET: Publication
+		public ActionResult Index()
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -26,22 +37,32 @@ namespace Planner.Controllers
 		{
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-				return View(new CreatePublicationViewModel
+				var users = db.Users
+						.AsEnumerable()
+						.Select(u => new Author()
+						{
+							UserId = u.Id,
+							CollaboratorId = null,
+							Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
+						})
+						.OrderBy(x => x.Name).ToList();
+				var collaborators = db.ExternalCollaborators
+						.AsEnumerable()
+						.Select(u => new Author()
+						{
+							UserId = null,
+							CollaboratorId = u.Id,
+							Name = u.Name
+						})
+						.OrderBy(x => x.Name).ToList();
+				var model = new CreatePublicationViewModel
 				{
-					ScientificBases = db.ScientificBases.ToList(),
-					Collaborators = db.PublicationUsers
-							.Join(db.Users, pu => pu.UserId, u => u.Id, (pu, u) => new { pu, u })
-							.Join(db.ExternalCollaborators, puu => puu.pu.CollaboratorId, c => c.Id, (puu, c) => new { puu, c })
-							.AsEnumerable()
-							.Select(puuuc => new Author()
-							{
-								UserId = puuuc.puu.pu.UserId,
-								CollaboratorId = puuuc.puu.pu.CollaboratorId,
-								Name = puuuc.puu.pu.UserId != null 
-										? $"{puuuc.puu.u.FirstName} {puuuc.puu.u.LastName} {puuuc.puu.u.ThirdName}" 
-										: puuuc.c.Name
-							}).ToList()
-                });
+					ScientificBases = db.ScientificBases.Reverse().ToList(),
+					Collaborators = new List<Author>()
+				};
+				model.Collaborators.AddRange(users);
+				model.Collaborators.AddRange(collaborators);
+				return View(model);
 
             }
 
@@ -52,7 +73,6 @@ namespace Planner.Controllers
 		{
             using (ApplicationDbContext db = new ApplicationDbContext() )
             {
-				var user = db.Users.FirstOrDefault(u => u.UserName == HttpContext.User.Identity.Name);
 				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
 				var a = Server.MapPath(filepath);
 				file.SaveAs(Server.MapPath(filepath));

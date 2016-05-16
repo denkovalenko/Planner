@@ -136,21 +136,34 @@ namespace Planner.Controllers
             }
         }
 
+		[Authorize(Roles = "Admin")]
+		public ActionResult Register(String username)
+		{
+			if (username != null)
+			{
+				ViewBag.userAdd = "User " + username + " has been added";
+			}
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
 
+				return View();
+			}
+				
+		}
 
-        //
-        // POST: /Account/Register
-        [HttpPost]
+		//
+		// POST: /Account/Register
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+		[Authorize(Roles = "Admin")]
+		public async Task<ActionResult> Register(RegisterViewModel model)
         {
             Int32 qw = (Int32)model.DegreeEnum;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
                     ThirdName =model.ThirdName,
-                    Degree =new Degree() { Value = model.DegreeEnum },
+                    Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
                     AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum }
                 };

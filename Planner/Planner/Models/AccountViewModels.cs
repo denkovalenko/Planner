@@ -100,7 +100,8 @@ namespace Planner.Models
         [Display(Name = "Посада")]
         [Range(1, int.MaxValue, ErrorMessage = "Виберiть посаду")]
         public PositionEnum PositionEnum { get; set; }
-    }
+
+	}
 
     public class ResetPasswordViewModel
     {
