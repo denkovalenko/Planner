@@ -57,7 +57,7 @@ namespace Planner.Controllers
 						.OrderBy(x => x.Name).ToList();
 				var model = new CreatePublicationViewModel
 				{
-					ScientificBases = db.ScientificBases.Reverse().ToList(),
+					ScientificBases = db.ScientificBases.ToList(),
 					Collaborators = new List<Author>()
 				};
 				model.Collaborators.AddRange(users);
@@ -69,7 +69,7 @@ namespace Planner.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Publication model, HttpPostedFileBase file)
+		public ActionResult Create(PublicationCreate model, HttpPostedFileBase file)
 		{
             using (ApplicationDbContext db = new ApplicationDbContext() )
             {
