@@ -10,5 +10,6 @@ namespace Planner.Models
 	{
 		public String Name { get; set; }
 		public List<String> CollaboratorsIds { get; set; }
+		public String ScientificBaseId { get; set; }
 	}
 }

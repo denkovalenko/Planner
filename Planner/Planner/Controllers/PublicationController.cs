@@ -38,10 +38,11 @@ namespace Planner.Controllers
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
 				var users = db.Users
+					.Where(u=> u.Id != user.Id)
 						.AsEnumerable()
 						.Select(u => new Author()
 						{
-							UserId = u.Id,
+							UserId = "u_"+u.Id,
 							CollaboratorId = null,
 							Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
 						})
@@ -51,7 +52,7 @@ namespace Planner.Controllers
 						.Select(u => new Author()
 						{
 							UserId = null,
-							CollaboratorId = u.Id,
+							CollaboratorId = "c_"+u.Id,
 							Name = u.Name
 						})
 						.OrderBy(x => x.Name).ToList();
@@ -73,23 +74,54 @@ namespace Planner.Controllers
 		{
             using (ApplicationDbContext db = new ApplicationDbContext() )
             {
-				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
-				var a = Server.MapPath(filepath);
-				file.SaveAs(Server.MapPath(filepath));
-                Publication publication = new Publication()
-                {
-                    Name = model.Name,
-					FilePath = filepath,
-					PublicationUsers = new List<PublicationUser>
+				try
+				{
+					var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+					var a = Server.MapPath(filepath);
+					file.SaveAs(Server.MapPath(filepath));
+					Publication publication = new Publication()
 					{
-						new PublicationUser()
+						Name = model.Name,
+						FilePath = filepath,
+						PublicationScientificBases = new List<PublicationScientificBase>()
+					{
+						new PublicationScientificBase()
 						{
-							User = user
+							ScientificBaseId = model.ScientificBaseId
 						}
+					},
+						PublicationUsers = new List<PublicationUser>
+						{
+							new PublicationUser()
+							{
+								UserId = user.Id
+							}
+						}
+					};
+					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "c_"))
+					{
+						publication.PublicationUsers.Add(new PublicationUser()
+						{
+							CollaboratorId = collab.Substring(2),
+							Publication = publication
+						});
 					}
-                };
-                db.Publications.Add(publication);
-                db.SaveChanges();
+					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
+					{
+						publication.PublicationUsers.Add(new PublicationUser()
+						{
+							UserId = collab.Substring(2),
+							Publication = publication
+						});
+					}
+					db.Publications.Add(publication);
+					db.SaveChanges();
+				}
+				catch(Exception ex)
+				{
+
+				}
+				
                 return RedirectToAction("Index");
             } 
 		}

@@ -4,44 +4,47 @@
     ViewBag.Title = "Register";
 }
 
-    <div class="login-box">
-        <div class="login-box-body">
-                @ViewBag.userAdd
-            <p class="login-box-msg">Реєстрація нового користувача</p>
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <hr />
+<div class="login-box">
+    <div class="login-box-body">
+        @ViewBag.userAdd
+        <p class="login-box-msg">Реєстрація нового користувача</p>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
                 @Html.ValidationSummary("", new { @class = "text-danger" })
                 <div class="form-group has-feedback">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Електронна адреса" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Електронна адреса" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Ім'я" })
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Прізвище" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Прізвище" })
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Ім'я" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Отчество" })
+                    @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Отчество" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Підтвердіть пароль"})
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Підтвердіть пароль" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, "-- Виберiть ступiнь --", new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.TimetableId, new { @class = "form-control", placeholder = "ID у розкладi" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.EnumDropDownListFor(m => m.DegreeEnum, "-- Виберiть звання --", new { @class = "form-control" })
+                    @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, "-- Виберiть ступiнь --", new { @class = "form-control" })
                 </div>
                 <div class="form-group has-feedback">
-                        @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
+                    @Html.EnumDropDownListFor(m => m.DegreeEnum, "-- Виберiть звання --", new { @class = "form-control" })
                 </div>
                 <div class="form-group has-feedback">
-                    <select class="form-control"  data-ng-model="countr"
+                    @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
+                </div>
+                <div class="form-group has-feedback">
+                    <select class="form-control" data-ng-model="countr"
                             data-ng-options="c.Id as c.Name for c in faculties"
                             data-ng-change="GetDepartment()">
                         <option value="">-- Виберiть факультет--</option>
@@ -62,6 +65,6 @@
                 </div>
 
 
-            }
-        </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->
+        }
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

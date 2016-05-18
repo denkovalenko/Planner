@@ -1,4 +1,13 @@
-﻿<div class="content-wrapper">
-        <iframe class="col-lg-12" height="700" src="http://services.hneu.edu.ua:8081/schedule/schedule?employee=340599"></iframe>
+﻿@model string
+<div class="content-wrapper">
+    @if (Model != null && Model != string.Empty)
+    {
+        <iframe class="col-lg-12" height="700" src="http://services.hneu.edu.ua:8081/schedule/schedule?employee=@Model"></iframe>
+    }
+    else
+    {
+        <iframe class="col-lg-12" height="700" src="http://services.ksue.edu.ua:8081/schedule/selection.jsf"></iframe>
+    }
+    
     
 </div>

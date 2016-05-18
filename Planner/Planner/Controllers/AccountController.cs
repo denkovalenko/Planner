@@ -162,21 +162,22 @@ namespace Planner.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
-                    ThirdName =model.ThirdName,
+                    ThirdName = model.ThirdName,
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
-                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum }
+                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
+					TimetableId = model.TimetableId
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Register", "Home", new {username=user.Email });
+                    return RedirectToAction("Register", new {username=user.Email });
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View("~/Views/Home/Register.cshtml",model);
+            return View("Register", model);
         }
 
         //
