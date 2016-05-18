@@ -19,6 +19,10 @@ namespace Domain.Models
         public String Name { get; set; }
         public String FilePath { get; set; }
         public Boolean PublishedStatus { get; set; }
+		public int Pages { get; set; }
+		public String StoringTypeId { get; set; }
+		[ForeignKey("StoringTypeId")]
+		public virtual StoringType StoringType { get;set;}
         public virtual ICollection<PublicationScientificBase> PublicationScientificBases { get; set; }
         public virtual ICollection<PublicationUser> PublicationUsers { get; set; }
     }

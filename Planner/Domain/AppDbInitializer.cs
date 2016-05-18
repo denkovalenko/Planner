@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Models;
+using EfEnumToLookup.LookupGenerator;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
@@ -15,7 +16,11 @@ namespace Planner
         /// <param name="context"></param>
         protected override void Seed(ApplicationDbContext context)
         {
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+			var enumToLookup = new EnumToLookup();
+			enumToLookup.TableNameSuffix = "Enum";
+			enumToLookup.Apply(context);
+
+			var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             // Create two role
@@ -41,7 +46,8 @@ namespace Planner
             InitFaculties(context);
             InitScientificBases(context);
             base.Seed(context);
-        }
+			
+		}
 
         private void InitScientificBases(ApplicationDbContext context)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace Planner.Models
 		public String Name { get; set; }
 		public List<String> CollaboratorsIds { get; set; }
 		public String ScientificBaseId { get; set; }
+		public int Pages { get; set; }
+		public StoringTypeEnum StoringType { get; set; }
 	}
 }

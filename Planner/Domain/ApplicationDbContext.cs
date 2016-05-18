@@ -20,6 +20,7 @@ namespace Domain.Models
         public DbSet<Rate> Rates { get; set; }
         public DbSet<ScientificBase> ScientificBases { get; set; }
 		public DbSet<ExternalCollaborator> ExternalCollaborators { get; set; }
+		public DbSet<StoringType> StoringTypes { get; set; }
 
 		public DbSet<PublicationScientificBase> PublicationScientificBases { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }

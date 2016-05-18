@@ -101,6 +101,7 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Degree.cs" />
+    <Compile Include="Models\Enums\StoringTypeEnum.cs" />
     <Compile Include="Models\ExternalCollaborator.cs" />
     <Compile Include="Models\PublicationScientificBase.cs" />
     <Compile Include="Models\ScientificBase.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Models\Enums\PositionEnum.cs" />
     <Compile Include="Models\Publication.cs" />
     <Compile Include="Models\Rate.cs" />
+    <Compile Include="Models\StoringType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

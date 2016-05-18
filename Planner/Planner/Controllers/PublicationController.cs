@@ -83,6 +83,8 @@ namespace Planner.Controllers
 					{
 						Name = model.Name,
 						FilePath = filepath,
+						Pages = model.Pages,
+						StoringType = new StoringType() { Value = model.StoringType},
 						PublicationScientificBases = new List<PublicationScientificBase>()
 					{
 						new PublicationScientificBase()

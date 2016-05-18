@@ -47,18 +47,20 @@
                         Публикации
                     </thead>
                     <tr>
-                        <th>Название</th>
-                        <th>Объем</th>
-                        <th>Текст</th>
-                        <th></th>
-                        <th></th>
+                        <th>Назва</th>
+                        <th>Характер роботи</th>
+                        <th>Вихідні дані</th>
+                        <th>Обсяг (стор.)</th>
+                        <th>Співавтори</th>
                     </tr>
 
                     @foreach (var pub in Model)
                     {
                     <tr>
                         <td>@pub.Name</td>
+                        <td>@pub.StoringTypeId</td>
                         <td></td>
+                        <td>@pub.Pages</td>
                         <td></td>
                     </tr>
                     }
