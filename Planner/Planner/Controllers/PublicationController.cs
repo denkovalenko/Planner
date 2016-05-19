@@ -1,8 +1,10 @@
 ﻿using Domain;
 using Domain.Models;
+using Domain.Models.Enums;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -28,8 +30,20 @@ namespace Planner.Controllers
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                return View(db.Publications.ToList());
-
+                return View(db.Publications
+					.Include("StoringType")
+					.AsEnumerable()
+					.Select(x => new PublicationForm11()
+					{
+						Id = x.Id,
+						FilePath = x.FilePath,
+						Name = x.Name,
+						Pages = x.Pages,
+						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
+								.GetMember(x.StoringType.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute),false)[0]).Name
+					})
+					.ToList());
             }
         }
 
@@ -37,32 +51,32 @@ namespace Planner.Controllers
 		{
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-				var users = db.Users
-					.Where(u=> u.Id != user.Id)
-						.AsEnumerable()
-						.Select(u => new Author()
-						{
-							UserId = "u_"+u.Id,
-							CollaboratorId = null,
-							Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
-						})
-						.OrderBy(x => x.Name).ToList();
-				var collaborators = db.ExternalCollaborators
-						.AsEnumerable()
-						.Select(u => new Author()
-						{
-							UserId = null,
-							CollaboratorId = "c_"+u.Id,
-							Name = u.Name
-						})
-						.OrderBy(x => x.Name).ToList();
+				//var users = db.Users
+				//	.Where(u=> u.Id != user.Id)
+				//		.AsEnumerable()
+				//		.Select(u => new Author()
+				//		{
+				//			UserId = "u_"+u.Id,
+				//			CollaboratorId = null,
+				//			Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
+				//		})
+				//		.OrderBy(x => x.Name).ToList();
+				//var collaborators = db.ExternalCollaborators
+				//		.AsEnumerable()
+				//		.Select(u => new Author()
+				//		{
+				//			UserId = null,
+				//			CollaboratorId = "c_"+u.Id,
+				//			Name = u.Name
+				//		})
+				//		.OrderBy(x => x.Name).ToList();
 				var model = new CreatePublicationViewModel
 				{
 					ScientificBases = db.ScientificBases.ToList(),
-					Collaborators = new List<Author>()
+					//Collaborators = new List<Author>()
 				};
-				model.Collaborators.AddRange(users);
-				model.Collaborators.AddRange(collaborators);
+				//model.Collaborators.AddRange(users);
+				//model.Collaborators.AddRange(collaborators);
 				return View(model);
 
             }
@@ -84,7 +98,7 @@ namespace Planner.Controllers
 						Name = model.Name,
 						FilePath = filepath,
 						Pages = model.Pages,
-						StoringType = new StoringType() { Value = model.StoringType},
+						StoringType = new StoringType() { Value = model.StoringType },
 						PublicationScientificBases = new List<PublicationScientificBase>()
 					{
 						new PublicationScientificBase()

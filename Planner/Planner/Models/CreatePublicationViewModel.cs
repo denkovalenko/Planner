@@ -10,7 +10,7 @@ namespace Planner.Models
 {
     public class CreatePublicationViewModel
     {
-        public List<Author> Collaborators { get; set; }
+        //public List<Author> Collaborators { get; set; }
         public List<ScientificBase> ScientificBases { get; set; }
 		public StoringTypeEnum StoringType { get; set; }
 

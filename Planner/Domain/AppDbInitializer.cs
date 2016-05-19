@@ -17,7 +17,6 @@ namespace Planner
         protected override void Seed(ApplicationDbContext context)
         {
 			var enumToLookup = new EnumToLookup();
-			enumToLookup.TableNameSuffix = "Enum";
 			enumToLookup.Apply(context);
 
 			var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));

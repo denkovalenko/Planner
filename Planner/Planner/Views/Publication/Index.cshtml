@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@model List<Domain.Models.Publication>
+@model List<Planner.Models.PublicationForm11>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -58,7 +58,7 @@
                     {
                     <tr>
                         <td>@pub.Name</td>
-                        <td>@pub.StoringTypeId</td>
+                        <td>@pub.StoringType</td>
                         <td></td>
                         <td>@pub.Pages</td>
                         <td></td>
