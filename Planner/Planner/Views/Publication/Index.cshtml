@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+@model List<Planner.Models.PublicationForm11>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -22,21 +22,52 @@
             <div class="col-lg-2 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-gray-light">
-                    <a href="~/Publication/Create" class="inner btn-block">Создать <i class="fa glyphicon-cog"></i></a>
+                    <a href="~/Publication/Create" class="inner btn-block">Создать <i class="glyphicon glyphicon-pencil"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-2 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-gray-light">
-                    <a href="#" class="inner btn-block">Мои публикации <i class="fa glyphicon-certificate"></i></a>
+                    <a href="#" class="inner btn-block">Мои публикации <i class="glyphicon glyphicon-paperclip"></i></a>
                 </div>
             </div><!-- ./col -->
             <div class="col-lg-2 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-gray-light">
-                    <a href="#" class="inner btn-block">Черновики <i class="fa glyphicon-pencil"></i></a>
+                    <a href="#" class="inner btn-block">Черновики <i class="glyphicon glyphicon-briefcase"></i></a>
                 </div>
             </div><!-- ./col -->
         </div><!-- /.row -->
+        @if (Model != null && Model.Count != 0)
+        {
+            <div class="row">
+
+                <table class="table table-responsive col-lg-10">
+                    <thead>
+                        Публикации
+                    </thead>
+                    <tr>
+                        <th>Назва</th>
+                        <th>Характер роботи</th>
+                        <th>Вихідні дані</th>
+                        <th>Обсяг (стор.)</th>
+                        <th>Співавтори</th>
+                    </tr>
+
+                    @foreach (var pub in Model)
+                    {
+                    <tr>
+                        <td>@pub.Name</td>
+                        <td>@pub.StoringType</td>
+                        <td></td>
+                        <td>@pub.Pages</td>
+                        <td></td>
+                    </tr>
+                    }
+
+
+                </table>
+            </div>
+        }
     </section>
 </div><!-- /.content-wrapper -->
