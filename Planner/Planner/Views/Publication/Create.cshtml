@@ -33,25 +33,41 @@
                             <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                         </div><!-- /. tools -->
                     </div>
-                    <div class="box-body">
-                        <form action="~/Publication/Create" method="post" enctype="multipart/form-data">
+                    <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
+                        <form action="~/Publication/Create" method="post" name="autocomplete" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="Назва">
                             </div>
                             <div class="form-group">
+                                
                                 <input type="text" class="form-control" name="pages" placeholder="Объем">
                             </div>
                             <div class="form-group has-feedback">
                                 @Html.EnumDropDownListFor(m => m.StoringType, "Тип публикации", new { @class = "form-control" })
                             </div>
                             <div class="form-group">
-                                <select name="ScientificBaseId">
-                                    @foreach (var sbase in Model.ScientificBases)
-                                    {
-                                        <option value="@sbase.Id">@sbase.Name</option>}
-                                </select>
+                                <!--
+                                    ВЛАД ЭТО ОНО!!!!
+                                -->
+                                <div class="contributors-list" ng-show="mainCtrl.contributors.length>0">
+                                    <div class="form-inline">
+                                        <div class="form-group" ng-repeat="contrib in mainCtrl.contributors">
+                                            <input value="{{contrib.Name}}" type="text" class="form-control" name="ScientificBaseId" readonly><button class="btn bg-danger" ng-click="mainCtrl.deleteFromContributors($index)">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Name" name="ScientificBaseId" ng-model="query">
+                                <div class="autocomplete-block" ng-class="{'showblock': !autocomplete.ScientificBaseId.$pristine }" ng-hide="mainCtrl.teachersList.length==0">
+                                    <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addContributors(teacher.UserId)">
+                                        {{teacher.Name}}
+                                    </div>
+                                </div>
+                                <!--
+                                    ВЛАД ЭТО ОНО!!!!
+                                -->
+
                             </div>
-                            
+
                             <div class="form-group">
                                 <input type="file" class="form-control" name="file" placeholder="Документ">
                             </div>
