@@ -42,9 +42,9 @@ Edit on
 }
 .autocomplete-block{
     position: absolute;
-    width: 100%;
+    background-color:#fff;
+    width: 95%;
     display: none;
-    height: 250px;
     overflow: auto;
     border: 1px solid #ccc;
 }
@@ -52,4 +52,17 @@ Edit on
     min-height: 40px;
     border-bottom: 1px solid #9d9d9d;
     cursor: pointer;
+}
+.cancel-collab{
+    display:inline-block;
+    vertical-align:middle;
+}
+.collab-tag{
+    margin:1px 10px 1px 0px;
+}
+.collab-title{
+    min-width:200px;
+    background-color: #eee;
+    padding:3px;
+    vertical-align:middle;
 }

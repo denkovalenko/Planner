@@ -88,9 +88,10 @@ namespace Planner.Controllers
 		{
             using (ApplicationDbContext db = new ApplicationDbContext() )
             {
+				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
 				try
 				{
-					var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+					
 					var a = Server.MapPath(filepath);
 					file.SaveAs(Server.MapPath(filepath));
 					Publication publication = new Publication()
@@ -114,28 +115,46 @@ namespace Planner.Controllers
 							}
 						}
 					};
-					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "c_"))
+					if (model.CollaboratorsIds != null)
 					{
-						publication.PublicationUsers.Add(new PublicationUser()
+						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "c_"))
 						{
-							CollaboratorId = collab.Substring(2),
-							Publication = publication
-						});
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								CollaboratorId = collab.Substring(2),
+								Publication = publication
+							});
+						}
+						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
+						{
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								UserId = collab.Substring(2),
+								Publication = publication
+							});
+						}
 					}
-					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
+					if(model.NewCollaboratorsNames != null)
 					{
-						publication.PublicationUsers.Add(new PublicationUser()
+						foreach (var collab in model.NewCollaboratorsNames.Where(x => x != String.Empty))
 						{
-							UserId = collab.Substring(2),
-							Publication = publication
-						});
+							var newcollab = new ExternalCollaborator() { Name = collab };
+							db.ExternalCollaborators.Add(newcollab);
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								Collaborator = newcollab,
+								Publication = publication
+							});
+						}
 					}
+					
+					
 					db.Publications.Add(publication);
 					db.SaveChanges();
 				}
 				catch(Exception ex)
 				{
-
+					System.IO.File.Delete(filepath);
 				}
 				
                 return RedirectToAction("Index");
