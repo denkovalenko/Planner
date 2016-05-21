@@ -33,7 +33,7 @@
                         </div><!-- /. tools -->
                     </div>
                     <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
-                        <form action="~/Publication/Create" method="post" name="autocomplete" enctype="multipart/form-data">
+                        <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="Назва" required>
                             </div>
@@ -70,8 +70,8 @@
                                 </div>
 
 
-                                <input type="text" class="form-control" placeholder="Name" ng-model="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
-                                <div class="autocomplete-block" ng-class="{'showblock': !autocomplete.CollaboratorsIds.$pristine }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
+                                <input type="text" class="form-control" placeholder="Name" ng-model="query" name="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
+                                <div class="autocomplete-block" ng-class="{'showblock': !CreatePublication.query.$pristine }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
                                     <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addCollaborators(teacher.UserId)">
                                         {{teacher.Name}}
                                     </div>
