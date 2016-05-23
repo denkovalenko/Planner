@@ -15,5 +15,6 @@ namespace Planner.Models
 		public String ScientificBaseId { get; set; }
 		public int Pages { get; set; }
 		public StoringTypeEnum StoringType { get; set; }
+		public PublicationTypeEnum PublicationType { get; set; }
 	}
 }

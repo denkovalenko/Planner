@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.Models;
+﻿using Domain.Models;
 using Domain.Models.Enums;
 using Planner.Models;
 using System;
@@ -13,8 +12,8 @@ using System.Web.Routing;
 
 namespace Planner.Controllers
 {
-    public class PublicationController : Controller
-    {
+	public class PublicationController : Controller
+	{
 		private ApplicationUser user;
 		protected override void Initialize(RequestContext requestContext)
 		{
@@ -27,71 +26,81 @@ namespace Planner.Controllers
 		}
 		// GET: Publication
 		public ActionResult Index()
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return View(db.Publications
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				var model = new List<PublicationForm11>();
+				try
+				{
+					var query = db.Publications
 					.Include("StoringType")
+					.Include("PublicationType")
 					.AsEnumerable()
+					.Where(x => x.IsPublished == true);
+
+					model = query
 					.Select(x => new PublicationForm11()
 					{
 						Id = x.Id,
 						FilePath = x.FilePath,
 						Name = x.Name,
-						Pages = x.Pages,
+						Pages = x.Pages.HasValue ? x.Pages.Value : x.Pages.Value,
+						Output = x.Output,
+						PublishedAt = x.PublishedAt.HasValue ? x.PublishedAt.Value : DateTime.MinValue,
 						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
 								.GetMember(x.StoringType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute),false)[0]).Name
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						PublicationType = ((DisplayAttribute)typeof(StoringTypeEnum)
+								.GetMember(x.PublicationType.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Collaborators = db.PublicationUsers
+							.Where(p => p.PublicationId == x.Id)
+							.Join(db.Users, pup => pup.UserId, u => u.Id, (pup, u) => new { pup, u })
+							.Join(db.ExternalCollaborators, pu => pu.pup.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
+							.Select(pu => new Author()
+							{
+								UserId = pu.pu.pup.UserId,
+								CollaboratorId = pu.pu.pup.CollaboratorId,
+								Name = pu.pu.pup.UserId != null ? $"{pu.pu.u.LastName} {pu.pu.u.FirstName} {pu.pu.u.ThirdName}"
+														: pu.c.Name
+							})
+							.ToList()
 					})
-					.ToList());
-            }
-        }
+					.ToList();
+					
+					}
+					catch (Exception ex)
+					{
+
+					}
+				return View(model);
+			}
+		}
 
 		public ActionResult Create()
 		{
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-				//var users = db.Users
-				//	.Where(u=> u.Id != user.Id)
-				//		.AsEnumerable()
-				//		.Select(u => new Author()
-				//		{
-				//			UserId = "u_"+u.Id,
-				//			CollaboratorId = null,
-				//			Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
-				//		})
-				//		.OrderBy(x => x.Name).ToList();
-				//var collaborators = db.ExternalCollaborators
-				//		.AsEnumerable()
-				//		.Select(u => new Author()
-				//		{
-				//			UserId = null,
-				//			CollaboratorId = "c_"+u.Id,
-				//			Name = u.Name
-				//		})
-				//		.OrderBy(x => x.Name).ToList();
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
 				var model = new CreatePublicationViewModel
 				{
 					ScientificBases = db.ScientificBases.ToList(),
-					//Collaborators = new List<Author>()
 				};
-				//model.Collaborators.AddRange(users);
-				//model.Collaborators.AddRange(collaborators);
+
 				return View(model);
 
-            }
+			}
 
 		}
 
 		[HttpPost]
 		public ActionResult Create(PublicationCreate model, HttpPostedFileBase file)
 		{
-            using (ApplicationDbContext db = new ApplicationDbContext() )
-            {
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
 				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
 				try
 				{
-					
+
 					var a = Server.MapPath(filepath);
 					file.SaveAs(Server.MapPath(filepath));
 					Publication publication = new Publication()
@@ -100,13 +109,17 @@ namespace Planner.Controllers
 						FilePath = filepath,
 						Pages = model.Pages,
 						StoringType = new StoringType() { Value = model.StoringType },
+						PublicationType = new PublicationType() { Value = model.PublicationType },
+						CreatedAt = DateTime.Now.ToUniversalTime(),
+						PublishedAt = DateTime.Now.ToUniversalTime(),
+						IsPublished = true,
 						PublicationScientificBases = new List<PublicationScientificBase>()
-					{
-						new PublicationScientificBase()
 						{
-							ScientificBaseId = model.ScientificBaseId
-						}
-					},
+							new PublicationScientificBase()
+							{
+								ScientificBaseId = model.ScientificBaseId
+							}
+						},
 						PublicationUsers = new List<PublicationUser>
 						{
 							new PublicationUser()
@@ -134,7 +147,7 @@ namespace Planner.Controllers
 							});
 						}
 					}
-					if(model.NewCollaboratorsNames != null)
+					if (model.NewCollaboratorsNames != null)
 					{
 						foreach (var collab in model.NewCollaboratorsNames.Where(x => x != String.Empty))
 						{
@@ -147,18 +160,63 @@ namespace Planner.Controllers
 							});
 						}
 					}
-					
-					
+
+
 					db.Publications.Add(publication);
 					db.SaveChanges();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					System.IO.File.Delete(filepath);
 				}
-				
-                return RedirectToAction("Index");
-            } 
+
+				return RedirectToAction("Index");
+			}
 		}
-    }
+
+		
+
+		public ActionResult Draft()
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				var model = db.Publications
+					.Include("StoringType")
+					.Include("PublicationType")
+					.Where(x => x.IsPublished == true)
+					.AsEnumerable()
+					.Select(x => new PublicationDraft()
+					{
+						Id = x.Id,
+						FilePath = x.FilePath,
+						Name = x.Name,
+						Pages = x.Pages.HasValue ? x.Pages.Value : x.Pages.Value,
+						Output = x.Output,
+						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
+								.GetMember(x.StoringType.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						PublicationType = ((DisplayAttribute)typeof(StoringTypeEnum)
+								.GetMember(x.PublicationType.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						CreatedAt = x.CreatedAt,
+						Collaborators = db.PublicationUsers
+							.Where(p => p.PublicationId == x.Id)
+							.Join(db.Publications, pu => pu.PublicationId, p => p.Id, (pu, p) => new { pu, p })
+							.Join(db.Users, pup => pup.pu.UserId, u => u.Id, (pup, u) => new { pup, u })
+							.Join(db.ExternalCollaborators, pu => pu.pup.pu.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
+							.Select(pu => new Author()
+							{
+								UserId = pu.pu.u.Id,
+								CollaboratorId = pu.c.Id,
+								Name = pu.pu.u.Id != null ? $"{pu.pu.u.LastName} {pu.pu.u.FirstName} {pu.pu.u.ThirdName}"
+														: pu.c.Name
+							})
+							.ToList()
+					})
+					.ToList();
+
+				return View();
+			}
+		}
+	}
 }

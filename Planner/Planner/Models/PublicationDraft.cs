@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Planner.Models
 {
-	public class PublicationForm11
+	public class PublicationDraft
 	{
 		public String Id { get; set; }
 		public String Name { get; set; }
@@ -15,7 +15,7 @@ namespace Planner.Models
 		public String StoringType { get; set; }
 		public String PublicationType { get; set; }
 		public String Output { get; set; }
-		public DateTime PublishedAt { get; set; }
+		public DateTime CreatedAt { get; set; }
 		public List<Author> Collaborators { get; set; }
 	}
 }
