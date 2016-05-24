@@ -166,7 +166,8 @@ namespace Planner.Controllers
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
                     AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
-					TimetableId = model.TimetableId
+					TimetableId = model.TimetableId,
+					ScholarLink = model.ScholarLink
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

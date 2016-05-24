@@ -44,9 +44,10 @@
                         <td>
                             @if (pub.Collaborators != null && pub.Collaborators.Count != 0)
                             {
-                                foreach (var col in pub.Collaborators)
+                                <span>@pub.Collaborators[0].Name</span>
+                                foreach (var col in pub.Collaborators.Skip(1))
                                 {
-                                    <span>@col.Name + ", "</span>
+                                    <span>, @col.Name</span>
                                 }
                             }
                             else
@@ -62,6 +63,10 @@
 
                 </table>
             </div>
+        }
+        else
+        {
+            <p>У вас еще нет публикаций</p>
         }
     </section>
 </div><!-- /.content-wrapper -->

@@ -102,6 +102,7 @@ namespace Planner.Models
         public PositionEnum PositionEnum { get; set; }
 		[Display(Name = "ID у розкладi")]
 		public string TimetableId { get; set; }
+		public string ScholarLink { get; set; }
 
 	}
 
