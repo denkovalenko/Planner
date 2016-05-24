@@ -16,6 +16,6 @@ namespace Planner.Models
 		public String PublicationType { get; set; }
 		public String Output { get; set; }
 		public DateTime PublishedAt { get; set; }
-		public List<Author> Collaborators { get; set; }
-	}
+        public List<Author> Collaborators { get; set; }
+    }
 }

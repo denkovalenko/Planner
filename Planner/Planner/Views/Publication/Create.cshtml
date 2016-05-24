@@ -33,12 +33,11 @@
                         </div><!-- /. tools -->
                     </div>
                     <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
-                        <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data">
+                        <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data" novalidate>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="Назва" required>
                             </div>
                             <div class="form-group">
-                                
                                 <input type="text" class="form-control" name="pages" placeholder="Объем" required>
                             </div>
                             <div class="form-group has-feedback">
@@ -47,6 +46,10 @@
                             <div class="form-group has-feedback">
                                 @Html.EnumDropDownListFor(m => m.PublicationType, "Тип змісту", new { @class = "form-control", @required = "required" })
                             </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="output" placeholder="Вихідні дані" required>
+                            </div>
+
                             <div class="form-group">
                                 <!--
                                     ВЛАД ЭТО ОНО!!!!
@@ -73,8 +76,8 @@
                                 </div>
 
 
-                                <input type="text" class="form-control" placeholder="Співавтор" ng-model="query" name="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
-                                <div class="autocomplete-block" ng-class="{'showblock': !CreatePublication.query.$pristine }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
+                                <input type="text" class="form-control" placeholder="Співавтор" ng-model="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
+                                <div class="autocomplete-block" ng-class="{'showblock': query.length > 0 }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
                                     <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addCollaborators(teacher.UserId)">
                                         {{teacher.Name}}
                                     </div>

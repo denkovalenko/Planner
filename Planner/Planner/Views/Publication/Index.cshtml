@@ -22,7 +22,7 @@
         {
             <div class="row">
 
-                <table class="table table-responsive col-lg-10">
+                <table class="table table-striped col-lg-10">
                     <thead>
                         Публикации
                     </thead>
@@ -36,12 +36,26 @@
 
                     @foreach (var pub in Model)
                     {
-                    <tr>
+                    <tr >
                         <td>@pub.PublicationType<br>@pub.Name</td>
                         <td>@pub.StoringType</td>
                         <td>@pub.Output</td>
                         <td>@pub.Pages</td>
-                        <td>@pub.Collaborators.Count</td>
+                        <td>
+                            @if (pub.Collaborators != null && pub.Collaborators.Count != 0)
+                            {
+                                foreach (var col in pub.Collaborators)
+                                {
+                                    <span>@col.Name + ", "</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>Нет соавторов</span>
+                            }
+
+
+                        </td>
                     </tr>
                     }
 

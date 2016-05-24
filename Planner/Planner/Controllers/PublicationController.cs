@@ -39,6 +39,7 @@ namespace Planner.Controllers
 					.Where(x => x.IsPublished == true);
 
 					model = query
+                        .AsEnumerable()
 					.Select(x => new PublicationForm11()
 					{
 						Id = x.Id,
@@ -47,26 +48,71 @@ namespace Planner.Controllers
 						Pages = x.Pages.HasValue ? x.Pages.Value : x.Pages.Value,
 						Output = x.Output,
 						PublishedAt = x.PublishedAt.HasValue ? x.PublishedAt.Value : DateTime.MinValue,
-						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.StoringType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						PublicationType = ((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.PublicationType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						Collaborators = db.PublicationUsers
-							.Where(p => p.PublicationId == x.Id)
-							.Join(db.Users, pup => pup.UserId, u => u.Id, (pup, u) => new { pup, u })
-							.Join(db.ExternalCollaborators, pu => pu.pup.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
-							.Select(pu => new Author()
-							{
-								UserId = pu.pu.pup.UserId,
-								CollaboratorId = pu.pu.pup.CollaboratorId,
-								Name = pu.pu.pup.UserId != null ? $"{pu.pu.u.LastName} {pu.pu.u.FirstName} {pu.pu.u.ThirdName}"
-														: pu.c.Name
-							})
-							.ToList()
-					})
+						StoringType =
+                        ((DisplayAttribute)typeof(StoringTypeEnum)
+                                .GetMember(x.StoringType.Value.ToString())[0]
+                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+                        PublicationType =
+                        ((DisplayAttribute)typeof(PublicationTypeEnum)
+                                .GetMember(x.PublicationType.Value.ToString())[0]
+                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+                        Collaborators = new List<Author>()
+
+                    })
 					.ToList();
+                    //foreach (var pub in model)
+                    //{
+                    //    var query1 = db.PublicationUsers
+                    //        .Where(p => p.PublicationId == pub.Id)
+                    //        .Where(u => u.UserId != user.Id)
+                    //        .Join(db.Users, pup => pup.UserId, u => u.Id, (pup, u) => new { pup, u })
+                    //        .Join(db.ExternalCollaborators, pu => pu.pup.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
+                    //        .ToList();
+                    //    var query2 = query1
+                    //        .Select(a => new Author()
+                    //        {
+                    //            UserId = "qweqweqw",
+                    //            CollaboratorId = "qweqwe",
+                    //            Name = "name"
+                    //            //UserId = a.pu.u.Id,
+                    //            //CollaboratorId = a.c.Id,
+                    //            //Name = a.pu.u.Id != null ? $"{a.pu.u.LastName} {a.pu.u.FirstName} {a.pu.u.ThirdName}"
+                    //            //                        : a.c.Name
+                    //        })
+                    //        .ToList();
+                    //    pub.Collaborators.AddRange(query2);
+                    //        //db.PublicationUsers
+                    //        //.Where(p => p.PublicationId == pub.Id)
+                    //        //.Where(u => u.UserId != user.Id)
+                    //        //.Join(db.Users, pup => pup.UserId, u => u.Id, (pup, u) => new { pup, u })
+                    //        //.Join(db.ExternalCollaborators, pu => pu.pup.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
+                    //        //.AsEnumerable()
+                    //        //.Select(a => new Author()
+                    //        //{
+                    //        //    UserId = "qweqweqw",
+                    //        //    CollaboratorId = "qweqwe",
+                    //        //    Name = "name"
+                    //        //    //UserId = a.pu.u.Id,
+                    //        //    //CollaboratorId = a.c.Id,
+                    //        //    //Name = a.pu.u.Id != null ? $"{a.pu.u.LastName} {a.pu.u.FirstName} {a.pu.u.ThirdName}"
+                    //        //    //                        : a.c.Name
+                    //        //})
+                    //        //.ToList();
+                    //}
+                    //model.ForEach(x => x.Collaborators = db.PublicationUsers
+                    //        .Where(p => p.PublicationId == x.Id)
+                    //        .Where(u => u.UserId != user.Id)
+                    //        .Join(db.Users, pup => pup.UserId, u => u.Id, (pup, u) => new { pup, u })
+                    //        .Join(db.ExternalCollaborators, pu => pu.pup.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
+                    //        .AsEnumerable()
+                    //        .Select(a => new Author()
+                    //        {
+                    //            UserId = a.pu.u.Id,
+                    //            CollaboratorId = a.c.Id,
+                    //            Name = a.pu.u.Id != null ? $"{a.pu.u.LastName} {a.pu.u.FirstName} {a.pu.u.ThirdName}"
+                    //                                    : a.c.Name
+                    //        })
+                    //        .ToList());
 					
 					}
 					catch (Exception ex)
@@ -108,6 +154,7 @@ namespace Planner.Controllers
 						Name = model.Name,
 						FilePath = filepath,
 						Pages = model.Pages,
+                        Output = model.Output,
 						StoringType = new StoringType() { Value = model.StoringType },
 						PublicationType = new PublicationType() { Value = model.PublicationType },
 						CreatedAt = DateTime.Now.ToUniversalTime(),
