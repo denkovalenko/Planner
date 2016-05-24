@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@model List<Planner.Models.PublicationForm11>
+@model List<Domain.Reports.PublicationForm11>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -37,7 +37,7 @@
                     @foreach (var pub in Model)
                     {
                     <tr >
-                        <td>@pub.PublicationType<br>@pub.Name</td>
+                        <td><b>@pub.PublicationType</b><br>@pub.Name</td>
                         <td>@pub.StoringType</td>
                         <td>@pub.Output</td>
                         <td>@pub.Pages</td>

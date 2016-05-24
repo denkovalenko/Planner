@@ -178,12 +178,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Author.cs" />
     <Compile Include="Models\CreatePublicationViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PublicationCreate.cs" />
     <Compile Include="Models\PublicationDraft.cs" />
-    <Compile Include="Models\PublicationForm11.cs" />
     <Compile Include="Models\PublicationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -1820,6 +1818,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Calculation\Calculation.csproj">
+      <Project>{c2f0c763-fc5d-434a-8504-a68564d31a23}</Project>
+      <Name>Calculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{ac02d098-6598-4259-8811-17ddf45cdf54}</Project>
       <Name>Domain</Name>

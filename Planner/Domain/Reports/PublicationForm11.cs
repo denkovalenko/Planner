@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Domain.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Planner.Models
+namespace Domain.Reports
 {
 	public class PublicationForm11
 	{

@@ -1,5 +1,7 @@
-﻿using Domain.Models;
+﻿using Domain.Helpers;
+using Domain.Models;
 using Domain.Models.Enums;
+using Domain.Reports;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Calculation;
+using System.IO;
 
 namespace Planner.Controllers
 {
@@ -27,63 +31,7 @@ namespace Planner.Controllers
 		// GET: Publication
 		public ActionResult Index()
 		{
-			using (ApplicationDbContext db = new ApplicationDbContext())
-			{
-				var model = new List<PublicationForm11>();
-				try
-				{
-					var query = db.Publications
-					.Include("StoringType")
-					.Include("PublicationType")
-					.AsEnumerable()
-					.Where(x => x.IsPublished == true)
-					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
-					.Where(x => x.pu.UserId == user.Id)
-					.AsEnumerable()
-					.Select(x => new PublicationForm11()
-					{
-						Id = x.p.Id,
-						FilePath = x.p.FilePath,
-						Name = x.p.Name,
-						Pages = x.p.Pages.HasValue ? x.p.Pages.Value : x.p.Pages.Value,
-						Output = x.p.Output,
-						PublishedAt = x.p.PublishedAt.HasValue ? x.p.PublishedAt.Value : DateTime.MinValue,
-						StoringType =
-						((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.p.StoringType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						PublicationType =
-						((DisplayAttribute)typeof(PublicationTypeEnum)
-								.GetMember(x.p.PublicationType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						Collaborators = new List<Author>()
-
-					})
-					.ToList();
-
-					query.ForEach(x=> x.Collaborators.AddRange(
-						db.PublicationUsers
-								.Where(p => p.PublicationId == x.Id)
-								.Where(u => u.UserId != user.Id)
-								.ToList()
-								.Select(a => new Author()
-								{
-									UserId = a.UserId,
-									CollaboratorId = a.CollaboratorId,
-									Name = a.UserId != null ? $"{a.User.LastName} {a.User.FirstName} {a.User.ThirdName}"
-														: a.Collaborator.Name
-								})
-							.ToList()));
-
-					model = query;
-
-				}
-				catch (Exception ex)
-				{
-
-				}
-				return View(model);
-			}
+			return View(PublicationReportBuilder.CreateForm11(user));
 		}
 
 		public ActionResult Create()
@@ -185,8 +133,8 @@ namespace Planner.Controllers
 		}
 
 
-
-		public ActionResult Draft()
+		//does not work yet
+		private ActionResult Draft()
 		{
 			using (ApplicationDbContext db = new ApplicationDbContext())
 			{
@@ -227,6 +175,15 @@ namespace Planner.Controllers
 
 				return View();
 			}
+		}
+
+		public FileResult PrintForm11()
+		{
+			var filestream = PublicationReportBuilder.ReportForm11(user);
+			
+			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls");
+				
+							
 		}
 	}
 }
