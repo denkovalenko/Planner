@@ -22,6 +22,8 @@
     <script src="~/Scripts/angular.js"></script>
     <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>
     <script src="~/Scripts/App/app.js"></script>
+    <script src="~/Scripts/App/Services/keeperService.js"></script>
+    <script src="~/Scripts/App/Controllers/sidebarController.js"></script>
     <script src="~/Scripts/App/Controllers/mainController.js"></script>
     <script src="~/Scripts/App/Directives/ngEnter.js"></script>
 
@@ -37,7 +39,7 @@
 
         @Html.Partial("Header");
 
-        <aside class="main-sidebar">
+        <aside class="main-sidebar" ng-controller="sidebarController as sideCtrl" ng-init="sideCtrl.init()">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- search form -->
@@ -67,6 +69,12 @@
                             </a>
                         </li>
                     }
+
+                    <li class="treeview" ng-show="serviceData.user.ScholarLink">
+                        <a href="{{serviceData.user.ScholarLink}}">
+                            <i class="fa fa-table"></i> <span>Google Scholar</span>
+                        </a>
+                    </li>
                     <li class="treeview">
                         <a href="~/Publication/Index">
                             <i class="fa fa-table"></i> <span>Публикации</span>
