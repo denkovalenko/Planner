@@ -2,7 +2,6 @@
     ViewBag.Title = "Create";
 }
 @model Planner.Models.CreatePublicationViewModel
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -34,42 +33,63 @@
                         </div><!-- /. tools -->
                     </div>
                     <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
-                        <form action="~/Publication/Create" method="post" name="autocomplete" enctype="multipart/form-data">
+                        <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data" novalidate>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name" placeholder="Назва">
+                                <input type="text" class="form-control" name="name" placeholder="Назва" required>
                             </div>
                             <div class="form-group">
-                                
-                                <input type="text" class="form-control" name="pages" placeholder="Объем">
+                                <input type="text" class="form-control" name="pages" placeholder="Объем" required>
                             </div>
                             <div class="form-group has-feedback">
-                                @Html.EnumDropDownListFor(m => m.StoringType, "Тип публикации", new { @class = "form-control" })
+                                @Html.EnumDropDownListFor(m => m.StoringType, "Тип видання", new { @class = "form-control", @required = "required" })
                             </div>
+                            <div class="form-group has-feedback">
+                                @Html.EnumDropDownListFor(m => m.PublicationType, "Тип змісту", new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="output" placeholder="Вихідні дані" required>
+                            </div>
+
                             <div class="form-group">
                                 <!--
                                     ВЛАД ЭТО ОНО!!!!
                                 -->
-                                <div class="contributors-list" ng-show="mainCtrl.contributors.length>0">
-                                    <div class="form-inline">
-                                        <div class="form-group" ng-repeat="contrib in mainCtrl.contributors">
-                                            <input value="{{contrib.Name}}" type="text" class="form-control" name="ScientificBaseId" readonly><button class="btn bg-danger" ng-click="mainCtrl.deleteFromContributors($index)">X</button>
+                                <div ng-show="mainCtrl.collaborators.length > 0">
+                                    <!--Selected collaborators-->
+                                    <div class="form-inline form-group">
+                                        <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.collaborators">
+                                            <input value="{{collab.Name}}" type="text" class="panel panel-title text-primary collab-title" readonly>
+                                            <input value="{{collab.UserId != null ? collab.UserId : collab.CollaboratorId}}" type="hidden" name="CollaboratorsIds" readonly>
+                                            <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromCollaborators($index)">X</button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div ng-show="mainCtrl.newCollaborators.length > 0">
+                                    <!--New collaborators-->
+                                    <div class="form-inline form-group">
+                                        <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.newCollaborators">
+                                            <input value="{{collab}}" type="text" class="panel panel-title text-primary collab-title" name="NewCollaboratorsNames">
+                                            <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromNewCollaborators($index)">X</button>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Name" name="ScientificBaseId" ng-model="query">
-                                <div class="autocomplete-block" ng-class="{'showblock': !autocomplete.ScientificBaseId.$pristine }" ng-hide="mainCtrl.teachersList.length==0">
-                                    <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addContributors(teacher.UserId)">
+
+
+                                <input type="text" class="form-control" placeholder="Співавтор" ng-model="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
+                                <div class="autocomplete-block" ng-class="{'showblock': query.length > 0 }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
+                                    <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addCollaborators(teacher.UserId)">
                                         {{teacher.Name}}
                                     </div>
                                 </div>
-                                <!--
-                                    ВЛАД ЭТО ОНО!!!!
-                                -->
+                                    <!--
+                                        ВЛАД ЭТО ОНО!!!!
+                                    -->
 
                             </div>
 
                             <div class="form-group">
-                                <input type="file" class="form-control" name="file" placeholder="Документ">
+                                <input type="file" class="form-control" name="file" placeholder="Документ" required>
                             </div>
                             <div class="box-footer clearfix">
                                 <input type="submit" class="pull-right btn btn-default" value="Додати" />
