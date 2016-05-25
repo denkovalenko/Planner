@@ -201,8 +201,8 @@ namespace Planner.Controllers
 				{
 					UserName = model.Email,
 					Email = model.Email,
-					FirstName =model.FirstName,
-					LastName =model.LastName,
+					FirstName = model.FirstName,
+					LastName = model.LastName,
                     ThirdName = model.ThirdName,
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
@@ -219,6 +219,7 @@ namespace Planner.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+					UserManager.AddToRole(user.Id, "User");
                     return RedirectToAction("Register", new {username=user.Email });
                 }
                 AddErrors(result);
