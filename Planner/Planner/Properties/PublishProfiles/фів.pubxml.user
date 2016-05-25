@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2016 13:10:17</publishTime>
     </File>
     <File Include="bin/Domain.dll">
-      <publishTime>04/14/2016 11:38:06</publishTime>
+      <publishTime>05/25/2016 13:23:10</publishTime>
     </File>
     <File Include="bin/EfEnumToLookup.dll">
       <publishTime>04/11/2016 14:48:57</publishTime>
@@ -73,7 +73,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2016 13:10:20</publishTime>
     </File>
     <File Include="bin/Planner.dll">
-      <publishTime>04/14/2016 11:38:10</publishTime>
+      <publishTime>05/25/2016 13:23:14</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>03/17/2016 13:10:19</publishTime>
@@ -136,7 +136,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2016 13:10:20</publishTime>
     </File>
     <File Include="Content/AdminLTE.min.css">
-      <publishTime>04/14/2016 11:01:41</publishTime>
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>03/17/2016 13:10:15</publishTime>
@@ -346,7 +346,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/11/2016 14:48:53</publishTime>
     </File>
     <File Include="Scripts/App/app.js">
-      <publishTime>04/14/2016 11:01:41</publishTime>
+      <publishTime>05/25/2016 13:16:59</publishTime>
+    </File>
+    <File Include="Scripts/App/Controllers/mainController.js">
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>03/17/2016 13:10:15</publishTime>
@@ -4855,7 +4858,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/14/2016 11:01:45</publishTime>
     </File>
     <File Include="Scripts/_references.js">
-      <publishTime>04/14/2016 11:02:54</publishTime>
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
@@ -4874,6 +4877,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Account/Login.cshtml">
       <publishTime>04/14/2016 11:01:45</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
@@ -4894,7 +4900,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/14/2016 11:01:45</publishTime>
     </File>
     <File Include="Views/Home/Dashboard.cshtml">
-      <publishTime>04/14/2016 11:39:44</publishTime>
+      <publishTime>04/26/2016 18:39:54</publishTime>
     </File>
     <File Include="Views/Home/Register.cshtml">
       <publishTime>04/14/2016 11:06:43</publishTime>
@@ -4917,23 +4923,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
     </File>
+    <File Include="Views/Publication/Create.cshtml">
+      <publishTime>05/25/2016 13:16:59</publishTime>
+    </File>
+    <File Include="Views/Publication/Index.cshtml">
+      <publishTime>05/25/2016 13:16:59</publishTime>
+    </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
     </File>
     <File Include="Views/Shared/Header.cshtml">
-      <publishTime>04/14/2016 11:34:05</publishTime>
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>04/14/2016 11:31:52</publishTime>
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>03/17/2016 13:10:15</publishTime>
     </File>
     <File Include="Views/Shared/_signInLayout.cshtml">
       <publishTime>04/14/2016 11:01:45</publishTime>
+    </File>
+    <File Include="Views/Timetable/Index.cshtml">
+      <publishTime>05/25/2016 13:16:59</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/17/2016 13:10:15</publishTime>
@@ -4942,7 +4957,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2016 13:10:15</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/14/2016 11:38:12</publishTime>
+      <publishTime>05/25/2016 13:23:27</publishTime>
     </File>
   </ItemGroup>
 </Project>

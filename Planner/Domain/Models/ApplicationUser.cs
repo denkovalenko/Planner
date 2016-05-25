@@ -19,12 +19,15 @@ namespace Domain.Models
         public String DegreeId { get; set; }
         public String AcademicTitleId { get; set; }
 		public String TimetableId { get; set; }
+        public String ScheduleId { get; set; }
         [ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
         [ForeignKey("DegreeId")]
         public virtual Degree Degree { get; set; }
         [ForeignKey("AcademicTitleId")]
         public virtual AcademicTitle AcademicTitle { get; set; }
+        [ForeignKey("ScheduleId")]
+        public virtual Schedule Schedule { get; set; }
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
         public virtual ICollection<PublicationUser> PublicationUser { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

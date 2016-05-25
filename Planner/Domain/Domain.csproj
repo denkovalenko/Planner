@@ -101,6 +101,7 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Degree.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Enums\StoringTypeEnum.cs" />
     <Compile Include="Models\ExternalCollaborator.cs" />
     <Compile Include="Models\PublicationScientificBase.cs" />
