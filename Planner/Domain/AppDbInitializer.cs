@@ -40,7 +40,7 @@ namespace Planner
             {
                 // Add role for user
                 userManager.AddToRole(admin.Id, role1.Name);
-                userManager.AddToRole(admin.Id, role2.Name);
+                //userManager.AddToRole(admin.Id, role2.Name);
             }
             InitFaculties(context);
             InitScientificBases(context);

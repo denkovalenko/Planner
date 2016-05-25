@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
@@ -243,9 +244,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
-    <Content Include="Scripts\App\Controllers\sidebarController.js" />
+    <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Directives\ngEnter.js" />
-    <Content Include="Scripts\App\Services\keeperService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\errors.json" />
@@ -1810,6 +1810,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Documents\" />
     <Folder Include="Views\Author\" />
+    <Folder Include="Views\Faculty\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
