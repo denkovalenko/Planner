@@ -78,7 +78,7 @@ namespace Calculation
 			}
 		}
 
-		public static byte[] ReportForm11(ApplicationUser user)//, string filepath)
+		public static byte[] ReportForm11(ApplicationUser user)
 		{
 			using (ExcelPackage pck = new ExcelPackage())
 			{
@@ -120,7 +120,7 @@ namespace Calculation
 				{
 					rng.Style.Font.Bold = true;
 					rng.Style.Fill.PatternType = ExcelFillStyle.Solid;        //Set Pattern for the background to Solid 
-					rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 20, 184, 255));  //Set color to DarkGray 
+					rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 200, 218, 230));  //Set color to DarkGray 
 					rng.Style.Font.Color.SetColor(Color.Black);
 				}
 				return pck.GetAsByteArray();

@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Domain;
 using Domain.Models;
 using Planner.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Planner.Controllers
 {
@@ -53,6 +54,38 @@ namespace Planner.Controllers
                 _userManager = value;
             }
         }
+
+		public JsonResult GetUserInfo()
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
+				return new JsonResult()
+				{
+					Data = new
+					{
+						
+						AcademicTitle = ((DisplayAttribute)typeof(AcademicTitleEnum)
+								.GetMember(user.AcademicTitle.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Degree = ((DisplayAttribute)typeof(DegreeEnum)
+								.GetMember(user.Degree.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Email = user.Email,
+						FirstName = user.FirstName,
+						Id = user.Id,
+						LastName = user.LastName,
+						Position = ((DisplayAttribute)typeof(PositionEnum)
+								.GetMember(user.Position.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						ScholarLink = user.ScholarLink,
+						ThirdName = user.ThirdName,
+						UserName = user.UserName
+					},
+					JsonRequestBehavior = JsonRequestBehavior.AllowGet
+				};
+			}
+		}
 
         //
         // GET: /Account/Login
