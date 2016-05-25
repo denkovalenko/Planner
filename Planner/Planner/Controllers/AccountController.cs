@@ -12,6 +12,7 @@ using Domain;
 using Domain.Models;
 using Planner.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Planner.Controllers
 {
@@ -54,7 +55,7 @@ namespace Planner.Controllers
                 _userManager = value;
             }
         }
-
+		[Authorize(Roles = "User")]
 		public JsonResult GetUserInfo()
 		{
 			using (ApplicationDbContext db = new ApplicationDbContext())
@@ -92,6 +93,8 @@ namespace Planner.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+			if (HttpContext.User.Identity.IsAuthenticated)
+				return RedirectToAction("Dashboard", "Home");
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -194,7 +197,12 @@ namespace Planner.Controllers
             Int32 qw = (Int32)model.DegreeEnum;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
+                var user = new ApplicationUser
+				{
+					UserName = model.Email,
+					Email = model.Email,
+					FirstName =model.FirstName,
+					LastName =model.LastName,
                     ThirdName = model.ThirdName,
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
@@ -202,6 +210,12 @@ namespace Planner.Controllers
 					TimetableId = model.TimetableId,
 					ScholarLink = model.ScholarLink
                 };
+				user.DepartmentUsers = new List<DepartmentUser>();
+				user.DepartmentUsers.Add(new DepartmentUser()
+				{
+					DepartmentId = model.DepartmentId
+					
+				});
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
