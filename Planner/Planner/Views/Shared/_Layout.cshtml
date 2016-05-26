@@ -80,6 +80,13 @@
                             <i class="fa fa-table"></i> <span>Публикации</span>
                         </a>
                     </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Department/Index">
+                                <i class="fa fa-table"></i> <span>Звiт за кафедрою</span>
+                            </a>
+                        </li>}
                     <li class="treeview">
                         <a href="~/Timetable/Index">
                             <i class="fa fa-table"></i> <span>Расписание</span>

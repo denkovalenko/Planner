@@ -96,6 +96,9 @@
     <Compile Include="AppDbInitializer.cs" />
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
+    <Compile Include="Models\NMBD.cs" />
+    <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
@@ -107,9 +110,8 @@
     <Compile Include="Models\Enums\PublicationTypeEnum.cs" />
     <Compile Include="Models\Enums\StoringTypeEnum.cs" />
     <Compile Include="Models\ExternalCollaborator.cs" />
-    <Compile Include="Models\PublicationScientificBase.cs" />
+    <Compile Include="Models\PublicationNMBD.cs" />
     <Compile Include="Models\PublicationType.cs" />
-    <Compile Include="Models\ScientificBase.cs" />
     <Compile Include="Models\DepartmentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\PublicationUser.cs" />

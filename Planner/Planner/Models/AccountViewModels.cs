@@ -100,9 +100,6 @@ namespace Planner.Models
         [Display(Name = "Посада")]
         [Range(1, int.MaxValue, ErrorMessage = "Виберiть посаду")]
         public PositionEnum PositionEnum { get; set; }
-
-		[Display(Name = "ID у розкладi")]
-		public string TimetableId { get; set; }
 		[Display(Name = "Профiль у Google Scholar")]
 		public string ScholarLink { get; set; }
 		public string DepartmentId { get; set; }

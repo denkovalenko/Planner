@@ -43,18 +43,26 @@ namespace Planner
                 //userManager.AddToRole(admin.Id, role2.Name);
             }
             InitFaculties(context);
-            InitScientificBases(context);
+			InitNMBDs(context);
             base.Seed(context);
 
         }
 
-        private void InitScientificBases(ApplicationDbContext context)
-        {
-            context.ScientificBases.Add(new ScientificBase() { Name = "ORCID" });
-            context.ScientificBases.Add(new ScientificBase() { Name = "Google Scholar" });
-            base.Seed(context);
-        }
-        private void InitFaculties(ApplicationDbContext context)
+
+		private void InitNMBDs(ApplicationDbContext context)
+		{
+			context.NMBDs.Add(new NMBD() { Name = "Google Scholar" });
+			context.NMBDs.Add(new NMBD() { Name = "ORCID" });
+			context.NMBDs.Add(new NMBD() { Name = "SCOPUS" });
+			context.NMBDs.Add(new NMBD() { Name = "Web of Science" });
+			context.NMBDs.Add(new NMBD() { Name = "Index Copernicus" });
+			context.NMBDs.Add(new NMBD() { Name = "Scimago Journal & Country Rank" });
+			context.NMBDs.Add(new NMBD() { Name = "Journal Citation Reports" });
+			context.NMBDs.Add(new NMBD() { Name = "Thomson" }); 
+
+			base.Seed(context);
+		}
+		private void InitFaculties(ApplicationDbContext context)
         {
             List<Faculty> f = new List<Faculty>();
             f.Add(new Faculty()

@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Головна сторінка
+            <small>Панель</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
+            <li class="active">Звiт за кафедрою</li>
+        </ol>
+    </section>
+    <script src="~/Scripts/App/Controllers/departmentController.js"></script>
+    <!-- Main content -->
+    <section class="content" ng-controller="departmentController as ctrl" data-ng-init="ctrl.init()">
+        @Html.Partial("DepartmentPublictionMenuPartial")
+        <div class="row" data-ng-show="publications.count > 0">
+
+            <table class="table table-striped col-lg-10">
+                <thead>
+                    Публикации
+                </thead>
+                <tr>
+                    <th>Назва</th>
+                    <th>Характер роботи</th>
+                    <th>Вихідні дані</th>
+                    <th>Обсяг (стор.)</th>
+                    <th>Співавтори</th>
+                </tr>
+                    <tr data-ng-repeat="pub in publications">
+                        
+                    </tr>
+
+
+
+            </table>
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->

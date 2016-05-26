@@ -47,8 +47,8 @@ namespace Planner.Controllers
                             x.Name,
                             Schedule = db.Departments
                                   .Join(db.Schedules, d => d.Id, s => s.DepartmentId, (d, s) => new { d, s })
-                                  .Where(z => z.d.Id == x.Id)
-                                  .Select(m => new { m.s.ApiId, m.s.UserName, m.s.Id }).ToList()
+                                  .Where(z => z.d.Id == x.Id).OrderBy(d => d.d.Name)
+                                  .Select(m => new { m.s.ApiId, m.s.UserName, m.s.Id }).OrderBy(m => m.UserName).ToList()
                         },
                     })
                     .ToList();

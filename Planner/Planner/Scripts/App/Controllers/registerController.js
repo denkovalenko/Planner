@@ -25,9 +25,4 @@ PlannerApp.controller('registerController', ['$scope','$http', function ($scope,
 			$scope.departments = null;
 		}
 	});
-	//$scope.GetDepartment = function () {
-	//	$scope.departments = me.faculties.filter(function (element, index, array) {
-	//		return element.Id == deptId;
-	//	});
-	//}
 }]);

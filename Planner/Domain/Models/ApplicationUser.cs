@@ -18,7 +18,6 @@ namespace Domain.Models
         public String PositionId { get; set; }
         public String DegreeId { get; set; }
         public String AcademicTitleId { get; set; }
-		public String TimetableId { get; set; }
 		public String ScholarLink { get; set; }
         [ForeignKey("PositionId")]
         public virtual Position Position { get; set; }

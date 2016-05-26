@@ -22,8 +22,9 @@ namespace Planner.Controllers
 					{
 						Id = x.Id,
 						Name = x.Name,
-						Departments = x.Departments.Select(d => new { Id = d.Id, Name = d.Name })
-					}).ToList()
+						Departments = x.Departments.Select(d => new { Id = d.Id, Name = d.Name }).OrderBy(d => d.Name).ToList()
+					})
+					.OrderBy(x => x.Name).ToList()
 				};
 			}
 				

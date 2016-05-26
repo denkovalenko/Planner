@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
+    <Content Include="Scripts\App\Controllers\departmentController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
@@ -1808,6 +1810,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Publication\Draft.cshtml" />
     <Content Include="Views\Publication\PublictionMenuPartial.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\DepartmentPublictionMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

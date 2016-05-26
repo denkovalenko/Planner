@@ -40,7 +40,7 @@ namespace Planner.Controllers
 			{
 				var model = new CreatePublicationViewModel
 				{
-					ScientificBases = db.ScientificBases.ToList(),
+					NMDBs = db.NMBDs.ToList(),
 				};
 
 				return View(model);
@@ -60,29 +60,38 @@ namespace Planner.Controllers
 
 					var a = Server.MapPath(filepath);
 					file.SaveAs(Server.MapPath(filepath));
+
+					var allAuthors = model?.NewCollaboratorsNames?.Count + model?.CollaboratorsIds?.Count + 1;
+
 					Publication publication = new Publication()
 					{
 						Name = model.Name,
 						FilePath = filepath,
-						Pages = model.Pages,
 						Output = model.Output,
+						Pages = model.Pages,
 						StoringType = new StoringType() { Value = model.StoringType },
 						PublicationType = new PublicationType() { Value = model.PublicationType },
 						CreatedAt = DateTime.Now.ToUniversalTime(),
 						PublishedAt = DateTime.Now.ToUniversalTime(),
 						IsPublished = true,
-						PublicationScientificBases = new List<PublicationScientificBase>()
+						IsOverseas = model.IsOverseas,
+						OwnerId = user.Id,
+						CitationNumberNMBD = model.CitationNumberNMBD,
+						ImpactFactorNMBD = model.ImpactFactorNMBD,
+						ResearchDoneType = new ResearchDoneType() { Value = model.ResearchDoneType},
+						PublicationNMBDs = new List<PublicationNMBD>()
 						{
-							new PublicationScientificBase()
+							new PublicationNMBD()
 							{
-								ScientificBaseId = model.ScientificBaseId
+								NMBDId = model.NMBDId
 							}
 						},
 						PublicationUsers = new List<PublicationUser>
 						{
 							new PublicationUser()
 							{
-								UserId = user.Id
+								UserId = user.Id,
+								PageQuantity = model.Pages / allAuthors.Value
 							}
 						}
 					};
@@ -93,7 +102,8 @@ namespace Planner.Controllers
 							publication.PublicationUsers.Add(new PublicationUser()
 							{
 								CollaboratorId = collab.Substring(2),
-								Publication = publication
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors.Value
 							});
 						}
 						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
@@ -101,7 +111,8 @@ namespace Planner.Controllers
 							publication.PublicationUsers.Add(new PublicationUser()
 							{
 								UserId = collab.Substring(2),
-								Publication = publication
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors.Value
 							});
 						}
 					}
@@ -114,7 +125,8 @@ namespace Planner.Controllers
 							publication.PublicationUsers.Add(new PublicationUser()
 							{
 								Collaborator = newcollab,
-								Publication = publication
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors.Value
 							});
 						}
 					}
@@ -129,51 +141,6 @@ namespace Planner.Controllers
 				}
 
 				return RedirectToAction("Index");
-			}
-		}
-
-
-		//does not work yet
-		private ActionResult Draft()
-		{
-			using (ApplicationDbContext db = new ApplicationDbContext())
-			{
-				var model = db.Publications
-					.Include("StoringType")
-					.Include("PublicationType")
-					.Where(x => x.IsPublished == true)
-					.AsEnumerable()
-					.Select(x => new PublicationDraft()
-					{
-						Id = x.Id,
-						FilePath = x.FilePath,
-						Name = x.Name,
-						Pages = x.Pages.HasValue ? x.Pages.Value : x.Pages.Value,
-						Output = x.Output,
-						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.StoringType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						PublicationType = ((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.PublicationType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-						CreatedAt = x.CreatedAt,
-						Collaborators = db.PublicationUsers
-							.Where(p => p.PublicationId == x.Id)
-							.Join(db.Publications, pu => pu.PublicationId, p => p.Id, (pu, p) => new { pu, p })
-							.Join(db.Users, pup => pup.pu.UserId, u => u.Id, (pup, u) => new { pup, u })
-							.Join(db.ExternalCollaborators, pu => pu.pup.pu.CollaboratorId, c => c.Id, (pu, c) => new { pu, c })
-							.Select(pu => new Author()
-							{
-								UserId = pu.pu.u.Id,
-								CollaboratorId = pu.c.Id,
-								Name = pu.pu.u.Id != null ? $"{pu.pu.u.LastName} {pu.pu.u.FirstName} {pu.pu.u.ThirdName}"
-														: pu.c.Name
-							})
-							.ToList()
-					})
-					.ToList();
-
-				return View();
 			}
 		}
 

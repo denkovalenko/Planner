@@ -207,7 +207,6 @@ namespace Planner.Controllers
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
                     AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
-					TimetableId = model.TimetableId,
 					ScholarLink = model.ScholarLink
                 };
 				user.DepartmentUsers = new List<DepartmentUser>();
