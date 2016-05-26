@@ -21,8 +21,9 @@ namespace Domain.Models
         public DbSet<ScientificBase> ScientificBases { get; set; }
 		public DbSet<ExternalCollaborator> ExternalCollaborators { get; set; }
 		public DbSet<StoringType> StoringTypes { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
 
-		public DbSet<PublicationScientificBase> PublicationScientificBases { get; set; }
+        public DbSet<PublicationScientificBase> PublicationScientificBases { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }
 		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
 

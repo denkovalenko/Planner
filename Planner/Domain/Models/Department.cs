@@ -18,5 +18,6 @@ namespace Domain.Models
         public String Name { get; set; }
         public virtual Faculty Faculty { get; set; }
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

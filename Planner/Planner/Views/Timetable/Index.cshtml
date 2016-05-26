@@ -1,34 +1,24 @@
 ﻿@model string
-<div class="content-wrapper">
+
+<script src="~/Scripts/App/Controllers/timetableController.js"></script>
+<div ng-controller="timetableController as ctrl" ng-init="ctrl.init()" class="content-wrapper">
     <div class="row">
         <div class="col-md-3 col-sm-4 col-xs-12">
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+
+            <select  ng-model="ctrl.data.currentDev"   ng-options="dep.Department.Id as dep.Department.Name for dep in ctrl.departments" ng-change="ctrl.selectDep(ctrl.data.currentDev);" class="form-control">
+                <option selected disabled value="">Виберіть кафедру</option>
             </select>
         </div>
         <div class="col-md-3 col-sm-4 col-xs-12">
-            <select class="form-control">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <select ng-model="ctrl.data.currentUser"  ng-options="user.ApiId as user.UserName for user in ctrl.data.scheduleList" class="form-control">
+                <option selected disabled value="">Виберіть користувача розкладу</option>
             </select>
         </div>
-        <div class="col-xs-3"><button class="btn btn-primary">Примінити</button></div>
+        <div class="col-xs-3"><button ng-click="ctrl.selectUser();" class="btn btn-primary">Відкрити розклад</button>
+        <button ng-click="ctrl.setAsDefault();" class="btn btn-primary">Завжди відображати цей розклад</button>
+        </div>
+
     </div>
-    @if (Model != null && Model != string.Empty)
-    {
-        <iframe class="col-lg-12" height="700" src="http://services.hneu.edu.ua:8081/schedule/schedule?employee=@Model"></iframe>
-    }
-    else
-    {
-        <iframe class="col-lg-12" height="700" src="http://services.ksue.edu.ua:8081/schedule/selection.jsf"></iframe>
-    }
-    
-    
+        <iframe id="scheduleId" class="col-lg-12" height="700" src="http://services.hneu.edu.ua:8081/schedule/selection.jsf"></iframe>
+
 </div>

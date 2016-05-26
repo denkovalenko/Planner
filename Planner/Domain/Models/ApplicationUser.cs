@@ -22,8 +22,13 @@ namespace Domain.Models
 		public String ScholarLink { get; set; }
         [ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
+
+        public String ScheduleId { get; set; }
         [ForeignKey("DegreeId")]
         public virtual Degree Degree { get; set; }
+       
+        [ForeignKey("ScheduleId")]
+         public virtual Schedule Schedule { get; set; }
         [ForeignKey("AcademicTitleId")]
         public virtual AcademicTitle AcademicTitle { get; set; }
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }

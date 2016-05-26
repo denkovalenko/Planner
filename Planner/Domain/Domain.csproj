@@ -96,6 +96,7 @@
     <Compile Include="AppDbInitializer.cs" />
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Migrations\Configuration.cs" />
