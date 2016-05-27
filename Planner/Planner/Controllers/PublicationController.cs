@@ -82,6 +82,7 @@ namespace Planner.Controllers
 						OwnerId = user.Id,
 						CitationNumberNMBD = model.CitationNumberNMBD,
 						ResearchDoneType = new ResearchDoneType() { Value = model.ResearchDoneType},
+						ImpactFactorNMBD = model.ImpactFactorNMBD,
 						PublicationNMBDs = new List<PublicationNMBD>()
 						{
 							new PublicationNMBD()

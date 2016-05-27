@@ -102,6 +102,8 @@ namespace Planner.Models
         public PositionEnum PositionEnum { get; set; }
 		[Display(Name = "Профiль у Google Scholar")]
 		public string ScholarLink { get; set; }
+		[Display(Name = "Профiль у ORCID")]
+		public string OrcidLink { get; set; }
 		public string DepartmentId { get; set; }
 	}
 

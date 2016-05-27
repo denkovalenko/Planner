@@ -38,5 +38,12 @@ namespace Planner.Controllers
             var model = PublicationReportBuilder.CreateDeparmentReport(depId);    
             return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+		public FileResult PrintReport(string id, string name)
+		{
+			var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
+
+			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
+		}
     }
 }

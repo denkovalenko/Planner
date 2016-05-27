@@ -80,6 +80,7 @@ namespace Planner.Controllers
 								.GetMember(user.Position.Value.ToString())[0]
 								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
 						ScholarLink = user.ScholarLink,
+						OrcidLink = user.OrcidLink,
 						ThirdName = user.ThirdName,
 						UserName = user.UserName
 					},
@@ -207,7 +208,8 @@ namespace Planner.Controllers
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
                     AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
-					ScholarLink = model.ScholarLink
+					ScholarLink = model.ScholarLink,
+					OrcidLink = model.OrcidLink
                 };
 				user.DepartmentUsers = new List<DepartmentUser>();
 				user.DepartmentUsers.Add(new DepartmentUser()

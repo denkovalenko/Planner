@@ -25,7 +25,8 @@ namespace Domain.Models
 		public Boolean IsPublished { get; set; }
 		public Boolean IsOverseas { get; set; }
 		public String OwnerId { get; set; }
-		public int? CitationNumberNMBD { get; set; }
+		public int CitationNumberNMBD { get; set; }
+		public double ImpactFactorNMBD { get; set; }
 
 		public String ResearchDoneTypeId { get; set; }
 		[ForeignKey("ResearchDoneTypeId")]
