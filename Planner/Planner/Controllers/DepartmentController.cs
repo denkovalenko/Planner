@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Calculation;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace Planner.Controllers
 				var departms = db.Departments
 					.Select(x => new
 					{
-						
 							Id = x.Id,
 							Name = x.Name
 					})
@@ -32,5 +32,11 @@ namespace Planner.Controllers
 				return new JsonResult() { Data = departms, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 			}
 		}
+
+        public JsonResult Report(string depId)
+        {
+            var model = PublicationReportBuilder.CreateDeparmentReport(depId);    
+            return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }

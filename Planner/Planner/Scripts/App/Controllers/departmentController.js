@@ -17,10 +17,10 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 
 	$scope.$watch('department', function (newVal) {
 		if (newVal) {
-			console.log(newVal);
-			$http.get('/Department/Report').then(
+			$http.get('/Department/Report?depId='+newVal.Id).then(
 				function (response) {
-					$scope.publications = response.data;
+				    $scope.publications = response.data;
+				    console.log(response.data);
 				}, function (response) {
 
 				});

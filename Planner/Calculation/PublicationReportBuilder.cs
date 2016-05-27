@@ -12,6 +12,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Drawing;
 using System.IO;
+using Calculation.Extensions;
 
 namespace Calculation
 {
@@ -78,7 +79,7 @@ namespace Calculation
 			}
 		}
 
-		public static byte[] ReportForm11(ApplicationUser user)
+		public static byte[] PrintReportForm11(ApplicationUser user)
 		{
 			using (ExcelPackage pck = new ExcelPackage())
 			{
@@ -127,5 +128,89 @@ namespace Calculation
 				//pck.SaveAs(new FileInfo(filepath));
 			}
 		}
+
+        public static object CreateDeparmentReport(string depId)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var model = new Object();
+                try
+                {
+                    //all users in selected department
+                    var users = db.DepartmentUsers
+                        .Where(x => x.DepartmentId == depId)
+                        .Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
+                        .Select(u => u.u.Id)
+                        .ToList();
+
+                    //all publications of users in department
+                    var publications = db.Publications
+                        .Include("PublicationType")
+                        .Include("ResearchDoneType")
+                        .AsEnumerable()
+                        .Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
+                        .Where(x => users.Any(u => u == x.pu.UserId))
+                        .OrderBy(x => x.p.PublishedAt)
+                        .DistinctBy(x => x.p.Id)
+                        .Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
+                        .AsEnumerable()
+                        .Select(x => new PublicationOnDepartment()
+                        {
+                            Id = x.p.p.Id,
+                            ImpactFactorNMBD = x.pn.NMBD.ImpactFactorNMBD,
+                            NMBD = x.pn.NMBD.Name,
+                            CitationNumberNMBD = x.p.p.CitationNumberNMBD.Value,
+                            Pages = x.p.p.Pages.Value,
+                            IsOverseas = x.p.p.IsOverseas,
+                            Name = x.p.p.Name,
+                            Output = x.p.p.Output,
+                            OwnerId = x.p.p.OwnerId,
+                            PublicationType = ((DisplayAttribute)typeof(PublicationTypeEnum)
+                                .GetMember(x.p.p.PublicationType.Value.ToString())[0]
+                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+
+                            ResearchDoneType = ((DisplayAttribute)typeof(ResearchDoneTypeEnum)
+                                .GetMember(x.p.p.ResearchDoneType.Value.ToString())[0]
+                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+                            Collaborators = new List<Author>()
+
+                        })
+                        .ToList();
+
+                    //add collabs
+                    publications.ForEach(x => x.Collaborators.AddRange(
+                        db.PublicationUsers
+                                .Where(p => p.PublicationId == x.Id)
+                                .ToList()
+                                .Select(a => new Author()
+                                {
+                                    UserId = a.UserId,
+                                    CollaboratorId = a.CollaboratorId,
+                                    Name = a.UserId != null ? $"{a.User.LastName} {a.User.FirstName} {a.User.ThirdName}"
+                                                        : a.Collaborator.Name
+                                })
+                            .ToList()));
+
+                    //add department names
+                    publications.ForEach(x => x.DepartmentName =
+                        db.DepartmentUsers
+                            .Include("Department")
+                            .FirstOrDefault(d => d.UserId == x.OwnerId).Department.Name);
+
+                    model = publications;
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+                return model;
+            }
+        }
+
+        //public static byte[] PrintDepartmentReport()
+        //{
+
+        //}
 	}
 }

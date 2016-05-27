@@ -16,6 +16,7 @@ namespace Domain.Models
 		[Key]
 		public String Id { get; set; }
 		public String Name { get; set; }
-		public virtual ICollection<Publication> Publications { get; set; }
+        public Double ImpactFactorNMBD { get; set; }
+        public virtual ICollection<Publication> Publications { get; set; }
 	}
 }

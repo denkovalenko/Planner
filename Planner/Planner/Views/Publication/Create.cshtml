@@ -51,10 +51,10 @@
                                 </select>                            
                             </div>
                             <div class="form-group has-feedback">
-                                @Html.EnumDropDownListFor(m => m.StoringType, "Тип видання", new { @class = "form-control", @required = "required" })
+                                @Html.EnumDropDownListFor(m => m.StoringType, "Тип", new { @class = "form-control", @required = "required" })
                             </div>
                             <div class="form-group has-feedback">
-                                @Html.EnumDropDownListFor(m => m.PublicationType, "Тип змісту", new { @class = "form-control", @required = "required" })
+                                @Html.EnumDropDownListFor(m => m.PublicationType, "Тип видання", new { @class = "form-control", @required = "required" })
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="output" placeholder="Вихідні дані" required>
@@ -72,13 +72,6 @@
                                 <input type="text" class="form-control" name="CitationNumberNMBD" placeholder="Кількість цитувань у виданнях, що входять до НМБД" required>
                             </div>
 
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД" required>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД" required>
-                            </div>
 
                             <div class="form-group has-feedback">
                                 @Html.EnumDropDownListFor(m => m.ResearchDoneType, "За якою НДР виконано", new { @class = "form-control", @required = "required" })

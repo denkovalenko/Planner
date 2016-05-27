@@ -21,7 +21,6 @@ namespace Planner.Models
 		public Boolean IsOverseas { get; set; }
 		public String NMBDId { get; set; }
 		public int CitationNumberNMBD { get; set; }
-		public String ImpactFactorNMBD { get; set; }
 		public ResearchDoneTypeEnum ResearchDoneType { get; set; }
 		public StoringTypeEnum StoringType { get; set; }
 		public PublicationTypeEnum PublicationType { get; set; }

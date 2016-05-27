@@ -51,14 +51,14 @@ namespace Planner
 
 		private void InitNMBDs(ApplicationDbContext context)
 		{
-			context.NMBDs.Add(new NMBD() { Name = "Google Scholar" });
-			context.NMBDs.Add(new NMBD() { Name = "ORCID" });
-			context.NMBDs.Add(new NMBD() { Name = "SCOPUS" });
-			context.NMBDs.Add(new NMBD() { Name = "Web of Science" });
-			context.NMBDs.Add(new NMBD() { Name = "Index Copernicus" });
-			context.NMBDs.Add(new NMBD() { Name = "Scimago Journal & Country Rank" });
-			context.NMBDs.Add(new NMBD() { Name = "Journal Citation Reports" });
-			context.NMBDs.Add(new NMBD() { Name = "Thomson" }); 
+			context.NMBDs.Add(new NMBD() { Name = "Google Scholar", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "ORCID", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "SCOPUS", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "Web of Science", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "Index Copernicus", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "Scimago Journal & Country Rank", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "Journal Citation Reports", ImpactFactorNMBD = 10 });
+			context.NMBDs.Add(new NMBD() { Name = "Thomson", ImpactFactorNMBD = 10 }); 
 
 			base.Seed(context);
 		}

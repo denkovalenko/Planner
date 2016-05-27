@@ -61,7 +61,11 @@ namespace Planner.Controllers
 					var a = Server.MapPath(filepath);
 					file.SaveAs(Server.MapPath(filepath));
 
-					var allAuthors = model?.NewCollaboratorsNames?.Count + model?.CollaboratorsIds?.Count + 1;
+                    var allAuthors = 1;
+                    if (model.NewCollaboratorsNames != null)
+                        allAuthors += model.NewCollaboratorsNames.Count;
+                    if (model.CollaboratorsIds != null)
+                        allAuthors += model.CollaboratorsIds.Count;
 
 					Publication publication = new Publication()
 					{
@@ -77,7 +81,6 @@ namespace Planner.Controllers
 						IsOverseas = model.IsOverseas,
 						OwnerId = user.Id,
 						CitationNumberNMBD = model.CitationNumberNMBD,
-						ImpactFactorNMBD = model.ImpactFactorNMBD,
 						ResearchDoneType = new ResearchDoneType() { Value = model.ResearchDoneType},
 						PublicationNMBDs = new List<PublicationNMBD>()
 						{
@@ -91,7 +94,7 @@ namespace Planner.Controllers
 							new PublicationUser()
 							{
 								UserId = user.Id,
-								PageQuantity = model.Pages / allAuthors.Value
+								PageQuantity = model.Pages / allAuthors
 							}
 						}
 					};
@@ -103,7 +106,7 @@ namespace Planner.Controllers
 							{
 								CollaboratorId = collab.Substring(2),
 								Publication = publication,
-								PageQuantity = model.Pages / allAuthors.Value
+								PageQuantity = model.Pages / allAuthors
 							});
 						}
 						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
@@ -112,7 +115,7 @@ namespace Planner.Controllers
 							{
 								UserId = collab.Substring(2),
 								Publication = publication,
-								PageQuantity = model.Pages / allAuthors.Value
+								PageQuantity = model.Pages / allAuthors
 							});
 						}
 					}
@@ -126,7 +129,7 @@ namespace Planner.Controllers
 							{
 								Collaborator = newcollab,
 								Publication = publication,
-								PageQuantity = model.Pages / allAuthors.Value
+								PageQuantity = model.Pages / allAuthors
 							});
 						}
 					}
@@ -137,7 +140,7 @@ namespace Planner.Controllers
 				}
 				catch (Exception ex)
 				{
-					System.IO.File.Delete(filepath);
+					System.IO.File.Delete(Server.MapPath(filepath));
 				}
 
 				return RedirectToAction("Index");
@@ -146,7 +149,7 @@ namespace Planner.Controllers
 
 		public FileResult PrintForm11()
 		{
-			var filestream = PublicationReportBuilder.ReportForm11(user);
+			var filestream = PublicationReportBuilder.PrintReportForm11(user);
 			
 			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls");
 				
