@@ -1,6 +1,7 @@
-﻿using Domain;
+﻿using Domain.Helpers;
 using Domain.Models;
 using Domain.Models.Enums;
+using Domain.Reports;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Calculation;
+using System.IO;
 
 namespace Planner.Controllers
 {
-    public class PublicationController : Controller
-    {
+	public class PublicationController : Controller
+	{
 		private ApplicationUser user;
 		protected override void Initialize(RequestContext requestContext)
 		{
@@ -27,119 +30,131 @@ namespace Planner.Controllers
 		}
 		// GET: Publication
 		public ActionResult Index()
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return View(db.Publications
-					.Include("StoringType")
-					.AsEnumerable()
-					.Select(x => new PublicationForm11()
-					{
-						Id = x.Id,
-						FilePath = x.FilePath,
-						Name = x.Name,
-						Pages = x.Pages,
-						StoringType = ((DisplayAttribute)typeof(StoringTypeEnum)
-								.GetMember(x.StoringType.Value.ToString())[0]
-								.GetCustomAttributes(typeof(DisplayAttribute),false)[0]).Name
-					})
-					.ToList());
-            }
-        }
+		{
+			return View(PublicationReportBuilder.CreateForm11(user));
+		}
 
 		public ActionResult Create()
 		{
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-				//var users = db.Users
-				//	.Where(u=> u.Id != user.Id)
-				//		.AsEnumerable()
-				//		.Select(u => new Author()
-				//		{
-				//			UserId = "u_"+u.Id,
-				//			CollaboratorId = null,
-				//			Name = $"{u.LastName} {u.FirstName} {u.ThirdName}"
-				//		})
-				//		.OrderBy(x => x.Name).ToList();
-				//var collaborators = db.ExternalCollaborators
-				//		.AsEnumerable()
-				//		.Select(u => new Author()
-				//		{
-				//			UserId = null,
-				//			CollaboratorId = "c_"+u.Id,
-				//			Name = u.Name
-				//		})
-				//		.OrderBy(x => x.Name).ToList();
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
 				var model = new CreatePublicationViewModel
 				{
-					ScientificBases = db.ScientificBases.ToList(),
-					//Collaborators = new List<Author>()
+					NMDBs = db.NMBDs.ToList(),
 				};
-				//model.Collaborators.AddRange(users);
-				//model.Collaborators.AddRange(collaborators);
+
 				return View(model);
 
-            }
+			}
 
 		}
 
 		[HttpPost]
 		public ActionResult Create(PublicationCreate model, HttpPostedFileBase file)
 		{
-            using (ApplicationDbContext db = new ApplicationDbContext() )
-            {
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
 				try
 				{
-					var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
+
 					var a = Server.MapPath(filepath);
 					file.SaveAs(Server.MapPath(filepath));
+
+                    var allAuthors = 1;
+                    if (model.NewCollaboratorsNames != null)
+                        allAuthors += model.NewCollaboratorsNames.Count;
+                    if (model.CollaboratorsIds != null)
+                        allAuthors += model.CollaboratorsIds.Count;
+
 					Publication publication = new Publication()
 					{
 						Name = model.Name,
 						FilePath = filepath,
+						Output = model.Output,
 						Pages = model.Pages,
 						StoringType = new StoringType() { Value = model.StoringType },
-						PublicationScientificBases = new List<PublicationScientificBase>()
-					{
-						new PublicationScientificBase()
+						PublicationType = new PublicationType() { Value = model.PublicationType },
+						CreatedAt = DateTime.Now.ToUniversalTime(),
+						PublishedAt = DateTime.Now.ToUniversalTime(),
+						IsPublished = true,
+						IsOverseas = model.IsOverseas,
+						OwnerId = user.Id,
+						CitationNumberNMBD = model.CitationNumberNMBD,
+						ResearchDoneType = new ResearchDoneType() { Value = model.ResearchDoneType},
+						ImpactFactorNMBD = model.ImpactFactorNMBD,
+						PublicationNMBDs = new List<PublicationNMBD>()
 						{
-							ScientificBaseId = model.ScientificBaseId
-						}
-					},
+							new PublicationNMBD()
+							{
+								NMBDId = model.NMBDId
+							}
+						},
 						PublicationUsers = new List<PublicationUser>
 						{
 							new PublicationUser()
 							{
-								UserId = user.Id
+								UserId = user.Id,
+								PageQuantity = model.Pages / allAuthors
 							}
 						}
 					};
-					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "c_"))
+					if (model.CollaboratorsIds != null)
 					{
-						publication.PublicationUsers.Add(new PublicationUser()
+						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "c_"))
 						{
-							CollaboratorId = collab.Substring(2),
-							Publication = publication
-						});
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								CollaboratorId = collab.Substring(2),
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors
+							});
+						}
+						foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
+						{
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								UserId = collab.Substring(2),
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors
+							});
+						}
 					}
-					foreach (var collab in model.CollaboratorsIds.Where(x => x != String.Empty && x.Substring(0, 2) == "u_"))
+					if (model.NewCollaboratorsNames != null)
 					{
-						publication.PublicationUsers.Add(new PublicationUser()
+						foreach (var collab in model.NewCollaboratorsNames.Where(x => x != String.Empty))
 						{
-							UserId = collab.Substring(2),
-							Publication = publication
-						});
+							var newcollab = new ExternalCollaborator() { Name = collab };
+							db.ExternalCollaborators.Add(newcollab);
+							publication.PublicationUsers.Add(new PublicationUser()
+							{
+								Collaborator = newcollab,
+								Publication = publication,
+								PageQuantity = model.Pages / allAuthors
+							});
+						}
 					}
+
+
 					db.Publications.Add(publication);
 					db.SaveChanges();
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
-
+					System.IO.File.Delete(Server.MapPath(filepath));
 				}
-				
-                return RedirectToAction("Index");
-            } 
+
+				return RedirectToAction("Index");
+			}
 		}
-    }
+
+		public FileResult PrintForm11()
+		{
+			var filestream = PublicationReportBuilder.PrintReportForm11(user);
+			
+			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls");
+				
+							
+		}
+	}
 }

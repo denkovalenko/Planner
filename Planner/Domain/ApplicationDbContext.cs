@@ -18,11 +18,14 @@ namespace Domain.Models
         public DbSet<Department> Departments { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<Rate> Rates { get; set; }
-        public DbSet<ScientificBase> ScientificBases { get; set; }
 		public DbSet<ExternalCollaborator> ExternalCollaborators { get; set; }
 		public DbSet<StoringType> StoringTypes { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+		public DbSet<ResearchDoneType> ResearchDoneTypes { get; set; }
+		public DbSet<NMBD> NMBDs { get; set; }
 
-		public DbSet<PublicationScientificBase> PublicationScientificBases { get; set; }
+
+		public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }
 		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
 

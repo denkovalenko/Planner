@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-   public class Schedule
+    public class Schedule
     {
         public Schedule()
         {

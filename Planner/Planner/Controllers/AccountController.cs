@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using Domain;
 using Domain.Models;
 using Planner.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Planner.Controllers
 {
@@ -53,12 +55,47 @@ namespace Planner.Controllers
                 _userManager = value;
             }
         }
+		[Authorize(Roles = "User")]
+		public JsonResult GetUserInfo()
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+				var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
+				return new JsonResult()
+				{
+					Data = new
+					{
+						
+						AcademicTitle = ((DisplayAttribute)typeof(AcademicTitleEnum)
+								.GetMember(user.AcademicTitle.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Degree = ((DisplayAttribute)typeof(DegreeEnum)
+								.GetMember(user.Degree.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Email = user.Email,
+						FirstName = user.FirstName,
+						Id = user.Id,
+						LastName = user.LastName,
+						Position = ((DisplayAttribute)typeof(PositionEnum)
+								.GetMember(user.Position.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						ScholarLink = user.ScholarLink,
+						OrcidLink = user.OrcidLink,
+						ThirdName = user.ThirdName,
+						UserName = user.UserName
+					},
+					JsonRequestBehavior = JsonRequestBehavior.AllowGet
+				};
+			}
+		}
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+			if (HttpContext.User.Identity.IsAuthenticated)
+				return RedirectToAction("Dashboard", "Home");
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -161,16 +198,29 @@ namespace Planner.Controllers
             Int32 qw = (Int32)model.DegreeEnum;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName=model.FirstName,LastName=model.LastName,
+                var user = new ApplicationUser
+				{
+					UserName = model.Email,
+					Email = model.Email,
+					FirstName = model.FirstName,
+					LastName = model.LastName,
                     ThirdName = model.ThirdName,
                     Degree = new Degree() { Value = model.DegreeEnum },
                     Position = new Position() { Value = model.PositionEnum },
                     AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
-					TimetableId = model.TimetableId
+					ScholarLink = model.ScholarLink,
+					OrcidLink = model.OrcidLink
                 };
+				user.DepartmentUsers = new List<DepartmentUser>();
+				user.DepartmentUsers.Add(new DepartmentUser()
+				{
+					DepartmentId = model.DepartmentId
+					
+				});
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+					UserManager.AddToRole(user.Id, "User");
                     return RedirectToAction("Register", new {username=user.Email });
                 }
                 AddErrors(result);

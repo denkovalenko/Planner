@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Головна сторінка
+            <small>Панель</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
+            <li class="active">Звiт за кафедрою</li>
+        </ol>
+    </section>
+    <script src="~/Scripts/App/Controllers/departmentController.js"></script>
+    <!-- Main content -->
+    <section class="content" ng-controller="departmentController as ctrl" data-ng-init="ctrl.init()">
+        @Html.Partial("DepartmentPublictionMenuPartial")
+        <div class="row" data-ng-show="publications.length > 0">
+
+            <table class="table table-striped col-lg-10">
+                <thead>
+                    Публикации за кафедрою
+                </thead>
+                <tr>
+                    <th>№</th>
+                    <th>Автори</th>
+                    <th>Назва роботи</th>
+                    <th>Тип видання</th>
+                    <th>Назва видання, дата видання (ЧЧ.ММ.РР)</th>
+                    <th>Обсяг, ум.- друк. арк., усього</th>
+                    <th>Обсяг, ум.- друк. арк., частка кафедри</th>
+                    <th>За кордонне видання</th>
+                    <th>НМБД</th>
+                    <th>Кількість цитувань у виданнях, що входять до НМБД Scopus/Google Scolar</th>
+                    <th>Імпакт-фактор видання, тільки з НМБД</th>
+                    <th>За якою НДР виконано</th>
+                    <th>Назва кафедри</th>
+                </tr>
+                    <tr data-ng-repeat="pub in publications">
+                        <th>{{$index+1}}</th>
+                        <th>
+                            <span ng-repeat="it in pub.Collaborators">{{it.Name}}
+                            {{$index+1 != pub.Collaborators.length ? ',' : ''}}<br />
+                            </span>
+                        </th>
+                        <th>{{pub.Name}}</th>
+                        <th>{{pub.PublicationType}}</th>
+                        <th>{{pub.Output}}</th>
+                        <th>{{pub.Pages}}</th>
+                        <th>{{pub.Pages / pub.Collaborators.length}}</th>
+                        <th>{{pub.IsOverseas ? 'Так' : 'Нi'}}</th>
+                        <th>{{pub.NMBD}}</th>
+                        <th>{{pub.CitationNumberNMBD}}</th>
+                        <th>{{pub.ImpactFactorNMBD}}</th>
+                        <th>{{pub.ResearchDoneType}}</th>
+                        <th>{{pub.DepartmentName}}</th>
+                    </tr>
+
+
+
+            </table>
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->
