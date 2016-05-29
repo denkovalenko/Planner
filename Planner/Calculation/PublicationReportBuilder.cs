@@ -290,5 +290,28 @@ namespace Calculation
 				return pck.GetAsByteArray();
 			}
 		}
+
+        public static int MonographQuantity(bool overseas)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Publications
+                    .Where(x => x.PublicationType.Value == PublicationTypeEnum.Monograph || x.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph)
+                    .Where(x => x.IsOverseas == overseas)
+                    .Count();
+            }
+        }
+
+        public static int ScopusPublications()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                return db.Publications
+                    .Join(db.PublicationNMBDs, p => p.Id, nm => nm.PublicationId, (p, nm) => new { p, nm })
+                    .Join(db.NMBDs, pnm => pnm.nm.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
+                    .Where(x => x.nmbd.Name == "SCOPUS")
+                    .Count();
+            }
+        }
 	}
 }
