@@ -96,6 +96,7 @@
     <Compile Include="AppDbInitializer.cs" />
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="Helpers\ScientificPublishingModel.cs" />
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
     <Compile Include="Models\NMBD.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />

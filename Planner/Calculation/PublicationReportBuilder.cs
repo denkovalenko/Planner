@@ -290,5 +290,74 @@ namespace Calculation
 				return pck.GetAsByteArray();
 			}
 		}
+
+		public static ScientificPublishingModel ScientificPublishing(string depId)
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+
+				//all users in selected department
+				var users = db.DepartmentUsers
+					.Where(x => x.DepartmentId == depId)
+					.Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
+					.Select(u => u.u.Id)
+					.ToList();
+
+				//all publications of users in department
+				var publications = db.Publications
+					.Include("PublicationType")
+					.AsEnumerable()
+					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
+					.Where(x => users.Any(u => u == x.pu.UserId))
+					.OrderBy(x => x.p.PublishedAt)
+					.DistinctBy(x => x.p.Id)
+					.Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
+					.ToList();
+
+				var model = new ScientificPublishingModel()
+				{
+					AllPublications = new Tuple<int, int, double>(0, publications.Count, 0),
+
+					Abstracts = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(), 0),
+
+					ArticlesInProfessionalPublications = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(), 0),
+
+					ArticlesThesesInNmbd = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0 
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(), 0),
+
+					MonographsForeignJournals = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.IsOverseas 
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(), 0),
+
+					Monographs = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(), 0),
+
+					MonographsNationalPublications = new Tuple<int, int, double>(0, publications
+								.Where(x => !x.p.p.IsOverseas
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(), 0),
+
+					ScientificArticlesInForeignLanguages = new Tuple<int, int, double>(0,0,0),
+
+					ScientificPublicationsInForeignJournals = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.IsOverseas).Count(), 0),
+
+					ScientificPublicationsInScopus = new Tuple<int, int, double>(0, publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0)
+								.Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
+								.Where(x => x.nmbd.Name == "SCOPUS").Count(), 0)
+				};
+
+
+				return model;
+			}
+		}
 	}
 }

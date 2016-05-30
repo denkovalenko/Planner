@@ -5,6 +5,7 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 
 	$scope.departments = [];
 	$scope.publications = [];
+	$scope.ScientificPublishing = {};
 
 	me.init = function () {
 		$http.get('/Department/Get').then(
@@ -15,12 +16,30 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
             });
 	};
 
-	$scope.$watch('department', function (newVal) {
+	$scope.$watch('departmentForPub', function (newVal) {
 		if (newVal) {
-			$http.get('/Department/Report?depId='+newVal.Id).then(
+			$http.get('/Department/DepartmentPublicationsReport?depId=' + newVal.Id).then(
 				function (response) {
 				    $scope.publications = response.data;
 				    console.log(response.data);
+				}, function (response) {
+
+				});
+			//$scope.departments = [].filter.call($scope.faculties, function (element, index, array) {
+			//	return element.Id == newVal;
+			//})[0].Departments;
+		}
+		else {
+			//$scope.departments = null;
+		}
+	});
+
+	$scope.$watch('departmentForHalfYear', function (newVal) {
+		if (newVal) {
+			$http.get('/Department/HalfYearDepartmentReport?depId=' + newVal.Id).then(
+				function (response) {
+					$scope.ScientificPublishing = response.data;
+					console.log($scope.ScientificPublishing);
 				}, function (response) {
 
 				});
