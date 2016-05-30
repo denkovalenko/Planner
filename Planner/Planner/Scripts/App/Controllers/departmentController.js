@@ -39,7 +39,7 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 			$http.get('/Department/HalfYearDepartmentReport?depId=' + newVal.Id).then(
 				function (response) {
 					$scope.ScientificPublishing = response.data;
-				    console.log(response.data);
+					console.log($scope.ScientificPublishing);
 				}, function (response) {
 
 				});
