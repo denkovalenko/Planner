@@ -88,8 +88,13 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">
-                            <a href="~/Department/Index">
+                            <a href="~/Department/DepartmentPublications">
                                 <i class="fa fa-table"></i> <span>Звiт за кафедрою</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="~/Department/HalfYearDepartmentPublications">
+                                <i class="fa fa-table"></i> <span>Звiт за пiврiччя</span>
                             </a>
                         </li>}
                     <li class="treeview">

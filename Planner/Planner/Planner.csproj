@@ -1810,8 +1810,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Publication\Draft.cshtml" />
     <Content Include="Views\Publication\PublictionMenuPartial.cshtml" />
-    <Content Include="Views\Department\Index.cshtml" />
-    <Content Include="Views\Department\DepartmentPublictionMenuPartial.cshtml" />
+    <Content Include="Views\Department\DepartmentPublications.cshtml" />
+    <Content Include="Views\Department\HalfYearDepartmentPublications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

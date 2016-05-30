@@ -11,10 +11,15 @@ namespace Planner.Controllers
     public class DepartmentController : Controller
     {
         // GET: Department
-        public ActionResult Index()
+        public ActionResult DepartmentPublications()
         {
             return View();
         }
+
+		public ActionResult HalfYearDepartmentPublications()
+		{
+			return View();
+		}
 
 		public JsonResult Get()
 		{
@@ -33,17 +38,31 @@ namespace Planner.Controllers
 			}
 		}
 
-        public JsonResult Report(string depId)
+        public JsonResult DepartmentPublicationsReport(string depId)
         {
             var model = PublicationReportBuilder.CreateDeparmentReport(depId);    
             return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
-		public FileResult PrintReport(string id, string name)
+		public FileResult PrintDepartmentPublicationsReport(string id, string name)
 		{
 			var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
 
 			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
 		}
-    }
+
+
+		public JsonResult HalfYearDepartmentReport(string depId)
+		{
+			var model = PublicationReportBuilder.ScientificPublishing(depId);
+			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+		}
+
+		public void PrintHalfYearDepartmentReport(string id, string name)
+		{
+			//var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
+
+			//return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
+		}
+	}
 }

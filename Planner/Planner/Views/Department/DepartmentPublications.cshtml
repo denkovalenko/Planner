@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Головна сторінка
+            <small>Панель</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
+            <li class="active">Звiт за кафедрою</li>
+        </ol>
+    </section>
+    <script src="~/Scripts/App/Controllers/departmentController.js"></script>
+    <!-- Main content -->
+    <section class="content" ng-controller="departmentController as ctrl" data-ng-init="ctrl.init()">
+        
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="form-group has-feedback">
+                    <select class="form-control" name="departmentId" data-ng-model="departmentForPub"
+                            data-ng-options="s.Name for s in departments track by s.Id">
+                        <option value="">--Виберiть кафедру--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-gray-light">
+                    <a href="~/Department/PrintDepartmentPublicationsReport?id={{department.Id}}&name={{department.Name}}" class="inner btn-block">Печатать <i class="glyphicon glyphicon-arrow-down"></i></a>
+                </div>
+            </div>
+
+            <!-- ./col -->
+        </div><!-- /.row -->
+
+
+        <div class="row" data-ng-show="publications.length > 0">
+
+            <table class="table table-striped col-lg-10">
+                <thead>
+                    Публикации за кафедрою
+                </thead>
+                <tr>
+                    <th>Відповідальні підрозділи</th>
+                    <th>Види робіт</th>
+                    <th>Результат, який очікується (показники діяльності кафедри)</th>
+                    <th>Планові значення</th>
+                    <th>Фактичні значення</th>
+                    <th>Відсоток виконання</th>                    
+                </tr>
+                <tr>
+                        
+                </tr>
+
+
+
+            </table>
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->
