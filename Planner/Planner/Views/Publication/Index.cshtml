@@ -22,43 +22,47 @@
         {
             <div class="row">
 
-                <table class="table table-striped col-lg-10">
+                <table class="table table-striped table-bordered col-lg-10">
                     <thead>
                         Публикации
+
+                        <tr>
+                            <th>Назва</th>
+                            <th>Характер роботи</th>
+                            <th>Вихідні дані</th>
+                            <th>Обсяг (стор.)</th>
+                            <th>Співавтори</th>
+                        </tr>
                     </thead>
-                    <tr>
-                        <th>Назва</th>
-                        <th>Характер роботи</th>
-                        <th>Вихідні дані</th>
-                        <th>Обсяг (стор.)</th>
-                        <th>Співавтори</th>
-                    </tr>
+                    <tbody>
 
-                    @foreach (var pub in Model)
-                    {
-                    <tr >
-                        <td><b>@pub.PublicationType</b><br>@pub.Name</td>
-                        <td>@pub.StoringType</td>
-                        <td>@pub.Output</td>
-                        <td>@pub.Pages</td>
-                        <td>
-                            @if (pub.Collaborators != null && pub.Collaborators.Count != 0)
-                            {
-                                <span>@pub.Collaborators[0].Name</span>
-                                foreach (var col in pub.Collaborators.Skip(1))
-                                {
-                                    <span>, @col.Name</span>
-                                }
-                            }
-                            else
-                            {
-                                <span>Нет соавторов</span>
-                            }
+                        @foreach (var pub in Model)
+                        {
+                            <tr>
+                                <td><b>@pub.PublicationType</b><br>@pub.Name</td>
+                                <td>@pub.StoringType</td>
+                                <td>@pub.Output</td>
+                                <td>@pub.Pages</td>
+                                <td>
+                                    @if (pub.Collaborators != null && pub.Collaborators.Count != 0)
+                                    {
+                                        <span>@pub.Collaborators[0].Name</span>
+                                        foreach (var col in pub.Collaborators.Skip(1))
+                                        {
+                                            <span>, @col.Name</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>Нет соавторов</span>
+                                    }
 
 
-                        </td>
-                    </tr>
-                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
 
 
                 </table>
