@@ -39,7 +39,7 @@
 
         @Html.Partial("Header");
 
-        <aside class="main-sidebar" ng-controller="sidebarController as sideCtrl" ng-init="sideCtrl.init()">
+        <aside class="main-sidebar" ng-controller="sidebarController as sideCtrl" ng-init="sideCtrl.init()" ng-cloak>
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- search form -->
@@ -80,11 +80,13 @@
                             <i class="fa fa-table"></i> <span>ORCID</span>
                         </a>
                     </li>
-                    <li class="treeview">
-                        <a href="~/Publication/Index">
-                            <i class="fa fa-table"></i> <span>Публикации</span>
-                        </a>
-                    </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Publication/Index">
+                                <i class="fa fa-table"></i> <span>Публикации</span>
+                            </a>
+                        </li>}
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">

@@ -31,10 +31,10 @@
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Підтвердіть пароль" })
                 </div>
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(m => m.OrcidLink, new { @class = "form-control", placeholder = "Профiль у Google Scholar" })
+                    @Html.TextBoxFor(m => m.ScholarLink, new { @class = "form-control", placeholder = "Профiль у Google Scholar" })
                 </div>
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(m => m.ScholarLink, new { @class = "form-control", placeholder = "Профiль у ORCID" })
+                    @Html.TextBoxFor(m => m.OrcidLink, new { @class = "form-control", placeholder = "Профiль у ORCID" })
                 </div>
                 <div class="form-group has-feedback">
                     @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, "-- Виберiть ступiнь --", new { @class = "form-control" })

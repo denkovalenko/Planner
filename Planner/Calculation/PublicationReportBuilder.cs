@@ -112,9 +112,15 @@ namespace Calculation
 					ws.Cells[i + 2, 2].Value = datasource.ElementAt(i).StoringType;
 					ws.Cells[i + 2, 3].Value = datasource.ElementAt(i).Output;
 					ws.Cells[i + 2, 4].Value = datasource.ElementAt(i).Pages;
-					ws.Cells[i + 2, 5].Value = datasource.ElementAt(i).Collaborators[0].Name;
-					foreach (var lab in datasource.ElementAt(i).Collaborators.Skip(1))
-						ws.Cells[i + 2, 5].Value += ", " + lab.Name;
+					if (datasource.ElementAt(i).Collaborators.Count > 0)
+					{
+						ws.Cells[i + 2, 5].Value = datasource.ElementAt(i).Collaborators[0].Name;
+						foreach (var lab in datasource.ElementAt(i).Collaborators.Skip(1))
+							ws.Cells[i + 2, 5].Value += ", " + lab.Name;
+					}
+					else ws.Cells[i + 2, 5].Value = "Нет соавторов";
+
+
 				}
 
 				using (ExcelRange rng = ws.Cells[1, 1, 1, 5])
