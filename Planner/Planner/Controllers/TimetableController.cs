@@ -51,6 +51,7 @@ namespace Planner.Controllers
                                   .Select(m => new { m.s.ApiId, m.s.UserName, m.s.Id }).OrderBy(m => m.UserName).ToList()
                         },
                     })
+					.OrderBy(x => x.Department.Name)
                     .ToList();
                 var currentSchedule = db.Users.Where(x => x.Id == user.Id).Select(x => x.Schedule.ApiId).FirstOrDefault();
                 return new JsonResult() { Data = new { Departments=departms,Default=currentSchedule } };
