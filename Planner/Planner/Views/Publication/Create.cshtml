@@ -1,8 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Create";
 }
-@*@Model IEnumrable<ApplicationUser>*@
-
+@model Planner.Models.CreatePublicationViewModel
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -33,29 +32,100 @@
                             <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                         </div><!-- /. tools -->
                     </div>
-                    <div class="box-body">
-                        <form action="#" method="post">
+                    <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
+                        <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data" novalidate>
                             <div class="form-group">
-                                <input type="email" class="form-control" name="emailto" placeholder="Назва">
+                                <input type="text" class="form-control" name="name" placeholder="Назва" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Автори">
+                                <input type="text" class="form-control" name="pages" placeholder="Объем" required>
+                            </div>
+                            <div class="form-group">
+                                <select name="NMBDId" class="form-control">
+                                    <option value="">НМБД</option>
+                                    @foreach(var nmbd in Model.NMDBs)
+                                    {
+                                        <option value="@nmbd.Id">@nmbd.Name</option>
+                                    }
+
+                                </select>                            
+                            </div>
+                            <div class="form-group has-feedback">
+                                @Html.EnumDropDownListFor(m => m.StoringType, "Тип", new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group has-feedback">
+                                @Html.EnumDropDownListFor(m => m.PublicationType, "Тип видання", new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="output" placeholder="Вихідні дані" required>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Обсяг">
+                                За кордонне видання: 
+                                <select name="IsOverseas" required>
+                                    <option value="false">Нi</option>
+                                    <option value="true">Так</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="CitationNumberNMBD" placeholder="Кількість цитувань у виданнях, що входять до НМБД" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="subject" placeholder="Наукометричні бази">
+                                <input type="text" class="form-control" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД">
                             </div>
-                            <div>
-                                <textarea class="textarea" placeholder="Вихідні данні" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                            <div class="form-group has-feedback">
+                                @Html.EnumDropDownListFor(m => m.ResearchDoneType, "За якою НДР виконано", new { @class = "form-control", @required = "required" })
+                            </div>
+
+                            <div class="form-group">
+                                <!--
+                                    ВЛАД ЭТО ОНО!!!!
+                                -->
+                                <div ng-show="mainCtrl.collaborators.length > 0">
+                                    <!--Selected collaborators-->
+                                    <div class="form-inline form-group">
+                                        <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.collaborators">
+                                            <input value="{{collab.Name}}" type="text" class="panel panel-title text-primary collab-title" readonly>
+                                            <input value="{{collab.UserId != null ? collab.UserId : collab.CollaboratorId}}" type="hidden" name="CollaboratorsIds" readonly>
+                                            <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromCollaborators($index)">X</button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div ng-show="mainCtrl.newCollaborators.length > 0">
+                                    <!--New collaborators-->
+                                    <div class="form-inline form-group">
+                                        <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.newCollaborators">
+                                            <input value="{{collab}}" type="text" class="panel panel-title text-primary collab-title" name="NewCollaboratorsNames">
+                                            <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromNewCollaborators($index)">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <input type="text" class="form-control" placeholder="Співавтор" ng-model="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
+                                <div class="autocomplete-block" ng-class="{'showblock': query.length > 0 }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
+                                    <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addCollaborators(teacher.UserId)">
+                                        {{teacher.Name}}
+                                    </div>
+                                </div>
+                                    <!--
+                                        ВЛАД ЭТО ОНО!!!!
+                                    -->
+
+                            </div>
+
+                            <div class="form-group">
+                                <input type="file" class="form-control" name="file" placeholder="Документ" required>
+                            </div>
+                            <div class="box-footer clearfix">
+                                <input type="submit" class="pull-right btn btn-default" value="Додати" />
                             </div>
                         </form>
                     </div>
-                    <div class="box-footer clearfix">
-                        <button class="pull-right btn btn-default" id="sendEmail">Додати<i class="fa fa-arrow-circle-right"></i></button>
-                    </div>
+
                 </div>
 
 

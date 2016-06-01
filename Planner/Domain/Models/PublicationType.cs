@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-   public class PublicationType
-    {
-        public PublicationType()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-        [Key]
-        public String Id { get; set; }
-        public PublicationsTypeEnum Value { get; set; }
-        public virtual ICollection<Publication> Publications { get; set; }
-    }
+	public class PublicationType
+	{
+		public PublicationType()
+		{
+			Id = Guid.NewGuid().ToString();
+		}
+		[Key]
+		public String Id { get; set; }
+		public PublicationTypeEnum Value { get; set; }
+		public virtual ICollection<Publication> Publications { get; set; }
+	}
 }

@@ -16,14 +16,18 @@ namespace Domain.Models
         }
         [Key]
         public String Id { get; set; }
-        public String PublicationId { get; set; }
+		public Double PageQuantity { get; set; }
+
+		public String PublicationId { get; set; }
         [ForeignKey("PublicationId")]
         public virtual Publication Publication { get; set; }
+
         public String UserId { get; set; }
-        [ForeignKey("UserId")]
-        public virtual ApplicationUser User { get; set; }
-		public Boolean MainAuthor { get; set; }
+		[ForeignKey("UserId")]
+		public virtual ApplicationUser User { get; set; }
 
-
+		public String CollaboratorId { get; set; }
+		[ForeignKey("CollaboratorId")]
+		public virtual ExternalCollaborator Collaborator { get; set; }
     }
 }

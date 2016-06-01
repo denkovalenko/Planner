@@ -1,0 +1,73 @@
+﻿@model Planner.Models.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Register";
+}
+<div class="login-box">
+    <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
+        @ViewBag.userAdd
+        <p class="login-box-msg">Реєстрація нового користувача</p>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Електронна адреса" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Прізвище" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Ім'я" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Отчество" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Підтвердіть пароль" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.ScholarLink, new { @class = "form-control", placeholder = "Профiль у Google Scholar" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.OrcidLink, new { @class = "form-control", placeholder = "Профiль у ORCID" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.EnumDropDownListFor(m => m.AcademicTitleEnum, "-- Виберiть ступiнь --", new { @class = "form-control" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.EnumDropDownListFor(m => m.DegreeEnum, "-- Виберiть звання --", new { @class = "form-control" })
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
+                </div>
+                <div class="form-group has-feedback">
+                    <select class="form-control" data-ng-model="faculty"
+                            data-ng-options="c.Id as c.Name for c in faculties">
+                        <option value="">-- Виберiть факультет--</option>
+                    </select>
+                </div>
+                <div class="form-group has-feedback">
+                    <select class="form-control" name="departmentId" data-ng-model="department" data-ng-disabled="!faculty"
+                            data-ng-options="s.Name for s in departments track by s.Id">
+                        <option value="">--Виберiть кафедру--</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
+                    </div><!-- /.col -->
+                </div>
+
+    <script src="~/Scripts/App/Controllers/registerController.js" ></script>
+
+
+        }
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

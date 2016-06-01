@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
+@model List<Domain.Reports.PublicationForm11>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,26 +17,60 @@
 
     <!-- Main content -->
     <section class="content">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-2 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-gray-light">
-                    <a href="#" class="inner btn-block">Создать <i class="fa glyphicon-cog"></i></a>
-                </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-gray-light">
-                    <a href="#" class="inner btn-block">Мои публикации <i class="fa glyphicon-certificate"></i></a>
-                </div>
-            </div><!-- ./col -->
-            <div class="col-lg-2 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-gray-light">
-                    <a href="#" class="inner btn-block">Черновики <i class="fa glyphicon-pencil"></i></a>
-                </div>
-            </div><!-- ./col -->
-        </div><!-- /.row -->
+        @Html.Partial("PublictionMenuPartial")
+        @if (Model != null && Model.Count != 0)
+        {
+            <div class="row">
+
+                <table class="table table-striped table-bordered col-lg-10">
+                    <thead>
+                        Публикации
+
+                        <tr>
+                            <th>Назва</th>
+                            <th>Характер роботи</th>
+                            <th>Вихідні дані</th>
+                            <th>Обсяг (стор.)</th>
+                            <th>Співавтори</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var pub in Model)
+                        {
+                            <tr>
+                                <td><b>@pub.PublicationType</b><br>@pub.Name</td>
+                                <td>@pub.StoringType</td>
+                                <td>@pub.Output</td>
+                                <td>@pub.Pages</td>
+                                <td>
+                                    @if (pub.Collaborators != null && pub.Collaborators.Count != 0)
+                                    {
+                                        <span>@pub.Collaborators[0].Name</span>
+                                        foreach (var col in pub.Collaborators.Skip(1))
+                                        {
+                                            <span>, @col.Name</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>Нет соавторов</span>
+                                    }
+
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>У вас еще нет публикаций</p>
+        }
     </section>
 </div><!-- /.content-wrapper -->

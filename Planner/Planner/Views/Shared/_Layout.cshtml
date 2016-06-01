@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="PlannerApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,10 @@
     <script src="~/Scripts/angular.js"></script>
     <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>
     <script src="~/Scripts/App/app.js"></script>
-    <script src="~/Scripts/App/controllers/demoController.js"></script>
+    <script src="~/Scripts/App/Services/keeperService.js"></script>
+    <script src="~/Scripts/App/Controllers/sidebarController.js"></script>
+    <script src="~/Scripts/App/Controllers/mainController.js"></script>
+    <script src="~/Scripts/App/Directives/ngEnter.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +39,7 @@
 
         @Html.Partial("Header");
 
-        <aside class="main-sidebar">
+        <aside class="main-sidebar" ng-controller="sidebarController as sideCtrl" ng-init="sideCtrl.init()" ng-cloak>
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- search form -->
@@ -61,16 +64,41 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">
-                            <a href="~/Home/Register">
+                            <a href="~/Account/Register">
                                 <i class="fa fa-table"></i> <span>Новi користувачi</span>
                             </a>
                         </li>
                     }
-                    <li class="treeview">
-                        <a href="~/Publication/Index">
-                            <i class="fa fa-table"></i> <span>Публикации</span>
+
+                    <li class="treeview" ng-show="serviceData.user.ScholarLink">
+                        <a href="{{serviceData.user.ScholarLink}}" target="_blank">
+                            <i class="fa fa-table"></i> <span>Google Scholar</span>
                         </a>
                     </li>
+                    <li class="treeview" ng-show="serviceData.user.OrcidLink">
+                        <a href="{{serviceData.user.OrcidLink}}" target="_blank">
+                            <i class="fa fa-table"></i> <span>ORCID</span>
+                        </a>
+                    </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Publication/Index">
+                                <i class="fa fa-table"></i> <span>Публикации</span>
+                            </a>
+                        </li>}
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Department/DepartmentPublications">
+                                <i class="fa fa-table"></i> <span>Звiт за кафедрою</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="~/Department/HalfYearDepartmentPublications">
+                                <i class="fa fa-table"></i> <span>Звiт за пiврiччя</span>
+                            </a>
+                        </li>}
                     <li class="treeview">
                         <a href="~/Timetable/Index">
                             <i class="fa fa-table"></i> <span>Расписание</span>

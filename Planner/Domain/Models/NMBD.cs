@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-   public class PublicationFeature
-    {
-        public PublicationFeature()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
-        [Key]
-        public String Id { get; set; }
-        public PublicationsFeatureEnum Value { get; set; }
+	public class NMBD
+	{
+		public NMBD()
+		{
+			Id = Guid.NewGuid().ToString();
+		}
+		[Key]
+		public String Id { get; set; }
+		public String Name { get; set; }
         public virtual ICollection<Publication> Publications { get; set; }
-    }
+	}
 }

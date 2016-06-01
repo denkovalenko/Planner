@@ -17,9 +17,19 @@ namespace Domain.Models
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Publication> Publications { get; set; }
-        public DbSet<PublicationType> PublicationTypes { get; set; }
         public DbSet<Rate> Rates { get; set; }
-        public ApplicationDbContext()
+		public DbSet<ExternalCollaborator> ExternalCollaborators { get; set; }
+		public DbSet<StoringType> StoringTypes { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+		public DbSet<ResearchDoneType> ResearchDoneTypes { get; set; }
+		public DbSet<NMBD> NMBDs { get; set; }
+
+
+		public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
+		public DbSet<PublicationUser> PublicationUsers { get; set; }
+		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
+
+		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
