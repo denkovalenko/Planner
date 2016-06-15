@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Звiт за пiврiччя";
 }
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-2 col-xs-6">
                 <!-- small box -->
-                <div class="small-box bg-gray-light">
+                <div class="small-box bg-gray-light" ng-show="false">
                     <a href="~/Department/PrintHalfYearDepartmentReport?id={{departmentForHalfYear.Id}}&name={{departmentForHalfYear.Name}}" class="inner btn-block">Печатать <i class="glyphicon glyphicon-arrow-down"></i></a>
                 </div>
             </div>
@@ -44,7 +44,7 @@
 
             <table class="table table-striped table-bordered col-lg-10">
                 <thead>
-                    Публикации за кафедрою
+                    Публікації за кафедрою
                 </thead>
                 <tr>
                     <th>Відповідальні підрозділи</th>

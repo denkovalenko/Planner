@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+	[Authorize]
     public class DepartmentController : Controller
     {
         // GET: Department
@@ -48,7 +49,7 @@ namespace Planner.Controllers
 		{
 			var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
 
-			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
+			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString().Replace('/', '-')}.xls");
 		}
 
 
@@ -60,8 +61,6 @@ namespace Planner.Controllers
 
 		public void PrintHalfYearDepartmentReport(string id, string name)
 		{
-			//var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
-
 			//return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
 		}
 	}

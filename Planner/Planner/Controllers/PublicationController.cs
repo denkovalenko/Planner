@@ -151,8 +151,7 @@ namespace Planner.Controllers
 		public FileResult PrintForm11()
 		{
 			var filestream = PublicationReportBuilder.PrintReportForm11(user);
-			
-			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls");
+			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls".Replace('/','-'));
 				
 							
 		}

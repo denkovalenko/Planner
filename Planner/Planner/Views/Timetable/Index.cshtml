@@ -1,5 +1,7 @@
 ﻿@model string
-
+@{ 
+    ViewBag.Title = "Розклад";
+}
 <script src="~/Scripts/App/Controllers/timetableController.js"></script>
 <div ng-controller="timetableController as ctrl" ng-init="ctrl.init()" class="content-wrapper">
     <div class="row">

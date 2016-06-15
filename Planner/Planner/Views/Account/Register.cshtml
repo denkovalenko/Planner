@@ -1,7 +1,7 @@
 ﻿@model Planner.Models.RegisterViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Нові користувачі";
 }
 <div class="login-box">
     <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
@@ -22,7 +22,7 @@
                     @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Ім'я" })
                 </div>
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "Отчество" })
+                    @Html.TextBoxFor(m => m.ThirdName, new { @class = "form-control", placeholder = "По батькові" })
                 </div>
                 <div class="form-group has-feedback">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Пароль" })

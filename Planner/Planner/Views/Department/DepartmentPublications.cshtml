@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Звiт за кафедрою";
 }
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -29,10 +29,10 @@
                     </select>
                 </div>
             </div>
-            <div class="col-lg-2 col-xs-6">
+            <div class="col-lg-2 col-xs-6" data-ng-if="publications.length > 0" ng-cloak>
                 <!-- small box -->
                 <div class="small-box bg-gray-light">
-                    <a href="~/Department/PrintDepartmentPublicationsReport?id={{departmentForPub.Id}}&name={{departmentForPub.Name}}" class="inner btn-block">Печатать <i class="glyphicon glyphicon-arrow-down"></i></a>
+                    <a href="~/Department/PrintDepartmentPublicationsReport?id={{departmentForPub.Id}}&name={{departmentForPub.Name}}" class="inner btn-block">Друк <i class="glyphicon glyphicon-arrow-down"></i></a>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
 
             <table class="table table-striped table-bordered col-lg-10">
                 <thead>
-                    Публикации за кафедрою
+                    Публікації за кафедрою
                 </thead>
                 <tr>
                     <th>№</th>
