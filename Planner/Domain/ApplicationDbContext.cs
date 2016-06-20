@@ -23,9 +23,10 @@ namespace Domain.Models
         public DbSet<Schedule> Schedules { get; set; }
 		public DbSet<ResearchDoneType> ResearchDoneTypes { get; set; }
 		public DbSet<NMBD> NMBDs { get; set; }
+        public DbSet<ScientificPublishing> ScientificPublishings { get; set; }
 
 
-		public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
+        public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }
 		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
 

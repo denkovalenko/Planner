@@ -101,6 +101,7 @@
     <Compile Include="Models\NMBD.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScientificPublishing.cs" />
     <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Migrations\Configuration.cs" />
