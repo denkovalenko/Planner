@@ -6,6 +6,8 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 	$scope.departments = [];
 	$scope.publications = [];
 	$scope.ScientificPublishing = {};
+	$scope.years = [(new Date()).getFullYear(), (new Date()).getFullYear() + 1,
+					(new Date()).getFullYear() + 2, (new Date()).getFullYear() + 3, (new Date()).getFullYear() + 4];
 
 	me.init = function () {
 		$http.get('/Department/Get').then(
@@ -34,21 +36,29 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 		}
 	});
 
-	$scope.$watch('departmentForHalfYear', function (newVal) {
-		if (newVal) {
-			$http.get('/Department/HalfYearDepartmentReport?depId=' + newVal.Id).then(
+	$scope.showHalfYear = function () {
+		$http.get(`/Department/HalfYearDepartmentReport?depId=${$scope.departmentForHalfYear.Id}&year=${$scope.year}&half=${$scope.half}`).then(
 				function (response) {
 					$scope.ScientificPublishing = response.data;
-					console.log($scope.ScientificPublishing);
 				}, function (response) {
 
 				});
-			//$scope.departments = [].filter.call($scope.faculties, function (element, index, array) {
-			//	return element.Id == newVal;
-			//})[0].Departments;
-		}
-		else {
-			//$scope.departments = null;
-		}
-	});
+	}
+	//$scope.$watch('departmentForHalfYear', function (newVal) {
+	//	if (newVal) {
+	//		$http.get('/Department/HalfYearDepartmentReport?depId=' + newVal.Id).then(
+	//			function (response) {
+	//				$scope.ScientificPublishing = response.data;
+	//				console.log($scope.ScientificPublishing);
+	//			}, function (response) {
+
+	//			});
+	//		//$scope.departments = [].filter.call($scope.faculties, function (element, index, array) {
+	//		//	return element.Id == newVal;
+	//		//})[0].Departments;
+	//	}
+	//	else {
+	//		//$scope.departments = null;
+	//	}
+	//});
 }]);

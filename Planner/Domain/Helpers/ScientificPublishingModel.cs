@@ -8,15 +8,15 @@ namespace Domain.Helpers
 {
 	public class ScientificPublishingModel
 	{
-		public Tuple<int, int, double> Monographs { get; set; }
-		public Tuple<int, int, double> MonographsNationalPublications { get; set; }
-		public Tuple<int, int, double> MonographsForeignJournals { get; set; }
-		public Tuple<int, int, double> AllPublications { get; set; }
-		public Tuple<int, int, double> ScientificPublicationsInScopus { get; set; }
-		public Tuple<int, int, double> ArticlesThesesInNmbd { get; set; }
-		public Tuple<int, int, double> ScientificPublicationsInForeignJournals { get; set; }
-		public Tuple<int, int, double> ArticlesInProfessionalPublications { get; set; }
-		public Tuple<int, int, double> ScientificArticlesInForeignLanguages { get; set; }
-		public Tuple<int, int, double> Abstracts { get; set; }
+		public Tuple<int, int, string> Monographs { get; set; }
+		public Tuple<int, int, string> MonographsNationalPublications { get; set; }
+		public Tuple<int, int, string> MonographsForeignJournals { get; set; }
+		public Tuple<int, int, string> AllPublications { get; set; }
+		public Tuple<int, int, string> ScientificPublicationsInScopus { get; set; }
+		public Tuple<int, int, string> ArticlesThesesInNmbd { get; set; }
+		public Tuple<int, int, string> ScientificPublicationsInForeignJournals { get; set; }
+		public Tuple<int, int, string> ArticlesInProfessionalPublications { get; set; }
+		public Tuple<int, int, string> ScientificArticlesInForeignLanguages { get; set; }
+		public Tuple<int, int, string> Abstracts { get; set; }
 	}
 }

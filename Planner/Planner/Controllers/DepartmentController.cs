@@ -53,9 +53,9 @@ namespace Planner.Controllers
 		}
 
 
-		public JsonResult HalfYearDepartmentReport(string depId)
+		public JsonResult HalfYearDepartmentReport(string depId, int year, int half)
 		{
-			var model = PublicationReportBuilder.ScientificPublishing(depId);
+			var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
 			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
 

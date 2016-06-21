@@ -297,7 +297,7 @@ namespace Calculation
 			}
 		}
 
-		public static ScientificPublishingModel ScientificPublishing(string depId)
+		public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
 		{
 			using (ApplicationDbContext db = new ApplicationDbContext())
 			{
@@ -309,6 +309,25 @@ namespace Calculation
 					.Select(u => u.u.Id)
 					.ToList();
 
+				var plans = db.ScientificPublishings
+					.Where(x => users.Any(u => u == x.UserId))
+					.Where(x => x.Year == year)
+					.ToList();
+
+				var plan = plans.Aggregate((prev,cur) => new ScientificPublishing
+					{
+						Abstracts = prev.Abstracts + cur.Abstracts,
+						AllPublications = prev.AllPublications + cur.AllPublications,
+						ArticlesInProfessionalPublications = prev.ArticlesInProfessionalPublications + cur.ArticlesInProfessionalPublications,
+						ArticlesThesesInNmbd = prev.ArticlesThesesInNmbd + prev.ArticlesThesesInNmbd,
+						Monographs = prev.Monographs + cur.Monographs,
+						MonographsForeignJournals = prev.MonographsForeignJournals + cur.MonographsForeignJournals,
+						MonographsNationalPublications = prev.MonographsNationalPublications + cur.MonographsNationalPublications,
+						ScientificArticlesInForeignLanguages = prev.ScientificArticlesInForeignLanguages + cur.ScientificArticlesInForeignLanguages,
+						ScientificPublicationsInForeignJournals = prev.ScientificPublicationsInForeignJournals + cur.ScientificPublicationsInForeignJournals,
+						ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
+						Year = prev.Year
+					});
 				//all publications of users in department
 				var publications = db.Publications
 					.Include("PublicationType")
@@ -316,49 +335,85 @@ namespace Calculation
 					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
 					.Where(x => users.Any(u => u == x.pu.UserId))
 					.OrderBy(x => x.p.PublishedAt)
+					//data range
 					.DistinctBy(x => x.p.Id)
 					.Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
 					.ToList();
 
-				var model = new ScientificPublishingModel()
+				var fact = new ScientificPublishing()
 				{
-					AllPublications = new Tuple<int, int, double>(0, publications.Count, 0),
+					AllPublications = publications.Count,
 
-					Abstracts = new Tuple<int, int, double>(0, publications
-								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(), 0),
+					Abstracts = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(),
 
-					ArticlesInProfessionalPublications = new Tuple<int, int, double>(0, publications
-								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(), 0),
+					ArticlesInProfessionalPublications = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
 
-					ArticlesThesesInNmbd = new Tuple<int, int, double>(0, publications
-								.Where(x => x.p.p.PublicationNMBDs.Count() > 0 
-								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(), 0),
+					ArticlesThesesInNmbd = publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
 
-					MonographsForeignJournals = new Tuple<int, int, double>(0, publications
-								.Where(x => x.p.p.IsOverseas 
+					MonographsForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas
 								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
 								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-								)).Count(), 0),
+								)).Count(),
 
-					Monographs = new Tuple<int, int, double>(0, publications
+					Monographs = publications
 								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(), 0),
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(),
 
-					MonographsNationalPublications = new Tuple<int, int, double>(0, publications
+					MonographsNationalPublications = publications
 								.Where(x => !x.p.p.IsOverseas
 								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
 								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-								)).Count(), 0),
+								)).Count(),
 
-					ScientificArticlesInForeignLanguages = new Tuple<int, int, double>(0,0,0),
+					ScientificArticlesInForeignLanguages = publications
+								.Where(x => x.p.p.IsOverseas
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
 
-					ScientificPublicationsInForeignJournals = new Tuple<int, int, double>(0, publications
-								.Where(x => x.p.p.IsOverseas).Count(), 0),
+					ScientificPublicationsInForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas).Count(),
 
-					ScientificPublicationsInScopus = new Tuple<int, int, double>(0, publications
+					ScientificPublicationsInScopus = publications
 								.Where(x => x.p.p.PublicationNMBDs.Count() > 0)
 								.Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
-								.Where(x => x.nmbd.Name == "SCOPUS").Count(), 0)
+								.Where(x => x.nmbd.Name == "SCOPUS").Count()
+				};
+
+				var model = new ScientificPublishingModel()
+				{
+					AllPublications = new Tuple<int, int, string>(plan.AllPublications, fact.AllPublications, 
+						(fact.AllPublications / plan.AllPublications).ToString("F2")),
+
+					Abstracts = new Tuple<int, int, string>(plan.Abstracts, fact.Abstracts, 
+						(fact.Abstracts / plan.Abstracts).ToString("F2")),
+
+					ArticlesInProfessionalPublications = new Tuple<int, int, string>(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications, 
+						(fact.ArticlesInProfessionalPublications / plan.ArticlesInProfessionalPublications).ToString("F2")),
+
+					ArticlesThesesInNmbd = new Tuple<int, int, string>(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd,
+						(fact.ArticlesThesesInNmbd / plan.ArticlesThesesInNmbd).ToString("F2")),
+
+					MonographsForeignJournals = new Tuple<int, int, string>(plan.MonographsForeignJournals, fact.MonographsForeignJournals,
+						(fact.MonographsForeignJournals / plan.MonographsForeignJournals).ToString("F2")),
+
+					Monographs = new Tuple<int, int, string>(plan.Monographs, fact.Monographs, 
+						(fact.Monographs / plan.Monographs).ToString("F2")),
+
+					MonographsNationalPublications = new Tuple<int, int, string>(plan.MonographsNationalPublications, fact.MonographsNationalPublications, 
+						(fact.MonographsNationalPublications / plan.MonographsNationalPublications).ToString("F2")),
+
+					ScientificArticlesInForeignLanguages = new Tuple<int, int, string>(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages,
+						(fact.ScientificArticlesInForeignLanguages / plan.ScientificArticlesInForeignLanguages).ToString("F2")),
+
+					ScientificPublicationsInForeignJournals = new Tuple<int, int, string>(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals, 
+						(fact.ScientificPublicationsInForeignJournals / plan.ScientificPublicationsInForeignJournals).ToString("F2")),
+
+					ScientificPublicationsInScopus = new Tuple<int, int, string>(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus, 
+						(fact.ScientificPublicationsInScopus / plan.ScientificPublicationsInScopus).ToString("F2"))
 				};
 
 
