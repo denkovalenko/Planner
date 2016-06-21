@@ -20,6 +20,7 @@ namespace Domain.Models
         public String UserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+		[Range(1930,2100,ErrorMessage = "Дата выходит за предел")]
         public int Year { get; set; }
 
         public int Monographs { get; set; }

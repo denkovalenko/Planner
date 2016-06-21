@@ -87,6 +87,13 @@
                                 <i class="fa fa-table"></i> <span>Публікації</span>
                             </a>
                         </li>}
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Plan/Index">
+                                <i class="fa fa-table"></i> <span>План</span>
+                            </a>
+                        </li>}
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">
