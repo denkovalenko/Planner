@@ -32,8 +32,15 @@
                             <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
                         </div><!-- /. tools -->
                     </div>
+                    
+
                     <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
                         <form action="~/Publication/Create" method="post" name="CreatePublication" enctype="multipart/form-data" novalidate>
+                            @if (Model.Error != null && Model.Error != String.Empty)
+                            {
+                                <div class="form-group">
+                                    <p class="panel panel-heading panel-danger alert-danger">@Model.Error</p>
+                                </div>}
                             <div class="form-group">
                                 <input type="text" class="form-control" name="name" placeholder="Назва" required>
                             </div>
@@ -80,6 +87,10 @@
                             </div>
 
                             <div class="form-group">
+                                <input type="date" class="form-control" name="PublishedAt" placeholder="Дата публікації">
+                            </div>
+
+                            <div class="form-group">
                                 <!--
                                     ВЛАД ЭТО ОНО!!!!
                                 -->
@@ -118,7 +129,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="file" class="form-control" name="file" placeholder="Документ" required>
+                                <input type="file" class="form-control" name="file" placeholder="Документ" required aria-required="true">
                             </div>
                             <div class="box-footer clearfix">
                                 <input type="submit" class="pull-right btn btn-default" value="Додати" />

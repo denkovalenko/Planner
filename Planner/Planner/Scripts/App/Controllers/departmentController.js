@@ -6,8 +6,8 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 	$scope.departments = [];
 	$scope.publications = [];
 	$scope.ScientificPublishing = {};
-	$scope.years = [(new Date()).getFullYear(), (new Date()).getFullYear() + 1,
-					(new Date()).getFullYear() + 2, (new Date()).getFullYear() + 3, (new Date()).getFullYear() + 4];
+	$scope.years = [(new Date()).getFullYear() - 1, (new Date()).getFullYear(), (new Date()).getFullYear() + 1,
+					(new Date()).getFullYear() + 2, (new Date()).getFullYear() + 3];
 
 	me.init = function () {
 		$http.get('/Department/Get').then(

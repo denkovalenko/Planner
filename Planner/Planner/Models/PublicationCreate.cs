@@ -22,5 +22,6 @@ namespace Planner.Models
 		public ResearchDoneTypeEnum ResearchDoneType { get; set; }
 		public StoringTypeEnum StoringType { get; set; }
 		public PublicationTypeEnum PublicationType { get; set; }
+		public DateTime PublishedAt { get; set; }
 	}
 }

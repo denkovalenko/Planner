@@ -34,13 +34,14 @@ namespace Planner.Controllers
 			return View(PublicationReportBuilder.CreateForm11(user));
 		}
 
-		public ActionResult Create()
+		public ActionResult Create(string error)
 		{
 			using (ApplicationDbContext db = new ApplicationDbContext())
 			{
 				var model = new CreatePublicationViewModel
 				{
 					NMDBs = db.NMBDs.ToList(),
+					Error = error
 				};
 
 				return View(model);
@@ -52,6 +53,10 @@ namespace Planner.Controllers
 		[HttpPost]
 		public ActionResult Create(PublicationCreate model, HttpPostedFileBase file)
 		{
+			if (file == null)
+			{
+				return RedirectToAction("Create", new { error = "Файл не выбран" });
+			}
 			using (ApplicationDbContext db = new ApplicationDbContext())
 			{
 				var filepath = ConfigurationManager.AppSettings["PublicationFolder"] + new Random().Next() + file.FileName.Substring(file.FileName.LastIndexOf('.'));
@@ -76,7 +81,7 @@ namespace Planner.Controllers
 						StoringType = new StoringType() { Value = model.StoringType },
 						PublicationType = new PublicationType() { Value = model.PublicationType },
 						CreatedAt = DateTime.Now.ToUniversalTime(),
-						PublishedAt = DateTime.Now.ToUniversalTime(),
+						PublishedAt = model.PublishedAt.ToUniversalTime(),
 						IsPublished = true,
 						IsOverseas = model.IsOverseas,
 						OwnerId = user.Id,

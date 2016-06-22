@@ -328,6 +328,7 @@ namespace Calculation
 						ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
 						Year = prev.Year
 					});
+				var dates = new Dates(year);
 				//all publications of users in department
 				var publications = db.Publications
 					.Include("PublicationType")
@@ -335,7 +336,17 @@ namespace Calculation
 					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
 					.Where(x => users.Any(u => u == x.pu.UserId))
 					.OrderBy(x => x.p.PublishedAt)
-					//data range
+					.Where(x => {
+						if(half == 1)
+						{
+							return x.p.PublishedAt > dates.StartStudy && x.p.PublishedAt < dates.EndFirstHalf;
+						}
+						if (half == 2)
+						{
+							return x.p.PublishedAt > dates.EndFirstHalf && x.p.PublishedAt < dates.EndSecondHalf;
+						}
+						return false;
+					})
 					.DistinctBy(x => x.p.Id)
 					.Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
 					.ToList();
@@ -385,40 +396,36 @@ namespace Calculation
 
 				var model = new ScientificPublishingModel()
 				{
-					AllPublications = new Tuple<int, int, string>(plan.AllPublications, fact.AllPublications, 
-						(fact.AllPublications / plan.AllPublications).ToString("F2")),
+					AllPublications = MakeTuple(plan.AllPublications, fact.AllPublications),
 
-					Abstracts = new Tuple<int, int, string>(plan.Abstracts, fact.Abstracts, 
-						(fact.Abstracts / plan.Abstracts).ToString("F2")),
+					Abstracts = MakeTuple(plan.Abstracts, fact.Abstracts),
 
-					ArticlesInProfessionalPublications = new Tuple<int, int, string>(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications, 
-						(fact.ArticlesInProfessionalPublications / plan.ArticlesInProfessionalPublications).ToString("F2")),
+					ArticlesInProfessionalPublications = MakeTuple(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications),
 
-					ArticlesThesesInNmbd = new Tuple<int, int, string>(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd,
-						(fact.ArticlesThesesInNmbd / plan.ArticlesThesesInNmbd).ToString("F2")),
+					ArticlesThesesInNmbd = MakeTuple(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd),
 
-					MonographsForeignJournals = new Tuple<int, int, string>(plan.MonographsForeignJournals, fact.MonographsForeignJournals,
-						(fact.MonographsForeignJournals / plan.MonographsForeignJournals).ToString("F2")),
+					MonographsForeignJournals = MakeTuple(plan.MonographsForeignJournals, fact.MonographsForeignJournals),
 
-					Monographs = new Tuple<int, int, string>(plan.Monographs, fact.Monographs, 
-						(fact.Monographs / plan.Monographs).ToString("F2")),
+					Monographs = MakeTuple(plan.Monographs, fact.Monographs),
 
-					MonographsNationalPublications = new Tuple<int, int, string>(plan.MonographsNationalPublications, fact.MonographsNationalPublications, 
-						(fact.MonographsNationalPublications / plan.MonographsNationalPublications).ToString("F2")),
+					MonographsNationalPublications = MakeTuple(plan.MonographsNationalPublications, fact.MonographsNationalPublications),
 
-					ScientificArticlesInForeignLanguages = new Tuple<int, int, string>(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages,
-						(fact.ScientificArticlesInForeignLanguages / plan.ScientificArticlesInForeignLanguages).ToString("F2")),
+					ScientificArticlesInForeignLanguages = MakeTuple(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages),
 
-					ScientificPublicationsInForeignJournals = new Tuple<int, int, string>(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals, 
-						(fact.ScientificPublicationsInForeignJournals / plan.ScientificPublicationsInForeignJournals).ToString("F2")),
+					ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
 
-					ScientificPublicationsInScopus = new Tuple<int, int, string>(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus, 
-						(fact.ScientificPublicationsInScopus / plan.ScientificPublicationsInScopus).ToString("F2"))
+					ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus), 
 				};
 
 
 				return model;
 			}
+		}
+
+		private static Tuple<int,int,string> MakeTuple(int plan,int fact)
+		{
+			return new Tuple<int, int, string>(plan, fact, plan != 0 ?
+					((double)fact / (double)plan * 100).ToString("F2") + "%" : "0.00%");
 		}
 	}
 }

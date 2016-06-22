@@ -26,7 +26,7 @@ namespace Planner.Controllers
         {
 			using (ApplicationDbContext db = new ApplicationDbContext())
 			{
-				return View(db.ScientificPublishings.ToList());
+				return View(db.ScientificPublishings.Where(x => x.UserId == user.Id).ToList());
 			}
         }
 

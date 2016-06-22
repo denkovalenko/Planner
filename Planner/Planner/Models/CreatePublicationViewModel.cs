@@ -15,6 +15,7 @@ namespace Planner.Models
 		public StoringTypeEnum StoringType { get; set; }
 		public PublicationTypeEnum PublicationType { get; set; }
 		public ResearchDoneTypeEnum ResearchDoneType { get; set; }
+		public String Error { get; set; }
 
 	}
 }
