@@ -10,6 +10,7 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 					(new Date()).getFullYear() + 2, (new Date()).getFullYear() + 3];
 
 	me.init = function () {
+	      $('input[name="daterange"]').daterangepicker();
 		$http.get('/Department/Get').then(
             function (response) {
             	$scope.departments = response.data;

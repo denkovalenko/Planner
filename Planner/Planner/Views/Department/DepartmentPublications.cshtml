@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Звiт за кафедрою";
 }
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -27,6 +28,15 @@
                             data-ng-options="s.Name for s in departments track by s.Id">
                         <option value="">--Виберiть кафедру--</option>
                     </select>
+                 
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="form-group has-feedback">
+                   
+                    <label for="from">Проміжок часу</label>
+                    <input type="text" id="from" name="daterange">
                 </div>
             </div>
             <div class="col-lg-2 col-xs-6" data-ng-if="publications.length > 0" ng-cloak>
