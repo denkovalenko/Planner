@@ -58,8 +58,14 @@ namespace Planner.Controllers
 			var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
 			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
-
-		public void PrintHalfYearDepartmentReport(string id, string name)
+        public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
+        {
+          
+           //var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+            //return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return new JsonResult() { Data = null, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        public void PrintHalfYearDepartmentReport(string id, string name)
 		{
 			//return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
 		}
