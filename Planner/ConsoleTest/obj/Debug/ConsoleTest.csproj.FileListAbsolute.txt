@@ -1,0 +1,9 @@
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\ConsoleTest.exe.config
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\ConsoleTest.exe
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\ConsoleTest.pdb
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\DocumentFormat.OpenXml.dll
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\SpreadsheetLight.dll
+D:\Новая папка\Planner\Planner\ConsoleTest\bin\Debug\SpreadsheetLight.xml
+D:\Новая папка\Planner\Planner\ConsoleTest\obj\Debug\ConsoleTest.exe
+D:\Новая папка\Planner\Planner\ConsoleTest\obj\Debug\ConsoleTest.pdb
+D:\Новая папка\Planner\Planner\ConsoleTest\obj\Debug\ConsoleTest.csprojResolveAssemblyReference.cache
