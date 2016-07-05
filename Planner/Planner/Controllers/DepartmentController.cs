@@ -1,7 +1,9 @@
 ﻿using Calculation;
 using Domain.Models;
+using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -60,14 +62,18 @@ namespace Planner.Controllers
 		}
         public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
         {
-
-
             var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
             return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
-        public void PrintHalfYearDepartmentReport(string id, string name)
+        public FileResult PrintHalfYearDepartmentReport(string depId, int year, int half)
 		{
-			//return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
+            var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+            SLDocument doc = PublicationReportBuilder.PrintHalfReport(model);
+            var ms = new MemoryStream();
+            doc.SaveAs(ms);
+            ms.Position = 0;
+            var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
+            return File(ms,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
 		}
 	}
 }

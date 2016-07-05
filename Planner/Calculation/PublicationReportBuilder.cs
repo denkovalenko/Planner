@@ -13,6 +13,7 @@ using OfficeOpenXml.Style;
 using System.Drawing;
 using System.IO;
 using Calculation.Extensions;
+using SpreadsheetLight;
 
 namespace Calculation
 {
@@ -135,7 +136,7 @@ namespace Calculation
             }
         }
 
-        public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start=null, DateTime? end=null)
+        public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start = null, DateTime? end = null)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -301,12 +302,72 @@ namespace Calculation
                 return pck.GetAsByteArray();
             }
         }
+        public static SLDocument PrintHalfReport(ScientificPublishingModel model)
+        {
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "Dodatki.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            #region Науково-видавнича
+            //Видання монографій (кількість):
+            sl.SetCellValue("D16", model.Monographs.Item1);
+            sl.SetCellValue("E16", model.Monographs.Item2);
+            sl.SetCellValue("F16", model.Monographs.Item3);
+            //у вітчизняний виданнях
+            sl.SetCellValue("D17", model.MonographsNationalPublications.Item1);
+            sl.SetCellValue("E17", model.MonographsNationalPublications.Item2);
+            sl.SetCellValue("F17", model.MonographsNationalPublications.Item3);
+            //у зарубіжних виданнях
+            sl.SetCellValue("D18", model.MonographsForeignJournals.Item1);
+            sl.SetCellValue("E18", model.MonographsForeignJournals.Item2);
+            sl.SetCellValue("F18", model.MonographsForeignJournals.Item3);
+            //ВСЬОГО ПУБЛІКАЦІЙ: в тому числі:
+            sl.SetCellValue("D19", model.AllPublications.Item1);
+            sl.SetCellValue("E19", model.AllPublications.Item2);
+            sl.SetCellValue("F19", model.AllPublications.Item3);
+            //наукові публікаціі в Scopus (кількість):
+            sl.SetCellValue("D20", model.ScientificPublicationsInScopus.Item1);
+            sl.SetCellValue("E20", model.ScientificPublicationsInScopus.Item2);
+            sl.SetCellValue("F20", model.ScientificPublicationsInScopus.Item3);
+            //публікацій (статі, тези), у виданнях, що входять до міжнародних науково- метричних баз даних (кількість):
+            sl.SetCellValue("D21", model.ArticlesThesesInNmbd.Item1);
+            sl.SetCellValue("E21", model.ArticlesThesesInNmbd.Item2);
+            sl.SetCellValue("F21", model.ArticlesThesesInNmbd.Item3);
+            //наукові публікації у зарубіжних виданнях (кількість).
+            sl.SetCellValue("D22", model.ScientificPublicationsInForeignJournals.Item1);
+            sl.SetCellValue("E22", model.ScientificPublicationsInForeignJournals.Item2);
+            sl.SetCellValue("F22", model.ScientificPublicationsInForeignJournals.Item3);
+            //статті у фахових видання (кількість):
+            sl.SetCellValue("D23", model.ArticlesInProfessionalPublications.Item1);
+            sl.SetCellValue("E23", model.ArticlesInProfessionalPublications.Item2);
+            sl.SetCellValue("F23", model.ArticlesInProfessionalPublications.Item3);
+            //публікація наукових статей іноземною мовою (кількість):
+            sl.SetCellValue("D24", model.ScientificArticlesInForeignLanguages.Item1);
+            sl.SetCellValue("E24", model.ScientificArticlesInForeignLanguages.Item2);
+            sl.SetCellValue("F24", model.ScientificArticlesInForeignLanguages.Item3);
+            //тези доповідей (кількість).
+            sl.SetCellValue("D25", model.Abstracts.Item1);
+            sl.SetCellValue("E25", model.Abstracts.Item2);
+            sl.SetCellValue("F25", model.Abstracts.Item3);
+            #endregion
+            var title = sl.GetCellValueAsString("C5");
+            sl.SetCellValue("C5", title + " " + model.DepartmentName + " " + model.Period);
+            var period = String.Empty;
+            if (model.Period.Contains("ІІ"))
+                period = "II період(01.09 - 15.01)";
+            else
+                period = "I період (01.01-30.06)";
+            sl.SetCellValue("C5", title + " " + model.DepartmentName + " " + model.Period);
+            sl.SetCellValue("D7", period);
+           
+            return sl;
+        }
 
         public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
 
+                var departmentName = db.Departments.Where(x => x.Id == depId).Select(x => x.Name).FirstOrDefault();
                 //all users in selected department
                 var users = db.DepartmentUsers
                     .Where(x => x.DepartmentId == depId)
@@ -334,6 +395,11 @@ namespace Calculation
                     Year = prev.Year
                 });
                 var dates = new Dates(year);
+                var period = String.Empty;
+                if (half == 1)
+                    period = "за І півріччя " + year + " року";
+                else
+                    period = "за ІІ півріччя " + year + " року";
                 //all publications of users in department
                 var publications = db.Publications
                     .Include("PublicationType")
@@ -421,6 +487,8 @@ namespace Calculation
                     ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
 
                     ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus),
+                    DepartmentName = departmentName,
+                    Period = period
                 };
 
 

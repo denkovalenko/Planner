@@ -36,6 +36,14 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
 
 				});
     }
+    $scope.printHalfYear = function () {
+        $http.get(`/Department/PrintHalfYearDepartmentReport?depId=${$scope.departmentForHalfYear.Id}&year=${$scope.year}&half=${$scope.half}`).then(
+				function (response) {
+				    debugger;
+				}, function (response) {
+
+				});
+    }
     $scope.showByDateRange = function () {
         var start = new Date($scope.fromDate).toISOString();
         var end = new Date($scope.toDate).toISOString();

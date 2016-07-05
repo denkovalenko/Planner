@@ -112,9 +112,32 @@ namespace Planner
                          new Schedule(){UserName="Шушлякова Оксана Валеріївна",ApiId="352847"},
                          new Schedule(){UserName="Ялдін Ігор Володимирович",ApiId="352406"}
                      } },
+                    #endregion
+                    #region Кафедра економiчного аналiзу
+                    new Department() {Name="Кафедра економiчного аналiзу",Schedules=new List<Schedule>() {
+                         new Schedule() {UserName="Азаренков Григорій Федорович",ApiId="352358" },
+                         new Schedule() {UserName="Афанасьєва Лариса Миколаївна",ApiId="355147" },
+                         new Schedule() {UserName="Гапон Юлія Володимирівна",ApiId="355149" },
+                         new Schedule() {UserName="Іванієнко Віктор Васильович",ApiId="336082" },
+                         new Schedule(){UserName="Іващенко Ганна Анатоліївна",ApiId="352744" },
+                         new Schedule(){UserName="Корчагіна Галина Анатоліївна",ApiId="352808" },
+                         new Schedule(){UserName="Котов Антон Миколайович",ApiId="357798" },
+                         new Schedule(){UserName="Кузнецов Олег Віталійович",ApiId="352330" },
+                         new Schedule(){UserName="Мішин Олександр Юрійович",ApiId="352745" },
+                         new Schedule(){UserName="Москаленко Наталя Олександрівна",ApiId="352746" },
+                         new Schedule(){UserName="Отенко Ірина Павлівна",ApiId="357752" },
+                         new Schedule(){UserName="Перепелюкова Олена Василівна",ApiId="353101" },
+                         new Schedule(){UserName="Петряєва Зоя Федорівна",ApiId="340527" },
+                         new Schedule(){UserName="Преображенська Олена Сергіївна",ApiId="354093" },
+                         new Schedule(){UserName="Савенко Ксенія Сергіївна",ApiId="352410" },
+                         new Schedule(){UserName="Сапрун Галина Григорівна",ApiId="340528" },
+                         new Schedule(){UserName="Фадєєва Юлія Володимирівна",ApiId="352809" },
+                         new Schedule(){UserName="Чепелюк Маргарита Ігорівна",ApiId="355150" },
+                         new Schedule(){UserName="Чечетова-Терашвілі Тетяна Михайлівна",ApiId="352409" },
+                         new Schedule(){UserName="Яртим Ірина Анатоліївна",ApiId="355148"}
+                     } },
 #endregion
-                    new Department() {Name="Кафедра економiчного аналiзу" },
-#region Кафедра вищої математики та оцiнки майна пiдприємств
+                    #region Кафедра вищої математики та оцiнки майна пiдприємств
                     new Department() {Name="Кафедра вищої математики та оцiнки майна пiдприємств",Schedules=new List<Schedule>() {
                          new Schedule(){UserName="Афанасьєва Лідія Михайлівна",ApiId="352756" },
                          new Schedule(){UserName="Воронін Анатолій Віталійович",ApiId="340524" },
@@ -135,9 +158,37 @@ namespace Planner
                          new Schedule(){UserName="Шевченко Олександра Кирилівна",ApiId="357241" },
                          new Schedule(){UserName="Шупіков Олександр Миколайович",ApiId="277386" },
                      } },
+                    #endregion
+#region Кафедра контролю i аудиту
+                    new Department() {Name="Кафедра контролю i аудиту",Schedules=new List<Schedule>() {
+                         new Schedule(){UserName="Бондаренко Олена Олександрівна",ApiId="357243" },
+                         new Schedule(){UserName="Бутенко Каріна Володимирівна",ApiId="342934" },
+                         new Schedule(){UserName="Владімірова Наталія Петрівна",ApiId="345298"},
+                         new Schedule(){UserName="Воінова Тетяна Сергіївна",ApiId="328633"},
+                         new Schedule(){UserName="Дейнеко Євген Валерійович",ApiId="352810" },
+                         new Schedule(){UserName="Дікань Лариса Василівна",ApiId="352946" },
+                         new Schedule(){UserName="Калінкін Дмитро Володимирович",ApiId="355151" },
+                         new Schedule(){UserName="Кожушко Ольга Вікторівна",ApiId="340677" },
+                         new Schedule(){UserName="Крівцова Тетяна Олександрівна",ApiId="352850" },
+                         new Schedule(){UserName="Лядова Юлія Олександрівна",ApiId="352848" },
+                         new Schedule(){UserName="Мултанівська Тетяна Володимирівна",ApiId="352762" },
+                         new Schedule(){UserName="Понікаров Валерій Дмитрович",ApiId="357751" },
+                         new Schedule(){UserName="Шевченко Ірина Олександрівна",ApiId="357421" }
+                     } },
+                    #endregion
+#region Кафедра філософії та політології
+                    new Department() {Name="Кафедра філософії та політології",Schedules=new List<Schedule>() {
+                         new Schedule(){UserName="Гетало Тетяна Євгенівна",ApiId="352763" },
+                         new Schedule(){UserName="Жеребятнікова Ірина Володимирівна",ApiId="341352" },
+                         new Schedule(){UserName="Коннова Ніна Олексіївна",ApiId="352764"},
+                         new Schedule(){UserName="Коротков Дмитро Сергійович",ApiId="334804"},
+                         new Schedule(){UserName="Косова Юлія Вікторівна",ApiId="352525" },
+                         new Schedule(){UserName="Кузь Олег Миколайович",ApiId="352765" },
+                         new Schedule(){UserName="Потоцька Юлія Іванівна",ApiId="340546" },
+                         new Schedule(){UserName="Стрижко Валентина Опанасівна",ApiId="352766" },
+                         new Schedule(){UserName="Чешко Валентин Федорович",ApiId="352811" }
+                     } }
 #endregion
-                    new Department() {Name="Кафедра контролю i аудиту" },
-                    new Department() {Name="Кафедра філософії та політології" }
                 }
             });
             f.Add(new Faculty()

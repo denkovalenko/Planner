@@ -18,5 +18,7 @@ namespace Domain.Helpers
 		public Tuple<int, int, string> ArticlesInProfessionalPublications { get; set; }
 		public Tuple<int, int, string> ScientificArticlesInForeignLanguages { get; set; }
 		public Tuple<int, int, string> Abstracts { get; set; }
+        public String DepartmentName { get; set; }
+        public String Period { get; set; }
 	}
 }

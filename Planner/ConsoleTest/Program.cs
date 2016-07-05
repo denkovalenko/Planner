@@ -11,6 +11,7 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
+
             Random rand = new Random();
 
             System.Data.DataTable dt = new System.Data.DataTable();
