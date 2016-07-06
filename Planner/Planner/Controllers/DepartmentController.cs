@@ -41,17 +41,27 @@ namespace Planner.Controllers
 			}
 		}
 
-        public JsonResult DepartmentPublicationsReport(string depId)
-        {
-            var model = PublicationReportBuilder.CreateDeparmentReport(depId);    
-            return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-
-		public FileResult PrintDepartmentPublicationsReport(string id, string name)
+		public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
 		{
-			var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
+			var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
+			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+		}
+		public ActionResult PrintDepartmentPublicationsReport(string depId, DateTime start, DateTime end)
+		{
+			var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
+			if(model.Count > 0)
+			{
+				var filestream = PublicationReportBuilder.PrintDepartmentReport(model);
+				var name = $"Публикации - {model[0].DepartmentName}";
+				if (model[0].Start != null && model[0].End != null)
+				{
+					name += $" за {model[0].Start.Value.ToShortDateString().Replace('/', '-')} - {model[0].End.Value.ToShortDateString().Replace('/', '-')}";
+				}
 
-			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString().Replace('/', '-')}.xls");
+				return File(filestream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{name}.xls");
+			}
+			return RedirectToAction("DepartmentPublications");
+			
 		}
 
 
@@ -60,11 +70,7 @@ namespace Planner.Controllers
 			var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
 			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
-        public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
-        {
-            var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
-            return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
+        
         public FileResult PrintHalfYearDepartmentReport(string depId, int year, int half)
 		{
             var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);

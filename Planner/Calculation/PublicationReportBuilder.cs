@@ -19,7 +19,8 @@ namespace Calculation
 {
     public static class PublicationReportBuilder
     {
-        public static List<PublicationForm11> CreateForm11(ApplicationUser user)
+		#region Отчет по всем публикациям юзера
+		public static List<PublicationForm11> CreateForm11(ApplicationUser user)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -135,8 +136,10 @@ namespace Calculation
                 //pck.SaveAs(new FileInfo(filepath));
             }
         }
+		#endregion
 
-        public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start = null, DateTime? end = null)
+		#region Отчет по кафедре за период
+		public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start = null, DateTime? end = null)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -184,7 +187,9 @@ namespace Calculation
                             ResearchDoneType = ((DisplayAttribute)typeof(ResearchDoneTypeEnum)
                                 .GetMember(x.p.p.ResearchDoneType.Value.ToString())[0]
                                 .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-                            Collaborators = new List<Author>()
+                            Collaborators = new List<Author>(),
+							Start = start,
+							End = end
 
                         })
                         .ToList();
@@ -220,15 +225,21 @@ namespace Calculation
             }
         }
 
-        public static byte[] PrintDepartmentReport(string depId, string name)
+        public static byte[] PrintDepartmentReport(List<PublicationOnDepartment> model)
         {
             using (ExcelPackage pck = new ExcelPackage())
             {
-                var datasource = CreateDeparmentReport(depId);
+                var datasource = model;
+				var name = $"Публикации - {datasource[0].DepartmentName}";
+				if (datasource[0].Start != null && datasource[0].End != null)
+				{
+					name += $" за {datasource[0].Start.Value.ToShortDateString()} - {datasource[0].End.Value.ToShortDateString()}";
+				}
 
-                ExcelWorksheet ws = pck.Workbook.Worksheets.Add($"Публикации - {name}");
+				ExcelWorksheet ws = pck.Workbook.Worksheets.Add(name);
 
-                var frmt = ws.Cells;
+
+				var frmt = ws.Cells;
                 frmt.Style.ShrinkToFit = false;
                 frmt.Style.Indent = 5;
                 frmt.Style.Border.BorderAround(ExcelBorderStyle.Medium, Color.Black);
@@ -302,7 +313,144 @@ namespace Calculation
                 return pck.GetAsByteArray();
             }
         }
-        public static SLDocument PrintHalfReport(ScientificPublishingModel model)
+
+		#endregion
+
+		#region Отчет за полугодие
+		public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+
+				var departmentName = db.Departments.Where(x => x.Id == depId).Select(x => x.Name).FirstOrDefault();
+				//all users in selected department
+				var users = db.DepartmentUsers
+					.Where(x => x.DepartmentId == depId)
+					.Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
+					.Select(u => u.u.Id)
+					.ToList();
+
+				var plans = db.ScientificPublishings
+					.Where(x => users.Any(u => u == x.UserId))
+					.Where(x => x.Year == year)
+					.ToList();
+
+				var plan = plans.Aggregate((prev, cur) => new ScientificPublishing
+				{
+					Abstracts = prev.Abstracts + cur.Abstracts,
+					AllPublications = prev.AllPublications + cur.AllPublications,
+					ArticlesInProfessionalPublications = prev.ArticlesInProfessionalPublications + cur.ArticlesInProfessionalPublications,
+					ArticlesThesesInNmbd = prev.ArticlesThesesInNmbd + prev.ArticlesThesesInNmbd,
+					Monographs = prev.Monographs + cur.Monographs,
+					MonographsForeignJournals = prev.MonographsForeignJournals + cur.MonographsForeignJournals,
+					MonographsNationalPublications = prev.MonographsNationalPublications + cur.MonographsNationalPublications,
+					ScientificArticlesInForeignLanguages = prev.ScientificArticlesInForeignLanguages + cur.ScientificArticlesInForeignLanguages,
+					ScientificPublicationsInForeignJournals = prev.ScientificPublicationsInForeignJournals + cur.ScientificPublicationsInForeignJournals,
+					ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
+					Year = prev.Year
+				});
+				var dates = new Dates(year);
+				var period = String.Empty;
+				if (half == 1)
+					period = "за І півріччя " + year + " року";
+				else
+					period = "за ІІ півріччя " + year + " року";
+				//all publications of users in department
+				var publications = db.Publications
+					.Include("PublicationType")
+					.AsEnumerable()
+					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
+					.Where(x => users.Any(u => u == x.pu.UserId))
+					.OrderBy(x => x.p.PublishedAt)
+					.Where(x =>
+					{
+						if (half == 1)
+						{
+							return x.p.PublishedAt > dates.StartStudy && x.p.PublishedAt < dates.EndFirstHalf;
+						}
+						if (half == 2)
+						{
+							return x.p.PublishedAt > dates.EndFirstHalf && x.p.PublishedAt < dates.EndSecondHalf;
+						}
+						return false;
+					})
+					.DistinctBy(x => x.p.Id)
+					.Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
+					.ToList();
+
+				var fact = new ScientificPublishing()
+				{
+					AllPublications = publications.Count,
+
+					Abstracts = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(),
+
+					ArticlesInProfessionalPublications = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					ArticlesThesesInNmbd = publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					MonographsForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(),
+
+					Monographs = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(),
+
+					MonographsNationalPublications = publications
+								.Where(x => !x.p.p.IsOverseas
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(),
+
+					ScientificArticlesInForeignLanguages = publications
+								.Where(x => x.p.p.IsOverseas
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					ScientificPublicationsInForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas).Count(),
+
+					ScientificPublicationsInScopus = publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0)
+								.Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
+								.Where(x => x.nmbd.Name == "SCOPUS").Count()
+				};
+
+				var model = new ScientificPublishingModel()
+				{
+					AllPublications = MakeTuple(plan.AllPublications, fact.AllPublications),
+
+					Abstracts = MakeTuple(plan.Abstracts, fact.Abstracts),
+
+					ArticlesInProfessionalPublications = MakeTuple(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications),
+
+					ArticlesThesesInNmbd = MakeTuple(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd),
+
+					MonographsForeignJournals = MakeTuple(plan.MonographsForeignJournals, fact.MonographsForeignJournals),
+
+					Monographs = MakeTuple(plan.Monographs, fact.Monographs),
+
+					MonographsNationalPublications = MakeTuple(plan.MonographsNationalPublications, fact.MonographsNationalPublications),
+
+					ScientificArticlesInForeignLanguages = MakeTuple(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages),
+
+					ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
+
+					ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus),
+					DepartmentName = departmentName,
+					Period = period
+				};
+
+
+				return model;
+			}
+		}
+		public static SLDocument PrintHalfReport(ScientificPublishingModel model)
         {
             var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             var path = Path.Combine(folder, "Dodatki.xlsx");
@@ -361,145 +509,13 @@ namespace Calculation
            
             return sl;
         }
+		
+		private static Tuple<int, int, string> MakeTuple(int plan, int fact)
+		{
+			return new Tuple<int, int, string>(plan, fact, plan != 0 ?
+					((double)fact / (double)plan * 100).ToString("F2") + "%" : "0.00%");
+		}
+		#endregion
 
-        public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-
-                var departmentName = db.Departments.Where(x => x.Id == depId).Select(x => x.Name).FirstOrDefault();
-                //all users in selected department
-                var users = db.DepartmentUsers
-                    .Where(x => x.DepartmentId == depId)
-                    .Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
-                    .Select(u => u.u.Id)
-                    .ToList();
-
-                var plans = db.ScientificPublishings
-                    .Where(x => users.Any(u => u == x.UserId))
-                    .Where(x => x.Year == year)
-                    .ToList();
-
-                var plan = plans.Aggregate((prev, cur) => new ScientificPublishing
-                {
-                    Abstracts = prev.Abstracts + cur.Abstracts,
-                    AllPublications = prev.AllPublications + cur.AllPublications,
-                    ArticlesInProfessionalPublications = prev.ArticlesInProfessionalPublications + cur.ArticlesInProfessionalPublications,
-                    ArticlesThesesInNmbd = prev.ArticlesThesesInNmbd + prev.ArticlesThesesInNmbd,
-                    Monographs = prev.Monographs + cur.Monographs,
-                    MonographsForeignJournals = prev.MonographsForeignJournals + cur.MonographsForeignJournals,
-                    MonographsNationalPublications = prev.MonographsNationalPublications + cur.MonographsNationalPublications,
-                    ScientificArticlesInForeignLanguages = prev.ScientificArticlesInForeignLanguages + cur.ScientificArticlesInForeignLanguages,
-                    ScientificPublicationsInForeignJournals = prev.ScientificPublicationsInForeignJournals + cur.ScientificPublicationsInForeignJournals,
-                    ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
-                    Year = prev.Year
-                });
-                var dates = new Dates(year);
-                var period = String.Empty;
-                if (half == 1)
-                    period = "за І півріччя " + year + " року";
-                else
-                    period = "за ІІ півріччя " + year + " року";
-                //all publications of users in department
-                var publications = db.Publications
-                    .Include("PublicationType")
-                    .AsEnumerable()
-                    .Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
-                    .Where(x => users.Any(u => u == x.pu.UserId))
-                    .OrderBy(x => x.p.PublishedAt)
-                    .Where(x =>
-                    {
-                        if (half == 1)
-                        {
-                            return x.p.PublishedAt > dates.StartStudy && x.p.PublishedAt < dates.EndFirstHalf;
-                        }
-                        if (half == 2)
-                        {
-                            return x.p.PublishedAt > dates.EndFirstHalf && x.p.PublishedAt < dates.EndSecondHalf;
-                        }
-                        return false;
-                    })
-                    .DistinctBy(x => x.p.Id)
-                    .Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
-                    .ToList();
-
-                var fact = new ScientificPublishing()
-                {
-                    AllPublications = publications.Count,
-
-                    Abstracts = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(),
-
-                    ArticlesInProfessionalPublications = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    ArticlesThesesInNmbd = publications
-                                .Where(x => x.p.p.PublicationNMBDs.Count() > 0
-                                && x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    MonographsForeignJournals = publications
-                                .Where(x => x.p.p.IsOverseas
-                                && (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-                                )).Count(),
-
-                    Monographs = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(),
-
-                    MonographsNationalPublications = publications
-                                .Where(x => !x.p.p.IsOverseas
-                                && (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-                                )).Count(),
-
-                    ScientificArticlesInForeignLanguages = publications
-                                .Where(x => x.p.p.IsOverseas
-                                && x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    ScientificPublicationsInForeignJournals = publications
-                                .Where(x => x.p.p.IsOverseas).Count(),
-
-                    ScientificPublicationsInScopus = publications
-                                .Where(x => x.p.p.PublicationNMBDs.Count() > 0)
-                                .Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
-                                .Where(x => x.nmbd.Name == "SCOPUS").Count()
-                };
-
-                var model = new ScientificPublishingModel()
-                {
-                    AllPublications = MakeTuple(plan.AllPublications, fact.AllPublications),
-
-                    Abstracts = MakeTuple(plan.Abstracts, fact.Abstracts),
-
-                    ArticlesInProfessionalPublications = MakeTuple(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications),
-
-                    ArticlesThesesInNmbd = MakeTuple(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd),
-
-                    MonographsForeignJournals = MakeTuple(plan.MonographsForeignJournals, fact.MonographsForeignJournals),
-
-                    Monographs = MakeTuple(plan.Monographs, fact.Monographs),
-
-                    MonographsNationalPublications = MakeTuple(plan.MonographsNationalPublications, fact.MonographsNationalPublications),
-
-                    ScientificArticlesInForeignLanguages = MakeTuple(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages),
-
-                    ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
-
-                    ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus),
-                    DepartmentName = departmentName,
-                    Period = period
-                };
-
-
-                return model;
-            }
-        }
-
-        private static Tuple<int, int, string> MakeTuple(int plan, int fact)
-        {
-            return new Tuple<int, int, string>(plan, fact, plan != 0 ?
-                    ((double)fact / (double)plan * 100).ToString("F2") + "%" : "0.00%");
-        }
-    }
+	}
 }
