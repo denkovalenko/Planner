@@ -65,21 +65,34 @@ namespace Planner.Controllers
 		}
 
 
-		public JsonResult HalfYearDepartmentReport(string depId, int year, int half)
-		{
-			var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
-			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-		}
-        
-        public FileResult PrintHalfYearDepartmentReport(string depId, int year, int half)
-		{
-            var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
-            SLDocument doc = PublicationReportBuilder.PrintHalfReport(model);
-            var ms = new MemoryStream();
-            doc.SaveAs(ms);
-            ms.Position = 0;
-            var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
-            return File(ms,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
-		}
-	}
+        public JsonResult HalfYearDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public ActionResult PrintHalfYearDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                SLDocument doc = PublicationReportBuilder.PrintHalfReport(model);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/Department/HalfYearDepartmentPublications");
+            }
+        }
+    }
 }
