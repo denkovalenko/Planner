@@ -147,6 +147,7 @@ namespace Planner.Controllers
 				catch (Exception ex)
 				{
 					System.IO.File.Delete(Server.MapPath(filepath));
+					throw ex;
 				}
 
 				return RedirectToAction("Index");

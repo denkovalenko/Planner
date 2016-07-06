@@ -9,3 +9,6 @@
 /Planner/.vs
 /Planner/Planner/Web.config
 /Planner/Domain/App.config
+PlannerFiles
+/Planner/ConsoleTest/bin
+/Planner/ConsoleTest/obj
