@@ -1820,6 +1820,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Documents\" />
+    <Folder Include="Files\" />
     <Folder Include="Views\Author\" />
     <Folder Include="Views\Faculty\" />
   </ItemGroup>

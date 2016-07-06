@@ -28,31 +28,34 @@ PlannerApp.controller('departmentController', ['$scope', '$http', function ($sco
             });
     };
 
-    $scope.showHalfYear = function () {
-        $http.get(`/Department/HalfYearDepartmentReport?depId=${$scope.departmentForHalfYear.Id}&year=${$scope.year}&half=${$scope.half}`).then(
-				function (response) {
-				    $scope.ScientificPublishing = response.data;
-				}, function (response) {
-
-				});
-    }
-    $scope.printHalfYear = function () {
-        $http.get(`/Department/PrintHalfYearDepartmentReport?depId=${$scope.departmentForHalfYear.Id}&year=${$scope.year}&half=${$scope.half}`).then(
-				function (response) {
-				    debugger;
-				}, function (response) {
-
-				});
-    }
+	//department report for the date range
     $scope.showByDateRange = function () {
-        var start = new Date($scope.fromDate).toISOString();
-        var end = new Date($scope.toDate).toISOString();
-        $http.get(`/Department/DateRangeDepartmentReport?depId=${$scope.departmentForPub.Id}&start=${start}&end=${end}`).then(
+    	var start = new Date($scope.fromDate).toISOString();
+    	var end = new Date($scope.toDate).toISOString();
+    	$http.get(`/Department/DateRangeDepartmentReport?depId=${$scope.departmentForPub.Id}&start=${start}&end=${end}`).then(
 				function (response) {
 					$scope.publications = response.data;
 				}, function (response) {
 
 				});
-    }
+    };
+	//download department report for the date range
+    $scope.downloadDepartmentReport = function () {
+    	var start = new Date($scope.fromDate).toISOString();
+    	var end = new Date($scope.toDate).toISOString();
+    	window.location.assign(`/Department/PrintDepartmentPublicationsReport?depId=${$scope.departmentForPub.Id}&start=${start}&end=${end}`);
+    };
+
+	//department report for the half of selected year
+    $scope.showHalfYear = function () {
+    	$http.get(`/Department/HalfYearDepartmentReport?depId=${$scope.departmentForHalfYear.Id}&year=${$scope.year}&half=${$scope.half}`).then(
+				function (response) {
+					$scope.ScientificPublishing = response.data;
+				}, function (response) {
+
+				});
+    };
+
+    
 
 }]);

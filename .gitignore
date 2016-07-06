@@ -7,4 +7,5 @@
 /Planner/Console/bin
 /Planner/Domain/obj
 /Planner/.vs
-
+/Planner/ConsoleTest/bin
+/Planner/ConsoleTest/obj

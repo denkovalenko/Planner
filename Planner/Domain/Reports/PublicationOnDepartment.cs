@@ -22,5 +22,8 @@ namespace Domain.Reports
         public List<Author> Collaborators { get; set; }
         public String OwnerId { get; set; }
         public String DepartmentName { get; set; }
-    }
+		public DateTime? Start { get; set; }
+		public DateTime? End { get; set; }
+
+	}
 }
