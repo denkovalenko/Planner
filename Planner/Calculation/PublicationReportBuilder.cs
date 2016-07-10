@@ -225,93 +225,52 @@ namespace Calculation
             }
         }
 
-        public static byte[] PrintDepartmentReport(List<PublicationOnDepartment> model)
+        public static SLDocument PrintDepartmentReport(List<PublicationOnDepartment> model)
         {
-            using (ExcelPackage pck = new ExcelPackage())
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "DepartmentReport.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            for(int i=0; i < model.Count; i++)
             {
-                var datasource = model;
-				var name = $"Публикации - {datasource[0].DepartmentName}";
-				if (datasource[0].Start != null && datasource[0].End != null)
-				{
-					name += $" за {datasource[0].Start.Value.ToShortDateString()} - {datasource[0].End.Value.ToShortDateString()}";
-				}
-
-				ExcelWorksheet ws = pck.Workbook.Worksheets.Add(name);
-
-
-				var frmt = ws.Cells;
-                frmt.Style.ShrinkToFit = false;
-                frmt.Style.Indent = 5;
-                frmt.Style.Border.BorderAround(ExcelBorderStyle.Medium, Color.Black);
-                ws.DefaultColWidth = 200;
-
-                ws.Column(1).AutoFit(35, 50);
-                ws.Column(2).AutoFit(35, 50);
-                ws.Column(3).AutoFit(35, 50);
-                ws.Column(4).AutoFit(35, 50);
-                ws.Column(5).AutoFit(35, 50);
-                ws.Column(6).AutoFit(35, 50);
-                ws.Column(7).AutoFit(35, 50);
-                ws.Column(8).AutoFit(35, 50);
-                ws.Column(9).AutoFit(35, 50);
-                ws.Column(10).AutoFit(35, 50);
-                ws.Column(11).AutoFit(35, 50);
-                ws.Column(12).AutoFit(35, 50);
-
-                ws.Cells[1, 1].Value = "Автори";
-                ws.Cells[1, 2].Value = "Назва роботи";
-                ws.Cells[1, 3].Value = "Тип видання";
-                ws.Cells[1, 4].Value = "Назва видання, дата видання (ЧЧ.ММ.РР)";
-                ws.Cells[1, 5].Value = "Обсяг, ум.- друк. арк., усього";
-                ws.Cells[1, 6].Value = "Обсяг, ум.- друк. арк., частка кафедри";
-                ws.Cells[1, 7].Value = "За кордонне видання";
-                ws.Cells[1, 8].Value = "НМБД";
-                ws.Cells[1, 9].Value = "Кількість цитувань у виданнях, що входять до НМБД Scopus/Google Scolar";
-                ws.Cells[1, 10].Value = "Імпакт-фактор видання, тільки з НМБД";
-                ws.Cells[1, 11].Value = "За якою НДР виконано";
-                ws.Cells[1, 12].Value = "Назва кафедри";
-
-                ws.Column(6).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(7).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(8).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(9).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(10).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(12).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(6).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(7).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(8).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(9).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(10).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(12).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                for (int i = 0; i < datasource.Count(); i++)
+                sl.SetCellStyle($"A{i + 6}", new SLStyle()
                 {
-                    ws.Cells[i + 2, 1].Value = datasource.ElementAt(i).Collaborators[0].Name;
-                    foreach (var lab in datasource.ElementAt(i).Collaborators.Skip(1))
-                        ws.Cells[i + 2, 1].Value += ", " + lab.Name;
-
-                    ws.Cells[i + 2, 2].Value = datasource.ElementAt(i).Name;
-                    ws.Cells[i + 2, 3].Value = datasource.ElementAt(i).PublicationType;
-                    ws.Cells[i + 2, 4].Value = datasource.ElementAt(i).Output;
-                    ws.Cells[i + 2, 5].Value = datasource.ElementAt(i).Pages;
-                    ws.Cells[i + 2, 6].Value = datasource.ElementAt(i).Pages / datasource.ElementAt(i).Collaborators.Count;
-                    ws.Cells[i + 2, 7].Value = datasource.ElementAt(i).IsOverseas ? "Так" : "Нi";
-                    ws.Cells[i + 2, 8].Value = datasource.ElementAt(i).NMBD;
-                    ws.Cells[i + 2, 9].Value = datasource.ElementAt(i).CitationNumberNMBD;
-                    ws.Cells[i + 2, 10].Value = datasource.ElementAt(i).ImpactFactorNMBD;
-                    ws.Cells[i + 2, 11].Value = datasource.ElementAt(i).ResearchDoneType;
-                    ws.Cells[i + 2, 12].Value = datasource.ElementAt(i).DepartmentName;
-
-                }
-
-                using (ExcelRange rng = ws.Cells[1, 1, 1, 12])
+                    Border = new SLBorder()
+                    {
+                        
+                    },
+                });
+                sl.SetCellValue($"A{i + 6}", i + 1);
+                var authors = model[i].Collaborators[0].Name;
+                foreach(var aut in model[i].Collaborators.Skip(1))
                 {
-                    rng.Style.Font.Bold = true;
-                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;        //Set Pattern for the background to Solid 
-                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 220, 230, 241));  //Set color to DarkGray 
-                    rng.Style.Font.Color.SetColor(Color.Black);
+                    authors += ", " + aut.Name;
                 }
-                return pck.GetAsByteArray();
+                sl.SetCellValue($"B{i + 6}", authors);
+                sl.SetCellValue($"C{i + 6}", model[i].Name);
+                sl.SetCellValue($"D{i + 6}", model[i].PublicationType);
+                sl.SetCellValue($"E{i + 6}", model[i].Output);
+                sl.SetCellValue($"F{i + 6}", model[i].Pages);
+                sl.SetCellValue($"G{i + 6}", model[i].Pages);
+                sl.SetCellValue($"H{i + 6}", model[i].IsOverseas ? "Так" : "Нi");
+                sl.SetCellValue($"I{i + 6}", model[i].NMBD);
+                sl.SetCellValue($"J{i + 6}", model[i].CitationNumberNMBD);
+                sl.SetCellValue($"K{i + 6}", model[i].ImpactFactorNMBD);
+                sl.SetCellValue($"L{i + 6}", model[i].ResearchDoneType);
+                sl.SetCellValue($"M{i + 6}", model[i].DepartmentName);
             }
+            var title = sl.GetCellValueAsString("C5");
+            title += " кафедри " + model[0].DepartmentName;
+            if (model[0].Start != null && model[0].End != null)
+            {
+                var period = model[0].Start.Value.ToShortDateString().Replace('/', '.')
+                    + " - " 
+                    + model[0].End.Value.ToShortDateString().Replace('/', '.');
+                title += " за перiод " + period;
+            }
+            
+            sl.SetCellValue("C2", title);
+
+            return sl;
         }
 
 		#endregion

@@ -51,14 +51,16 @@ namespace Planner.Controllers
 			var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
 			if(model.Count > 0)
 			{
-				var filestream = PublicationReportBuilder.PrintDepartmentReport(model);
-				var name = $"Публикации - {model[0].DepartmentName}";
-				if (model[0].Start != null && model[0].End != null)
-				{
-					name += $" за {model[0].Start.Value.ToShortDateString().Replace('/', '-')} - {model[0].End.Value.ToShortDateString().Replace('/', '-')}";
-				}
-
-				return File(filestream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", $"{name}.xls");
+                SLDocument doc = PublicationReportBuilder.PrintDepartmentReport(model);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = $"Публикации - {model[0].DepartmentName}";
+                if (model[0].Start != null && model[0].End != null)
+                {
+                    name += $" за {model[0].Start.Value.ToShortDateString().Replace('/', '.')} - {model[0].End.Value.ToShortDateString().Replace('/', '.')}.xlsx";
+                }
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
 			}
 			return RedirectToAction("DepartmentPublications");
 			
