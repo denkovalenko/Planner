@@ -81,8 +81,58 @@ namespace Calculation
             }
         }
 
-        public static byte[] PrintReportForm11(ApplicationUser user)
+        public static SLDocument PrintReportForm11(List<PublicationForm11> model, ApplicationUser user)
         {
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "Form11.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            SLStyle styleWhite = sl.GetCellStyle("A4");
+            styleWhite.SetWrapText(true);
+
+            for (int i = 0; i < model.Count; i++)
+            {
+
+                sl.SetCellValue($"A{i + 4}", i + 1);
+                sl.SetCellStyle($"A{i + 4}", styleWhite);
+
+                sl.SetCellValue($"B{i + 4}", model[i].Name);
+                sl.SetCellStyle($"B{i + 4}", styleWhite);
+
+                sl.SetCellValue($"C{i + 4}", model[i].PublicationType);
+                sl.SetCellStyle($"C{i + 4}", styleWhite);
+
+                sl.SetCellValue($"D{i + 4}", model[i].Output);
+                sl.SetCellStyle($"D{i + 4}", styleWhite);
+
+                sl.SetCellValue($"E{i + 4}", model[i].PublishedAt.ToShortDateString());
+                sl.SetCellStyle($"E{i + 4}", styleWhite);
+
+                sl.SetCellValue($"F{i + 4}", model[i].Pages);
+                sl.SetCellStyle($"F{i + 4}", styleWhite);                
+
+                sl.SetCellValue($"G{i + 4}", model[i].Collaborators.Count+1);
+                sl.SetCellStyle($"G{i + 4}", styleWhite);
+
+                var value = "";
+                if (model[i].Collaborators.Count > 0)
+                {
+                    value = model[i].Collaborators[0].Name;
+                    foreach (var lab in model[i].Collaborators.Skip(1))
+                        value += ", " + lab.Name;
+                }
+                else value = "Нет соавторов";
+
+                sl.SetCellValue($"H{i + 4}", value);
+                sl.SetCellStyle($"H{i + 4}", styleWhite);
+                
+            }
+
+            var title = $"Наукові публікації {user.LastName} {user.FirstName.FirstOrDefault()}. {user.ThirdName.FirstOrDefault()}.";
+
+            sl.SetCellValue("C2", title);
+
+            return sl;
+
             using (ExcelPackage pck = new ExcelPackage())
             {
                 var datasource = CreateForm11(user);
@@ -132,7 +182,7 @@ namespace Calculation
                     rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 200, 218, 230));  //Set color to DarkGray 
                     rng.Style.Font.Color.SetColor(Color.Black);
                 }
-                return pck.GetAsByteArray();
+                //return pck.GetAsByteArray();
                 //pck.SaveAs(new FileInfo(filepath));
             }
         }
@@ -230,33 +280,56 @@ namespace Calculation
             var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
             var path = Path.Combine(folder, "DepartmentReport.xlsx");
             SLDocument sl = new SLDocument(path, "Report");
-            for(int i=0; i < model.Count; i++)
+            SLStyle styleWhite = sl.GetCellStyle("A6");
+            styleWhite.SetWrapText(true);
+            SLStyle styleGreen = sl.GetCellStyle("H6");
+            styleGreen.SetWrapText(true);
+            for (int i=0; i < model.Count; i++)
             {
-                sl.SetCellStyle($"A{i + 6}", new SLStyle()
-                {
-                    Border = new SLBorder()
-                    {
-                        
-                    },
-                });
+                
                 sl.SetCellValue($"A{i + 6}", i + 1);
+                sl.SetCellStyle($"A{i + 6}", styleWhite);
+
                 var authors = model[i].Collaborators[0].Name;
                 foreach(var aut in model[i].Collaborators.Skip(1))
                 {
                     authors += ", " + aut.Name;
                 }
                 sl.SetCellValue($"B{i + 6}", authors);
+                sl.SetCellStyle($"B{i + 6}", styleWhite);
+
                 sl.SetCellValue($"C{i + 6}", model[i].Name);
+                sl.SetCellStyle($"C{i + 6}", styleWhite);
+
                 sl.SetCellValue($"D{i + 6}", model[i].PublicationType);
+                sl.SetCellStyle($"D{i + 6}", styleWhite);
+
                 sl.SetCellValue($"E{i + 6}", model[i].Output);
+                sl.SetCellStyle($"E{i + 6}", styleWhite);
+
                 sl.SetCellValue($"F{i + 6}", model[i].Pages);
+                sl.SetCellStyle($"F{i + 6}", styleWhite);
+
                 sl.SetCellValue($"G{i + 6}", model[i].Pages);
+                sl.SetCellStyle($"G{i + 6}", styleWhite);
+
                 sl.SetCellValue($"H{i + 6}", model[i].IsOverseas ? "Так" : "Нi");
+                sl.SetCellStyle($"H{i + 6}", styleGreen);
+
                 sl.SetCellValue($"I{i + 6}", model[i].NMBD);
+                sl.SetCellStyle($"I{i + 6}", styleGreen);
+
                 sl.SetCellValue($"J{i + 6}", model[i].CitationNumberNMBD);
+                sl.SetCellStyle($"J{i + 6}", styleGreen);
+
                 sl.SetCellValue($"K{i + 6}", model[i].ImpactFactorNMBD);
+                sl.SetCellStyle($"K{i + 6}", styleGreen);
+
                 sl.SetCellValue($"L{i + 6}", model[i].ResearchDoneType);
+                sl.SetCellStyle($"L{i + 6}", styleWhite);
+
                 sl.SetCellValue($"M{i + 6}", model[i].DepartmentName);
+                sl.SetCellStyle($"M{i + 6}", styleGreen);
             }
             var title = sl.GetCellValueAsString("C5");
             title += " кафедри " + model[0].DepartmentName;
