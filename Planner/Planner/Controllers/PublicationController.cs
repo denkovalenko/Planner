@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Calculation;
 using System.IO;
+using SpreadsheetLight;
 
 namespace Planner.Controllers
 {
@@ -147,16 +148,29 @@ namespace Planner.Controllers
 				catch (Exception ex)
 				{
 					System.IO.File.Delete(Server.MapPath(filepath));
+					throw ex;
 				}
 
 				return RedirectToAction("Index");
 			}
 		}
 
-		public FileResult PrintForm11()
+		public ActionResult PrintForm11()
 		{
-			var filestream = PublicationReportBuilder.PrintReportForm11(user);
-			return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls".Replace('/','-'));
+            var model = PublicationReportBuilder.CreateForm11(user);
+            if (model.Count > 0)
+            {
+                SLDocument doc = PublicationReportBuilder.PrintReportForm11(model, user);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = $"Публикации - {user.LastName} {user.FirstName.FirstOrDefault()}. {user.ThirdName.FirstOrDefault()}. .xlsx";
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
+            }
+            return RedirectToAction("Index");
+
+   //         var filestream = PublicationReportBuilder.PrintReportForm11(user);
+			//return File(filestream, "application/vnd.ms-excel", $"Публикации {user.LastName} {user.FirstName.Substring(0, 1)}. {user.ThirdName.Substring(0, 1)}. - {DateTime.Now.ToShortDateString()}.xls".Replace('/','-'));
 				
 							
 		}

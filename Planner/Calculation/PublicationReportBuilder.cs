@@ -13,12 +13,14 @@ using OfficeOpenXml.Style;
 using System.Drawing;
 using System.IO;
 using Calculation.Extensions;
+using SpreadsheetLight;
 
 namespace Calculation
 {
     public static class PublicationReportBuilder
     {
-        public static List<PublicationForm11> CreateForm11(ApplicationUser user)
+		#region Отчет по всем публикациям юзера
+		public static List<PublicationForm11> CreateForm11(ApplicationUser user)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -79,8 +81,58 @@ namespace Calculation
             }
         }
 
-        public static byte[] PrintReportForm11(ApplicationUser user)
+        public static SLDocument PrintReportForm11(List<PublicationForm11> model, ApplicationUser user)
         {
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "Form11.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            SLStyle styleWhite = sl.GetCellStyle("A4");
+            styleWhite.SetWrapText(true);
+
+            for (int i = 0; i < model.Count; i++)
+            {
+
+                sl.SetCellValue($"A{i + 4}", i + 1);
+                sl.SetCellStyle($"A{i + 4}", styleWhite);
+
+                sl.SetCellValue($"B{i + 4}", model[i].Name);
+                sl.SetCellStyle($"B{i + 4}", styleWhite);
+
+                sl.SetCellValue($"C{i + 4}", model[i].PublicationType);
+                sl.SetCellStyle($"C{i + 4}", styleWhite);
+
+                sl.SetCellValue($"D{i + 4}", model[i].Output);
+                sl.SetCellStyle($"D{i + 4}", styleWhite);
+
+                sl.SetCellValue($"E{i + 4}", model[i].PublishedAt.ToShortDateString());
+                sl.SetCellStyle($"E{i + 4}", styleWhite);
+
+                sl.SetCellValue($"F{i + 4}", model[i].Pages);
+                sl.SetCellStyle($"F{i + 4}", styleWhite);                
+
+                sl.SetCellValue($"G{i + 4}", model[i].Collaborators.Count+1);
+                sl.SetCellStyle($"G{i + 4}", styleWhite);
+
+                var value = "";
+                if (model[i].Collaborators.Count > 0)
+                {
+                    value = model[i].Collaborators[0].Name;
+                    foreach (var lab in model[i].Collaborators.Skip(1))
+                        value += ", " + lab.Name;
+                }
+                else value = "Нет соавторов";
+
+                sl.SetCellValue($"H{i + 4}", value);
+                sl.SetCellStyle($"H{i + 4}", styleWhite);
+                
+            }
+
+            var title = $"Наукові публікації {user.LastName} {user.FirstName.FirstOrDefault()}. {user.ThirdName.FirstOrDefault()}.";
+
+            sl.SetCellValue("C2", title);
+
+            return sl;
+
             using (ExcelPackage pck = new ExcelPackage())
             {
                 var datasource = CreateForm11(user);
@@ -130,12 +182,14 @@ namespace Calculation
                     rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 200, 218, 230));  //Set color to DarkGray 
                     rng.Style.Font.Color.SetColor(Color.Black);
                 }
-                return pck.GetAsByteArray();
+                //return pck.GetAsByteArray();
                 //pck.SaveAs(new FileInfo(filepath));
             }
         }
+		#endregion
 
-        public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start=null, DateTime? end=null)
+		#region Отчет по кафедре за период
+		public static List<PublicationOnDepartment> CreateDeparmentReport(string depId, DateTime? start = null, DateTime? end = null)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
@@ -183,7 +237,9 @@ namespace Calculation
                             ResearchDoneType = ((DisplayAttribute)typeof(ResearchDoneTypeEnum)
                                 .GetMember(x.p.p.ResearchDoneType.Value.ToString())[0]
                                 .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-                            Collaborators = new List<Author>()
+                            Collaborators = new List<Author>(),
+							Start = start,
+							End = end
 
                         })
                         .ToList();
@@ -219,219 +275,279 @@ namespace Calculation
             }
         }
 
-        public static byte[] PrintDepartmentReport(string depId, string name)
+        public static SLDocument PrintDepartmentReport(List<PublicationOnDepartment> model)
         {
-            using (ExcelPackage pck = new ExcelPackage())
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "DepartmentReport.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            SLStyle styleWhite = sl.GetCellStyle("A6");
+            styleWhite.SetWrapText(true);
+            SLStyle styleGreen = sl.GetCellStyle("H6");
+            styleGreen.SetWrapText(true);
+            for (int i=0; i < model.Count; i++)
             {
-                var datasource = CreateDeparmentReport(depId);
+                
+                sl.SetCellValue($"A{i + 6}", i + 1);
+                sl.SetCellStyle($"A{i + 6}", styleWhite);
 
-                ExcelWorksheet ws = pck.Workbook.Worksheets.Add($"Публикации - {name}");
-
-                var frmt = ws.Cells;
-                frmt.Style.ShrinkToFit = false;
-                frmt.Style.Indent = 5;
-                frmt.Style.Border.BorderAround(ExcelBorderStyle.Medium, Color.Black);
-                ws.DefaultColWidth = 200;
-
-                ws.Column(1).AutoFit(35, 50);
-                ws.Column(2).AutoFit(35, 50);
-                ws.Column(3).AutoFit(35, 50);
-                ws.Column(4).AutoFit(35, 50);
-                ws.Column(5).AutoFit(35, 50);
-                ws.Column(6).AutoFit(35, 50);
-                ws.Column(7).AutoFit(35, 50);
-                ws.Column(8).AutoFit(35, 50);
-                ws.Column(9).AutoFit(35, 50);
-                ws.Column(10).AutoFit(35, 50);
-                ws.Column(11).AutoFit(35, 50);
-                ws.Column(12).AutoFit(35, 50);
-
-                ws.Cells[1, 1].Value = "Автори";
-                ws.Cells[1, 2].Value = "Назва роботи";
-                ws.Cells[1, 3].Value = "Тип видання";
-                ws.Cells[1, 4].Value = "Назва видання, дата видання (ЧЧ.ММ.РР)";
-                ws.Cells[1, 5].Value = "Обсяг, ум.- друк. арк., усього";
-                ws.Cells[1, 6].Value = "Обсяг, ум.- друк. арк., частка кафедри";
-                ws.Cells[1, 7].Value = "За кордонне видання";
-                ws.Cells[1, 8].Value = "НМБД";
-                ws.Cells[1, 9].Value = "Кількість цитувань у виданнях, що входять до НМБД Scopus/Google Scolar";
-                ws.Cells[1, 10].Value = "Імпакт-фактор видання, тільки з НМБД";
-                ws.Cells[1, 11].Value = "За якою НДР виконано";
-                ws.Cells[1, 12].Value = "Назва кафедри";
-
-                ws.Column(6).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(7).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(8).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(9).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(10).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(12).Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Column(6).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(7).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(8).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(9).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(10).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                ws.Column(12).Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 216, 228, 188));
-                for (int i = 0; i < datasource.Count(); i++)
+                var authors = model[i].Collaborators[0].Name;
+                foreach(var aut in model[i].Collaborators.Skip(1))
                 {
-                    ws.Cells[i + 2, 1].Value = datasource.ElementAt(i).Collaborators[0].Name;
-                    foreach (var lab in datasource.ElementAt(i).Collaborators.Skip(1))
-                        ws.Cells[i + 2, 1].Value += ", " + lab.Name;
-
-                    ws.Cells[i + 2, 2].Value = datasource.ElementAt(i).Name;
-                    ws.Cells[i + 2, 3].Value = datasource.ElementAt(i).PublicationType;
-                    ws.Cells[i + 2, 4].Value = datasource.ElementAt(i).Output;
-                    ws.Cells[i + 2, 5].Value = datasource.ElementAt(i).Pages;
-                    ws.Cells[i + 2, 6].Value = datasource.ElementAt(i).Pages / datasource.ElementAt(i).Collaborators.Count;
-                    ws.Cells[i + 2, 7].Value = datasource.ElementAt(i).IsOverseas ? "Так" : "Нi";
-                    ws.Cells[i + 2, 8].Value = datasource.ElementAt(i).NMBD;
-                    ws.Cells[i + 2, 9].Value = datasource.ElementAt(i).CitationNumberNMBD;
-                    ws.Cells[i + 2, 10].Value = datasource.ElementAt(i).ImpactFactorNMBD;
-                    ws.Cells[i + 2, 11].Value = datasource.ElementAt(i).ResearchDoneType;
-                    ws.Cells[i + 2, 12].Value = datasource.ElementAt(i).DepartmentName;
-
+                    authors += ", " + aut.Name;
                 }
+                sl.SetCellValue($"B{i + 6}", authors);
+                sl.SetCellStyle($"B{i + 6}", styleWhite);
 
-                using (ExcelRange rng = ws.Cells[1, 1, 1, 12])
-                {
-                    rng.Style.Font.Bold = true;
-                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;        //Set Pattern for the background to Solid 
-                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(0, 220, 230, 241));  //Set color to DarkGray 
-                    rng.Style.Font.Color.SetColor(Color.Black);
-                }
-                return pck.GetAsByteArray();
+                sl.SetCellValue($"C{i + 6}", model[i].Name);
+                sl.SetCellStyle($"C{i + 6}", styleWhite);
+
+                sl.SetCellValue($"D{i + 6}", model[i].PublicationType);
+                sl.SetCellStyle($"D{i + 6}", styleWhite);
+
+                sl.SetCellValue($"E{i + 6}", model[i].Output);
+                sl.SetCellStyle($"E{i + 6}", styleWhite);
+
+                sl.SetCellValue($"F{i + 6}", model[i].Pages);
+                sl.SetCellStyle($"F{i + 6}", styleWhite);
+
+                sl.SetCellValue($"G{i + 6}", model[i].Pages);
+                sl.SetCellStyle($"G{i + 6}", styleWhite);
+
+                sl.SetCellValue($"H{i + 6}", model[i].IsOverseas ? "Так" : "Нi");
+                sl.SetCellStyle($"H{i + 6}", styleGreen);
+
+                sl.SetCellValue($"I{i + 6}", model[i].NMBD);
+                sl.SetCellStyle($"I{i + 6}", styleGreen);
+
+                sl.SetCellValue($"J{i + 6}", model[i].CitationNumberNMBD);
+                sl.SetCellStyle($"J{i + 6}", styleGreen);
+
+                sl.SetCellValue($"K{i + 6}", model[i].ImpactFactorNMBD);
+                sl.SetCellStyle($"K{i + 6}", styleGreen);
+
+                sl.SetCellValue($"L{i + 6}", model[i].ResearchDoneType);
+                sl.SetCellStyle($"L{i + 6}", styleWhite);
+
+                sl.SetCellValue($"M{i + 6}", model[i].DepartmentName);
+                sl.SetCellStyle($"M{i + 6}", styleGreen);
             }
-        }
-
-        public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
-        {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var title = sl.GetCellValueAsString("C5");
+            title += " кафедри " + model[0].DepartmentName;
+            if (model[0].Start != null && model[0].End != null)
             {
-
-                //all users in selected department
-                var users = db.DepartmentUsers
-                    .Where(x => x.DepartmentId == depId)
-                    .Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
-                    .Select(u => u.u.Id)
-                    .ToList();
-
-                var plans = db.ScientificPublishings
-                    .Where(x => users.Any(u => u == x.UserId))
-                    .Where(x => x.Year == year)
-                    .ToList();
-
-                var plan = plans.Aggregate((prev, cur) => new ScientificPublishing
-                {
-                    Abstracts = prev.Abstracts + cur.Abstracts,
-                    AllPublications = prev.AllPublications + cur.AllPublications,
-                    ArticlesInProfessionalPublications = prev.ArticlesInProfessionalPublications + cur.ArticlesInProfessionalPublications,
-                    ArticlesThesesInNmbd = prev.ArticlesThesesInNmbd + prev.ArticlesThesesInNmbd,
-                    Monographs = prev.Monographs + cur.Monographs,
-                    MonographsForeignJournals = prev.MonographsForeignJournals + cur.MonographsForeignJournals,
-                    MonographsNationalPublications = prev.MonographsNationalPublications + cur.MonographsNationalPublications,
-                    ScientificArticlesInForeignLanguages = prev.ScientificArticlesInForeignLanguages + cur.ScientificArticlesInForeignLanguages,
-                    ScientificPublicationsInForeignJournals = prev.ScientificPublicationsInForeignJournals + cur.ScientificPublicationsInForeignJournals,
-                    ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
-                    Year = prev.Year
-                });
-                var dates = new Dates(year);
-                //all publications of users in department
-                var publications = db.Publications
-                    .Include("PublicationType")
-                    .AsEnumerable()
-                    .Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
-                    .Where(x => users.Any(u => u == x.pu.UserId))
-                    .OrderBy(x => x.p.PublishedAt)
-                    .Where(x =>
-                    {
-                        if (half == 1)
-                        {
-                            return x.p.PublishedAt > dates.StartStudy && x.p.PublishedAt < dates.EndFirstHalf;
-                        }
-                        if (half == 2)
-                        {
-                            return x.p.PublishedAt > dates.EndFirstHalf && x.p.PublishedAt < dates.EndSecondHalf;
-                        }
-                        return false;
-                    })
-                    .DistinctBy(x => x.p.Id)
-                    .Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
-                    .ToList();
-
-                var fact = new ScientificPublishing()
-                {
-                    AllPublications = publications.Count,
-
-                    Abstracts = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(),
-
-                    ArticlesInProfessionalPublications = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    ArticlesThesesInNmbd = publications
-                                .Where(x => x.p.p.PublicationNMBDs.Count() > 0
-                                && x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    MonographsForeignJournals = publications
-                                .Where(x => x.p.p.IsOverseas
-                                && (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-                                )).Count(),
-
-                    Monographs = publications
-                                .Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(),
-
-                    MonographsNationalPublications = publications
-                                .Where(x => !x.p.p.IsOverseas
-                                && (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
-                                || x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
-                                )).Count(),
-
-                    ScientificArticlesInForeignLanguages = publications
-                                .Where(x => x.p.p.IsOverseas
-                                && x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
-
-                    ScientificPublicationsInForeignJournals = publications
-                                .Where(x => x.p.p.IsOverseas).Count(),
-
-                    ScientificPublicationsInScopus = publications
-                                .Where(x => x.p.p.PublicationNMBDs.Count() > 0)
-                                .Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
-                                .Where(x => x.nmbd.Name == "SCOPUS").Count()
-                };
-
-                var model = new ScientificPublishingModel()
-                {
-                    AllPublications = MakeTuple(plan.AllPublications, fact.AllPublications),
-
-                    Abstracts = MakeTuple(plan.Abstracts, fact.Abstracts),
-
-                    ArticlesInProfessionalPublications = MakeTuple(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications),
-
-                    ArticlesThesesInNmbd = MakeTuple(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd),
-
-                    MonographsForeignJournals = MakeTuple(plan.MonographsForeignJournals, fact.MonographsForeignJournals),
-
-                    Monographs = MakeTuple(plan.Monographs, fact.Monographs),
-
-                    MonographsNationalPublications = MakeTuple(plan.MonographsNationalPublications, fact.MonographsNationalPublications),
-
-                    ScientificArticlesInForeignLanguages = MakeTuple(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages),
-
-                    ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
-
-                    ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus),
-                };
-
-
-                return model;
+                var period = model[0].Start.Value.ToShortDateString().Replace('/', '.')
+                    + " - " 
+                    + model[0].End.Value.ToShortDateString().Replace('/', '.');
+                title += " за перiод " + period;
             }
+            
+            sl.SetCellValue("C2", title);
+
+            return sl;
         }
 
-        private static Tuple<int, int, string> MakeTuple(int plan, int fact)
+		#endregion
+
+		#region Отчет за полугодие
+		public static ScientificPublishingModel ScientificPublishing(string depId, int year, int half)
+		{
+			using (ApplicationDbContext db = new ApplicationDbContext())
+			{
+
+				var departmentName = db.Departments.Where(x => x.Id == depId).Select(x => x.Name).FirstOrDefault();
+				//all users in selected department
+				var users = db.DepartmentUsers
+					.Where(x => x.DepartmentId == depId)
+					.Join(db.Users, du => du.UserId, u => u.Id, (du, u) => new { du, u })
+					.Select(u => u.u.Id)
+					.ToList();
+
+				var plans = db.ScientificPublishings
+					.Where(x => users.Any(u => u == x.UserId))
+					.Where(x => x.Year == year)
+					.ToList();
+
+				var plan = plans.Aggregate((prev, cur) => new ScientificPublishing
+				{
+					Abstracts = prev.Abstracts + cur.Abstracts,
+					AllPublications = prev.AllPublications + cur.AllPublications,
+					ArticlesInProfessionalPublications = prev.ArticlesInProfessionalPublications + cur.ArticlesInProfessionalPublications,
+					ArticlesThesesInNmbd = prev.ArticlesThesesInNmbd + prev.ArticlesThesesInNmbd,
+					Monographs = prev.Monographs + cur.Monographs,
+					MonographsForeignJournals = prev.MonographsForeignJournals + cur.MonographsForeignJournals,
+					MonographsNationalPublications = prev.MonographsNationalPublications + cur.MonographsNationalPublications,
+					ScientificArticlesInForeignLanguages = prev.ScientificArticlesInForeignLanguages + cur.ScientificArticlesInForeignLanguages,
+					ScientificPublicationsInForeignJournals = prev.ScientificPublicationsInForeignJournals + cur.ScientificPublicationsInForeignJournals,
+					ScientificPublicationsInScopus = prev.ScientificPublicationsInScopus + cur.ScientificPublicationsInScopus,
+					Year = prev.Year
+				});
+				var dates = new Dates(year);
+				var period = String.Empty;
+				if (half == 1)
+					period = "за І півріччя " + year + " року";
+				else
+					period = "за ІІ півріччя " + year + " року";
+				//all publications of users in department
+				var publications = db.Publications
+					.Include("PublicationType")
+					.AsEnumerable()
+					.Join(db.PublicationUsers, p => p.Id, pu => pu.PublicationId, (p, pu) => new { p, pu })
+					.Where(x => users.Any(u => u == x.pu.UserId))
+					.OrderBy(x => x.p.PublishedAt)
+					.Where(x =>
+					{
+						if (half == 1)
+						{
+							return x.p.PublishedAt > dates.StartStudy && x.p.PublishedAt < dates.EndFirstHalf;
+						}
+						if (half == 2)
+						{
+							return x.p.PublishedAt > dates.EndFirstHalf && x.p.PublishedAt < dates.EndSecondHalf;
+						}
+						return false;
+					})
+					.DistinctBy(x => x.p.Id)
+					.Join(db.PublicationNMBDs, p => p.p.Id, pn => pn.PublicationId, (p, pn) => new { p, pn })
+					.ToList();
+
+				var fact = new ScientificPublishing()
+				{
+					AllPublications = publications.Count,
+
+					Abstracts = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Abstracts).Count(),
+
+					ArticlesInProfessionalPublications = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					ArticlesThesesInNmbd = publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					MonographsForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(),
+
+					Monographs = publications
+								.Where(x => x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph).Count(),
+
+					MonographsNationalPublications = publications
+								.Where(x => !x.p.p.IsOverseas
+								&& (x.p.p.PublicationType.Value == PublicationTypeEnum.Monograph
+								|| x.p.p.PublicationType.Value == PublicationTypeEnum.CollectiveMonograph
+								)).Count(),
+
+					ScientificArticlesInForeignLanguages = publications
+								.Where(x => x.p.p.IsOverseas
+								&& x.p.p.PublicationType.Value == PublicationTypeEnum.Article).Count(),
+
+					ScientificPublicationsInForeignJournals = publications
+								.Where(x => x.p.p.IsOverseas).Count(),
+
+					ScientificPublicationsInScopus = publications
+								.Where(x => x.p.p.PublicationNMBDs.Count() > 0)
+								.Join(db.NMBDs, pnm => pnm.pn.NMBDId, nmbd => nmbd.Id, (pnm, nmbd) => new { pnm, nmbd })
+								.Where(x => x.nmbd.Name == "SCOPUS").Count()
+				};
+
+				var model = new ScientificPublishingModel()
+				{
+					AllPublications = MakeTuple(plan.AllPublications, fact.AllPublications),
+
+					Abstracts = MakeTuple(plan.Abstracts, fact.Abstracts),
+
+					ArticlesInProfessionalPublications = MakeTuple(plan.ArticlesInProfessionalPublications, fact.ArticlesInProfessionalPublications),
+
+					ArticlesThesesInNmbd = MakeTuple(plan.ArticlesThesesInNmbd, fact.ArticlesThesesInNmbd),
+
+					MonographsForeignJournals = MakeTuple(plan.MonographsForeignJournals, fact.MonographsForeignJournals),
+
+					Monographs = MakeTuple(plan.Monographs, fact.Monographs),
+
+					MonographsNationalPublications = MakeTuple(plan.MonographsNationalPublications, fact.MonographsNationalPublications),
+
+					ScientificArticlesInForeignLanguages = MakeTuple(plan.ScientificArticlesInForeignLanguages, fact.ScientificArticlesInForeignLanguages),
+
+					ScientificPublicationsInForeignJournals = MakeTuple(plan.ScientificPublicationsInForeignJournals, fact.ScientificPublicationsInForeignJournals),
+
+					ScientificPublicationsInScopus = MakeTuple(plan.ScientificPublicationsInScopus, fact.ScientificPublicationsInScopus),
+					DepartmentName = departmentName,
+					Period = period
+				};
+
+
+				return model;
+			}
+		}
+		public static SLDocument PrintHalfReport(ScientificPublishingModel model)
         {
-            return new Tuple<int, int, string>(plan, fact, plan != 0 ?
-                    ((double)fact / (double)plan * 100).ToString("F2") + "%" : "0.00%");
+            var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+            var path = Path.Combine(folder, "Dodatki.xlsx");
+            SLDocument sl = new SLDocument(path, "Report");
+            #region Науково-видавнича
+            //Видання монографій (кількість):
+            sl.SetCellValue("D16", model.Monographs.Item1);
+            sl.SetCellValue("E16", model.Monographs.Item2);
+            sl.SetCellValue("F16", model.Monographs.Item3);
+            //у вітчизняний виданнях
+            sl.SetCellValue("D17", model.MonographsNationalPublications.Item1);
+            sl.SetCellValue("E17", model.MonographsNationalPublications.Item2);
+            sl.SetCellValue("F17", model.MonographsNationalPublications.Item3);
+            //у зарубіжних виданнях
+            sl.SetCellValue("D18", model.MonographsForeignJournals.Item1);
+            sl.SetCellValue("E18", model.MonographsForeignJournals.Item2);
+            sl.SetCellValue("F18", model.MonographsForeignJournals.Item3);
+            //ВСЬОГО ПУБЛІКАЦІЙ: в тому числі:
+            sl.SetCellValue("D19", model.AllPublications.Item1);
+            sl.SetCellValue("E19", model.AllPublications.Item2);
+            sl.SetCellValue("F19", model.AllPublications.Item3);
+            //наукові публікаціі в Scopus (кількість):
+            sl.SetCellValue("D20", model.ScientificPublicationsInScopus.Item1);
+            sl.SetCellValue("E20", model.ScientificPublicationsInScopus.Item2);
+            sl.SetCellValue("F20", model.ScientificPublicationsInScopus.Item3);
+            //публікацій (статі, тези), у виданнях, що входять до міжнародних науково- метричних баз даних (кількість):
+            sl.SetCellValue("D21", model.ArticlesThesesInNmbd.Item1);
+            sl.SetCellValue("E21", model.ArticlesThesesInNmbd.Item2);
+            sl.SetCellValue("F21", model.ArticlesThesesInNmbd.Item3);
+            //наукові публікації у зарубіжних виданнях (кількість).
+            sl.SetCellValue("D22", model.ScientificPublicationsInForeignJournals.Item1);
+            sl.SetCellValue("E22", model.ScientificPublicationsInForeignJournals.Item2);
+            sl.SetCellValue("F22", model.ScientificPublicationsInForeignJournals.Item3);
+            //статті у фахових видання (кількість):
+            sl.SetCellValue("D23", model.ArticlesInProfessionalPublications.Item1);
+            sl.SetCellValue("E23", model.ArticlesInProfessionalPublications.Item2);
+            sl.SetCellValue("F23", model.ArticlesInProfessionalPublications.Item3);
+            //публікація наукових статей іноземною мовою (кількість):
+            sl.SetCellValue("D24", model.ScientificArticlesInForeignLanguages.Item1);
+            sl.SetCellValue("E24", model.ScientificArticlesInForeignLanguages.Item2);
+            sl.SetCellValue("F24", model.ScientificArticlesInForeignLanguages.Item3);
+            //тези доповідей (кількість).
+            sl.SetCellValue("D25", model.Abstracts.Item1);
+            sl.SetCellValue("E25", model.Abstracts.Item2);
+            sl.SetCellValue("F25", model.Abstracts.Item3);
+            #endregion
+            var title = sl.GetCellValueAsString("C5");
+            sl.SetCellValue("C5", title + " " + model.DepartmentName + " " + model.Period);
+            var period = String.Empty;
+            if (model.Period.Contains("ІІ"))
+                period = "II період(01.09 - 15.01)";
+            else
+                period = "I період (01.01-30.06)";
+            sl.SetCellValue("C5", title + " " + model.DepartmentName + " " + model.Period);
+            sl.SetCellValue("D7", period);
+           
+            return sl;
         }
-    }
+		
+		private static Tuple<int, int, string> MakeTuple(int plan, int fact)
+		{
+			return new Tuple<int, int, string>(plan, fact, plan != 0 ?
+					((double)fact / (double)plan * 100).ToString("F2") + "%" : "0.00%");
+		}
+		#endregion
+
+	}
 }

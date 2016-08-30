@@ -3,9 +3,9 @@
 /Planner/Domain/bin
 /Planner/Planner/bin
 /Planner/Planner/obj
-/Planner/Planner/App_Data
 /Planner/Console/obj
 /Planner/Console/bin
 /Planner/Domain/obj
 /Planner/.vs
-
+/Planner/ConsoleTest/bin
+/Planner/ConsoleTest/obj

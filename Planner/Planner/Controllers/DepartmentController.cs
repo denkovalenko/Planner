@@ -1,7 +1,9 @@
 ﻿using Calculation;
 using Domain.Models;
+using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,35 +41,60 @@ namespace Planner.Controllers
 			}
 		}
 
-        public JsonResult DepartmentPublicationsReport(string depId)
-        {
-            var model = PublicationReportBuilder.CreateDeparmentReport(depId);    
-            return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-
-		public FileResult PrintDepartmentPublicationsReport(string id, string name)
+		public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
 		{
-			var filestream = PublicationReportBuilder.PrintDepartmentReport(id, name);
-
-			return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString().Replace('/', '-')}.xls");
-		}
-
-
-		public JsonResult HalfYearDepartmentReport(string depId, int year, int half)
-		{
-			var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+			var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
 			return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
 		}
-        public JsonResult DateRangeDepartmentReport(string depId, DateTime start, DateTime end)
-        {
-
-
-            var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
-            return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-        public void PrintHalfYearDepartmentReport(string id, string name)
+		public ActionResult PrintDepartmentPublicationsReport(string depId, DateTime start, DateTime end)
 		{
-			//return File(filestream, "application/vnd.ms-excel", $"Публикации - {name} - {DateTime.Now.ToShortDateString()}.xls");
+			var model = PublicationReportBuilder.CreateDeparmentReport(depId, start, end);
+			if(model.Count > 0)
+			{
+                SLDocument doc = PublicationReportBuilder.PrintDepartmentReport(model);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = $"Публикации - {model[0].DepartmentName}";
+                if (model[0].Start != null && model[0].End != null)
+                {
+                    name += $" за {model[0].Start.Value.ToShortDateString().Replace('/', '.')} - {model[0].End.Value.ToShortDateString().Replace('/', '.')}.xlsx";
+                }
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
+			}
+			return RedirectToAction("DepartmentPublications");
+			
 		}
-	}
+
+
+        public JsonResult HalfYearDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public ActionResult PrintHalfYearDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                SLDocument doc = PublicationReportBuilder.PrintHalfReport(model);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
+            }
+            catch (Exception ex)
+            {
+                return Redirect("/Department/HalfYearDepartmentPublications");
+            }
+        }
+    }
 }

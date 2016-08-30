@@ -13,6 +13,7 @@ using Domain.Models;
 using Planner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Planner.Controllers
 {
@@ -97,6 +98,26 @@ namespace Planner.Controllers
 			if (HttpContext.User.Identity.IsAuthenticated)
 				return RedirectToAction("Dashboard", "Home");
             ViewBag.ReturnUrl = returnUrl;
+
+            ////HACK
+            //using (ApplicationDbContext context = new ApplicationDbContext())
+            //{
+            //    var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            //    var admin = new ApplicationUser { Email = "administrator@gmail.com", UserName = "administrator@gmail.com", FirstName = "Admin", LastName = "Admin", ThirdName = "Admin" };
+            //    string password = "Administrator123123!!!";
+            //    var result = userManager.Create(admin, password);
+
+            //    // Success
+            //    if (result.Succeeded)
+            //    {
+            //        // Add role for user
+            //        userManager.AddToRole(admin.Id, "Admin");
+            //        //userManager.AddToRole(admin.Id, role2.Name);
+            //    }
+            //}
+                
+
+
             return View();
         }
 
