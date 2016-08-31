@@ -1817,6 +1817,8 @@
     <Content Include="Views\Department\HalfYearDepartmentPublications.cshtml" />
     <Content Include="Views\Plan\Create.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\GetUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
