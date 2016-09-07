@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 <div class="login-box">
-    <div class="login-box-body" data-ng-controller="editController as editCtrl" data-ng-init="editrCtrl.init()">
+    <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
         @ViewBag.userEdit
         <p class="login-box-msg">Редагування нового користувача</p>
         @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { @class = "", role = "form" }))
@@ -40,7 +40,7 @@
                 <div class="form-group has-feedback">
                     @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
                 </div>
-                <!--
+                
                 <div class="form-group has-feedback">
                     <select class="form-control" data-ng-model="faculty"
                             data-ng-options="c.Id as c.Name for c in faculties">
@@ -53,7 +53,7 @@
                         <option value="">--Виберiть кафедру--</option>
                     </select>
                 </div>
-                    -->
+                    
                 <div class="row">
                     <div class="col-xs-8">
                     </div><!-- /.col -->
@@ -62,7 +62,7 @@
                     </div><!-- /.col -->
                 </div>
 
-                <!--<script src="~/Scripts/App/Controllers/registerController.js"></script>-->
+
 
 
         }

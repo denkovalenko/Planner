@@ -194,6 +194,8 @@
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Documents\54166133.png" />
+    <Content Include="Content\Documents\838500925.png" />
     <Content Include="Content\Images\avatar.png" />
     <Content Include="Content\Images\avatar04.png" />
     <Content Include="Content\Images\avatar2.png" />
@@ -1028,6 +1030,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\App\Controllers\mainController.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\slider.css" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1820,6 +1826,8 @@
     <Content Include="Views\Department\HalfYearDepartmentPublications.cshtml" />
     <Content Include="Views\Plan\Create.cshtml" />
     <Content Include="Views\Plan\Index.cshtml" />
+    <Content Include="Views\Account\GetUsers.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

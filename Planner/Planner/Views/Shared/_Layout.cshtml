@@ -6,8 +6,8 @@
     <title>Система планування ХНЕУ</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <link href="~/Scripts/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
     <link href="~/Scripts/plugins/datepicker/datepicker3.css" rel="stylesheet" />
     <link href="~/Scripts/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" />
@@ -20,13 +20,15 @@
     <link href="~/Content/_all-skins.min.css" rel="stylesheet" />
     <link href="~/Scripts/plugins/ng-table.css" rel="stylesheet" />
     <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
     <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>
     <script src="~/Scripts/App/app.js"></script>
     <script src="~/Scripts/App/Services/keeperService.js"></script>
     <script src="~/Scripts/App/Controllers/sidebarController.js"></script>
     <script src="~/Scripts/App/Controllers/mainController.js"></script>
+    <script src="~/Scripts/App/Controllers/registerController.js"></script>
     <script src="~/Scripts/App/Directives/ngEnter.js"></script>
-
+    <script src="~/Scripts/i18n/angular-locale_ru.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,7 +39,6 @@
 </head>
 <body class="sidebar-mini skin-blue-light">
     <div class="wrapper">
-
         @Html.Partial("Header");
 
         <aside class="main-sidebar" ng-controller="sidebarController as sideCtrl" ng-init="sideCtrl.init()" ng-cloak>
@@ -70,7 +71,6 @@
                             </a>
                         </li>
                     }
-
                     <li class="treeview" ng-show="serviceData.user.ScholarLink">
                         <a href="{{serviceData.user.ScholarLink}}" target="_blank">
                             <i class="fa fa-table"></i> <span>Google Scholar</span>
@@ -81,7 +81,6 @@
                             <i class="fa fa-table"></i> <span>ORCID</span>
                         </a>
                     </li>
-
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li class="treeview">
@@ -90,7 +89,6 @@
                             </a>
                         </li>
                     }
-
                     @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
                         <li class="treeview">
@@ -133,12 +131,7 @@
         </aside>
 
 
-
-
         @RenderBody()
-
-
-
 
 
         <!-- Control Sidebar -->
@@ -191,7 +184,6 @@
                             </a>
                         </li>
                     </ul><!-- /.control-sidebar-menu -->
-
                     <h3 class="control-sidebar-heading">Tasks Progress</h3>
                     <ul class="control-sidebar-menu">
                         <li>
@@ -239,7 +231,6 @@
                             </a>
                         </li>
                     </ul><!-- /.control-sidebar-menu -->
-
                 </div><!-- /.tab-pane -->
                 <!-- Stats tab content -->
                 <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
@@ -256,7 +247,6 @@
                                 Some information about this general settings option
                             </p>
                         </div><!-- /.form-group -->
-
                         <div class="form-group">
                             <label class="control-sidebar-subheading">
                                 Allow mail redirect
@@ -266,7 +256,6 @@
                                 Other sets of options are available
                             </p>
                         </div><!-- /.form-group -->
-
                         <div class="form-group">
                             <label class="control-sidebar-subheading">
                                 Expose author name in posts
@@ -276,23 +265,19 @@
                                 Allow the user to show his name in blog posts
                             </p>
                         </div><!-- /.form-group -->
-
                         <h3 class="control-sidebar-heading">Chat Settings</h3>
-
                         <div class="form-group">
                             <label class="control-sidebar-subheading">
                                 Show me as online
                                 <input type="checkbox" class="pull-right" checked>
                             </label>
                         </div><!-- /.form-group -->
-
                         <div class="form-group">
                             <label class="control-sidebar-subheading">
                                 Turn off notifications
                                 <input type="checkbox" class="pull-right">
                             </label>
                         </div><!-- /.form-group -->
-
                         <div class="form-group">
                             <label class="control-sidebar-subheading">
                                 Delete chat history
@@ -307,7 +292,6 @@
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
-
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
@@ -327,6 +311,5 @@
     <script src="~/Scripts/app.js"></script>
     <script src="~/Scripts/dashboard.js"></script>
     <script src="~/Scripts/demo.js"></script>
-
 </body>
 </html>
