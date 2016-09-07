@@ -251,6 +251,76 @@ namespace Planner.Controllers
             return View("Register", model);
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult GetUsers()
+        {
+            GetUsersModel model = new GetUsersModel
+            {
+                UserList = UserManager.Users.ToList()
+            };
+            return View(model);
+        }
+
+        public ActionResult Edit(string userName)
+        {
+            ApplicationUser user = UserManager.FindByEmail(userName);
+            if (user != null)
+            {
+                EditModel model = new EditModel
+                {
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    ThirdName = user.ThirdName,
+                    DegreeEnum = user.Degree.Value,
+                    PositionEnum = user.Position.Value,
+                    AcademicTitleEnum = user.AcademicTitle.Value,
+                    ScholarLink = user.ScholarLink,
+                    OrcidLink = user.OrcidLink,
+                };
+
+                return View(model);
+            }
+            return RedirectToAction("Dashboard", "Home");
+
+        }
+
+        // POST: /Account/Edit
+        [HttpPost]
+        public ActionResult Edit(EditModel model)
+        {
+            ApplicationUser user = UserManager.FindByEmail(model.Email);
+            if (user != null)
+            {
+                user.UserName = model.Email;
+                user.Email = model.Email;
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.ThirdName = model.ThirdName;
+                user.Degree = new Degree() { Value = model.DegreeEnum };
+                user.Position = new Position() { Value = model.PositionEnum };
+                user.AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum };
+                user.ScholarLink = model.ScholarLink;
+                user.OrcidLink = model.OrcidLink;
+
+                IdentityResult result = UserManager.Update(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Dashboard", "Home");
+                }
+                else
+                {
+                    AddErrors(result);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Пользователь не найден");
+            }
+
+            return View(model);
+        }
+
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]

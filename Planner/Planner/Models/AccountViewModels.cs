@@ -107,6 +107,44 @@ namespace Planner.Models
 		public string DepartmentId { get; set; }
 	}
 
+    public class GetUsersModel
+    {
+        [Display(Name = "UserList")]
+        public List<ApplicationUser> UserList { get; set; }
+    }
+
+    public class EditModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Електронна пошта")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Ім'я")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Прізвище")]
+        public string LastName { get; set; }
+        [Required]
+        [Display(Name = "По батькові")]
+        public string ThirdName { get; set; }
+
+        [Display(Name = "Вчена ступінь")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчену ступiнь")]
+        public AcademicTitleEnum AcademicTitleEnum { get; set; }
+        [Display(Name = "Вчене звання")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчене звання")]
+        public DegreeEnum DegreeEnum { get; set; }
+        [Display(Name = "Посада")]
+        [Range(1, int.MaxValue, ErrorMessage = "Виберiть посаду")]
+        public PositionEnum PositionEnum { get; set; }
+        [Display(Name = "Профiль у Google Scholar")]
+        public string ScholarLink { get; set; }
+        [Display(Name = "Профiль у ORCID")]
+        public string OrcidLink { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]

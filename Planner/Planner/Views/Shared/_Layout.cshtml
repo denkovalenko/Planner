@@ -81,11 +81,26 @@
                             <i class="fa fa-table"></i> <span>ORCID</span>
                         </a>
                     </li>
+
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="treeview">
+                            <a href="~/Account/GetUsers">
+                                <i class="fa fa-table"></i> <span>Користувачi</span>
+                            </a>
+                        </li>
+                    }
+
                     @if (Request.IsAuthenticated && User.IsInRole("User"))
                     {
                         <li class="treeview">
                             <a href="~/Publication/Index">
                                 <i class="fa fa-table"></i> <span>Публікації</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="~/Account/Edit?userName=@User.Identity.Name">
+                                <i class="fa fa-table"></i> <span>Редагування даних</span>
                             </a>
                         </li>}
                     @if (Request.IsAuthenticated && User.IsInRole("User"))

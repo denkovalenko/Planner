@@ -1,0 +1,20 @@
+﻿@model Planner.Models.GetUsersModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "GetUsers";
+}
+
+
+<div>
+    <ul class="login-box-msg">
+        @foreach (var user in Model.UserList)
+        {
+            <li>@user.Email</li>
+            <li><a href="~/Account/Edit?userName=@user.Email">Редактировать</a></li>
+        }
+    </ul>
+
+</div>
+
+
+
