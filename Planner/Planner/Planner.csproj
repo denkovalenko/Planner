@@ -268,6 +268,8 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="App_Data\Dodatki.xlsx" />
+    <Content Include="App_Data\DepartmentReport.xlsx" />
+    <Content Include="App_Data\Form11.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
