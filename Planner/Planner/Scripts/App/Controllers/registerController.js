@@ -5,6 +5,9 @@ PlannerApp.controller('registerController', ['$scope','$http', function ($scope,
 
 	$scope.faculties = [];
 	$scope.departments = [];
+    $scope.AcademicTitleEnum = "0";
+    $scope.DegreeEnum = "0";
+    $scope.PositionEnum = "0";
 
 	me.init = function () {
 		$http.get('/Faculty/Get').then(

@@ -66,3 +66,6 @@ Edit on
     padding:3px;
     vertical-align:middle;
 }
+input.ng-dirty.ng-invalid {
+    border-color: red;
+}

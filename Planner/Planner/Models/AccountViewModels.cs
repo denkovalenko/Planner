@@ -65,7 +65,7 @@ namespace Planner.Models
 
     public class RegisterViewModel
     {
-        [Required]
+         [Required]
         [EmailAddress]
         [Display(Name = "Електронна пошта")]
         public string Email { get; set; }
@@ -81,14 +81,14 @@ namespace Planner.Models
         public string ThirdName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "Пароль повинен мати не менше {2} символів.", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Пiдтвердiть пароль")]
-        [Compare("Password", ErrorMessage = "Пароль та пiдтвердження паролю ен совпадае")]
+        [Compare("Password", ErrorMessage = "Пароль та пiдтвердження паролю не співпадає")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Вчена ступінь")]
