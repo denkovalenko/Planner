@@ -1,4 +1,4 @@
-﻿PlannerApp.controller('mainController', ['$scope','$http', function ($scope,$http) {
+﻿PlannerApp.controller('mainController', ['$scope','$http', 'validationFactory', function ($scope,$http, validationFactory) {
 
     var me = this;
     $scope.isHide = 0;
@@ -40,4 +40,7 @@
     me.deleteFromNewCollaborators = function (index) {
     	me.newCollaborators.splice(index, 1);
     };
+
+    $scope.validators = validationFactory.getValidators();
+    $scope.validationErrors = validationFactory.getValidationErrors();
 }]);
