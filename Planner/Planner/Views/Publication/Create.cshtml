@@ -42,12 +42,12 @@
                                     <p class="panel panel-heading panel-danger alert-danger">@Model.Error</p>
                                 </div>}
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="name" name="name" placeholder="Назва" ng-pattern="" required>
+                                <input type="text" class="form-control" ng-model="name" name="name" placeholder="Назва" ng-pattern="validators.string" required>
                                 <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
                                 <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span> 
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="pages" name="pages" placeholder="Объем"  ng-pattern="" required>
+                                <input type="text" class="form-control" ng-model="pages" name="pages" placeholder="Объем"  ng-pattern="validators.float" required>
                                 <span ng-show="CreatePublication.pages.$error.required && CreatePublication.pages.$touched">{{ validationErrors.required }}</span>
                                 <span ng-show="CreatePublication.pages.$error.pattern">{{ validationErrors.float }}</span> 
                             </div>
@@ -68,7 +68,7 @@
                                 @Html.EnumDropDownListFor(m => m.PublicationType, "Тип видання", new { @class = "form-control", @required = "required" })
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="output" name="output" placeholder="Вихідні дані" ng-pattern="" required>
+                                <input type="text" class="form-control" ng-model="output" name="output" placeholder="Вихідні дані" ng-pattern="validators.string" required>
                                 <span ng-show="CreatePublication.output.$error.required && CreatePublication.output.$touched">{{ validationErrors.required }}</span>
                                 <span ng-show="CreatePublication.output.$error.pattern">{{ validationErrors.string }}</span> 
                             </div>
@@ -82,12 +82,12 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="CitationNumberNMBD" name="CitationNumberNMBD" placeholder="Кількість цитувань у виданнях, що входять до НМБД" ng-pattern="" required>
+                                <input type="text" class="form-control" ng-model="CitationNumberNMBD" name="CitationNumberNMBD" placeholder="Кількість цитувань у виданнях, що входять до НМБД" ng-pattern="validators.integer" required>
                                 <span ng-show="CreatePublication.CitationNumberNMBD.$error.required && CreatePublication.CitationNumberNMBD.$touched">{{ validationErrors.required }}</span>
                                 <span ng-show="CreatePublication.CitationNumberNMBD.$error.pattern">{{ validationErrors.integer }}</span> 
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" ng-model="ImpactFactorNMBD" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД">
+                                <input type="text" class="form-control" ng-model="ImpactFactorNMBD" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД" ng-pattern="validators.float">
                                 <span ng-show="CreatePublication.ImpactFactorNMBD.$error.required && CreatePublication.ImpactFactorNMBD.$touched">{{ validationErrors.required }}</span>
                                 <span ng-show="CreatePublication.ImpactFactorNMBD.$error.pattern">{{ validationErrors.float }}</span> 
                             </div>

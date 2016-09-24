@@ -43,4 +43,5 @@
 
     $scope.validators = validationFactory.getValidators();
     $scope.validationErrors = validationFactory.getValidationErrors();
+    $scope.pattern = new RegExp("^[0-9]+$");
 }]);

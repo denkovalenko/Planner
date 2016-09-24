@@ -6,9 +6,9 @@ PlannerApp.factory('validationFactory', function () {
 
     factory.getValidators = function () {
         return {
-            integer: "/^[0-9]+$/",
-            string: "/^.{" + stringLength + ",}$/",
-            float: "/[0-9]*\.?[0-9]*/"
+            integer: new RegExp("^[0-9]+$"),
+            string: new RegExp("^.{" + stringLength + ",}$"),
+            float: new RegExp("^([0-9]*[.])?[0-9]+$")
         }
 
     }
