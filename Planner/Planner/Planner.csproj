@@ -1945,6 +1945,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\IndividualPlan\Index.cshtml" />
     <Content Include="Views\IndividualPlan\TrainingJob.cshtml" />
+    <Content Include="Views\IndividualPlan\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

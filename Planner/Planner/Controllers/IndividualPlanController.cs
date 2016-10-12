@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Domain.Models;
 
 namespace Planner.Controllers
 {
@@ -16,7 +17,15 @@ namespace Planner.Controllers
 
         public ActionResult TrainingJob()
         {
-            return View();
+            var a = new PlanTrainingJob()
+            {
+                CountStudent = 4,
+                Course = 3
+            };
+            var list = new List<PlanTrainingJob> {a};
+
+            return View("Test",list);
+
         }
     }
 }
