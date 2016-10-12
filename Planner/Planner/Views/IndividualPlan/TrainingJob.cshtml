@@ -1,0 +1,56 @@
+﻿@model Domain.Models.PlanTrainingJob
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="~/Scripts/jqGrid/css/ui.jqgrid.css" rel="stylesheet"/>
+    <link href="~/Scripts/jqGrid/css/jquery-ui.min.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jqGrid/js/jquery-1.4.2.min.js"></script>
+    <script src="~/Scripts/jqGrid/js/i18n/grid.locale-ua.js"></script>
+    <script src="~/Scripts/jqGrid/js/jquery.jqGrid.min.js"></script>
+    <title>Навчальна робота</title>
+</head>
+<body>
+    <table id="scroll37"></table>
+    <div id="pscroll37"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var data = [{"item_id": 1, "item": "Name", "item_cd":"sdsdda"}];
+    jQuery("#scroll37").jqGrid({
+        data: data,
+        datatype: "local",
+        height: 255,
+        width: 600,
+        colNames: ['Index', 'Name', 'Code'],
+        colModel: [
+            { name: 'item_id', index: 'item_id', width: 65, sorttype: 'int' },
+            { name: 'item', index: 'item', width: 150 },
+            { name: 'item_cd', index: 'item_cd', width: 100 }
+        ],
+        rowNum: 50,
+        rowTotal: 2000,
+        rowList: [20, 30, 50],
+        scroll: 1,
+        loadonce: true,
+        rownumbers: true,
+        rownumWidth: 40,
+        gridview: true,
+        pager: '#pscroll37',
+        sortname: 'item_id',
+        viewrecords: true,
+        sortorder: "asc",
+        caption: "Virtual scrolling on local data"
+    });
+    
+    jQuery("#scroll37").jqGrid('navGrid', '#pscroll37', { del: false, add: false, edit: false }, {}, {}, {}, { multipleSearch: true });
+
+</script>
