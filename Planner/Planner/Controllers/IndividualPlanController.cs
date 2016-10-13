@@ -17,14 +17,7 @@ namespace Planner.Controllers
 
         public ActionResult TrainingJob()
         {
-            var a = new PlanTrainingJob()
-            {
-                CountStudent = 4,
-                Course = 3
-            };
-            var list = new List<PlanTrainingJob> {a};
-
-            return View("Test",list);
+            return View();
 
         }
     }
