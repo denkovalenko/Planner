@@ -148,9 +148,6 @@ $("#Training").jqGrid('navGrid', '#TrainingJob', {
 );
 function update(act) { }
 
-
-
-//jQuery("#scroll37").jqGrid('navGrid', '#pscroll37', { del: false, add: false, edit: false }, {}, {}, {}, { multipleSearch: true });
 jQuery("#Training").jqGrid('setGroupHeaders', {
     useColSpanStyle: true,
     groupHeaders: [
@@ -176,7 +173,6 @@ jQuery("#Training").jqGrid('setGroupHeaders', {
     ]
 });
 var grid = jQuery('#Training');
-
 var thd = $("thead:first", grid.hDiv).get(0);
 for (var i = 48; i < 55; i++) {
     $("tr th:eq(" + (i + 1) + ") div", thd).addClass("rotate");
