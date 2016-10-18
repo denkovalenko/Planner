@@ -169,6 +169,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\NdrController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreatePublicationViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NdrViewModel.cs" />
     <Compile Include="Models\PublicationCreate.cs" />
     <Compile Include="Models\PublicationDraft.cs" />
     <Compile Include="Models\PublicationViewModel.cs" />
@@ -1986,6 +1988,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\IndividualPlan\Index.cshtml" />
     <Content Include="Views\IndividualPlan\TrainingJob.cshtml" />
+    <Content Include="Views\Ndr\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
