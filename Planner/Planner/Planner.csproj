@@ -169,7 +169,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\NdrController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -186,7 +185,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreatePublicationViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NdrViewModel.cs" />
     <Compile Include="Models\PublicationCreate.cs" />
     <Compile Include="Models\PublicationDraft.cs" />
     <Compile Include="Models\PublicationViewModel.cs" />
@@ -216,6 +214,7 @@
     <Content Include="Content\Images\photo2.png" />
     <Content Include="Content\Images\photo3.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\user.png" />
     <Content Include="Content\Images\user1-128x128.jpg" />
     <Content Include="Content\Images\user2-160x160.jpg" />
     <Content Include="Content\Images\user3-128x128.jpg" />
@@ -282,31 +281,6 @@
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
     <Content Include="Scripts\IndividualPlan\TrainingJob.js" />
-    <Content Include="Scripts\jqGrid\css\images\animated-overlay.gif" />
-    <Content Include="Scripts\jqGrid\css\images\code.png" />
-    <Content Include="Scripts\jqGrid\css\images\php.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_222222_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_228ef1_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_444444_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_ef8c08_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_f5e175_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_ffd27a_256x240.png" />
-    <Content Include="Scripts\jqGrid\css\images\ui-icons_ffffff_256x240.png" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\demo.js" />
@@ -2000,10 +1974,10 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\IndividualPlan\Index.cshtml" />
     <Content Include="Views\IndividualPlan\TrainingJob.cshtml" />
-    <Content Include="Views\Ndr\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
+    <Folder Include="Scripts\jqGrid\css\images\" />
     <Folder Include="Views\Author\" />
     <Folder Include="Views\Faculty\" />
   </ItemGroup>
