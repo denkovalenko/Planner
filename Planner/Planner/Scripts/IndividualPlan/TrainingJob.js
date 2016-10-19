@@ -53,58 +53,91 @@ var colNames = [
     'пл.', 'вик.'
 ];
 
+var colNames2 = [
+    'Id',
+    'Форма навчання',
+    '№ п/п',
+    'Назва навчальних дисциплін і видів навчальної роботи',
+    'Напрям, спеціальність, факультет',
+    'Курс навчання',
+    'Кількість студентів',
+    'Шифр груп (потоків)',
+    'dr.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.',
+    'пл.', 'вик.'
+];
+
+var editruleInteger = { required: true, integer: true, minValue: 0, maxValue: 1000 };
+var editruleLetters = { required: true, custom: true, custom_func: checkOnlyLetters };
 var colModel = [
-    { name: 'Id', index: 'Id', width: 25, hidden: true },
-    { name: 'EducationForm', index: 'EducationForm', width: 25 },
-    { name: 'OrderNumber', index: 'OrderNumber', width: 20 },
-    { name: 'Subject', index: 'Subject', width: 35 },
-    { name: 'DSD', index: 'DSD', width: 60 },
-    { name: 'Course', index: 'Course', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'CountStudent', index: 'CountStudent', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'GroupCode', index: 'GroupCode', width: 20 },
-    { name: 'PlannedLectures', index: 'PlannedLectures', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneLectures', index: 'DoneLectures', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedPract', index: 'PlannedPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DonePract', index: 'DonePract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedLaboratory', index: 'PlannedLaboratory', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneLaboratory', index: 'DoneLaboratory', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedSeminar', index: 'PlannedSeminar', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneSeminar', index: 'DoneSeminar', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedIndividual', index: 'PlannedIndividual', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneIndividual', index: 'DoneIndividual', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedConsultation', index: 'PlannedConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneConsultation', index: 'DoneConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedExamConsultation', index: 'PlannedExamConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneExamConsultation', index: 'DoneExamConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedCheckControl', index: 'PlannedCheckControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneCheckControl', index: 'DoneCheckControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedCheckLectureControl', index: 'PlannedCheckLectureControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneCheckLectureControl', index: 'DoneCheckLectureControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedEAT', index: 'PlannedEAT', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneEAT', index: 'DoneEAT', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedCGS', index: 'PlannedCGS', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneCGS', index: 'DoneCGS', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedCoursework', index: 'PlannedCoursework', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneCoursework', index: 'DoneCoursework', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedOffsetting', index: 'PlannedOffsetting', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneOffsetting', index: 'DoneOffsetting', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedSemestrExam', index: 'PlannedSemestrExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneSemestrExam', index: 'DoneSemestrExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedTrainingPract', index: 'PlannedTrainingPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneTrainingPract', index: 'DoneTrainingPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedStateExam', index: 'PlannedStateExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneStateExam', index: 'DoneStateExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedDiploma', index: 'PlannedDiploma', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneDiploma', index: 'DoneDiploma', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedPostgraduates', index: 'PlannedPostgraduates', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DonePostgraduates', index: 'DonePostgraduates', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'PlannedTotal', index: 'PlannedTotal', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' },
-    { name: 'DoneTotal', index: 'DoneTotal', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right' }
+    { name: 'Id', index: 'Id', key: true, width: 25, hidden: true },
+    { name: 'EducationForm', editable: true, index: 'EducationForm', width: 25, editable: true, editrules:editruleLetters },
+    { name: 'OrderNumber', index: 'OrderNumber', width: 20, editable: true, editrules: editruleInteger },
+    { name: 'Subject', index: 'Subject', width: 35, editable: true, editrules: editruleLetters },
+    { name: 'DSD', index: 'DSD', width: 60, editable: true, editrules: editruleLetters },
+    { name: 'Course', index: 'Course', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
+    { name: 'CountStudent', index: 'CountStudent', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
+    { name: 'GroupCode', index: 'GroupCode', width: 20, editable: true, editrules: { required: true, custom: true, custom_func: checkGroupCode } },
+    { name: 'PlannedLectures', index: 'PlannedLectures', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Читання лекцій (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneLectures', index: 'DoneLectures', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Читання лекцій (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedPract', index: 'PlannedPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення практичних занять (пл.)' }, editrules: editruleInteger },
+    { name: 'DonePract', index: 'DonePract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення практичних занять (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedLaboratory', index: 'PlannedLaboratory', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення лабораторних занять (пл.)' }, editrules: editruleInteger  },
+    { name: 'DoneLaboratory', index: 'DoneLaboratory', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення лабораторних занять (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedSeminar', index: 'PlannedSeminar', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення семінарських занять (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneSeminar', index: 'DoneSeminar', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення семінарських занять (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedIndividual', index: 'PlannedIndividual', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення індивідуальних занять (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneIndividual', index: 'DoneIndividual', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення індивідуальних занять (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedConsultation', index: 'PlannedConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення консультацій протягом семестру (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneConsultation', index: 'DoneConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення консультацій протягом семестру (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedExamConsultation', index: 'PlannedExamConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення екзаменаційних консультацій (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneExamConsultation', index: 'DoneExamConsultation', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення екзаменаційних консультацій (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedCheckControl', index: 'PlannedCheckControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення контрольних робіт, що виконують під час аудиторних занять (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneCheckControl', index: 'DoneCheckControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення контрольних робіт, що виконують під час аудиторних занять (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedCheckLectureControl', index: 'PlannedCheckLectureControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення контрольних робіт, що виконують під час самостійної роботи (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneCheckLectureControl', index: 'DoneCheckLectureControl', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення контрольних робіт, що виконують під час самостійної роботи (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedEAT', index: 'PlannedEAT', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Реферати, аналітичні огляди, переклади (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneEAT', index: 'DoneEAT', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Реферати, аналітичні огляди, переклади (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedCGS', index: 'PlannedCGS', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Розрахункові, графічні, розрахунково-графічні роботи (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneCGS', index: 'DoneCGS', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Розрахункові, графічні, розрахунково-графічні роботи (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedCoursework', index: 'PlannedCoursework', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Курсові проекти, роботи (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneCoursework', index: 'DoneCoursework', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Курсові проекти, роботи (вик.)' }, editrules: editruleInteger  },
+    { name: 'PlannedOffsetting', index: 'PlannedOffsetting', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення заліку (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneOffsetting', index: 'DoneOffsetting', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення заліку (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedSemestrExam', index: 'PlannedSemestrExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення семестрових екзаменів (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneSemestrExam', index: 'DoneSemestrExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення семестрових екзаменів (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedTrainingPract', index: 'PlannedTrainingPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво навчальною і виробничою практикою (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneTrainingPract', index: 'DoneTrainingPract', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво навчальною і виробничою практикою (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedStateExam', index: 'PlannedStateExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення державних екзаменів (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneStateExam', index: 'DoneStateExam', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Проведення державних екзаменів (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedDiploma', index: 'PlannedDiploma', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво, консультування, рецензування та проведення захисту дипломних проектів (робіт) (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneDiploma', index: 'DoneDiploma', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво, консультування, рецензування та проведення захисту дипломних проектів (робіт) (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedPostgraduates', index: 'PlannedPostgraduates', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво аспірантами, здобувачами та стажуванням викладачів (пл.)' }, editrules: editruleInteger },
+    { name: 'DonePostgraduates', index: 'DonePostgraduates', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Керівництво аспірантами, здобувачами та стажуванням викладачів (вик.)' }, editrules: editruleInteger },
+    { name: 'PlannedTotal', index: 'PlannedTotal', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Усього (пл.)' }, editrules: editruleInteger },
+    { name: 'DoneTotal', index: 'DoneTotal', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, formoptions: { label: 'Усього (вик.)' }, editrules: editruleInteger }
 ];
 
 jQuery("#Training").jqGrid({
-    data: data,
-    datatype: "local",
+    url: 'GetPlanTrainingJobs',
+    datatype: "json",
+    method: 'POST',
     autowidth: true,
     colNames: colNames,
     colModel: colModel,
@@ -121,20 +154,18 @@ jQuery("#Training").jqGrid({
     viewrecords: true,
     sortorder: "asc",
     caption: "Навчальна робота",
-    ondblClickRow: function (id) {
-        $("#Training").jqGrid('editRow', id, {
-            keys: true,
-            oneditfunc: function () { },
-        });
+    editurl: "EditPlanTrainingJobs",
+    ondblClickRow: function(id) {
+        $("#Training").jqGrid('editRow', id, { keys: true, oneditfunc: function () { } });
     }
 });
 
-$("#Training").jqGrid('navGrid', '#TrainingJob', {
-
+    $("#Training").jqGrid('navGrid', '#TrainingJob', {
     search: true,
     searchtext: "Пошук",
     refresh: false,
     add: true,
+    width: 1140,
     del: true,
     edit: false,
     view: false,
@@ -146,7 +177,29 @@ $("#Training").jqGrid('navGrid', '#TrainingJob', {
         update("add"),
         update("del")
 );
-function update(act) { }
+function update(act) {
+    return {
+        closeAfterAdd: true,
+        closeAfterEdit: true,
+        width: '100%',
+        reloadAfterSubmit: true,
+        drag: true,
+        onclickSubmit: function (params) {
+            var list = $("#Training");
+            var selectedRow = list.getGridParam("selrow");
+            var rowData = list.getRowData(selectedRow);
+            if (act === "add")
+                params.url = 'SavePlanTrainingJobs';
+            else if (act === "del") {
+                params.url = 'DeletePlanTrainingJobs';                
+            }
+        },
+        afterSubmit: function (response, postdata) {
+            $(this).jqGrid('setGridParam', { datatype: 'json' }).trigger('reloadGrid')
+            return [true, "", 0]
+        }
+    };
+};
 
 jQuery("#Training").jqGrid('setGroupHeaders', {
     useColSpanStyle: true,
@@ -178,3 +231,20 @@ for (var i = 48; i < 55; i++) {
     $("tr th:eq(" + (i + 1) + ") div", thd).addClass("rotate");
 }
 $(".ui-th-column-header").height("300px");
+
+
+function checkOnlyLetters(value, colname) {
+    var reg = new RegExp("^[а-яА-ЯёЁa-zA-Z\ \.\,\_\-]{2,}$");
+    if (!reg.test(value))
+        return [false, colname + ". Пожалуйста введите только буквы. Не меньше двух."];
+    else
+        return [true, ""];
+}
+
+function checkGroupCode(value, colname) {
+    var reg = new RegExp("^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$");
+    if (!reg.test(value))
+        return [false, colname + ". Пожалуйста введите код группы правильно."];
+    else
+        return [true, ""];
+}
