@@ -37,8 +37,9 @@ namespace Domain.Models
         public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }
 		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
+        public DbSet<NDR> NDR { get; set; }
 
-		public ApplicationDbContext()
+        public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }

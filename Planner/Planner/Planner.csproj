@@ -1972,6 +1972,8 @@
     <Content Include="Views\IndividualPlan\Index.cshtml" />
     <Content Include="Views\IndividualPlan\TrainingJob.cshtml" />
     <Content Include="Views\Ndr\Index.cshtml" />
+    <Content Include="Views\Ndr\Add.cshtml" />
+    <Content Include="Views\Ndr\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
