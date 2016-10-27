@@ -1,25 +1,4 @@
-﻿var data = [
-{
-    "Id": "sdsdfsad", "OrderNumber": 1, "Content": "sdasd",
-    "Result": "result", "DurationTime": 33, "PlannedVolume": 1,
-    "ActualVolume": 11
-},
-{
-    "Id": "sdsd", "OrderNumber": 2, "Content": "sdasd",
-    "Result": "result", "DurationTime": 33, "PlannedVolume": 1,
-    "ActualVolume": 11
-}];
-
-
-var gridSettings = {
-    caption: 'Методична робота',
-    editurl: '',
-    addurl: '',
-    delurl: '',
-    loadurl: ''
-};
-
-var colNames = [
+﻿var colNames = [
     'Id',
     '№ п/п',
     'Змiст',
@@ -42,7 +21,7 @@ var colModel = [
 ];
 
 
-jQuery("#Training").jqGrid({
+jQuery("#JQTable").jqGrid({
     url: gridSettings.loadurl,
     datatype: "json",
     height: 255,
@@ -58,13 +37,13 @@ jQuery("#Training").jqGrid({
     rownumWidth: 40,
     gridview: true,
     sortname: 'Id',
-    pager: "#TrainingJob",
+    pager: "#JQPager",
     viewrecords: true,
     sortorder: "desc",
     caption: gridSettings.caption,
     editurl: gridSettings.editurl,
     ondblClickRow: function(id) {
-        $("#Training").jqGrid('editRow', id, {
+        $("#JQTable").jqGrid('editRow', id, {
             keys: true,
             oneditfunc: function() {},
             successfunc: function(response, postdata) {
@@ -75,7 +54,7 @@ jQuery("#Training").jqGrid({
     }
 });
 
-$("#Training").jqGrid('navGrid', '#TrainingJob', {
+$("#JQTable").jqGrid('navGrid', '#JQPager', {
     search: true,
     searchtext: "Пошук",
     refresh: false,
@@ -100,7 +79,7 @@ function update(act) {
         reloadAfterSubmit: true,
         drag: true,
         onclickSubmit: function (params) {
-            var list = $("#Training");
+            var list = $("#JQTable");
             var selectedRow = list.getGridParam("selrow");
             var rowData = list.getRowData(selectedRow);
             if (act === "add")

@@ -27,6 +27,15 @@ namespace Planner.Controllers
             return View();
         }
 
+        public ActionResult PlanMethodicalWork()
+        {
+            return View();
+        }
+
+        public ActionResult PlanManagment()
+        {
+            return View();
+        }
         public string GetPlanTrainingJobs()
         {
             using (var db = new ApplicationDbContext())
@@ -102,6 +111,91 @@ namespace Planner.Controllers
         }
 
         public void EditPlanScientificWork(PlanScientificWork model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (model.Id != null)
+                {
+                    db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
+        public string GetPlanMethodicalWork()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var data = db.PlanMethodicalWorks.ToList();
+                return JsonConvert.SerializeObject(data);
+            }
+        }
+
+        public void SavePlanMethodicalWork(PlanMethodicalWork model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                model.Id = Guid.NewGuid().ToString();
+                db.Entry(model).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+            }
+        }
+
+        public void DeletePlanMethodicalWork(string id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (id != null)
+                {
+                    db.Entry(new PlanMethodicalWork() { Id = id }).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void EditPlanMethodicalWork(PlanMethodicalWork model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (model.Id != null)
+                {
+                    db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
+        
+        public string GetPlanManagment()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var data = db.PlanManagments.ToList();
+                return JsonConvert.SerializeObject(data);
+            }
+        }
+
+        public void SavePlanManagment(PlanManagment model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                model.Id = Guid.NewGuid().ToString();
+                db.Entry(model).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+            }
+        }
+
+        public void DeletePlanManagment(string id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (id != null)
+                {
+                    db.Entry(new PlanManagment() { Id = id }).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void EditPlanManagment(PlanManagment model)
         {
             using (var db = new ApplicationDbContext())
             {
