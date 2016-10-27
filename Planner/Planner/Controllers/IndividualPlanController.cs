@@ -22,6 +22,11 @@ namespace Planner.Controllers
             return View();
         }
 
+        public ActionResult PlanScientificWork()
+        {
+            return View();
+        }
+
         public string GetPlanTrainingJobs()
         {
             using (var db = new ApplicationDbContext())
@@ -54,6 +59,49 @@ namespace Planner.Controllers
         }
 
         public void EditPlanTrainingJobs(PlanTrainingJob model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (model.Id != null)
+                {
+                    db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public string GetPlanScientificWork()
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var data = db.PlanScientificWorks.ToList();
+                return JsonConvert.SerializeObject(data);
+            }
+        }
+
+        public void SavePlanScientificWork(PlanScientificWork model)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                model.Id = Guid.NewGuid().ToString();
+                db.Entry(model).State = System.Data.Entity.EntityState.Added;
+                db.SaveChanges();
+            }
+        }
+
+        public void DeletePlanScientificWork(string id)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                if (id != null)
+                {
+                    db.Entry(new PlanScientificWork() { Id = id }).State = System.Data.Entity.EntityState.Deleted;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public void EditPlanScientificWork(PlanScientificWork model)
         {
             using (var db = new ApplicationDbContext())
             {

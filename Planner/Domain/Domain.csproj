@@ -115,6 +115,7 @@
       <DependentUpon>201610060106148_AddPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
+    <Compile Include="Models\NDR.cs" />
     <Compile Include="Models\NMBD.cs" />
     <Compile Include="Models\PlanAllocation.cs" />
     <Compile Include="Models\PlanChange.cs" />

@@ -29,12 +29,35 @@ namespace Planner.Controllers
         {
             return View();
         }
-        public ActionResult Save(NdrViewModel model)
+        public PartialViewResult Add()
+        {
+            return PartialView("Add");
+        }
+        public PartialViewResult Result()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
+                var ndrs = db.NDR.Where(x => x.UserId == user.Id).ToList();
+                return PartialView("Result", ndrs);
+            }
+           
+        }
+        public ActionResult Save(NDR model)
         {
             if (ModelState.IsValid)
             {
+
+              
                 Session["message"] = null;
-                return null;
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
+                    model.UserId = user.Id;
+                    db.NDR.Add(model);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
             }
             Session["message"] = "Усi поля повиннi бути заповненi";
             return RedirectToAction("Index");
