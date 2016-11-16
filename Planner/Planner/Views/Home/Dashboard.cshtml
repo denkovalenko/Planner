@@ -1,10 +1,50 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
 
 <div class="content-wrapper">
+    <section id="main-content">
+
+        <div class="row">
+            <div class="col-lg-9 main-chart">
+
+                <div class="row mtbox">
+                    <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                        <div class="box1">
+                            <span class="li_cloud"></span>
+                            <h3>1</h3>
+                        </div>
+                        <p>Викладач зробив 1 звіт</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2 box0">
+                        <div class="box1">
+                            <span class="li_cloud"></span>
+                            <h3>2</h3>
+                        </div>
+                        <p>Викладач має 2 публікації</p>
+                    </div>
+
+                </div>
+
+
+            </div><!-- /col-lg-3 -->
+        </div>
+    </section>
+
+    <!-- CALENDAR-->
+    @*<div id="calendar" class="mb">
+        <div class="panel green-panel no-margin">
+            <div id="date-popover" class="popover top" style="cursor: pointer; width: 50px;">
+                <div class="arrow"></div>
+                <h3 class="popover-title"></h3>
+                <div id="date-popover-content" class="popover-content"></div>
+            </div>
+            <div id="my-calendar"></div>
+        </div>
+    </div>*@<!-- / calendar -->
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    @*<section class="content-header">
         <h1>
             Головна сторінка
             <small>Панель</small>
@@ -13,10 +53,10 @@
             <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
             <li class="active">Головна сторінка</li>
         </ol>
-    </section>
+    </section>*@
 
     <!-- Main content -->
-    <section class="content">
+    @*<section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-xs-6">
@@ -135,5 +175,41 @@
 
         </div><!-- /.row (main row) -->*@
 
-    </section><!-- /.content -->
+    @*</section>*@
+    <!-- /.content -->
 </div><!-- /.content-wrapper -->
+
+@*<script type="application/javascript">
+    $(document).ready(function () {
+        $("#date-popover").popover({html: true, trigger: "manual"});
+        $("#date-popover").hide();
+        $("#date-popover").click(function (e) {
+            $(this).hide();
+        });
+
+        $("#my-calendar").zabuto_calendar({
+            action: function () {
+                return myDateFunction(this.id, false);
+            },
+            action_nav: function () {
+                return myNavFunction(this.id);
+            },
+            ajax: {
+                url: "show_data.php?action=1",
+                modal: true
+            },
+            legend: [
+                {type: "text", label: "Special event", badge: "00"},
+                {type: "block", label: "Regular event", }
+            ]
+        });
+    });
+
+
+    function myNavFunction(id) {
+        $("#date-popover").hide();
+        var nav = $("#" + id).data("navigation");
+        var to = $("#" + id).data("to");
+        console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+    }
+</script>*@

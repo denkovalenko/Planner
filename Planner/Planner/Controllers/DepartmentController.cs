@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
-	[Authorize]
+	//[Authorize]
     public class DepartmentController : Controller
     {
         // GET: Department

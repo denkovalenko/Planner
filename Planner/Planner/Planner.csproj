@@ -203,6 +203,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Documents\54166133.png" />
     <Content Include="Content\Documents\838500925.png" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Images\avatar.png" />
     <Content Include="Content\Images\avatar04.png" />
     <Content Include="Content\Images\avatar2.png" />
@@ -212,6 +213,7 @@
     <Content Include="Content\Images\boxed-bg.png" />
     <Content Include="Content\Images\default-50x50.gif" />
     <Content Include="Content\Images\icons.png" />
+    <Content Include="Content\Images\nemYH_iKHtw.jpg" />
     <Content Include="Content\Images\photo1.png" />
     <Content Include="Content\Images\photo2.png" />
     <Content Include="Content\Images\photo3.jpg" />
@@ -225,7 +227,12 @@
     <Content Include="Content\Images\user6-128x128.jpg" />
     <Content Include="Content\Images\user7-128x128.jpg" />
     <Content Include="Content\Images\user8-128x128.jpg" />
+    <Content Include="Content\jquery.gritter.css" />
     <Content Include="Content\skin-blue-light.min.css" />
+    <Content Include="Content\style-responsive.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\styles.css" />
+    <Content Include="Content\zabuto_calendar.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -266,6 +273,7 @@
     <Content Include="Scripts\App\Services\keeperService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\common-scripts.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -283,6 +291,7 @@
     <Content Include="App_Data\Form11.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
+    <Content Include="Scripts\gritter-conf.js" />
     <Content Include="Scripts\IndividualPlan\PlanManagment.js" />
     <Content Include="Scripts\IndividualPlan\PlanScientificWork.js" />
     <Content Include="Scripts\IndividualPlan\PlnaMethodicalWork.js" />
@@ -1174,6 +1183,11 @@
     <Content Include="Scripts\jquery-ui-1.12.1\jquery-ui.theme.css" />
     <Content Include="Scripts\jquery-ui-1.12.1\jquery-ui.theme.min.css" />
     <Content Include="Scripts\jquery-ui-1.12.1\LICENSE.txt" />
+    <Content Include="Scripts\jquery.dcjqaccordion.2.7.js" />
+    <Content Include="Scripts\jquery.gritter.js" />
+    <Content Include="Scripts\jquery.nicescroll.js" />
+    <Content Include="Scripts\jquery.scrollTo.min.js" />
+    <Content Include="Scripts\jquery.sparkline.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1905,6 +1919,7 @@
     <Content Include="Scripts\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\zabuto_calendar.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
