@@ -2262,7 +2262,7 @@ label {
 .footer-top {
     float: right;
     color: #00c5de;
-    margin: 7px;
+    margin: 10px;
     height: 40px;
     background: #073ea2 !important;
 
@@ -2271,7 +2271,7 @@ label {
     float: left;
 }
 .header-widget {
-    padding: 30px;
+    padding: 18px;
 }
 .serchheder {
     width: 100%;
@@ -2281,11 +2281,12 @@ label {
 }
 .serchheder {
     background: url("https://pp.vk.me/c638218/v638218875/f21e/Y-mX4M0z0hQ.jpg");
-    height: 240px;
+    height: 220px;
     background-size: 101%;
 }
 .main-title  {
-    text-align: center;
+  
+  text-align: center;
 }
 .main-title a {
     font-size: 2.5em;
@@ -2305,3 +2306,85 @@ label {
 .content-wrapper {
     margin-top: 310px;
 }
+
+/* header text size */
+
+/* Смартфоны (портретный и альбомный режимы) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.5em;
+    padding-top: 25px;
+}
+}
+/* iPhone 5 (портретный и альбомный режимы)----------- */
+@media only screen
+and (min-device-width : 480px)
+and (max-device-width : 568px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.6em;
+    padding-top: 20px;
+}
+}
+
+@media only screen
+and (min-device-width : 568px)
+and (max-device-width : 768px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.7em;
+    padding-top: 25px;
+}
+}
+ 
+/* iPad (портретный и альбомный режимы) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.7em;
+    padding-top: 25px;
+}
+}
+ 
+
+ @media only screen
+and (min-device-width : 1024px)
+and (max-device-width : 1224px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.8em;
+    padding-top: 25px;
+}
+}
+
+ 
+/* Настольные компьютеры и ноутбуки ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 1em;
+    padding-top: 30px;
+}
+}
+ 
+/* Большие экраны ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Сюда добавляем стили*/
+.main-title {
+    padding-top: 30px;
+}
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    height: 40px !important;
+	margin-top:5px;
+}
+
+
+
