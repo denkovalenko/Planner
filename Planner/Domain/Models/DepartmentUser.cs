@@ -22,6 +22,9 @@ namespace Domain.Models
         public String DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
+        public String UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser Userrtment { get; set; }
 
     }
 }

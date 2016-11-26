@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner", "Planner\Planner.csproj", "{809CF05E-5B12-49C0-BB01-9FB965EDBCCB}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculation", "Calculation\Calculation.csproj", "{C2F0C763-FC5D-434A-8504-A68564D31A23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{67C708F7-E075-4921-B080-AAF6852B3CCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{2E2AAF19-CC12-41E3-B120-07A907EB9ECF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{C2F0C763-FC5D-434A-8504-A68564D31A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F0C763-FC5D-434A-8504-A68564D31A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F0C763-FC5D-434A-8504-A68564D31A23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67C708F7-E075-4921-B080-AAF6852B3CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67C708F7-E075-4921-B080-AAF6852B3CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67C708F7-E075-4921-B080-AAF6852B3CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67C708F7-E075-4921-B080-AAF6852B3CCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E2AAF19-CC12-41E3-B120-07A907EB9ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E2AAF19-CC12-41E3-B120-07A907EB9ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E2AAF19-CC12-41E3-B120-07A907EB9ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E2AAF19-CC12-41E3-B120-07A907EB9ECF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

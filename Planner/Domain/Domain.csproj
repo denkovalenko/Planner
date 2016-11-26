@@ -94,17 +94,52 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDbInitializer.cs" />
+    <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
+    <Compile Include="Helpers\Dates.cs" />
+    <Compile Include="Helpers\ScientificPublishingModel.cs" />
+    <Compile Include="Migrations\201610042355187_PlanRemark.cs" />
+    <Compile Include="Migrations\201610042355187_PlanRemark.Designer.cs">
+      <DependentUpon>201610042355187_PlanRemark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610051225511_PlanConclusion.cs" />
+    <Compile Include="Migrations\201610051225511_PlanConclusion.Designer.cs">
+      <DependentUpon>201610051225511_PlanConclusion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610051237206_PlanChange.cs" />
+    <Compile Include="Migrations\201610051237206_PlanChange.Designer.cs">
+      <DependentUpon>201610051237206_PlanChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610060106148_AddPlan.cs" />
+    <Compile Include="Migrations\201610060106148_AddPlan.Designer.cs">
+      <DependentUpon>201610060106148_AddPlan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
+    <Compile Include="Models\NDR.cs" />
+    <Compile Include="Models\NMBD.cs" />
+    <Compile Include="Models\PlanAllocation.cs" />
+    <Compile Include="Models\PlanChange.cs" />
+    <Compile Include="Models\PlanConclusion.cs" />
+    <Compile Include="Models\PlanManagment.cs" />
+    <Compile Include="Models\PlanMethodicalWork.cs" />
+    <Compile Include="Models\PlanRemark.cs" />
+    <Compile Include="Models\PlanScientificWork.cs" />
+    <Compile Include="Models\PlanTrainingJob.cs" />
+    <Compile Include="Models\ResearchDoneType.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScientificPublishing.cs" />
+    <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AcademicTitle.cs" />
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Degree.cs" />
+    <Compile Include="Models\Enums\PublicationTypeEnum.cs" />
     <Compile Include="Models\Enums\StoringTypeEnum.cs" />
     <Compile Include="Models\ExternalCollaborator.cs" />
-    <Compile Include="Models\PublicationScientificBase.cs" />
-    <Compile Include="Models\ScientificBase.cs" />
+    <Compile Include="Models\PublicationNMBD.cs" />
+    <Compile Include="Models\PublicationType.cs" />
     <Compile Include="Models\DepartmentUser.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\PublicationUser.cs" />
@@ -117,10 +152,25 @@
     <Compile Include="Models\Rate.cs" />
     <Compile Include="Models\StoringType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\PublicationOnDepartment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610042355187_PlanRemark.resx">
+      <DependentUpon>201610042355187_PlanRemark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610051225511_PlanConclusion.resx">
+      <DependentUpon>201610051225511_PlanConclusion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610051237206_PlanChange.resx">
+      <DependentUpon>201610051237206_PlanChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610060106148_AddPlan.resx">
+      <DependentUpon>201610060106148_AddPlan.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

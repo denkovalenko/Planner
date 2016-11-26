@@ -16,8 +16,9 @@ namespace Domain.Models
         }
         [Key]
         public String Id { get; set; }
+		public Double PageQuantity { get; set; }
 
-        public String PublicationId { get; set; }
+		public String PublicationId { get; set; }
         [ForeignKey("PublicationId")]
         public virtual Publication Publication { get; set; }
 

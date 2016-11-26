@@ -18,15 +18,28 @@ namespace Domain.Models
         public DbSet<Department> Departments { get; set; }
         public DbSet<Publication> Publications { get; set; }
         public DbSet<Rate> Rates { get; set; }
-        public DbSet<ScientificBase> ScientificBases { get; set; }
 		public DbSet<ExternalCollaborator> ExternalCollaborators { get; set; }
 		public DbSet<StoringType> StoringTypes { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<PlanRemark> PlanRemarks { get; set; }
+        public DbSet<PlanConclusion> PlanConclusions { get; set; }
+        public DbSet<PlanChange> PlanChanges { get; set; }
+        public DbSet<PlanManagment> PlanManagments { get; set; }
+        public DbSet<PlanScientificWork> PlanScientificWorks { get; set; }
+        public DbSet<PlanMethodicalWork> PlanMethodicalWorks { get; set; }
+        public DbSet<PlanAllocation> PlanAllocations { get; set; }
+        public DbSet<PlanTrainingJob> PlanTrainingJobs { get; set; }
+        public DbSet<ResearchDoneType> ResearchDoneTypes { get; set; }
+		public DbSet<NMBD> NMBDs { get; set; }
+        public DbSet<ScientificPublishing> ScientificPublishings { get; set; }
 
-		public DbSet<PublicationScientificBase> PublicationScientificBases { get; set; }
+
+        public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
 		public DbSet<PublicationUser> PublicationUsers { get; set; }
 		public DbSet<DepartmentUser> DepartmentUsers { get; set; }
+        public DbSet<NDR> NDR { get; set; }
 
-		public ApplicationDbContext()
+        public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }

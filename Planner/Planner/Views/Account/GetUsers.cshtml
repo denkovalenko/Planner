@@ -1,0 +1,21 @@
+﻿@model Planner.Models.GetUsersModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "GetUsers";
+}
+
+<div>
+    <table align="center">
+        <caption><h3>Користувачі</h3></caption>
+        <td><hr /></td>
+        <td><hr /></td>
+        @foreach (var user in Model.UserList)
+        {
+            <tr>
+                <td><h3>@user.Email</h3></td>
+                <td><a href="~/Account/Edit?userName=@user.Email" class="btn btn-primary">Редагувати</a></td>
+            </tr>
+        }
+    </table>
+</div>
+
