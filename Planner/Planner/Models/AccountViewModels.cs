@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Planner.Models
 {
@@ -129,6 +130,9 @@ namespace Planner.Models
         [Required]
         [Display(Name = "По батькові")]
         public string ThirdName { get; set; }
+
+        [Display(Name = "Аватар")]
+        public HttpPostedFileBase ProfilePicture { get; set; }
 
         [Display(Name = "Вчена ступінь")]
         [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчену ступiнь")]

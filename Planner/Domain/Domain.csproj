@@ -118,6 +118,10 @@
     <Compile Include="Migrations\201611232101231_PlanScientificWork.Designer.cs">
       <DependentUpon>201611232101231_PlanScientificWork.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611271611409_Added profile picture.cs" />
+    <Compile Include="Migrations\201611271611409_Added profile picture.Designer.cs">
+      <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
     <Compile Include="Models\NDR.cs" />
     <Compile Include="Models\NMBD.cs" />
@@ -177,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611232101231_PlanScientificWork.resx">
       <DependentUpon>201611232101231_PlanScientificWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611271611409_Added profile picture.resx">
+      <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

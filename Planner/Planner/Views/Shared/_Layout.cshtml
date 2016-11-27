@@ -140,7 +140,7 @@
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered">
-                    <a href="profile.html"><img src="~/Content/Images/nemYH_iKHtw.jpg" class="img-circle" width="60"></a>
+                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle" width="60"></a>
                 </p>
                 <h5 class="centered">@User.Identity.Name</h5>
                 <li class="mt">

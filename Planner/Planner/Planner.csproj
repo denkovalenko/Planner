@@ -2004,6 +2004,7 @@
     <Content Include="Views\IndividualPlan\PlanScientificWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanMethodicalWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanManagment.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
