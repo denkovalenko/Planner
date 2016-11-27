@@ -272,19 +272,36 @@ namespace Planner.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     ThirdName = user.ThirdName,
-                    DegreeEnum = user.Degree.Value,
-                    PositionEnum = user.Position.Value,
-                    AcademicTitleEnum = user.AcademicTitle.Value,
+                    //DegreeEnum = user.Degree.Value,
+                    //PositionEnum = user.Position.Value,
+                    //AcademicTitleEnum = user.AcademicTitle.Value,
                     ScholarLink = user.ScholarLink,
                     OrcidLink = user.OrcidLink,
                 };
+
+                if (user.Degree != null)
+                    model.DegreeEnum = user.Degree.Value;
+                if (user.Position != null)
+                    model.PositionEnum = user.Position.Value;
+                if (user.AcademicTitle != null)
+                    model.AcademicTitleEnum = user.AcademicTitle.Value;
 
                 return View(model);
             }
             return RedirectToAction("Dashboard", "Home");
 
         }
-
+        public FileContentResult GetProfilePic(string userName)
+        {
+            ApplicationUser user = UserManager.FindByEmail(userName);
+            if (user != null)
+            {
+                if (user.ProfilePicture != null)
+                    return new FileContentResult(user.ProfilePicture, "image/jpeg");
+                else return null;
+            }
+            else return null;
+        }
         // POST: /Account/Edit
         [HttpPost]
         public ActionResult Edit(EditModel model)
@@ -302,6 +319,13 @@ namespace Planner.Controllers
                 user.AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum };
                 user.ScholarLink = model.ScholarLink;
                 user.OrcidLink = model.OrcidLink;
+
+                if(model.ProfilePicture != null)
+                {
+                    byte[] image = new byte[model.ProfilePicture.ContentLength];
+                    model.ProfilePicture.InputStream.Read(image, 0, Convert.ToInt32(model.ProfilePicture.ContentLength));
+                    user.ProfilePicture = image;
+                }
 
                 IdentityResult result = UserManager.Update(user);
                 if (result.Succeeded)
