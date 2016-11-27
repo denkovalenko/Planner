@@ -29,7 +29,7 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #68dff0;
+    background: #073ea2;
     color: #fff;
 }
 ::-moz-selection {
@@ -149,7 +149,16 @@ a, a:hover, a:focus {
   background-color: #da4453;
   border-color: #da4453;
 }
-
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: #1e73be;
+    border-color: #1e73be;
+    color: white;
+}
+.navbar-nav > li > a :hover {
+    background-color: #1e73be!important;
+    border-color: #1e73be;
+    color: white;
+}
 .btn-clear-g {
 	color: #48bcb4;
 	background: transparent;
@@ -283,7 +292,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 75px;
+    margin-top: 320px;
 }
 
 #sidebar > ul > li > ul.sub {
@@ -336,9 +345,9 @@ ul.sidebar-menu li ul.sub li.active a {
 
 ul.sidebar-menu li{
     /*line-height: 20px !important;*/
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;
     margin-left:10px;
-    margin-right:10px;
+    margin-right:10px;*/
 }
 
 ul.sidebar-menu li.sub-menu{
@@ -353,7 +362,7 @@ ul.sidebar-menu li a{
     color: #aeb2b7;
     text-decoration: none;
     display: block;
-    padding: 15px 0 15px 10px;
+    padding: 12px 0 15px 10px;
     font-size: 12px;
     outline: none;
     -webkit-transition: all 0.3s ease;
@@ -364,7 +373,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #009ac9;
+    background: #073ea2;
     color: #fff;
     display: block;
 
@@ -402,11 +411,11 @@ ul.sidebar-menu li a.active i {
 
 .header, .footer {
     min-height: 60px;
-    padding: 0 15px;
 }
 
 .header {
     position: fixed;
+    top: -20px;
     left: 0;
     right: 0;
     z-index: 1002;
@@ -419,12 +428,14 @@ ul.sidebar-menu li a.active i {
 
 .wrapper {
     display: inline-block;
-    margin-top: 60px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-bottom: 15px;
     padding-top: 0px;
     width: 100%;
+    background: #073ea2;
+     border-bottom: 1px solid #062969;
+    overflow: visible !important;
+
 }
 
 a.logo {
@@ -453,7 +464,9 @@ a.logo span {
 #top_menu .nav > li, ul.top-menu > li {
     float: left;
 }
-
+.nav li a {
+    color: #fff;
+}
 .notify-row {
     float: left;
     margin-top: 15px;
@@ -631,6 +644,12 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     color: #fff;
     border-bottom: none !important;
     text-transform: uppercase;
+    
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .dropdown-menu.extended.logout > li:last-child > a:hover > i{
@@ -676,8 +695,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .top-nav ul.top-menu > li > a:hover, .top-nav ul.top-menu > li > a:focus {
-    border:1px solid #F1F2F7;
-    background: #F1F2F7;
+    border:1px solid #1e73be;
+    background: #1e73be;
 
 }
 
@@ -2000,6 +2019,7 @@ label {
   background-color: #009ac9;
   border-color: #2775e2;
 }
+
 .btn-facebook:hover,
 .btn-facebook:focus,
 .btn-facebook:active,
@@ -2239,5 +2259,132 @@ label {
 .site-min-height {
     min-height: 900px;
 }
+.footer-top {
+    float: right;
+    color: #00c5de;
+    margin: 10px;
+    height: 40px;
+    background: #073ea2 !important;
+
+}
+.header-image {
+    float: left;
+}
+.header-widget {
+    padding: 18px;
+}
+.serchheder {
+    width: 100%;
+}
+.site-logo {
+    float: left;
+}
+.serchheder {
+    background: url("https://pp.vk.me/c638218/v638218875/f21e/Y-mX4M0z0hQ.jpg");
+    height: 220px;
+    background-size: 101%;
+}
+.main-title  {
+  
+  text-align: center;
+}
+.main-title a {
+    font-size: 2.5em;
+    color: white;
+    text-align: center;
+        font-weight: 800;
+}
+.social-link  {
+    color: white;
+    padding: 5px;
+}
+.social-wrapper {
+    width: 100%;
+    height: 50px;
+    background: #073ea2;
+}
+.content-wrapper {
+    margin-top: 310px;
+}
+
+/* header text size */
+
+/* Смартфоны (портретный и альбомный режимы) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.5em;
+    padding-top: 25px;
+}
+}
+/* iPhone 5 (портретный и альбомный режимы)----------- */
+@media only screen
+and (min-device-width : 480px)
+and (max-device-width : 568px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.6em;
+    padding-top: 20px;
+}
+}
+
+@media only screen
+and (min-device-width : 568px)
+and (max-device-width : 768px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.7em;
+    padding-top: 25px;
+}
+}
+ 
+/* iPad (портретный и альбомный режимы) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.7em;
+    padding-top: 25px;
+}
+}
+ 
+
+ @media only screen
+and (min-device-width : 1024px)
+and (max-device-width : 1224px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 0.8em;
+    padding-top: 25px;
+}
+}
+
+ 
+/* Настольные компьютеры и ноутбуки ----------- */
+@media only screen
+and (min-width : 1224px) {
+/* Сюда добавляем стили*/
+.main-title {
+    font-size: 1em;
+    padding-top: 30px;
+}
+}
+ 
+/* Большие экраны ----------- */
+@media only screen
+and (min-width : 1824px) {
+/* Сюда добавляем стили*/
+.main-title {
+    padding-top: 30px;
+}
+}
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+    height: 40px !important;
+	margin-top:5px;
+}
+
 
 
