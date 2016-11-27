@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Наукова робота";
 }
+@model Domain.Models.PlanScientificWork
 <link href="~/Scripts/jqGrid/css/ui.jqgrid.css" rel="stylesheet" />
 <link href="~/Scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
@@ -14,4 +15,45 @@
     <div id="JQPager"></div>
     <script src="~/Scripts/IndividualPlan/PlanScientificWork.js"></script>
     <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>
+
+    <script src="~/Scripts/IndividualPlan/ScientificWorkFormFields.js"></script>
+    <script src="~/Scripts/App/Controllers/scientificWorkController.js"></script>
+
+    <div class="scientificwork_tabform" ng-controller="scientificWorkController">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a data-toggle="tab" href="#ScientificResearchWork">НАУКОВО-ДОСЛІДНА РОБОТА</a></li>
+            <li><a data-toggle="tab" href="#ResearchAndInventiveWork">НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</a></li>
+            <li><a data-toggle="tab" href="#ScientificPublishingWork">НАУКОВО-ВИДАВНИЧА РОБОТА</a></li>
+            <li><a data-toggle="tab" href="#PreparationTeachingStaff">ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</a></li>
+            <li><a data-toggle="tab" href="#StudentsResearchWork">НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</a></li>
+            <li><a data-toggle="tab" href="#ScientificAndOrganizationalWork">НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="ScientificResearchWork" class="tab-pane fade in active">
+                <h3>НАУКОВО-ДОСЛІДНА РОБОТА</h3>
+                <p>Some content.{{value}}</p>
+            </div>
+            <div id="ResearchAndInventiveWork" class="tab-pane fade">
+                <h3>НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</h3>
+                <p>Some content in menu 1.</p>
+            </div>
+            <div id="ScientificPublishingWork" class="tab-pane fade">
+                <h3>НАУКОВО-ВИДАВНИЧА РОБОТА</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+            <div id="PreparationTeachingStaff" class="tab-pane fade in active">
+                <h3>ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</h3>
+                <p>Some content.</p>
+            </div>
+            <div id="StudentsResearchWork" class="tab-pane fade">
+                <h3>НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</h3>
+                <p>Some content in menu 1.</p>
+            </div>
+            <div id="ScientificAndOrganizationalWork" class="tab-pane fade">
+                <h3>НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</h3>
+                <p>Some content in menu 2.</p>
+            </div>
+        </div>
+    </div>   
 </div>

@@ -266,6 +266,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\App\Controllers\departmentController.js" />
+    <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
@@ -297,6 +298,7 @@
     <Content Include="Scripts\IndividualPlan\PlanScientificWork.js" />
     <Content Include="Scripts\IndividualPlan\PlnaMethodicalWork.js" />
     <Content Include="Scripts\IndividualPlan\MSMJQgrid.js" />
+    <Content Include="Scripts\IndividualPlan\ScientificWorkFormFields.js" />
     <Content Include="Scripts\IndividualPlan\TrainingJob.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dashboard.js" />
