@@ -16,7 +16,7 @@
     <script src="~/Scripts/IndividualPlan/PlanScientificWork.js"></script>
     <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>
 
-    <script src="~/Scripts/IndividualPlan/ScientificWorkFormFields.js"></script>
+    <script src="~/Scripts/App/Factories/scientificWorkFormFieldFactory.js"></script>
     <script src="~/Scripts/App/Controllers/scientificWorkController.js"></script>
 
     <div class="scientificwork_tabform" ng-controller="scientificWorkController">
@@ -31,28 +31,355 @@
 
         <div class="tab-content">
             <div id="ScientificResearchWork" class="tab-pane fade in active">
-                <h3>НАУКОВО-ДОСЛІДНА РОБОТА</h3>
-                <p>Some content.{{value}}</p>
+                <h6>НАУКОВО-ДОСЛІДНА РОБОТА</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["ImplementationPlannedResearchManager"].name}}</p>
+                        
+                        <input type="text" value="{{scientificWorkModel.ImplementationPlannedResearchManager}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ImplementationPlannedResearchPerformer"].name}}</p>
+                        
+                        <input type="text" value="{{scientificWorkModel.ImplementationPlannedResearchPerformer}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["DevelopmentInnovativeResearchProjectsManager"].name}}</p>
+                        
+                        <input type="text" value="{{scientificWorkModel.DevelopmentInnovativeResearchProjectsManager}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["DevelopmentInnovativeResearchProjectsManagerPerformer"].name}}</p>
+                        
+                        <input type="text" value="{{scientificWorkModel.DevelopmentInnovativeResearchProjectsManagerPerformer}}" required />
+                    </li>
+                </ul>
+                
             </div>
             <div id="ResearchAndInventiveWork" class="tab-pane fade">
-                <h3>НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</h3>
-                <p>Some content in menu 1.</p>
+                <h6>НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["InventiveJobTeachingInternationalPatents"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveJobTeachingInternationalPatents}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["InventiveWorkTeachersPatents"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveWorkTeachersPatents}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["InventiveWorkTeacherPatentUtilityModel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveWorkTeacherPatentUtilityModel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["InventiveJobTeachingCertificateWork"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveJobTeachingCertificateWork}}" required />
+                    </li>
+                </ul>
             </div>
             <div id="ScientificPublishingWork" class="tab-pane fade">
-                <h3>НАУКОВО-ВИДАВНИЧА РОБОТА</h3>
-                <p>Some content in menu 2.</p>
+                <h6>НАУКОВО-ВИДАВНИЧА РОБОТА</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["CollectiveMonographPublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.CollectiveMonographPublishedInDomesticPublishing}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleMonographPublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.SoleMonographPublishedInDomesticPublishing}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["CollectiveMonographPublishedInForeignPublishingHouses"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.CollectiveMonographPublishedInForeignPublishingHouses}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleMonographPublishedInForeignPublishingHouses"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.SoleMonographPublishedInForeignPublishingHouses}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificArticlesInJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificArticlesInJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["InventiveWorkTeachersPatents"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveWorkTeachersPatents}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["InventiveWorkTeacherPatentUtilityModel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.InventiveWorkTeacherPatentUtilityModel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificArticlesAcademicEditions"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificArticlesAcademicEditions}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersInInternationalJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersInInternationalJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersProfessionalNationaJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersProfessionalNationaJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersNationaJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersNationaJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationAbstractsForeignJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationAbstractsForeignJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationAbstractsConferencesSymposiaSeminars"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationAbstractsConferencesSymposiaSeminars}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["CollectiveMonographForeignLanguagePublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.CollectiveMonographForeignLanguagePublishedInDomesticPublishing}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.SoleForeignLanguageMonographPublishedInDomesticPublishing}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["CollectiveMonographPublishedForeignLanguageForeignPublishers"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.CollectiveMonographPublishedForeignLanguageForeignPublishers}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInForeignPublishingHouses"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.SoleForeignLanguageMonographPublishedInForeignPublishingHouses}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificArticlesForeignLanguageJournalsScopusWeb"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificArticlesForeignLanguageJournalsScopusWeb}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificArticlesForeignLanguageInScientificEditions"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificArticlesForeignLanguageInScientificEditions}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersForeigLanguageInternationalJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersForeigLanguageInternationalJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersForeignLanguageProfessionalNationaJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersForeignLanguageProfessionalNationaJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationScientificPapersForeignLanguageNationaJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationScientificPapersForeignLanguageNationaJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationAbstractsForeignLanguageForeignJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationAbstractsForeignLanguageForeignJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationAbstractsForeignLanguageConferencesSymposiaSeminars"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.PublicationAbstractsForeignLanguageConferencesSymposiaSeminars}}" required />
+                    </li>
+                </ul>
             </div>
-            <div id="PreparationTeachingStaff" class="tab-pane fade in active">
-                <h3>ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</h3>
-                <p>Some content.</p>
+            <div id="PreparationTeachingStaff" class="tab-pane fade">
+                <h6>ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["ProtectingThesisForDegreeDoctorOfScience"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ProtectingThesisForDegreeDoctorOfScience}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["DefendingTthesisForPhD"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.DefendingTthesisForPhD}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["TheCandidateExams"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.TheCandidateExams}}" required />
+                    </li>
+                </ul>
             </div>
             <div id="StudentsResearchWork" class="tab-pane fade">
-                <h3>НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</h3>
-                <p>Some content in menu 1.</p>
+                <h6>НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["GuidStudentsInResearchWorkOnPreparationScientificArticles"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.GuidStudentsInResearchWorkOnPreparationScientificArticles}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["GuidStudentsInResearchWorkOnPreparationAbstractsForConference"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.GuidStudentsInResearchWorkOnPreparationAbstractsForConference}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["GuidStudentsInResearchWorkOnPreparationApplicationsForSecurityDocuments"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.GuidStudentsInResearchWorkOnPreparationApplicationsForSecurityDocuments}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInInternationalCompetitions"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInInternationalCompetitions}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInUkrainianLevelPhase1"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInUkrainianLevelPhase1}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInUkrainianLevelPhase2"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInUkrainianLevelPhase2}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInRegionalLevel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInRegionalLevel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInUniversityLevel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInUniversityLevel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInInternationalOlympiad"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInInternationalOlympiad}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInUkrainianLevelOlympiadPhase1"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInUkrainianLevelOlympiadPhase1}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInUkrainianLevelOlympiadPhase2"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInUkrainianLevelOlympiadPhase2}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInOlympiadRegionalLevel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInOlympiadRegionalLevel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["StudentsWinnersParticipateInOlympiadUniversityLevel"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.StudentsWinnersParticipateInOlympiadUniversityLevel}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ManagementStudentScienceClub"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ManagementStudentScienceClub}}" required />
+                    </li>
+                </ul>
             </div>
             <div id="ScientificAndOrganizationalWork" class="tab-pane fade">
-                <h3>НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</h3>
-                <p>Some content in menu 2.</p>
+                <h6>НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</h6>
+                <ul class="scientificwork_form">
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingInternationalEventsOrganizingCommitteeChairman"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingInternationalEventsOrganizingCommitteeChairman}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingInternationalEventsSecretary"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingInternationalEventsSecretary}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingUkrainianEventsOrganizingCommitteeChairman"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingUkrainianEventsOrganizingCommitteeChairman}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingUkrainianEventsSecretary"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingUkrainianEventsSecretary}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesOrganizingCommitteeChairman"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesOrganizingCommitteeChairman}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesSecretary"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesSecretary}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingInternationalEvents"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingInternationalEvents}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["OrganizationAndHoldingUkrainianEvents"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.OrganizationAndHoldingUkrainianEvents}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ManagementStudentScienceSchool"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ManagementStudentScienceSchool}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ResponsiblForScientificWorkDepartment"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ResponsiblForScientificWorkDepartment}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ReviewingAbstractsForDegree"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ReviewingAbstractsForDegree}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ReviewingForeignLanguagePublications"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ReviewingForeignLanguagePublications}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["ChairmanEditorialBoardSscientificJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.ChairmanEditorialBoardSscientificJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["DeputyChairmanEditorialBoardSscientificJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.DeputyChairmanEditorialBoardSscientificJournals}}" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["MemberEditorialBoardSscientificJournals"].name}}</p>
+
+                        <input type="text" value="{{scientificWorkModel.MemberEditorialBoardSscientificJournals}}" required />
+                    </li>
+                </ul>
             </div>
         </div>
     </div>   

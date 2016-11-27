@@ -2390,7 +2390,7 @@ and (min-width : 1824px) {
     display: block;
     margin:20px 0 auto;
     width:1100px;
-    height:200px;
+    min-height:500px;
     background-color:#fff;
 
 }
@@ -2401,4 +2401,27 @@ and (min-width : 1824px) {
 .scientificwork_tab{
     background-color:antiquewhite;
 }
+.scientificwork_tabform h6{
+    margin:10px auto 20px;
+    text-align:center;
+}
 
+.scientificwork_form{
+    padding-bottom:20px;
+}
+.scientificwork_form li{
+
+}
+.scientificwork_form li p{
+    text-align:left;
+    display:inline-block;
+    width:800px;
+}
+.scientificwork_form li span{
+    display:none;
+}
+
+.scientificwork_form li input{
+    display:inline-block;
+    width:200px
+}
