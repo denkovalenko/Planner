@@ -49,6 +49,7 @@ namespace Domain.Models
         public virtual PlanAllocation PlanAllocation { get; set; }
 
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
+        public virtual ICollection<NDR> NDRs { get; set; }
         public virtual ICollection<PublicationUser> PublicationUser { get; set; }
         public virtual ICollection<ScientificPublishing> ScientificPublishings { get; set; }
 

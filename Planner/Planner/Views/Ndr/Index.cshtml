@@ -1,0 +1,21 @@
+﻿<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Головна сторінка
+            <small>Панель</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Планувальник</a></li>
+            <li class="active">Публікації</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Main row -->
+        @{ Html.RenderAction("Add"); }
+    <br/><br /><br /><br />
+        @{ Html.RenderAction("Result"); }
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->

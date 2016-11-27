@@ -3,20 +3,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Нові користувачі";
 }
-<div class="login-box">
-    <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
-        @ViewBag.userAdd
-        <p class="login-box-msg">Реєстрація нового користувача</p>
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", name = "userRegisterForm", role = "form" }))
-        {
-            @Html.AntiForgeryToken()
-            <hr />
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-            <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", ng_pattern = @"/^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/", placeholder = "Електронна адреса", required = "", ng_model = "Email" })
-                <span ng-show="userRegisterForm.Email.$error.required && userRegisterForm.Email.$touched">Це поле повинно бути заповненим.</span>
-                <span ng-show="userRegisterForm.Email.$error.pattern">Можна використовувати тільки букви латинського алфавіту (a-z), цифри і точки.</span>
-            </div>
+<div class="content-wrapper">
+    <div class="login-box">
+        <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
+            @ViewBag.userAdd
+            <p class="login-box-msg">Реєстрація нового користувача</p>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", name = "userRegisterForm", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", ng_pattern = @"/^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/", placeholder = "Електронна адреса", required = "", ng_model = "Email" })
+                    <span ng-show="userRegisterForm.Email.$error.required && userRegisterForm.Email.$touched">Це поле повинно бути заповненим.</span>
+                    <span ng-show="userRegisterForm.Email.$error.pattern">Можна використовувати тільки букви латинського алфавіту (a-z), цифри і точки.</span>
+                </div>
                 <div class="form-group has-feedback">
                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", ng_pattern = @"/^([^0-9]*){4,50}$/", placeholder = "Прізвище", required = "", ng_model = "LastName" })
                     <span ng-show="userRegisterForm.LastName.$error.required && userRegisterForm.LastName.$touched">Це поле повинно бути заповненим.</span>
@@ -35,7 +36,8 @@
                 <div class="form-group has-feedback">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", ng_pattern = @"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.,/]).{8,}$/", placeholder = "Пароль", required = "", ng_model = "Password" })
                     <span ng-show="userRegisterForm.Password.$error.required && userRegisterForm.Password.$touched">Це поле повинно бути заповненим.</span>
-                    <span ng-show="userRegisterForm.Password.$error.pattern">Пароль повинен мати: <br>- мінімум 8 знаків; <br>- принаймні один спеціальний символ;
+                    <span ng-show="userRegisterForm.Password.$error.pattern">
+                        Пароль повинен мати: <br>- мінімум 8 знаків; <br>- принаймні один спеціальний символ;
                         <br>- принаймні одну літеру верхнього регістру англійського алфавіту; <br>- принаймні одну літеру нижнього регістру англійського алфавіту;
                         <br>- принаймні одну цифру; <br>- принаймні один спеціальний символ;
                     </span>
@@ -44,9 +46,10 @@
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", ng_pattern = @"/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-.,/]).{8,}$/", placeholder = "Підтвердіть пароль", required = "", ng_model = "ConfirmPassword" })
                     <span ng-show="userRegisterForm.Password.$error.required && userRegisterForm.Password.$touched">Це поле повинно бути заповненим.</span>
                     <span ng-show="Password != ConfirmPassword && userRegisterForm.ConfirmPassword.$touched">Паролі не співпадають. Повторіть спробу.</span>
-                    <span ng-show="userRegisterForm.Password.$error.pattern">Пароль повинен мати: <br>- мінімум 8 знаків; <br>- принаймні один спеціальний символ;
-                    <br>- принаймні одну літеру верхнього регістру англійського алфавіту; <br>- принаймні одну літеру нижнього регістру англійського алфавіту;
-                    <br>- принаймні одну цифру; <br>- принаймні один спеціальний символ;
+                    <span ng-show="userRegisterForm.Password.$error.pattern">
+                        Пароль повинен мати: <br>- мінімум 8 знаків; <br>- принаймні один спеціальний символ;
+                        <br>- принаймні одну літеру верхнього регістру англійського алфавіту; <br>- принаймні одну літеру нижнього регістру англійського алфавіту;
+                        <br>- принаймні одну цифру; <br>- принаймні один спеціальний символ;
                     </span>
                 </div>
                 <div class="form-group has-feedback">
@@ -86,5 +89,6 @@
                     </div><!-- /.col -->
                 </div>
             }
-    </div><!-- /.login-box-body -->
-</div><!-- /.login-box -->
+        </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+</div>
