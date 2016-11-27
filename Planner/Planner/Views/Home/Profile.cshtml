@@ -1,4 +1,8 @@
 ﻿@model Planner.Models.EditModel
+@using Domain.Models
+@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +30,7 @@
                             П.I.Б.
                         </td>
                         <td>
-                            @Html.DisplayTextFor(m => m.LastName)  @Html.DisplayTextFor(m => m.FirstName)  @Html.DisplayTextFor(m => m.ThirdName) 
+                            @Html.DisplayTextFor(m => m.LastName)  @Html.DisplayTextFor(m => m.FirstName)  @Html.DisplayTextFor(m => m.ThirdName)
                         </td>
                     </tr>
                     <tr>
@@ -50,7 +54,7 @@
                             Ступiнь
                         </td>
                         <td>
-                            @Html.DisplayTextFor(m => m.AcademicTitleEnum)
+                            @Html.Raw(((DisplayAttribute)typeof(AcademicTitleEnum).GetMember(Model.AcademicTitleEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
                         </td>
                     </tr>
                     <tr>
@@ -58,7 +62,7 @@
                             Звання
                         </td>
                         <td>
-                            @Html.DisplayTextFor(m => m.DegreeEnum)
+                            @Html.Raw(((DisplayAttribute)typeof(DegreeEnum).GetMember(Model.DegreeEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
                         </td>
                     </tr>
                     <tr>
@@ -66,7 +70,7 @@
                             Посада
                         </td>
                         <td>
-                            @Html.DisplayTextFor(m => m.PositionEnum)
+                            @Html.Raw(((DisplayAttribute)typeof(PositionEnum).GetMember(Model.PositionEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
                         </td>
                     </tr>
                 </table>
@@ -79,18 +83,18 @@
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary("", new { @class = "text-danger" })
-                
+
                 <div class="form-group has-feedback">
                     Завантажити фото: @Html.TextBoxFor(m => m.ProfilePicture, new { type = "file" })
-                </div>                
-
-                <div class="row">
-                    <div class="col-xs-8">
-                    </div><!-- /.col -->
-                    <div>
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
-                    </div><!-- /.col -->
                 </div>
+
+                    <div class="row">
+                        <div class="col-xs-8">
+                        </div><!-- /.col -->
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
+                        </div><!-- /.col -->
+                    </div>
 
 
 
