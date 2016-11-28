@@ -93,10 +93,10 @@
                     <div class="sidebar-toggle-box">
                         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
                     </div>
-                    <a href="~/Home/Dashboard" class="logo"><b>меню</b></a>
+                    <a href="~/Home/Profile" class="logo"><b>меню</b></a>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav" style="left: 10%; position: relative;">
-                            <li><a href="~/Home/Dashboard">Головна</a></li>
+                            <li><a href="~/Home/Profile">Головна</a></li>
 
                             <li><a href="~/Publication/Index">Публікації</a></li>
                             <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
@@ -140,11 +140,11 @@
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered">
-                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle" width="60"></a>
+                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle" ></a>
                 </p>
                 <h5 class="centered">@User.Identity.Name</h5>
                 <li class="mt">
-                    <a href="~/Home/Dashboard">
+                    <a href="~/Home/Profile">
                         <i class="fa fa-user-md"></i>
                         <span>Головна</span>
                     </a>

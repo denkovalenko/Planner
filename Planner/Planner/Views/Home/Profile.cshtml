@@ -8,10 +8,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Profile</h2>
-
 <div class="content-wrapper">
-    <section id="main-content">
+    <div class="login-box">
 
         <div class="row">
             @*@Html.Action("Edit", "Account", new { userName = User.Identity.Name })*@
@@ -84,24 +82,18 @@
                 <hr />
                 @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                <div class="form-group has-feedback">
+                <div class="fonts-size">
                     Завантажити фото: @Html.TextBoxFor(m => m.ProfilePicture, new { type = "file" })
                 </div>
 
-                    <div class="row">
-                        <div class="col-xs-8">
-                        </div><!-- /.col -->
-                        <div>
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
-                        </div><!-- /.col -->
-                    </div>
-
-
-
-
+                <div class="row">
+                    <div class="col-xs-8">
+                    </div><!-- /.col -->
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
+                    </div><!-- /.col -->
+                </div>
             }
         </div>
-
-
-    </section>
+    </div>
 </div>

@@ -96,7 +96,7 @@ namespace Planner.Controllers
         public ActionResult Login(string returnUrl)
         {
 			if (HttpContext.User.Identity.IsAuthenticated)
-				return RedirectToAction("Dashboard", "Home");
+				return RedirectToAction("Profile", "Home");
             ViewBag.ReturnUrl = returnUrl;
 
             ////HACK
@@ -139,7 +139,7 @@ namespace Planner.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Dashboard","Home");
+                    return RedirectToAction("Profile","Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -288,7 +288,7 @@ namespace Planner.Controllers
 
                 return View(model);
             }
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("Profile", "Home");
 
         }
         public FileContentResult GetProfilePic(string userName)
@@ -330,7 +330,7 @@ namespace Planner.Controllers
                 IdentityResult result = UserManager.Update(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("Profile", "Home");
                 }
                 else
                 {
@@ -563,7 +563,7 @@ namespace Planner.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Dashboard", "Home");
+            return RedirectToAction("Profile", "Home");
         }
 
         //
