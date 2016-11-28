@@ -97,6 +97,7 @@
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Helpers\Dates.cs" />
+    <Compile Include="Helpers\ScientificFieldsHelper.cs" />
     <Compile Include="Helpers\ScientificPublishingModel.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.Designer.cs">

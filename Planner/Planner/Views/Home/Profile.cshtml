@@ -54,7 +54,7 @@
                             Ступiнь
                         </td>
                         <td>
-                            @Html.Raw(((DisplayAttribute)typeof(AcademicTitleEnum).GetMember(Model.AcademicTitleEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
+                            <!--Html.Raw(((DisplayAttribute)typeof(AcademicTitleEnum).GetMember(Model.AcademicTitleEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)-->
                         </td>
                     </tr>
                     <tr>
@@ -62,7 +62,7 @@
                             Звання
                         </td>
                         <td>
-                            @Html.Raw(((DisplayAttribute)typeof(DegreeEnum).GetMember(Model.DegreeEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
+                            <!-- Html.Raw(((DisplayAttribute)typeof(DegreeEnum).GetMember(Model.DegreeEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)-->
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +70,7 @@
                             Посада
                         </td>
                         <td>
-                            @Html.Raw(((DisplayAttribute)typeof(PositionEnum).GetMember(Model.PositionEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)
+                            <!-- Html.Raw(((DisplayAttribute)typeof(PositionEnum).GetMember(Model.PositionEnum.ToString())[0].GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name)-->
                         </td>
                     </tr>
                 </table>
