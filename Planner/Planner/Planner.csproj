@@ -266,10 +266,12 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\App\Controllers\departmentController.js" />
+    <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
     <Content Include="Scripts\App\Directives\ngEnter.js" />
+    <Content Include="Scripts\App\Factories\scientificWorkFormFieldFactory.js" />
     <Content Include="Scripts\App\Factories\validationFactory.js" />
     <Content Include="Scripts\App\Services\keeperService.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2004,6 +2006,7 @@
     <Content Include="Views\IndividualPlan\PlanScientificWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanMethodicalWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanManagment.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

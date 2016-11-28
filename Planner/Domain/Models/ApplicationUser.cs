@@ -19,7 +19,8 @@ namespace Domain.Models
         public String DegreeId { get; set; }
         public String AcademicTitleId { get; set; }
 		public String ScholarLink { get; set; }
-		public String OrcidLink { get; set; }
+        public byte[] ProfilePicture { get; set; }
+        public String OrcidLink { get; set; }
 		[ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
 

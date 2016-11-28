@@ -97,6 +97,7 @@
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Helpers\Dates.cs" />
+    <Compile Include="Helpers\ScientificFieldsHelper.cs" />
     <Compile Include="Helpers\ScientificPublishingModel.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.Designer.cs">
@@ -117,6 +118,10 @@
     <Compile Include="Migrations\201611232101231_PlanScientificWork.cs" />
     <Compile Include="Migrations\201611232101231_PlanScientificWork.Designer.cs">
       <DependentUpon>201611232101231_PlanScientificWork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611271611409_Added profile picture.cs" />
+    <Compile Include="Migrations\201611271611409_Added profile picture.Designer.cs">
+      <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
     <Compile Include="Models\NDR.cs" />
@@ -177,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611232101231_PlanScientificWork.resx">
       <DependentUpon>201611232101231_PlanScientificWork.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611271611409_Added profile picture.resx">
+      <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
