@@ -74,4 +74,20 @@ PlannerApp.controller('scientificWorkController', ['$scope', '$http', 'scientifi
 	$scope.scientificWorkModel.DeputyChairmanEditorialBoardSscientificJournals = null;
 	$scope.scientificWorkModel.MemberEditorialBoardSscientificJournals = null;
 
+	$scope.saveData = function () {
+	    var model = [];
+	    for(var el in $scope.scientificWorkModel)
+	    {
+	        if ($scope.scientificWorkModel[el] != null) {
+	            model.push({ SchemaName: el, Value: $scope.scientificWorkModel[el], Name: $scope.fieldFactory[el].name });
+	        }
+	    }
+	    $http.post('/IndividualPlan/SaveScientificData', { model: model }).then(
+            function (response) {
+                window.location.reload();
+            }, function (response) {
+
+            });
+	}
+
 }]);
