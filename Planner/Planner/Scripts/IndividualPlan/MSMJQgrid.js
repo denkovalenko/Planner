@@ -1,6 +1,4 @@
 ﻿var colNames = [
-    'Id',
-    '№ п/п',
     'Змiст',
     'Пiдсумковий результат',
     'Термiн виконання',
@@ -11,13 +9,11 @@
 var editruleInteger = { required: true, integer: true, minValue: 0, maxValue: 500 };
 var editruleLetters = { required: true, custom: true, custom_func: checkOnlyLetters };
 var colModel = [
-    { name: 'Id', index: 'Id', key: true, width: 25, hidden: true },
-    { name: 'OrderNumber', index: 'OrderNumber', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'Content', index: 'Content', width: 120, editable: true, editrules: editruleLetters },
-    { name: 'Result', index: 'Result', width: 35, editable: true, editrules: editruleLetters },
-    { name: 'DurationTime', index: 'DurationTime', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'PlannedVolume', index: 'PlannedVolume', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'ActualVolume', index: 'ActualVolume', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger }
+    { name: 'Content', index: 'Content', width: 150, editable: true, editrules: editruleLetters },
+    { name: 'Result', index: 'Result', width: 15, editable: true, editrules: editruleLetters },
+    { name: 'DurationTime', index: 'DurationTime', width: 15, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
+    { name: 'PlannedVolume', index: 'PlannedVolume', width: 15, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
+    { name: 'ActualVolume', index: 'ActualVolume', width: 15, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger }
 ];
 
 
