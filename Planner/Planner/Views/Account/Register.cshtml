@@ -4,21 +4,20 @@
     ViewBag.Title = "Нові користувачі";
 }
 <div class="content-wrapper">
-    <div class="login-box">
-        <div class="form-group">
-            <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
-                @ViewBag.userAdd
-                <p class="login-box-msg">Реєстрація нового користувача</p>
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", name = "userRegisterForm", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <hr />
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group has-feedback">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", ng_pattern = @"/^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/", placeholder = "Електронна адреса", required = "", ng_model = "Email" })
-                        <span ng-show="userRegisterForm.Email.$error.required && userRegisterForm.Email.$touched">Це поле повинно бути заповненим.</span>
-                        <span ng-show="userRegisterForm.Email.$error.pattern">Можна використовувати тільки букви латинського алфавіту (a-z), цифри і точки.</span>
-                    </div>
+    <div class="form-group">
+        <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
+            @ViewBag.userAdd
+            <p class="login-box-msg">Реєстрація нового користувача</p>
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "", name = "userRegisterForm", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", ng_pattern = @"/^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/", placeholder = "Електронна адреса", required = "", ng_model = "Email" })
+                    <span ng-show="userRegisterForm.Email.$error.required && userRegisterForm.Email.$touched">Це поле повинно бути заповненим.</span>
+                    <span ng-show="userRegisterForm.Email.$error.pattern">Можна використовувати тільки букви латинського алфавіту (a-z), цифри і точки.</span>
+                </div>
                     <div class="form-group has-feedback">
                         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", ng_pattern = @"/^([^0-9]*){4,50}$/", placeholder = "Прізвище", required = "", ng_model = "LastName" })
                         <span ng-show="userRegisterForm.LastName.$error.required && userRegisterForm.LastName.$touched">Це поле повинно бути заповненим.</span>
@@ -89,8 +88,7 @@
                             <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="!userRegisterForm.$valid || AcademicTitleEnum === '0' || DegreeEnum === '0'|| PositionEnum === '0' || !faculty || !department || Password != ConfirmPassword">Підтвердити</button>
                         </div><!-- /.col -->
                     </div>
-                }
-            </div><!-- /.login-box-body -->
-        </div>
-        </div><!-- /.login-box -->
-</div>
+            }
+        </div><!-- /.login-box-body -->
+    </div>
+</div><!-- /.login-box -->
