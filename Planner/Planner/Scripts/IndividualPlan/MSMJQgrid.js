@@ -7,7 +7,9 @@
 ];
 
 var editruleInteger = { required: true, integer: true, minValue: 0, maxValue: 500 };
+
 var editruleLetters = { required: true, custom: true, custom_func: checkOnlyLetters };
+
 var colModel = [
     { name: 'Content', index: 'Content', resizable: false, width: 600, editrules: editruleLetters },
     { name: 'Result', index: 'Result', width: 150, resizable: false, editable: true, editrules: editruleLetters },
