@@ -124,6 +124,7 @@
       <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
+    <Compile Include="Models\IndPlanType.cs" />
     <Compile Include="Models\NDR.cs" />
     <Compile Include="Models\NMBD.cs" />
     <Compile Include="Models\PlanAllocation.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Models\PlanTrainingJob.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\IndivPlanFields.cs" />
     <Compile Include="Models\ScientificPublishing.cs" />
     <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
