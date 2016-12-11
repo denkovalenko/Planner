@@ -123,6 +123,7 @@
     <Compile Include="Migrations\201611271611409_Added profile picture.Designer.cs">
       <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Enum\IndivPlanTabNamesEnum.cs" />
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
     <Compile Include="Models\IndPlanType.cs" />
     <Compile Include="Models\NDR.cs" />

@@ -9,8 +9,14 @@ using Newtonsoft.Json;
 
 namespace Planner.Controllers
 {
+    public static class IndivPlanTabNamesEnum
+    {
+        public static String ScientificPublishingTab { get { return "ScientificPublishing"; } }
+    }
     public class IndividualPlanController : Controller
     {
+
+     
         // GET: IndividualPlan
         public ActionResult Index()
         {
