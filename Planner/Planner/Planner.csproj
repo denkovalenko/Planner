@@ -271,6 +271,7 @@
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
     <Content Include="Scripts\App\Directives\ngEnter.js" />
+    <Content Include="Scripts\App\Factories\rolesFactory.js" />
     <Content Include="Scripts\App\Factories\scientificWorkFormFieldFactory.js" />
     <Content Include="Scripts\App\Factories\validationFactory.js" />
     <Content Include="Scripts\App\Services\keeperService.js" />
