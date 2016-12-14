@@ -241,7 +241,7 @@ namespace Planner.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-					UserManager.AddToRole(user.Id, "User");
+					UserManager.AddToRole(user.Id, model.Role);
                     return RedirectToAction("Register", new {username=user.Email });
                 }
                 AddErrors(result);
@@ -249,6 +249,20 @@ namespace Planner.Controllers
 
             // If we got this far, something failed, redisplay form
             return View("Register", model);
+        }
+
+        [Authorize]
+        public JsonResult GetRoles()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var roles = db.Roles.Select(x => new { x.Name }).ToList();
+                return new JsonResult()
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = roles
+                };
+            }
         }
 
         [Authorize(Roles = "Admin")]

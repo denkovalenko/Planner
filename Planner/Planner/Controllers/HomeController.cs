@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
