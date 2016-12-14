@@ -49,6 +49,14 @@ namespace Domain.Models
         [ForeignKey("PlanAllocationId")]
         public virtual PlanAllocation PlanAllocation { get; set; }
 
+        public String DayTeachLoadId { get; set; }
+        [ForeignKey("DayTeachLoadId")]
+        public virtual DayTeachLoad DayTeachLoad { get; set; }
+
+        public String ExtramuralTeachLoadId { get; set; }
+        [ForeignKey("ExtramuralTeachLoadId")]
+        public virtual ExtramuralTeachLoad ExtramuralTeachLoad { get; set; }
+
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
         public virtual ICollection<NDR> NDRs { get; set; }
         public virtual ICollection<PublicationUser> PublicationUser { get; set; }
