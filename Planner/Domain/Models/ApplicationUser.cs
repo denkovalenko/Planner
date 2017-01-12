@@ -20,6 +20,10 @@ namespace Domain.Models
         public String AcademicTitleId { get; set; }
 		public String ScholarLink { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public String BasicOrCompatible { get; set; }
+        public String Phone { get; set; }
+        public String Document { get; set; }
+
         public String OrcidLink { get; set; }
 		[ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
