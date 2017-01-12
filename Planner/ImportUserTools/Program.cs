@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImportUserTools.UserMigration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace ImportUserTools
     {
         static void Main(string[] args)
         {
+            ImportManager.UpdateDbFormExcel();
         }
     }
 }
