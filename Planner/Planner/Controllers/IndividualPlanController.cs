@@ -13,6 +13,8 @@ namespace Planner.Controllers
     {
         public static String ScientificPublishingTab { get { return "ScientificPublishing"; } }
     }
+
+    [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
     public class IndividualPlanController : Controller
     {
 
@@ -23,25 +25,30 @@ namespace Planner.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult TrainingJob()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanScientificWork()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
         public ActionResult PlanMethodicalWork()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanManagment()
         {
             return View();
         }
+
         public string GetPlanTrainingJobs()
         {
             using (var db = new ApplicationDbContext())

@@ -25,6 +25,7 @@ namespace Planner.Controllers
         {
 
         }
+        [Authorize(Roles = "Admin,HeadOfStudies,TeacherModerator")]
         public ActionResult Index()
         {
             return View();

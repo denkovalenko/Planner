@@ -12,11 +12,11 @@
     <script src="~/Scripts/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     @*
-    <script src="~/Scripts/angular-touch.min.js"></script>*@
+        <script src="~/Scripts/angular-touch.min.js"></script>*@
 
     <link href="~/Content/styles.css" rel="stylesheet" />
     @*
-    <link href="~/Content/style.css" rel="stylesheet" />*@
+        <link href="~/Content/style.css" rel="stylesheet" />*@
     <link href="~/Content/zabuto_calendar.css" rel="stylesheet" />
     <link href="~/Content/style-responsive.css" rel="stylesheet" />
     <link href="~/Content/jquery.gritter.css" rel="stylesheet" />
@@ -36,7 +36,7 @@
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/moment-with-locales.min.js"></script>
     @*
-    <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>*@
+        <script src="https://rawgit.com/esvit/ng-table/master/dist/ng-table.min.js"></script>*@
     <script src="~/Scripts/App/app.js"></script>
     <script src="~/Scripts/App/Factories/validationFactory.js"></script>
     <script src="~/Scripts/App/Services/keeperService.js"></script>
@@ -47,241 +47,288 @@
     <script src="~/Scripts/i18n/angular-locale_ru.js"></script>
 </head>
 <body>
-    <header itemtype="http://schema.org/WPHeader" itemscope="itemscope" id="masthead" class="site-header">
-        
-    </header>
-<section id="container">
-    <div class="container">
+    <header itemtype="http://schema.org/WPHeader" itemscope="itemscope" id="masthead" class="site-header"></header>
+    <section id="container">
+        <div class="container">
 
-        <div class="navbar-header">
+            <div class="navbar-header">
 
 
 
-            <header class="header">s
+                <header class="header">
+                    s
 
-                <div class="serchheder">
-                    <div class="social-wrapper">
-                        <div class="footer-top">
-                            <p>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
-                            </p>
+                    <div class="serchheder">
+                        <div class="social-wrapper">
+                            <div class="footer-top">
+                                <p>
+                                    <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
+                                    <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
+                                    <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
+                                    <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="inside-header grid-container grid-parent">
+                            <div class="header-widget">
+                                <div class="site-logo">
+                                    <a href="http://www.hneu.edu.ua/" title="Харківский  національний економічний університет імені Семена Кузнеця" rel="home">
+                                        <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 140px;">
+                                    </a>
+                                </div>
+                                <div class="site-branding">
+                                    <p class="main-title" itemprop="headline">
+                                        <a href="http://www.nmr.hneu.edu.ua/" title="Планувальник   Харківского  національного економічного університету імені Семена Кузнеця" rel="home">Планувальник Харківского національного економічного університету імені Семена Кузнеця</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- .inside-header -->
+
+                    <div class="wrapper">
+                        <div class="sidebar-toggle-box">
+                            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
+                        </div>
+                        <a href="~/Home/Profile" class="logo"><b>меню</b></a>
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav" style="left: 10%; position: relative;">
+                                <li><a href="~/Home/Profile">Головна</a></li>
+
+                                <li><a href="~/Publication/Index">Публікації</a></li>
+                                <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
+                                <li><a href="https://orcid.org" target="_blank">ORCID</a></li>
+
+                                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies")))
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Звіти<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="~/Department/DepartmentPublications">Звіт за кафедрою</a></li>
+                                            <li><a href="~/Department/HalfYearDepartmentPublications">Звіт за півріччя</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Індивідуальний план<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
+                                            }
+                                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+
+                                <li> <a href="/Account/Logoff">Вийти</a> </li>
+                            </ul>
                         </div>
                     </div>
 
-                <div class="inside-header grid-container grid-parent">
-                    <div class="header-widget">
-                        <div class="site-logo">
-                            <a href="http://www.hneu.edu.ua/" title="Харківский  національний економічний університет імені Семена Кузнеця" rel="home">
-                                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 140px;">
-                            </a>
-                        </div>
-                        <div class="site-branding">
-                            <p class="main-title" itemprop="headline">
-                                <a href="http://www.nmr.hneu.edu.ua/" title="Планувальник   Харківского  національного економічного університету імені Семена Кузнеця" rel="home">Планувальник Харківского національного економічного університету імені Семена Кузнеця</a>
-                            </p>
-                        </div>
-                        </div>
 
-                    </div>
-                </div>
-                <!-- .inside-header -->
-
-                <div class="wrapper">
-                    <div class="sidebar-toggle-box">
-                        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
-                    </div>
-                    <a href="~/Home/Profile" class="logo"><b>меню</b></a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav" style="left: 10%; position: relative;">
-                            <li><a href="~/Home/Profile">Головна</a></li>
-
-                            <li><a href="~/Publication/Index">Публікації</a></li>
-                            <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
-                            <li><a href="https://orcid.org" target="_blank">ORCID</a></li>
-                            @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                            {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Звіти<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="~/Department/DepartmentPublications">Звіт за кафедрою</a></li>
-                                        <li><a href="~/Department/HalfYearDepartmentPublications">Звіт за півріччя</a></li>
-                                    </ul>
-                                </li>
-                            }
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Індивідуальний план<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
-                                    <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
-                                    <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
-                                    <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
-                                    <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
-                                    <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
-                                    <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
-                                </ul>
-                            </li>
-
-                            <li> <a href="/Account/Logoff">Вийти</a> </li>
-                        </ul>
-                    </div>
-                </div>
-               
-
-            </header>
+                </header>
+            </div>
         </div>
-    </div>
 
-    <aside>
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu" id="nav-accordion">
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered">
-                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle" ></a>
-                </p>
-                <h5 class="centered">@User.Identity.Name</h5>
-                <li class="mt">
-                    <a href="~/Home/Profile">
-                        <i class="fa fa-user-md"></i>
-                        <span>Головна</span>
-                    </a>
-                </li>
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
+                    <p class="centered">
+                        <a href="profile.html"><img src="@Url.Action(" GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                    </p>
+                    <h5 class="centered">@User.Identity.Name</h5>
                     <li class="mt">
-                        <a href="~/Account/Register">
+                        <a href="~/Home/Profile">
                             <i class="fa fa-user-md"></i>
-                            <span>Нові користувачі</span>
+                            <span>Головна</span>
                         </a>
                     </li>
-                }
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="mt">
+                            <a href="~/Account/Register">
+                                <i class="fa fa-user-md"></i>
+                                <span>Нові користувачі</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li class="mt">
+                            <a href="~/Account/GetUsers">
+                                <i class="fa fa-users"></i>
+                                <span>Користувачі</span>
+                            </a>
+                        </li>
+                    }
+
                     <li class="mt">
-                        <a href="~/Account/GetUsers">
-                            <i class="fa fa-users"></i>
-                            <span>Користувачі</span>
+                        <a href="~/Publication/Index">
+                            <i class="fa fa-pencil-square"></i>
+                            <span>Публікації</span>
                         </a>
                     </li>
-                }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="mt">
+                            <a href="~/Account/Edit?userName=@User.Identity.Name">
+                                <i class="fa fa-pencil"></i> <span>Редагування даних</span>
+                            </a>
+                        </li>
+                    }
 
-                <li class="mt">
-                    <a href="~/Publication/Index">
-                        <i class="fa fa-pencil-square"></i>
-                        <span>Публікації</span>
-                    </a>
-                </li>
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    <li class="mt">
-                        <a href="~/Account/Edit?userName=@User.Identity.Name">
-                            <i class="fa fa-pencil"></i> <span>Редагування даних</span>
-                        </a>
-                    </li>
-                }
+                    @*
+                        <li class="mt">
+                            <a href="~/Plan/Index">
+                                <i class="fa fa-search-plus"></i>
+                                <span>План</span>
+                            </a>
+                        </li>*@
 
-                @*<li class="mt">
-                    <a href="~/Plan/Index">
-                        <i class="fa fa-search-plus"></i>
-                        <span>План</span>
-                    </a>
-                </li>*@
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Ndr/Index">
+                                <i class="fa fa-search"></i>
+                                <span>Результати НДР студентів</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Department/DepartmentPublications">
+                                <i class="fa fa-database"></i>
+                                <span>Звіт за кафедрою</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Department/HalfYearDepartmentPublications">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Звіт за півріччя</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-user"></i>
+                                <span>Індивідуальний план</span>
+                            </a>
+                            <ul class="sub">
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
+                                }
 
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
+                                }
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
+                                }
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
+                                }
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
+                                }
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
+                                }
+                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                {
+                                    <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="mt">
+                            <a href="~/Timetable/Index">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Розклад</span>
+                            </a>
+                        </li>
+                    }
 
-                <li class="mt">
-                    <a href="~/Ndr/Index">
-                        <i class="fa fa-search"></i>
-                        <span>Результати НДР студентів</span>
-                    </a>
-                </li>
-
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    <li class="mt">
-                        <a href="~/Department/DepartmentPublications">
-                            <i class="fa fa-database"></i>
-                            <span>Звіт за кафедрою</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    <li class="mt">
-                        <a href="~/Department/HalfYearDepartmentPublications">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Звіт за півріччя</span>
-                        </a>
-                    </li>
-                }
-
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-user"></i>
-                        <span>Індивідуальний план</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
-                        <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
-                        <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
-                        <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
-                        <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
-                        <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
-                        <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
-                    </ul>
-                </li>
-
-                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                {
-                    <li class="mt">
-                        <a href="~/Timetable/Index">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Розклад</span>
-                        </a>
-                    </li>
-                }
-
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
-    </aside>
-    @RenderBody()
-    <footer >
-
-    </footer>
-</section>
-@*@Scripts.Render("~/bundles/jquery")*@
-<script src="~/Scripts/bootstrap.min.js"></script>
-@RenderSection("scripts", required: false)
-<script src="~/Scripts/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-@*
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>*@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="~/Scripts/plugins/daterangepicker/moment.min.js"></script>
-<script src="~/Scripts/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script src="~/Scripts/plugins/fastclick/fastclick.min.js"></script>
-@*
-    <script src="~/Scripts/plugins/morris/morris.min.js"></script>*@
-<script src="~/Scripts/plugins/knob/jquery.knob.js"></script>
-<script src="~/Scripts/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="~/Scripts/app.js"></script>
-@*
-    <script src="~/Scripts/dashboard.js"></script>*@
-<script src="~/Scripts/demo.js"></script>
-<script src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
-<script src="~/Scripts/jquery.scrollTo.min.js"></script>
-<script src="~/Scripts/jquery.sparkline.js"></script>
-<script src="~/Scripts/jquery.nicescroll.js"></script>
-<script src="~/Scripts/common-scripts.js"></script>
-<script src="~/Scripts/jquery.gritter.js"></script>
-<script src="~/Scripts/gritter-conf.js"></script>
-<script src="~/Scripts/zabuto_calendar.js"></script>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        @RenderBody()
+        <footer></footer>
+    </section>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    @*
+        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/Scripts/plugins/daterangepicker/moment.min.js"></script>
+    <script src="~/Scripts/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Scripts/plugins/fastclick/fastclick.min.js"></script>
+    @*
+        <script src="~/Scripts/plugins/morris/morris.min.js"></script>*@
+    <script src="~/Scripts/plugins/knob/jquery.knob.js"></script>
+    <script src="~/Scripts/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    @*
+        <script src="~/Scripts/dashboard.js"></script>*@
+    <script src="~/Scripts/demo.js"></script>
+    <script src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Scripts/jquery.scrollTo.min.js"></script>
+    <script src="~/Scripts/jquery.sparkline.js"></script>
+    <script src="~/Scripts/jquery.nicescroll.js"></script>
+    <script src="~/Scripts/common-scripts.js"></script>
+    <script src="~/Scripts/jquery.gritter.js"></script>
+    <script src="~/Scripts/gritter-conf.js"></script>
+    <script src="~/Scripts/zabuto_calendar.js"></script>
 
 
 </body>
