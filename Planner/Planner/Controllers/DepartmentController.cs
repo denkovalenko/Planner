@@ -10,16 +10,17 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
-	//[Authorize]
+	[Authorize]
     public class DepartmentController : Controller
     {
-        // GET: Department
+        [Authorize(Roles = "Admin,HeadOfStudies")]
         public ActionResult DepartmentPublications()
         {
             return View();
         }
 
-		public ActionResult HalfYearDepartmentPublications()
+        [Authorize(Roles = "Admin,HeadOfStudies")]
+        public ActionResult HalfYearDepartmentPublications()
 		{
 			return View();
 		}
