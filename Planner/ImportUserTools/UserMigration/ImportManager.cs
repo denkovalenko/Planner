@@ -26,18 +26,28 @@ namespace ImportUserTools.UserMigration
 
             for (int row = 1; row < stats.EndRowIndex; row++)
             {
-                var Id = sl.GetCellValueAsString(row, 1);
-                var lastName = sl.GetCellValueAsString(row, 2);
-                var firstName = sl.GetCellValueAsString(row, 3);
-                var thirdName = sl.GetCellValueAsString(row, 4);
-                //кафедра
-                var department = sl.GetCellValueAsString(row, 5);
-                var basicOrCompatible = sl.GetCellValueAsString(row, 8);
-                var phone = sl.GetCellValueAsString(row, 9);
-                var email = sl.GetCellValueAsString(row, 10);
-                var document = sl.GetCellValueAsString(row, 13);
-                if (userManager.Users.Where(x => x.Email == email).Any())
-                    continue;
+                try
+                {
+                    var Id = sl.GetCellValueAsString(row, 1);
+                    var lastName = sl.GetCellValueAsString(row, 2);
+                    var firstName = sl.GetCellValueAsString(row, 3);
+                    var thirdName = sl.GetCellValueAsString(row, 4);
+                    //кафедра
+                    var department = sl.GetCellValueAsString(row, 5);
+                    var basicOrCompatible = sl.GetCellValueAsString(row, 8);
+                    var phone = sl.GetCellValueAsString(row, 9);
+                    var email = sl.GetCellValueAsString(row, 10);
+                    var document = sl.GetCellValueAsString(row, 13);
+                    if (userManager.Users.Where(x => x.Email == email).Any())
+                    {
+                        continue;
+                    }
+                    var depId = db.Departments.Where(x => x.Name.Contains(department)).Select(x => x.Id).FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
             return false;
         }
