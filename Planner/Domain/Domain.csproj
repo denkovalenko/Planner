@@ -131,6 +131,10 @@
     <Compile Include="Migrations\201701122008153_UpdateUserForImport.Designer.cs">
       <DependentUpon>201701122008153_UpdateUserForImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701141715162_RemoveUserPhone.cs" />
+    <Compile Include="Migrations\201701141715162_RemoveUserPhone.Designer.cs">
+      <DependentUpon>201701141715162_RemoveUserPhone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -214,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701122008153_UpdateUserForImport.resx">
       <DependentUpon>201701122008153_UpdateUserForImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701141715162_RemoveUserPhone.resx">
+      <DependentUpon>201701141715162_RemoveUserPhone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

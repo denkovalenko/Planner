@@ -21,7 +21,6 @@ namespace Domain.Models
 		public String ScholarLink { get; set; }
         public byte[] ProfilePicture { get; set; }
         public String BasicOrCompatible { get; set; }
-        public String Phone { get; set; }
         public String Document { get; set; }
 
         public String OrcidLink { get; set; }

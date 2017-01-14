@@ -1,6 +1,7 @@
 ﻿
 using Domain;
 using Domain.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SpreadsheetLight;
 using System;
@@ -14,17 +15,18 @@ namespace ImportUserTools.UserMigration
 {
     static class ImportManager
     {
-        public static Boolean UpdateDbFormExcel()
+        public async static Task<Boolean> UpdateDbFormExcel()
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            Console.WriteLine("База открыта:");
+            userManager.UserValidator = new UserValidator<ApplicationUser>(userManager) { AllowOnlyAlphanumericUserNames = false };
+            Console.WriteLine("Database opened:");
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "ExcelFolder", "users.xlsx");
             SLDocument sl = new SLDocument(path, "Лист1");
             SLWorksheetStatistics stats = sl.GetWorksheetStatistics();
-            Console.WriteLine("Документ users открыт:");
+            Console.WriteLine("Document users opened:");
 
-            for (int row = 1; row < stats.EndRowIndex; row++)
+            for (int row = 2; row < stats.EndRowIndex; row++)
             {
                 try
                 {
@@ -40,9 +42,33 @@ namespace ImportUserTools.UserMigration
                     var document = sl.GetCellValueAsString(row, 13);
                     if (userManager.Users.Where(x => x.Email == email).Any())
                     {
+                        Console.WriteLine("User {0} already exist",email);
                         continue;
                     }
                     var depId = db.Departments.Where(x => x.Name.Contains(department)).Select(x => x.Id).FirstOrDefault();
+                    ApplicationUser newUser = new ApplicationUser();
+                    Console.WriteLine("User- {0}",email);
+                    newUser.FirstName = firstName;
+                    newUser.LastName = lastName;
+                    newUser.ThirdName = thirdName;
+                    newUser.PhoneNumber = phone;
+                    newUser.Document = document;
+                    newUser.BasicOrCompatible = basicOrCompatible;
+                    newUser.Email = email;
+                    newUser.UserName = email;
+                    //newUser.DepartmentUsers = new List<DepartmentUser>();
+                    //newUser.DepartmentUsers.Add(new DepartmentUser()
+                    //{
+                    //    DepartmentId = depId
+
+                    //});
+                    var result = await userManager.CreateAsync(newUser,"HNEU1111!");
+                    userManager.AddToRole(newUser.Id, "User");
+                    db.SaveChanges();
+                    if (result.Succeeded)
+                        Console.WriteLine("User added ");
+                    else
+                        Console.WriteLine("User not added");
                 }
                 catch (Exception ex)
                 {

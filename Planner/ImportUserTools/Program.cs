@@ -11,7 +11,9 @@ namespace ImportUserTools
     {
         static void Main(string[] args)
         {
-            ImportManager.UpdateDbFormExcel();
+            ImportManager.UpdateDbFormExcel().Wait();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }
