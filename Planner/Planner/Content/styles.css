@@ -292,7 +292,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 320px;
+    margin-top: 260px;
 }
 
 #sidebar > ul > li > ul.sub {
@@ -2271,7 +2271,7 @@ label {
     float: left;
 }
 .header-widget {
-    padding: 18px;
+    padding: 60px;
 }
 .serchheder {
     width: 100%;

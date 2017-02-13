@@ -51,46 +51,17 @@
     <section id="container">
         <div class="container">
 
-<<<<<<< HEAD
         <div class="navbar-header">
-            <header class="header">s
-                <div class="serchheder">
-                    <div class="social-wrapper">
-                        <div class="footer-top">
-                            <p>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
-                                <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
-                            </p>
-                        </div>
-                    </div>
-                <div class="inside-header grid-container grid-parent">
-                    <div class="header-widget">
-                        <div class="site-logo">
-                            <a href="http://www.hneu.edu.ua/" title="Харківский  національний економічний університет імені Семена Кузнеця" rel="home">
-                                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 140px;">
-                            </a>
-                        </div>
-                        <div class="site-branding">
-                            <p class="main-title" itemprop="headline">
-                                <a href="http://www.nmr.hneu.edu.ua/" title="Планувальник   Харківского  національного економічного університету імені Семена Кузнеця" rel="home">Планувальник Харківского національного економічного університету імені Семена Кузнеця</a>
-                            </p>
-                        </div>
-                        </div>
-=======
-            <div class="navbar-header">
-                <header class="header">
-                    s
+            <header class="header">
                     <div class="serchheder">
                         <div class="social-wrapper">
                             <div class="footer-top">
-                                <p>
+                               
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
-                                </p>
+                                
                             </div>
                         </div>
 
@@ -107,24 +78,8 @@
                                     </p>
                                 </div>
                             </div>
->>>>>>> cd901c7f7c1ea892247613e91500de0b9c24e73f
-
                         </div>
                     </div>
-<<<<<<< HEAD
-                </div>
-                <!-- .inside-header -->
-                <div class="wrapper">
-                    <div class="sidebar-toggle-box">
-                        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
-                    </div>
-                    <a href="~/Home/Profile" class="logo"><b>меню</b></a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav" style="left: 10%; position: relative;">
-                            <li><a href="~/Home/Profile">Головна</a></li>
-=======
-                    <!-- .inside-header -->
-
                     <div class="wrapper">
                         <div class="sidebar-toggle-box">
                             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
@@ -133,7 +88,6 @@
                         <div class="navbar-custom-menu">
                             <ul class="nav navbar-nav" style="left: 10%; position: relative;">
                                 <li><a href="~/Home/Profile">Головна</a></li>
->>>>>>> cd901c7f7c1ea892247613e91500de0b9c24e73f
 
                                 <li><a href="~/Publication/Index">Публікації</a></li>
                                 <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
@@ -189,8 +143,6 @@
                             </ul>
                         </div>
                     </div>
-
-
                 </header>
             </div>
         </div>
@@ -201,7 +153,7 @@
                 <ul class="sidebar-menu" id="nav-accordion">
 
                     <p class="centered">
-                        <a href="profile.html"><img src="@Url.Action(" GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                        <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
                     </p>
                     <h5 class="centered">@User.Identity.Name</h5>
                     <li class="mt">
@@ -243,14 +195,6 @@
                             </a>
                         </li>
                     }
-
-                    @*
-                        <li class="mt">
-                            <a href="~/Plan/Index">
-                                <i class="fa fa-search-plus"></i>
-                                <span>План</span>
-                            </a>
-                        </li>*@
 
                     @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
                     {
