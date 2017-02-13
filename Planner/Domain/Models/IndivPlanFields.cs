@@ -23,6 +23,8 @@ namespace Domain.Models
 
         public String Suffix { get; set; }
 
+        public String TabName { get; set; }
+
         public String TypeId { get; set; }
         [ForeignKey("TypeId")]
         public virtual IndPlanType IndPlanType { get; set; }
