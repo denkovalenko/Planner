@@ -291,6 +291,7 @@ namespace Planner.Controllers
                     //AcademicTitleEnum = user.AcademicTitle.Value,
                     ScholarLink = user.ScholarLink,
                     OrcidLink = user.OrcidLink,
+					Role = UserManager.GetRoles(user.Id).FirstOrDefault()
                 };
 
                 if (user.Degree != null)
@@ -344,7 +345,23 @@ namespace Planner.Controllers
                 IdentityResult result = UserManager.Update(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Profile", "Home");
+					IdentityResult result2 = UserManager.RemoveFromRole(user.Id, UserManager.GetRoles(user.Id).FirstOrDefault());
+					if (result2.Succeeded)
+					{
+						IdentityResult result3 = UserManager.AddToRole(user.Id, model.Role);
+						if (result3.Succeeded)
+						{
+							return RedirectToAction("Profile", "Home");
+						}
+						else
+						{
+							AddErrors(result3);
+						}
+					}
+					else
+					{
+						AddErrors(result2);
+					}					
                 }
                 else
                 {
