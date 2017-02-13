@@ -194,10 +194,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-Planner-20160316094718.mdf" />
-    <Content Include="App_Data\aspnet-Planner-20160316094718_log.ldf">
-      <DependentUpon>aspnet-Planner-20160316094718.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -271,6 +267,7 @@
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
     <Content Include="Scripts\App\Directives\ngEnter.js" />
+    <Content Include="Scripts\App\Factories\rolesFactory.js" />
     <Content Include="Scripts\App\Factories\scientificWorkFormFieldFactory.js" />
     <Content Include="Scripts\App\Factories\validationFactory.js" />
     <Content Include="Scripts\App\Services\keeperService.js" />

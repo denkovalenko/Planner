@@ -97,6 +97,7 @@
     <Compile Include="Helpers\Author.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="Helpers\Dates.cs" />
+    <Compile Include="Helpers\ScientificFieldsHelper.cs" />
     <Compile Include="Helpers\ScientificPublishingModel.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.cs" />
     <Compile Include="Migrations\201610042355187_PlanRemark.Designer.cs">
@@ -122,7 +123,30 @@
     <Compile Include="Migrations\201611271611409_Added profile picture.Designer.cs">
       <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612142301188_DayEntryLoad.cs" />
+    <Compile Include="Migrations\201612142301188_DayEntryLoad.Designer.cs">
+      <DependentUpon>201612142301188_DayEntryLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701122008153_UpdateUserForImport.cs" />
+    <Compile Include="Migrations\201701122008153_UpdateUserForImport.Designer.cs">
+      <DependentUpon>201701122008153_UpdateUserForImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701141715162_RemoveUserPhone.cs" />
+    <Compile Include="Migrations\201701141715162_RemoveUserPhone.Designer.cs">
+      <DependentUpon>201701141715162_RemoveUserPhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\DayEntryLoad.cs" />
+    <Compile Include="Models\DaySemester.cs" />
+    <Compile Include="Models\DayTeachLoad.cs" />
+    <Compile Include="Models\DDataStorage.cs" />
+    <Compile Include="Models\EDataStorage.cs" />
     <Compile Include="Models\Enums\ResearchDoneTypeEnum.cs" />
+    <Compile Include="Models\ExtramuralEntryLoad.cs" />
+    <Compile Include="Models\ExtramuralSemester.cs" />
+    <Compile Include="Models\ExtramuralTeachLoad.cs" />
+    <Compile Include="Models\IndPlanType.cs" />
+    <Compile Include="Models\LoadingList.cs" />
     <Compile Include="Models\NDR.cs" />
     <Compile Include="Models\NMBD.cs" />
     <Compile Include="Models\PlanAllocation.cs" />
@@ -135,7 +159,11 @@
     <Compile Include="Models\PlanTrainingJob.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\IndivPlanFields.cs" />
     <Compile Include="Models\ScientificPublishing.cs" />
+    <Compile Include="Models\Specialize.cs" />
+    <Compile Include="Models\Specialty.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Reports\PublicationForm11.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -184,6 +212,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611271611409_Added profile picture.resx">
       <DependentUpon>201611271611409_Added profile picture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612142301188_DayEntryLoad.resx">
+      <DependentUpon>201612142301188_DayEntryLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701122008153_UpdateUserForImport.resx">
+      <DependentUpon>201701122008153_UpdateUserForImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701141715162_RemoveUserPhone.resx">
+      <DependentUpon>201701141715162_RemoveUserPhone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

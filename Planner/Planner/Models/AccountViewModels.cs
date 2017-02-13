@@ -105,6 +105,8 @@ namespace Planner.Models
 		public string ScholarLink { get; set; }
 		[Display(Name = "Профiль у ORCID")]
 		public string OrcidLink { get; set; }
+        [Display(Name = "Роль")]
+        public string Role { get; set; }
 		public string DepartmentId { get; set; }
 	}
 

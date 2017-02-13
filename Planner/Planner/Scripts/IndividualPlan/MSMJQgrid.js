@@ -1,6 +1,4 @@
 ﻿var colNames = [
-    'Id',
-    '№ п/п',
     'Змiст',
     'Пiдсумковий результат',
     'Термiн виконання',
@@ -9,23 +7,23 @@
 ];
 
 var editruleInteger = { required: true, integer: true, minValue: 0, maxValue: 500 };
+
 var editruleLetters = { required: true, custom: true, custom_func: checkOnlyLetters };
+
 var colModel = [
-    { name: 'Id', index: 'Id', key: true, width: 25, hidden: true },
-    { name: 'OrderNumber', index: 'OrderNumber', width: 20, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'Content', index: 'Content', width: 120, editable: true, editrules: editruleLetters },
-    { name: 'Result', index: 'Result', width: 35, editable: true, editrules: editruleLetters },
-    { name: 'DurationTime', index: 'DurationTime', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'PlannedVolume', index: 'PlannedVolume', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger },
-    { name: 'ActualVolume', index: 'ActualVolume', width: 30, formatter: 'integer', sorttype: 'integer', align: 'right', editable: true, editrules: editruleInteger }
+    { name: 'Content', index: 'Content', resizable: false, width: 600, editrules: editruleLetters },
+    { name: 'Result', index: 'Result', width: 150, resizable: false, editable: true, editrules: editruleLetters },
+    { name: 'DurationTime', index: 'DurationTime', formatter: 'integer', sorttype: 'integer', align: 'right', width: 150, resizable: false, editable: true, editrules: editruleLetters },
+    { name: 'PlannedVolume', index: 'PlannedVolume', formatter: 'integer', sorttype: 'integer', align: 'right', width: 150, resizable: false, editable: true, editrules: editruleLetters },
+    { name: 'ActualVolume', index: 'ActualVolume', formatter: 'integer', sorttype: 'integer', align: 'right', width: 150, resizable: false, editable: true, editrules: editruleLetters }
 ];
 
 
 jQuery("#JQTable").jqGrid({
     url: gridSettings.loadurl,
     datatype: "json",
-    height: 255,
-    autowidth: true,
+    method: 'POST',
+    width: 1100,
     colNames: colNames,
     colModel: colModel,
     rowNum: 50,
@@ -33,10 +31,13 @@ jQuery("#JQTable").jqGrid({
     rowList: [20, 30, 50],
     scroll: 1,
     loadonce: true,
-    rownumbers: false,
+    rownumbers: true,
     rownumWidth: 40,
     gridview: true,
     sortname: 'Id',
+    autowidth: false,
+    shrinkToFit: false,
+    forceFit: true,
     pager: "#JQPager",
     viewrecords: true,
     sortorder: "desc",

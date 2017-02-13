@@ -25,10 +25,21 @@ namespace Planner
             // Create two role
             var role1 = new IdentityRole { Name = "Admin" };
             var role2 = new IdentityRole { Name = "User" };
+            var Teacher = new IdentityRole { Name = "Teacher" };
+            var TeacherModerator = new IdentityRole { Name = "TeacherModerator" };
+            var HeadOfMethodologyDepartment = new IdentityRole { Name = "HeadOfMethodologyDepartment" };
+            var HeadOfStudies = new IdentityRole { Name = "HeadOfStudies" };
+            var HeadOfScientificSector = new IdentityRole { Name = "HeadOfScientificSector" };
+
 
             // Add role to db
             roleManager.Create(role1);
             roleManager.Create(role2);
+            roleManager.Create(Teacher);
+            roleManager.Create(TeacherModerator);
+            roleManager.Create(HeadOfMethodologyDepartment);
+            roleManager.Create(HeadOfStudies);
+            roleManager.Create(HeadOfScientificSector);
 
             // Create users
             var admin = new ApplicationUser { Email = "administrator@gmail.com", UserName = "administrator@gmail.com" };

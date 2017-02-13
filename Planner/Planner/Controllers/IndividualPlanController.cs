@@ -9,33 +9,46 @@ using Newtonsoft.Json;
 
 namespace Planner.Controllers
 {
+    public static class IndivPlanTabNamesEnum
+    {
+        public static String ScientificPublishingTab { get { return "ScientificPublishing"; } }
+    }
+
+    [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
     public class IndividualPlanController : Controller
     {
+
+     
         // GET: IndividualPlan
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult TrainingJob()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanScientificWork()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
         public ActionResult PlanMethodicalWork()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanManagment()
         {
             return View();
         }
+
         public string GetPlanTrainingJobs()
         {
             using (var db = new ApplicationDbContext())
@@ -109,7 +122,29 @@ namespace Planner.Controllers
                 }
             }
         }
+        public ActionResult SaveScientificData(List<ScientificSaveDataHelper> model)
+        {
+            List<PlanScientificWork> userData = new List<Domain.Models.PlanScientificWork>();
+            using (var db = new ApplicationDbContext())
+            {
+                userData = db.PlanScientificWorks.ToList();
 
+                model.ForEach(el =>
+                {
+                    if (userData.Select(x => x.SchemaName).Contains(el.SchemaName))
+                    {
+                        var update = userData.Where(x => x.SchemaName == el.SchemaName).FirstOrDefault();
+                        update.ActualVolume = (Int32)el.Value;
+                    }
+                    else
+                    {
+                        db.PlanScientificWorks.Add(new Domain.Models.PlanScientificWork { ActualVolume = (Int32)el.Value, SchemaName = el.SchemaName, Content = el.Name });
+                    }
+                });
+                db.SaveChanges();
+            }
+            return null;
+        }
         public void EditPlanScientificWork(PlanScientificWork model)
         {
             using (var db = new ApplicationDbContext())
@@ -163,7 +198,7 @@ namespace Planner.Controllers
                 }
             }
         }
-        
+
         public string GetPlanManagment()
         {
             using (var db = new ApplicationDbContext())
@@ -206,5 +241,12 @@ namespace Planner.Controllers
                 }
             }
         }
+    }
+
+    public class ScientificSaveDataHelper
+    {
+        public String SchemaName { get; set; }
+        public String Name { get; set; }
+        public Int32? Value { get; set; }
     }
 }

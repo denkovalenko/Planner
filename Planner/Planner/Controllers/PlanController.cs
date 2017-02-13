@@ -38,13 +38,20 @@ namespace Planner.Controllers
 		[HttpPost]
 		public ActionResult Create(ScientificPublishing model)
 		{
-			using (ApplicationDbContext db = new ApplicationDbContext())
-			{
-				model.UserId = user.Id;
-				db.ScientificPublishings.Add(model);
-				db.SaveChanges();
-				return RedirectToAction("Index");
-			}
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    model.UserId = user.Id;
+                    db.ScientificPublishings.Add(model);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
 		}
     }
 }

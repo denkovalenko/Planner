@@ -9,3 +9,8 @@
 
 /Planner/ConsoleTest/bin
 /Planner/ConsoleTest/obj
+
+/Planner/.vs
+/Planner/.vs/*
+/Planner/ImportUserTools/bin
+/Planner/ImportUserTools/obj

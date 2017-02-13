@@ -20,6 +20,9 @@ namespace Domain.Models
         public String AcademicTitleId { get; set; }
 		public String ScholarLink { get; set; }
         public byte[] ProfilePicture { get; set; }
+        public String BasicOrCompatible { get; set; }
+        public String Document { get; set; }
+
         public String OrcidLink { get; set; }
 		[ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
@@ -48,6 +51,14 @@ namespace Domain.Models
         public String PlanAllocationId { get; set; }
         [ForeignKey("PlanAllocationId")]
         public virtual PlanAllocation PlanAllocation { get; set; }
+
+        public String DayTeachLoadId { get; set; }
+        [ForeignKey("DayTeachLoadId")]
+        public virtual DayTeachLoad DayTeachLoad { get; set; }
+
+        public String ExtramuralTeachLoadId { get; set; }
+        [ForeignKey("ExtramuralTeachLoadId")]
+        public virtual ExtramuralTeachLoad ExtramuralTeachLoad { get; set; }
 
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
         public virtual ICollection<NDR> NDRs { get; set; }
