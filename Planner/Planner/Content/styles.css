@@ -292,7 +292,7 @@ ul.sidebar-menu , ul.sidebar-menu li ul.sub{
 }
 
 ul.sidebar-menu {
-    margin-top: 260px;
+    margin-top: 320px;
 }
 
 #sidebar > ul > li > ul.sub {
@@ -415,7 +415,6 @@ ul.sidebar-menu li a.active i {
 
 .header {
     position: fixed;
-    top: -20px;
     left: 0;
     right: 0;
     z-index: 1002;
@@ -2271,7 +2270,7 @@ label {
     float: left;
 }
 .header-widget {
-    padding: 60px;
+    padding: 30px;
 }
 .serchheder {
     width: 100%;
@@ -2281,7 +2280,7 @@ label {
 }
 .serchheder {
     background: url("https://pp.vk.me/c638218/v638218875/f21e/Y-mX4M0z0hQ.jpg");
-    height: 220px;
+    height: 250px;
     background-size: 101%;
 }
 .main-title  {
