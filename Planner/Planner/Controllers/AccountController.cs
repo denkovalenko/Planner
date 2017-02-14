@@ -345,23 +345,33 @@ namespace Planner.Controllers
                 IdentityResult result = UserManager.Update(user);
                 if (result.Succeeded)
                 {
-					IdentityResult result2 = UserManager.RemoveFromRole(user.Id, UserManager.GetRoles(user.Id).FirstOrDefault());
-					if (result2.Succeeded)
+					if (User.IsInRole("Admin"))
 					{
-						IdentityResult result3 = UserManager.AddToRole(user.Id, model.Role);
-						if (result3.Succeeded)
+						IdentityResult result2 = UserManager.RemoveFromRole(user.Id, UserManager.GetRoles(user.Id).FirstOrDefault());
+						if (result2.Succeeded)
 						{
-							return RedirectToAction("Profile", "Home");
+							IdentityResult result3 = UserManager.AddToRole(user.Id, model.Role);
+
+							if (result3.Succeeded)
+							{
+								AuthenticationManager.SignOut();
+								return RedirectToAction("Account", "Login");
+							}
+							else
+							{
+								AddErrors(result3);
+							}
 						}
 						else
 						{
-							AddErrors(result3);
+							AddErrors(result2);
 						}
 					}
 					else
 					{
-						AddErrors(result2);
-					}					
+						return RedirectToAction("Home", "Profile");
+					}
+									
                 }
                 else
                 {
