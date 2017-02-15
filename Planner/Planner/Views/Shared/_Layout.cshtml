@@ -51,18 +51,17 @@
     <section id="container">
         <div class="container">
 
-            <div class="navbar-header">
-                <header class="header">
-                    s
+        <div class="navbar-header">
+            <header class="header">
                     <div class="serchheder">
                         <div class="social-wrapper">
                             <div class="footer-top">
-                                <p>
+                               
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
                                     <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
-                                </p>
+                                
                             </div>
                         </div>
 
@@ -79,11 +78,8 @@
                                     </p>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <!-- .inside-header -->
-
                     <div class="wrapper">
                         <div class="sidebar-toggle-box">
                             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
@@ -147,8 +143,6 @@
                             </ul>
                         </div>
                     </div>
-
-
                 </header>
             </div>
         </div>
@@ -159,7 +153,7 @@
                 <ul class="sidebar-menu" id="nav-accordion">
 
                     <p class="centered">
-                        <a href="profile.html"><img src="@Url.Action(" GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                        <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
                     </p>
                     <h5 class="centered">@User.Identity.Name</h5>
                     <li class="mt">
@@ -201,14 +195,6 @@
                             </a>
                         </li>
                     }
-
-                    @*
-                        <li class="mt">
-                            <a href="~/Plan/Index">
-                                <i class="fa fa-search-plus"></i>
-                                <span>План</span>
-                            </a>
-                        </li>*@
 
                     @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
                     {
