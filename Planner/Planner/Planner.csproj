@@ -229,6 +229,7 @@
     <Content Include="Content\style-responsive.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\Templates\IndivPlanTable.html" />
     <Content Include="Content\zabuto_calendar.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="favicon.ico" />
@@ -262,6 +263,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\App\Controllers\departmentController.js" />
+    <Content Include="Scripts\App\Controllers\individualPlanController.js" />
     <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
@@ -271,6 +273,7 @@
     <Content Include="Scripts\App\Factories\scientificWorkFormFieldFactory.js" />
     <Content Include="Scripts\App\Factories\validationFactory.js" />
     <Content Include="Scripts\App\Services\keeperService.js" />
+    <Content Include="Scripts\App\Services\indivPlanService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common-scripts.js" />
