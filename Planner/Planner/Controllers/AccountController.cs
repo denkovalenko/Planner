@@ -14,6 +14,7 @@ using Planner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 
 namespace Planner.Controllers
 {
@@ -268,14 +269,32 @@ namespace Planner.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult GetUsers()
         {
-            GetUsersModel model = new GetUsersModel
-            {
-                UserList = UserManager.Users.ToList()
-            };
-            return View(model);
+            return View();
         }
 
-        public ActionResult Edit(string userName)
+		[Authorize(Roles = "Admin")]
+		public JsonResult GetUsersData()
+		{
+			GetUsersModel model = new GetUsersModel
+			{
+				UserList = UserManager.Users.Select(u => new EditingUser
+				{
+					Id = u.Id,
+					Name = u.LastName + " " + u.FirstName + " " + u.ThirdName,
+					Email = u.Email,
+					PositionId = u.PositionId
+				})
+				.OrderBy(x => x.Name)
+				.ToList()
+			};
+			return new JsonResult()
+			{
+				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+				Data = model
+			};
+		}
+
+		public ActionResult Edit(string userName)
         {
             ApplicationUser user = UserManager.FindByEmail(userName);
             if (user != null)
