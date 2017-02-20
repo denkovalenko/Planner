@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
@@ -113,8 +114,16 @@ namespace Planner.Models
     public class GetUsersModel
     {
         [Display(Name = "UserList")]
-        public List<ApplicationUser> UserList { get; set; }
+        public List<EditingUser> UserList { get; set; }
     }
+
+	public class EditingUser
+	{
+		public String Id { get; set; }
+		public String Name { get; set; }
+		public String PositionId { get; set; }
+		public String Email { get; set; }
+	}
 
     public class EditModel
     {

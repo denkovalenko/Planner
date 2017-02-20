@@ -264,6 +264,7 @@
     <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\App\Controllers\departmentController.js" />
     <Content Include="Scripts\App\Controllers\individualPlanController.js" />
+    <Content Include="Scripts\App\Controllers\getUsersController.js" />
     <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
