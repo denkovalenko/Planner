@@ -16,7 +16,7 @@ namespace Planner.Controllers
     public class IndividualPlanController : Controller
     {
 
-     
+
         // GET: IndividualPlan
         public ActionResult Index()
         {
@@ -26,9 +26,32 @@ namespace Planner.Controllers
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult TrainingJob()
         {
-            return View();
-        }
+            using (var db = new ApplicationDbContext())
+            {
+                var indivPlanType = db.IndPlanTypes.Where(x => x.Name.Equals("TrainingJob")).AsEnumerable().Select(x => new IndPlanType() { Id = x.Id, Name = x.Name }).FirstOrDefault();
+                return View(indivPlanType);
+            }
 
+        }
+        [HttpPost]
+        [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
+        public ActionResult GetDataByType(String type)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+
+                var result = db.IndivPlanFields
+                            .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
+                            .Where(x => x.t.Name.Equals(type)).ToList();
+                var grouped = result.GroupBy(x => x.f.TabName, x => x.f, (key, res) => new
+                {
+                    TabName = key,
+                    TabKey=Guid.NewGuid(),
+                    Fields = res.ToList().Select(x => new { x.Id, x.Suffix, x.SchemaName, x.TabName, x.DisplayName })
+                }).ToList();
+                return Json(grouped);
+            }
+        }
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanScientificWork()
         {
@@ -38,13 +61,21 @@ namespace Planner.Controllers
         [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
         public ActionResult PlanMethodicalWork()
         {
-            return View();
+            using (var db = new ApplicationDbContext())
+            {
+                var indivPlanType = db.IndPlanTypes.Where(x => x.Name.Equals("MethodicalJob")).AsEnumerable().Select(x => new IndPlanType() { Id = x.Id, Name = x.Name }).FirstOrDefault();
+                return View(indivPlanType);
+            }
         }
 
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanManagment()
         {
-            return View();
+            using (var db = new ApplicationDbContext())
+            {
+                var indivPlanType = db.IndPlanTypes.Where(x => x.Name.Equals("OrganizationalJob")).AsEnumerable().Select(x => new IndPlanType() { Id = x.Id, Name = x.Name }).FirstOrDefault();
+                return View(indivPlanType);
+            }
         }
 
         public string GetPlanTrainingJobs()
@@ -250,4 +281,8 @@ namespace Planner.Controllers
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe3a12bfef64debf7cc6daaf98088777515928af
 }

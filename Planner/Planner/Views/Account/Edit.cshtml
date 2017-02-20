@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Edit";
 }
+<script src="~/Scripts/App/Factories/rolesFactory.js"></script>
 <div class="content-wrapper">
     <div class="form-group">
         <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
@@ -42,7 +43,10 @@
                     @Html.EnumDropDownListFor(m => m.PositionEnum, "-- Виберiть посаду --", new { @class = "form-control" })
                 </div>
                 <div class="form-group has-feedback">
-                    @Html.TextBoxFor(m => m.ProfilePicture, new { type = "file" })
+                    <div class="form-control">
+                        <span>Оновити аватар</span>
+                        @Html.TextBoxFor(m => m.ProfilePicture, new { type = "file", @style = "display: inline-block; float: right" })
+                    </div>
                 </div>
 
                 <div class="form-group has-feedback">
@@ -58,6 +62,16 @@
                     </select>
                 </div>
 
+                if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group has-feedback">
+                        <select class="form-control" name="role">
+                            <option value="User" selected>--Виберiть роль користувача--</option>
+                            <option ng-repeat="role in roles" value="{{role.Name}}">{{rolesFactory[role.Name]}}</option>
+                        </select>
+                    </div>
+                }
+
                 <div class="row">
                     <div class="col-xs-8">
                     </div><!-- /.col -->
@@ -71,5 +85,5 @@
 
             }
         </div>
-        </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
