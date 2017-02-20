@@ -35,7 +35,7 @@ namespace Planner.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
-        public ActionResult GetDataByType(String type)
+        public ActionResult GetDataByType(string type)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -279,10 +279,4 @@ namespace Planner.Controllers
         public string Name { get; set; }
         public int? Value { get; set; }
     }
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> fe3a12bfef64debf7cc6daaf98088777515928af
 }

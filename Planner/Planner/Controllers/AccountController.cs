@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -13,8 +11,6 @@ using Domain.Models;
 using Planner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Newtonsoft.Json;
 
 namespace Planner.Controllers
 {
@@ -60,7 +56,7 @@ namespace Planner.Controllers
 		[Authorize(Roles = "User")]
 		public JsonResult GetUserInfo()
 		{
-			using (ApplicationDbContext db = new ApplicationDbContext())
+			using (var db = new ApplicationDbContext())
 			{
 				var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
 				return new JsonResult()
@@ -441,16 +437,7 @@ namespace Planner.Controllers
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
