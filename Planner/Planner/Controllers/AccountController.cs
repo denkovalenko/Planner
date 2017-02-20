@@ -140,8 +140,7 @@ namespace Planner.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
@@ -177,64 +176,61 @@ namespace Planner.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
-                case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid code.");
+                    ModelState.AddModelError("", "Невірний код.");
                     return View(model);
             }
         }
 
 		[Authorize(Roles = "Admin")]
-		public ActionResult Register(String username)
+		public ActionResult Register(string username)
 		{
-			if (username != null)
+		    if (username != null)
 			{
-				ViewBag.userAdd = "User " + username + " has been added";
+				ViewBag.userAdd = "Користувач " + username + ", був створенний!";
 			}
-			using (ApplicationDbContext db = new ApplicationDbContext())
-			{
-
-				return View();
-			}
-				
+		    using (new ApplicationDbContext())
+		    {
+		        return View();
+		    }
 		}
 
-		//
+        //
 		// POST: /Account/Register
 		[HttpPost]
         [ValidateAntiForgeryToken]
 		[Authorize(Roles = "Admin")]
 		public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            Int32 qw = (Int32)model.DegreeEnum;
-            if (ModelState.IsValid)
+		    if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
-				{
-					UserName = model.Email,
-					Email = model.Email,
-					FirstName = model.FirstName,
-					LastName = model.LastName,
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     ThirdName = model.ThirdName,
-                    Degree = new Degree() { Value = model.DegreeEnum },
-                    Position = new Position() { Value = model.PositionEnum },
-                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
-					ScholarLink = model.ScholarLink,
-					OrcidLink = model.OrcidLink
+                    Degree = new Degree() {Value = model.DegreeEnum},
+                    Position = new Position() {Value = model.PositionEnum},
+                    AcademicTitle = new AcademicTitle() {Value = model.AcademicTitleEnum},
+                    ScholarLink = model.ScholarLink,
+                    OrcidLink = model.OrcidLink,
+                    DepartmentUsers = new List<DepartmentUser>
+                    {
+                        new DepartmentUser()
+                        {
+                            DepartmentId = model.DepartmentId
+                        }
+                    }
                 };
-				user.DepartmentUsers = new List<DepartmentUser>();
-				user.DepartmentUsers.Add(new DepartmentUser()
-				{
-					DepartmentId = model.DepartmentId
-					
-				});
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -370,7 +366,7 @@ namespace Planner.Controllers
 							if (result3.Succeeded)
 							{
 								AuthenticationManager.SignOut();
-								return RedirectToAction("Account", "Login");
+								return RedirectToAction("Login", "Account");
 							}
 							else
 							{
@@ -384,7 +380,7 @@ namespace Planner.Controllers
 					}
 					else
 					{
-						return RedirectToAction("Home", "Profile");
+						return RedirectToAction("Profile", "Home");
 					}
 									
                 }
@@ -534,7 +530,7 @@ namespace Planner.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
@@ -558,7 +554,6 @@ namespace Planner.Controllers
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
@@ -645,13 +640,7 @@ namespace Planner.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
@@ -667,7 +656,7 @@ namespace Planner.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Profile", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

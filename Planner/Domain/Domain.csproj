@@ -139,6 +139,10 @@
     <Compile Include="Migrations\201701171250457_TabName.Designer.cs">
       <DependentUpon>201701171250457_TabName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702201939507_IndivPlanToUser.cs" />
+    <Compile Include="Migrations\201702201939507_IndivPlanToUser.Designer.cs">
+      <DependentUpon>201702201939507_IndivPlanToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -153,7 +157,6 @@
     <Compile Include="Models\LoadingList.cs" />
     <Compile Include="Models\NDR.cs" />
     <Compile Include="Models\NMBD.cs" />
-    <Compile Include="Models\PlanAllocation.cs" />
     <Compile Include="Models\PlanChange.cs" />
     <Compile Include="Models\PlanConclusion.cs" />
     <Compile Include="Models\PlanManagment.cs" />
@@ -228,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701171250457_TabName.resx">
       <DependentUpon>201701171250457_TabName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702201939507_IndivPlanToUser.resx">
+      <DependentUpon>201702201939507_IndivPlanToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

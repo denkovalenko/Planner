@@ -20,6 +20,6 @@ namespace Domain.Models
         public int DurationTime { get; set; }
         public int PlannedVolume { get; set; }
         public int ActualVolume { get; set; }
-        public virtual ICollection<PlanAllocation> PlanAllocations { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

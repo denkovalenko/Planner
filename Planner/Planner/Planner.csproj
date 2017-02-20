@@ -225,6 +225,7 @@
     <Content Include="Content\Images\user8-128x128.jpg" />
     <Content Include="Content\Images\Y-mX4M0z0hQ.jpg" />
     <Content Include="Content\jquery.gritter.css" />
+    <Content Include="Content\Images\nav-expand.png" />
     <Content Include="Content\skin-blue-light.min.css" />
     <Content Include="Content\style-responsive.css" />
     <Content Include="Content\style.css" />

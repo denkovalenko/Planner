@@ -48,9 +48,21 @@ namespace Domain.Models
         [ForeignKey("PlanChangeId")]
         public virtual PlanChange PlanChange { get; set; }
 
-        public String PlanAllocationId { get; set; }
-        [ForeignKey("PlanAllocationId")]
-        public virtual PlanAllocation PlanAllocation { get; set; }
+        public String PlanPlanScientificWorkId { get; set; }
+        [ForeignKey("PlanPlanScientificWorkId")]
+        public virtual PlanScientificWork PlanScientificWork { get; set; }
+
+        public String PlanManagmentId { get; set; }
+        [ForeignKey("PlanManagmentId")]
+        public virtual PlanManagment PlanManagment { get; set; }
+
+        public String PlanTrainingJobId { get; set; }
+        [ForeignKey("PlanTrainingJobId")]
+        public virtual PlanTrainingJob PlanTrainingJob { get; set; }
+
+        public String PlanMethodicalWorkId { get; set; }
+        [ForeignKey("PlanMethodicalWorkId")]
+        public virtual PlanMethodicalWork PlanMethodicalWork { get; set; }
 
         public String DayTeachLoadId { get; set; }
         [ForeignKey("DayTeachLoadId")]
