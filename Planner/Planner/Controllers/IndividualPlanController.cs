@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Domain.Models;
-
 using Newtonsoft.Json;
 
 namespace Planner.Controllers
 {
     public static class IndivPlanTabNamesEnum
     {
-        public static String ScientificPublishingTab { get { return "ScientificPublishing"; } }
+        public static string ScientificPublishingTab { get { return "ScientificPublishing"; } }
     }
 
     [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
@@ -124,7 +122,7 @@ namespace Planner.Controllers
         }
         public ActionResult SaveScientificData(List<ScientificSaveDataHelper> model)
         {
-            List<PlanScientificWork> userData = new List<Domain.Models.PlanScientificWork>();
+            List<PlanScientificWork> userData;
             using (var db = new ApplicationDbContext())
             {
                 userData = db.PlanScientificWorks.ToList();
@@ -133,12 +131,13 @@ namespace Planner.Controllers
                 {
                     if (userData.Select(x => x.SchemaName).Contains(el.SchemaName))
                     {
-                        var update = userData.Where(x => x.SchemaName == el.SchemaName).FirstOrDefault();
-                        update.ActualVolume = (Int32)el.Value;
+                        var update = userData.FirstOrDefault(x => x.SchemaName == el.SchemaName);
+                        if (update != null) if (el.Value != null) update.ActualVolume = (int)el.Value;
                     }
                     else
                     {
-                        db.PlanScientificWorks.Add(new Domain.Models.PlanScientificWork { ActualVolume = (Int32)el.Value, SchemaName = el.SchemaName, Content = el.Name });
+                        if (el.Value != null)
+                            db.PlanScientificWorks.Add(new PlanScientificWork { ActualVolume = (int)el.Value, SchemaName = el.SchemaName, Content = el.Name });
                     }
                 });
                 db.SaveChanges();
@@ -245,8 +244,10 @@ namespace Planner.Controllers
 
     public class ScientificSaveDataHelper
     {
-        public String SchemaName { get; set; }
-        public String Name { get; set; }
-        public Int32? Value { get; set; }
+        public string SchemaName { get; set; }
+        public string Name { get; set; }
+        public int? Value { get; set; }
     }
+
+
 }
