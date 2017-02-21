@@ -2444,3 +2444,7 @@ and (min-width : 1824px) {
     display:inline-block;
     width:50px
 }
+
+.navbar{
+    border: none;
+}
