@@ -57,7 +57,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SpreadsheetLight, Version=3.4.4.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57" />
+    <Reference Include="SpreadsheetLight, Version=3.4.4.0, Culture=neutral, PublicKeyToken=32fbb46dc1730c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpreadsheetLight.3.4.4\lib\SpreadsheetLight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -294,6 +297,7 @@
     <Content Include="App_Data\Dodatki.xlsx" />
     <Content Include="App_Data\DepartmentReport.xlsx" />
     <Content Include="App_Data\Form11.xlsx" />
+    <Content Include="App_Data\Blank_2017_Ind_plan.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
     <Content Include="Scripts\gritter-conf.js" />

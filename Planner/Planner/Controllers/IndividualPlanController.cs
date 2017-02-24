@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web.Mvc;
 using Domain.Models;
 using Newtonsoft.Json;
+using System.IO;
+using SpreadsheetLight;
+using Calculation;
 
 namespace Planner.Controllers
 {
@@ -21,6 +24,16 @@ namespace Planner.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult DownloadReport()
+        {
+            string fileName = "Ind_plan.xlsx";
+            SLDocument doc = PublicationReportBuilder.FacultyReportBuild(User.Identity.Name);
+            var ms = new MemoryStream();
+            doc.SaveAs(ms);
+            ms.Position = 0;
+            return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
