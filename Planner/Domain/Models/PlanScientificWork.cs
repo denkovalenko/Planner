@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Domain.Models
 {
@@ -10,6 +11,7 @@ namespace Domain.Models
         {
             Id = Guid.NewGuid().ToString();
         }
+        [HiddenInput(DisplayValue = false)]
         [Key]
         public String Id { get; set; }
 

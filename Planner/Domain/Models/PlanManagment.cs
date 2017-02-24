@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Domain.Models
 {
     public class PlanManagment
     {
+        
         public PlanManagment()
         {
             Id = Guid.NewGuid().ToString();
         }
+        [HiddenInput(DisplayValue = false)]
         [Key]
         public String Id { get; set; }
 
