@@ -13,7 +13,6 @@
             }, function (response) {
 
             });
-
     }
     self.getData = function (type, next) {
         $http.post('/IndividualPlan/GetDataByType', { type: type }).then(
@@ -21,9 +20,7 @@
               console.log(response.data);
              return next(response.data);
           }, function (response) {
-
           });
-
     }
 
 });
