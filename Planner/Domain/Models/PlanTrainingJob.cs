@@ -56,7 +56,8 @@ namespace Domain.Models
         public int DoneDiploma { get; set; }
         public int PlannedPostgraduates { get; set; }
         public int DonePostgraduates { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
-
+        public String ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

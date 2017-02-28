@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201702240222493_HiddenInput.Designer.cs">
       <DependentUpon>201702240222493_HiddenInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702282308010_UserToIndivPlan.cs" />
+    <Compile Include="Migrations\201702282308010_UserToIndivPlan.Designer.cs">
+      <DependentUpon>201702282308010_UserToIndivPlan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -269,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702240222493_HiddenInput.resx">
       <DependentUpon>201702240222493_HiddenInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702282308010_UserToIndivPlan.resx">
+      <DependentUpon>201702282308010_UserToIndivPlan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

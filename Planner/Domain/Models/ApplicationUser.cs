@@ -36,34 +36,6 @@ namespace Domain.Models
         [ForeignKey("AcademicTitleId")]
         public virtual AcademicTitle AcademicTitle { get; set; }
 
-        public String PlanRemarkId { get; set; }
-        [ForeignKey("PlanRemarkId")]
-        public virtual PlanRemark PlanRemark { get; set; }
-
-        public String PlanConclusionId { get; set; }
-        [ForeignKey("PlanConclusionId")]
-        public virtual PlanConclusion PlanConclusion { get; set; }
-
-        public String PlanChangeId { get; set; }
-        [ForeignKey("PlanChangeId")]
-        public virtual PlanChange PlanChange { get; set; }
-
-        public String PlanPlanScientificWorkId { get; set; }
-        [ForeignKey("PlanPlanScientificWorkId")]
-        public virtual PlanScientificWork PlanScientificWork { get; set; }
-
-        public String PlanManagmentId { get; set; }
-        [ForeignKey("PlanManagmentId")]
-        public virtual PlanManagment PlanManagment { get; set; }
-
-        public String PlanTrainingJobId { get; set; }
-        [ForeignKey("PlanTrainingJobId")]
-        public virtual PlanTrainingJob PlanTrainingJob { get; set; }
-
-        public String PlanMethodicalWorkId { get; set; }
-        [ForeignKey("PlanMethodicalWorkId")]
-        public virtual PlanMethodicalWork PlanMethodicalWork { get; set; }
-
         public String DayTeachLoadId { get; set; }
         [ForeignKey("DayTeachLoadId")]
         public virtual DayTeachLoad DayTeachLoad { get; set; }
@@ -76,7 +48,13 @@ namespace Domain.Models
         public virtual ICollection<NDR> NDRs { get; set; }
         public virtual ICollection<PublicationUser> PublicationUser { get; set; }
         public virtual ICollection<ScientificPublishing> ScientificPublishings { get; set; }
-
+        public virtual ICollection<PlanChange> PlanChange { get; set; }
+        public virtual ICollection<PlanConclusion> PlanConclusion { get; set; }
+        public virtual ICollection<PlanManagment> PlanManagment { get; set; }
+        public virtual ICollection<PlanMethodicalWork> PlanMethodicalWork { get; set; }
+        public virtual ICollection<PlanRemark> PlanRemark { get; set; }
+        public virtual ICollection<PlanScientificWork> PlanScientificWork { get; set; }
+        public virtual ICollection<PlanTrainingJob> PlanTrainingJob { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
