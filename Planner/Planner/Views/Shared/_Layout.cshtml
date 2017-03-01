@@ -50,19 +50,19 @@
 <body>
     <header itemtype="http://schema.org/WPHeader" itemscope="itemscope" id="masthead" class="site-header"></header>
     <section id="container">
-        <div class="container">
+        <div class="container-wrapper">
 
-        <div class="navbar-header">
-            <header class="header">
+            <div class="navbar">
+                <header class="header">
                     <div class="serchheder">
                         <div class="social-wrapper">
                             <div class="footer-top">
-                               
-                                    <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
-                                    <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
-                                    <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
-                                    <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
-                                
+
+                                <a class="social-link" href="#"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
+                                <a class="social-link" href="#"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
+                                <a class="social-link" href="#"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
+                                <a class="social-link" href="#"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
+
                             </div>
                         </div>
 
@@ -100,6 +100,7 @@
                                         <ul class="dropdown-menu">
                                             <li><a href="~/Department/DepartmentPublications">Звіт за кафедрою</a></li>
                                             <li><a href="~/Department/HalfYearDepartmentPublications">Звіт за півріччя</a></li>
+                                            <li><a href="~/IndividualPlan/DownloadReport">Звіт по факультету</a></li>
                                         </ul>
                                     </li>
                                 }
@@ -148,136 +149,145 @@
             </div>
         </div>
 
-        <aside>
-            <div id="sidebar" class="nav-collapse ">
-                <!-- sidebar menu start-->
-                <ul class="sidebar-menu" id="nav-accordion">
 
-                    <p class="centered">
-                        <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
-                    </p>
-                    <h5 class="centered">@User.Identity.Name</h5>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered">
+                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                </p>
+                <h5 class="centered">@User.Identity.Name</h5>
+                <li class="mt">
+                    <a href="~/Home/Profile">
+                        <i class="fa fa-user-md"></i>
+                        <span>Головна</span>
+                    </a>
+                </li>
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
                     <li class="mt">
-                        <a href="~/Home/Profile">
+                        <a href="~/Account/Register">
                             <i class="fa fa-user-md"></i>
-                            <span>Головна</span>
+                            <span>Нові користувачі</span>
                         </a>
                     </li>
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li class="mt">
-                            <a href="~/Account/Register">
-                                <i class="fa fa-user-md"></i>
-                                <span>Нові користувачі</span>
-                            </a>
-                        </li>
-                    }
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li class="mt">
-                            <a href="~/Account/GetUsers">
-                                <i class="fa fa-users"></i>
-                                <span>Користувачі</span>
-                            </a>
-                        </li>
-                    }
-
+                }
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
                     <li class="mt">
-                        <a href="~/Publication/Index">
-                            <i class="fa fa-pencil-square"></i>
-                            <span>Публікації</span>
+                        <a href="~/Account/GetUsers">
+                            <i class="fa fa-users"></i>
+                            <span>Користувачі</span>
                         </a>
                     </li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="mt">
-                            <a href="~/Account/Edit?userName=@User.Identity.Name">
-                                <i class="fa fa-pencil"></i> <span>Редагування даних</span>
-                            </a>
-                        </li>
-                    }
+                }
 
-                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                    {
-                        <li class="mt">
-                            <a href="~/Ndr/Index">
-                                <i class="fa fa-search"></i>
-                                <span>Результати НДР студентів</span>
-                            </a>
-                        </li>
-                    }
-                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                    {
-                        <li class="mt">
-                            <a href="~/Department/DepartmentPublications">
-                                <i class="fa fa-database"></i>
-                                <span>Звіт за кафедрою</span>
-                            </a>
-                        </li>
-                    }
-                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                    {
-                        <li class="mt">
-                            <a href="~/Department/HalfYearDepartmentPublications">
-                                <i class="fa fa-dashboard"></i>
-                                <span>Звіт за півріччя</span>
-                            </a>
-                        </li>
-                    }
-                    @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
-                    {
-                        <li class="sub-menu">
-                            <a href="javascript:;">
-                                <i class="fa fa-user"></i>
-                                <span>Індивідуальний план</span>
-                            </a>
-                            <ul class="sub">
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
-                                }
+                <li class="mt">
+                    <a href="~/Publication/Index">
+                        <i class="fa fa-pencil-square"></i>
+                        <span>Публікації</span>
+                    </a>
+                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="mt">
+                        <a href="~/Account/Edit?userName=@User.Identity.Name">
+                            <i class="fa fa-pencil"></i> <span>Редагування даних</span>
+                        </a>
+                    </li>
+                }
 
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
-                                }
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
-                                }
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
-                                }
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
-                                }
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
-                                }
-                                @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
-                                {
-                                    <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li class="mt">
-                            <a href="~/Timetable/Index">
-                                <i class="fa fa-dashboard"></i>
-                                <span>Розклад</span>
-                            </a>
-                        </li>
-                    }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Ndr/Index">
+                            <i class="fa fa-search"></i>
+                            <span>Результати НДР студентів</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Department/DepartmentPublications">
+                            <i class="fa fa-database"></i>
+                            <span>Звіт за кафедрою</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Department/HalfYearDepartmentPublications">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Звіт за півріччя</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/IndividualPlan/DownloadReport">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Звiт за факультетом</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
+                {
+                    <li class="sub-menu">
+                        <a href="javascript:;">
+                            <i class="fa fa-user"></i>
+                            <span>Індивідуальний план</span>
+                        </a>
+                        <ul class="sub">
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
+                            }
 
-                </ul>
-                <!-- sidebar menu end-->
-            </div>
-        </aside>
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
+                            }
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
+                            }
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
+                            }
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanManagment">Зміни</a></li>
+                            }
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanManagment">Висновки</a></li>
+                            }
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndividualPlan/PlanManagment">Зауваження</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="mt">
+                        <a href="~/Timetable/Index">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Розклад</span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+
         @RenderBody()
         <footer></footer>
     </section>

@@ -1,7 +1,7 @@
 ﻿var gridSettings = {
     caption: 'Організаційна робота',
-    editurl: 'EditPlanManagment',
-    addurl: 'SavePlanManagment',
-    delurl: 'DeletePlanManagment',
+    editurl: 'EditPlanManagmentWork',
+    addurl: 'SavePlanManagmentWork',
+    delurl: 'DeletePlanManagmentWork',
     loadurl: 'GetPlanManagment'
 };
