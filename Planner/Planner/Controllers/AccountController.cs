@@ -297,12 +297,10 @@ namespace Planner.Controllers
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     ThirdName = user.ThirdName,
-                    //DegreeEnum = user.Degree.Value,
-                    //PositionEnum = user.Position.Value,
-                    //AcademicTitleEnum = user.AcademicTitle.Value,
                     ScholarLink = user.ScholarLink,
                     OrcidLink = user.OrcidLink,
 					Role = UserManager.GetRoles(user.Id).FirstOrDefault()
+
                 };
 
                 if (user.Degree != null)
@@ -312,11 +310,18 @@ namespace Planner.Controllers
                 if (user.AcademicTitle != null)
                     model.AcademicTitleEnum = user.AcademicTitle.Value;
 
+				//logic for faculty and departments
+				if (user.DepartmentUsers != null)
+				{
+					model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
+					model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
+				}
+
                 return View(model);
             }
             return RedirectToAction("Profile", "Home");
-
         }
+
         public FileContentResult GetProfilePic(string userName)
         {
             ApplicationUser user = UserManager.FindByEmail(userName);
