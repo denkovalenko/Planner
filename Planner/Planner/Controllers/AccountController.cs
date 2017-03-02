@@ -311,7 +311,7 @@ namespace Planner.Controllers
                     model.AcademicTitleEnum = user.AcademicTitle.Value;
 
 				//logic for faculty and departments
-				if (user.DepartmentUsers != null)
+				if (user.DepartmentUsers != null && user.DepartmentUsers.Count != 0)
 				{
 					model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
 					model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
