@@ -160,6 +160,8 @@ namespace Planner.Models
         public string OrcidLink { get; set; }
 		[Display(Name = "Роль")]
 		public string Role { get; set; }
+		public string FacultyId { get; set; }
+		public string DepartmentId { get; set; }
 	}
 
     public class ResetPasswordViewModel

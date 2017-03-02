@@ -15,6 +15,9 @@ PlannerApp.controller('registerController', ['$scope', '$http', 'rolesFactory', 
 		$http.get('/Faculty/Get').then(
             function (response) {
             	$scope.faculties = response.data;
+            	$scope.faculty = $scope.faculties.filter(function (fac) {
+            		return fac.Id == userState.facultyId;
+            	})[0];
             }, function (response) {
 
             });
@@ -28,9 +31,15 @@ PlannerApp.controller('registerController', ['$scope', '$http', 'rolesFactory', 
 
 	$scope.$watch('faculty', function (newVal) {
 		if (newVal) {
-			$scope.departments = [].filter.call($scope.faculties, function (element, index, array) {
-				return element.Id == newVal;
+
+			$scope.departments = $scope.faculties.filter(function (element, index, array) {
+				return element.Id == newVal.Id;
 			})[0].Departments;
+
+			if(userState.departmentId)
+				$scope.department = $scope.departments.filter(function (dep) {
+					return dep.Id == userState.departmentId;
+				})[0];
 		}
 		else {
 			$scope.departments = null;
