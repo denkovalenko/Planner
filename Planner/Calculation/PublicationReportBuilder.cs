@@ -32,7 +32,7 @@ namespace Calculation
 
                 if (user != null)
                 {
-                    foreach (var i in user.PlanTrainingJob.ToList())
+                    foreach (var i in db.PlanTrainingJob.ToList())
                     {
                         //sl.CopyRow(currentRow + 1, currentRow + 2, currentRow + 2, false);
 
