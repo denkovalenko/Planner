@@ -1,8 +1,16 @@
 ﻿@model Planner.Models.EditModel
+@using Newtonsoft.Json;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Edit";
 }
+
+<script>
+    var userState = {
+        facultyId: @Html.Raw(JsonConvert.SerializeObject(Model.FacultyId)),
+        departmentId: @Html.Raw(JsonConvert.SerializeObject(Model.DepartmentId))
+    };
+</script>
 <script src="~/Scripts/App/Factories/rolesFactory.js"></script>
 <div class="content-wrapper">
     <div class="form-group">
@@ -50,13 +58,13 @@
                 </div>
 
                 <div class="form-group has-feedback">
-                    <select class="form-control" data-ng-model="faculty"
-                            data-ng-options="c.Id as c.Name for c in faculties">
+                    <select class="form-control" data-ng-model="faculty" name="FacultyId"
+                            data-ng-options="c.Name for c in faculties track by c.Id">
                         <option value="">-- Виберiть факультет--</option>
                     </select>
                 </div>
                 <div class="form-group has-feedback">
-                    <select class="form-control" name="departmentId" data-ng-model="department" data-ng-disabled="!faculty"
+                    <select class="form-control" name="DepartmentId" data-ng-model="department" data-ng-disabled="!faculty"
                             data-ng-options="s.Name for s in departments track by s.Id">
                         <option value="">--Виберiть кафедру--</option>
                     </select>
