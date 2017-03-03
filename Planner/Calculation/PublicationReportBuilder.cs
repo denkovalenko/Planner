@@ -32,7 +32,7 @@ namespace Calculation
 
                 if (user != null)
                 {
-                    foreach (var i in db.PlanTrainingJob.ToList())
+                    foreach (var i in db.PlanTrainingJobs.ToList())
                     {
                         //sl.CopyRow(currentRow + 1, currentRow + 2, currentRow + 2, false);
 
@@ -234,9 +234,9 @@ namespace Calculation
                     model = query;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
                 return model;
             }
@@ -294,6 +294,7 @@ namespace Calculation
 
             return sl;
 
+/*
             using (ExcelPackage pck = new ExcelPackage())
             {
                 var datasource = CreateForm11(user);
@@ -346,6 +347,7 @@ namespace Calculation
                 //return pck.GetAsByteArray();
                 //pck.SaveAs(new FileInfo(filepath));
             }
+*/
         }
         #endregion
 
@@ -428,9 +430,9 @@ namespace Calculation
                     model = result;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
                 return model;
             }

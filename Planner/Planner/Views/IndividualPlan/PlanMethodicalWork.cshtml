@@ -13,8 +13,8 @@
     @*<a href="Index" class="small-box-footer">Повернутися назад <i class="fa fa-arrow-circle-left"></i></a>*@
     <table id="JQTable"></table>
     <div id="JQPager"></div>
-    <script src="~/Scripts/IndividualPlan/PlnaMethodicalWork.js"></script>
-    <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>
+    @*<script src="~/Scripts/IndividualPlan/PlnaMethodicalWork.js"></script>
+    <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>*@
     <script src="~/Scripts/App/Services/indivPlanService.js"></script>
     <script src="~/Scripts/App/Controllers/individualPlanController.js"></script>
     <div ng-controller="individualPlanController as ctrl" ng-init='ctrl.init(@Html.Raw(Json.Encode(Model)))' ng-include="'/Content/Templates/IndivPlanTable.html'">

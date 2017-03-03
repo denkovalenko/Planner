@@ -25,7 +25,7 @@ namespace Planner.Controllers
             }
         }
 
-        public ActionResult Profile()
+        public new ActionResult Profile()
         {
             if (!Request.IsAuthenticated)
             {

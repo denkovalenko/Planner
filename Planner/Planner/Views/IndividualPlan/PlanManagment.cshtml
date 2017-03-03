@@ -12,8 +12,8 @@
 <div class="content-wrapper">
     <table id="JQTable"></table>
     <div id="JQPager"></div>
-    <script src="~/Scripts/IndividualPlan/PlanManagment.js"></script>
-    <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>
+    @*<script src="~/Scripts/IndividualPlan/PlanManagment.js"></script>
+    <script src="~/Scripts/IndividualPlan/MSMJQgrid.js"></script>*@
     <script src="~/Scripts/App/Services/indivPlanService.js"></script>
     <script src="~/Scripts/App/Controllers/individualPlanController.js"></script>
     <div ng-controller="individualPlanController as ctrl" ng-init='ctrl.init(@Html.Raw(Json.Encode(Model)))' ng-include="'/Content/Templates/IndivPlanTable.html'"></div>
