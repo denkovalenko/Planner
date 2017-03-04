@@ -22,6 +22,7 @@ namespace Domain.Models
         public byte[] ProfilePicture { get; set; }
         public String BasicOrCompatible { get; set; }
         public String Document { get; set; }
+        public bool IsActive { get; set; }
 
         public String OrcidLink { get; set; }
 		[ForeignKey("PositionId")]
