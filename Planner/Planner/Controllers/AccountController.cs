@@ -130,7 +130,7 @@ namespace Planner.Controllers
                 return View(model);
             }
             var user = UserManager.FindByEmail(model.Email);
-            if (user == null || user.IsActive)
+            if (user == null || !user.IsActive)
             {
                 ModelState.AddModelError("", "Користувач був деактивований.");
                 return View(model);
