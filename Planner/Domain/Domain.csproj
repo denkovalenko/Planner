@@ -202,7 +202,7 @@
     <Compile Include="Models\PlanManagment.cs" />
     <Compile Include="Models\PlanMethodicalWork.cs" />
     <Compile Include="Models\PlanRemark.cs" />
-    <Compile Include="Models\PlanScientificWork.cs" />
+    <Compile Include="Models\IndivPlanFieldsValue.cs" />
     <Compile Include="Models\PlanTrainingJob.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />

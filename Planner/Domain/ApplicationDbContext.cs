@@ -25,7 +25,7 @@ namespace Domain.Models
         public DbSet<PlanConclusion> PlanConclusions { get; set; }
         public DbSet<PlanChange> PlanChanges { get; set; }
         public DbSet<PlanManagment> PlanManagments { get; set; }
-        public DbSet<PlanScientificWork> PlanScientificWorks { get; set; }
+        public DbSet<IndivPlanFieldsValue> IndivPlanFieldsValues { get; set; }
         public DbSet<PlanMethodicalWork> PlanMethodicalWorks { get; set; }
         public DbSet<PlanTrainingJob> PlanTrainingJobs { get; set; }
         public DbSet<ResearchDoneType> ResearchDoneTypes { get; set; }
