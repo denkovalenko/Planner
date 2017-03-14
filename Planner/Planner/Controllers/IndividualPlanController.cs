@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using SpreadsheetLight;
 using Calculation;
+using Microsoft.AspNet.Identity;
 
 namespace Planner.Controllers
 {
@@ -59,7 +60,7 @@ namespace Planner.Controllers
                 var grouped = result.GroupBy(x => x.f.TabName, x => x.f, (key, res) => new
                 {
                     TabName = key,
-                    TabKey=Guid.NewGuid(),
+                    TabKey = Guid.NewGuid(),
                     Fields = res.ToList().Select(x => new { x.Id, x.Suffix, x.SchemaName, x.TabName, x.DisplayName })
                 }).ToList();
                 return Json(grouped);
@@ -169,19 +170,23 @@ namespace Planner.Controllers
             List<IndivPlanFieldsValue> userData;
             using (var db = new ApplicationDbContext())
             {
-                userData = db.IndivPlanFieldsValues.ToList();
+                var userId = User.Identity.GetUserId();
+                userData = db.IndivPlanFieldsValues.Where(x => x.ApplicationUserId == userId).ToList();
 
                 model.ForEach(el =>
                 {
                     if (userData.Select(x => x.SchemaName).Contains(el.SchemaName))
                     {
                         var update = userData.FirstOrDefault(x => x.SchemaName == el.SchemaName);
-                        if (update != null) if (el.Value != null) update.Result = el.Value;
+                        if (update != null && el.Value != null)
+                        {
+                            update.Result = el.Value;
+                        }
                     }
                     else
                     {
                         if (el.Value != null)
-                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName});
+                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName, ApplicationUserId=userId });
                     }
                 });
                 db.SaveChanges();
