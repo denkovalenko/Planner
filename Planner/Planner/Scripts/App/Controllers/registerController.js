@@ -15,9 +15,12 @@ PlannerApp.controller('registerController', ['$scope', '$http', 'rolesFactory', 
 		$http.get('/Faculty/Get').then(
             function (response) {
             	$scope.faculties = response.data;
-            	$scope.faculty = $scope.faculties.filter(function (fac) {
-            		return fac.Id == userState.facultyId;
-            	})[0];
+            	if (window.userState) {
+            		$scope.faculty = $scope.faculties.filter(function (fac) {
+            			return fac.Id == userState.facultyId;
+            		})[0];
+            	}
+            	
             }, function (response) {
 
             });
@@ -36,7 +39,7 @@ PlannerApp.controller('registerController', ['$scope', '$http', 'rolesFactory', 
 				return element.Id == newVal.Id;
 			})[0].Departments;
 
-			if(userState.departmentId)
+			if (window.userState && userState.departmentId)
 				$scope.department = $scope.departments.filter(function (dep) {
 					return dep.Id == userState.departmentId;
 				})[0];
