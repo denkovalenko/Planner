@@ -274,7 +274,8 @@ namespace Planner.Controllers
 					Id = u.Id,
 					Name = u.LastName + " " + u.FirstName + " " + u.ThirdName,
 					Email = u.Email,
-					PositionId = u.PositionId
+					PositionId = u.PositionId,
+					IsActive = u.IsActive
 				})
 				.OrderBy(x => x.Name)
 				.ToList()
