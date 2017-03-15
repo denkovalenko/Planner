@@ -20,6 +20,13 @@ PlannerApp.controller('individualPlanController', ['$scope', 'indivPlanService',
     $scope.getData = function () {
         indivPlanService.getData(me.type, function (result) {
             $scope.data = result;
+            $scope.model = {};
+            $scope.data.forEach(function (type) {
+                type.Fields.forEach(function (el) {
+                    if (el.Result)
+                        $scope.model[el.SchemaName] = el.Result;
+                });
+            });
             $scope.currentTab = $scope.data[0].TabName;
         });
     }

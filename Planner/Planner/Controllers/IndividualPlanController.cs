@@ -51,20 +51,26 @@ namespace Planner.Controllers
         [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
         public ActionResult GetDataByType(string type)
         {
-            using (var db = new ApplicationDbContext())
+            var db = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var fields = db.IndivPlanFields
+                        .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
+                        .Where(x => x.t.Name.Equals(type))
+                        .ToList();
+            var grouped = fields.GroupBy(x => x.f.TabName, x => x, (key, res) => new
             {
-
-                var result = db.IndivPlanFields
-                            .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
-                            .Where(x => x.t.Name.Equals(type)).ToList();
-                var grouped = result.GroupBy(x => x.f.TabName, x => x.f, (key, res) => new
+                TabName = key,
+                TabKey = Guid.NewGuid(),
+                Fields = res.ToList().Select(x => new
                 {
-                    TabName = key,
-                    TabKey = Guid.NewGuid(),
-                    Fields = res.ToList().Select(x => new { x.Id, x.Suffix, x.SchemaName, x.TabName, x.DisplayName })
-                }).ToList();
-                return Json(grouped);
-            }
+                    x.f.Id,
+                    x.f.DisplayName,
+                    x.f.SchemaName,
+                    x.f.TabName,
+                    Result = db.IndivPlanFieldsValues.Where(z => z.SchemaName == x.f.SchemaName && z.ApplicationUserId == userId).Select(vv => vv.Result).FirstOrDefault()
+                })
+            }).ToList();
+            return Json(grouped);
         }
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanScientificWork()
@@ -186,7 +192,7 @@ namespace Planner.Controllers
                     else
                     {
                         if (el.Value != null)
-                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName, ApplicationUserId=userId });
+                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName, ApplicationUserId = userId });
                     }
                 });
                 db.SaveChanges();
