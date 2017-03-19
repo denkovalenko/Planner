@@ -169,11 +169,15 @@ function update(act) {
             var list = $("#Training");
             var selectedRow = list.getGridParam("selrow");
             var rowData = list.getRowData(selectedRow);
-            if (act === "add")
-                params.url = 'SavePlanTrainingJobs';
+            if (act === "add") {
+                if (jQuery("#Training").getGridParam("reccount") < 1)
+                    params.url = 'SavePlanTrainingJobs';
+                else[false, tablename + ". Не може мати быльше одного запису."];
+                //else return [false, jQuery("#Training").getGridParam("caption") + ". Не може мати быльше одного запису."];
+            }
             else if (act === "del") {
                 params.url = 'DeletePlanTrainingJobs';
-                params.url = 'DeletePlanTrainingJobs';                
+                params.url = 'DeletePlanTrainingJobs';
             }
         },
         afterSubmit: function (response, postdata) {
