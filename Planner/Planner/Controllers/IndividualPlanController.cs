@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using SpreadsheetLight;
 using Calculation;
+using Microsoft.AspNet.Identity;
 
 namespace Planner.Controllers
 {
@@ -50,20 +51,26 @@ namespace Planner.Controllers
         [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
         public ActionResult GetDataByType(string type)
         {
-            using (var db = new ApplicationDbContext())
+            var db = new ApplicationDbContext();
+            var userId = User.Identity.GetUserId();
+            var fields = db.IndivPlanFields
+                        .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
+                        .Where(x => x.t.Name.Equals(type))
+                        .ToList();
+            var grouped = fields.GroupBy(x => x.f.TabName, x => x, (key, res) => new
             {
-
-                var result = db.IndivPlanFields
-                            .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
-                            .Where(x => x.t.Name.Equals(type)).ToList();
-                var grouped = result.GroupBy(x => x.f.TabName, x => x.f, (key, res) => new
+                TabName = key,
+                TabKey = Guid.NewGuid(),
+                Fields = res.ToList().Select(x => new
                 {
-                    TabName = key,
-                    TabKey=Guid.NewGuid(),
-                    Fields = res.ToList().Select(x => new { x.Id, x.Suffix, x.SchemaName, x.TabName, x.DisplayName })
-                }).ToList();
-                return Json(grouped);
-            }
+                    x.f.Id,
+                    x.f.DisplayName,
+                    x.f.SchemaName,
+                    x.f.TabName,
+                    Result = db.IndivPlanFieldsValues.Where(z => z.SchemaName == x.f.SchemaName && z.ApplicationUserId == userId).Select(vv => vv.Result).FirstOrDefault()
+                })
+            }).ToList();
+            return Json(grouped);
         }
         [Authorize(Roles = "Teacher,Admin,TeacherModerator")]
         public ActionResult PlanScientificWork()
@@ -138,12 +145,12 @@ namespace Planner.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                var data = db.PlanScientificWorks.ToList();
+                var data = db.IndivPlanFieldsValues.ToList();
                 return JsonConvert.SerializeObject(data);
             }
         }
 
-        public void SavePlanScientificWork(PlanScientificWork model)
+        public void SavePlanScientificWork(IndivPlanFieldsValue model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -159,36 +166,40 @@ namespace Planner.Controllers
             {
                 if (id != null)
                 {
-                    db.Entry(new PlanScientificWork() { Id = id }).State = System.Data.Entity.EntityState.Deleted;
+                    db.Entry(new IndivPlanFieldsValue() { Id = id }).State = System.Data.Entity.EntityState.Deleted;
                     db.SaveChanges();
                 }
             }
         }
-        public ActionResult SaveScientificData(List<ScientificSaveDataHelper> model)
+        public ActionResult SaveData(List<ScientificSaveDataHelper> model)
         {
-            List<PlanScientificWork> userData;
+            List<IndivPlanFieldsValue> userData;
             using (var db = new ApplicationDbContext())
             {
-                userData = db.PlanScientificWorks.ToList();
+                var userId = User.Identity.GetUserId();
+                userData = db.IndivPlanFieldsValues.Where(x => x.ApplicationUserId == userId).ToList();
 
                 model.ForEach(el =>
                 {
                     if (userData.Select(x => x.SchemaName).Contains(el.SchemaName))
                     {
                         var update = userData.FirstOrDefault(x => x.SchemaName == el.SchemaName);
-                        if (update != null) if (el.Value != null) update.ActualVolume = (int)el.Value;
+                        if (update != null && el.Value != null)
+                        {
+                            update.Result = el.Value;
+                        }
                     }
                     else
                     {
                         if (el.Value != null)
-                            db.PlanScientificWorks.Add(new PlanScientificWork { ActualVolume = (int)el.Value, SchemaName = el.SchemaName, Content = el.Name });
+                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName, ApplicationUserId = userId });
                     }
                 });
                 db.SaveChanges();
             }
             return null;
         }
-        public void EditPlanScientificWork(PlanScientificWork model)
+        public void EditPlanScientificWork(IndivPlanFieldsValue model)
         {
             using (var db = new ApplicationDbContext())
             {
@@ -290,6 +301,6 @@ namespace Planner.Controllers
     {
         public string SchemaName { get; set; }
         public string Name { get; set; }
-        public int? Value { get; set; }
+        public string Value { get; set; }
     }
 }

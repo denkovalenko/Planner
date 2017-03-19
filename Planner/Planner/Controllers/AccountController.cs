@@ -24,7 +24,7 @@ namespace Planner.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -36,9 +36,9 @@ namespace Planner.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set
-            {
-                _signInManager = value;
+            private set 
+            { 
+                _signInManager = value; 
             }
         }
 
@@ -53,47 +53,47 @@ namespace Planner.Controllers
                 _userManager = value;
             }
         }
-        [Authorize(Roles = "User")]
-        public JsonResult GetUserInfo()
-        {
-            using (var db = new ApplicationDbContext())
-            {
-                var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
-                return new JsonResult()
-                {
-                    Data = new
-                    {
-
-                        AcademicTitle = ((DisplayAttribute)typeof(AcademicTitleEnum)
-                                .GetMember(user.AcademicTitle.Value.ToString())[0]
-                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-                        Degree = ((DisplayAttribute)typeof(DegreeEnum)
-                                .GetMember(user.Degree.Value.ToString())[0]
-                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-                        Email = user.Email,
-                        FirstName = user.FirstName,
-                        Id = user.Id,
-                        LastName = user.LastName,
-                        Position = ((DisplayAttribute)typeof(PositionEnum)
-                                .GetMember(user.Position.Value.ToString())[0]
-                                .GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
-                        ScholarLink = user.ScholarLink,
-                        OrcidLink = user.OrcidLink,
-                        ThirdName = user.ThirdName,
-                        UserName = user.UserName
-                    },
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                };
-            }
-        }
+		[Authorize(Roles = "User")]
+		public JsonResult GetUserInfo()
+		{
+			using (var db = new ApplicationDbContext())
+			{
+				var user = db.Users.FirstOrDefault(x => x.UserName == HttpContext.User.Identity.Name);
+				return new JsonResult()
+				{
+					Data = new
+					{
+						
+						AcademicTitle = ((DisplayAttribute)typeof(AcademicTitleEnum)
+								.GetMember(user.AcademicTitle.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Degree = ((DisplayAttribute)typeof(DegreeEnum)
+								.GetMember(user.Degree.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						Email = user.Email,
+						FirstName = user.FirstName,
+						Id = user.Id,
+						LastName = user.LastName,
+						Position = ((DisplayAttribute)typeof(PositionEnum)
+								.GetMember(user.Position.Value.ToString())[0]
+								.GetCustomAttributes(typeof(DisplayAttribute), false)[0]).Name,
+						ScholarLink = user.ScholarLink,
+						OrcidLink = user.OrcidLink,
+						ThirdName = user.ThirdName,
+						UserName = user.UserName
+					},
+					JsonRequestBehavior = JsonRequestBehavior.AllowGet
+				};
+			}
+		}
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
-                return RedirectToAction("Profile", "Home");
+			if (HttpContext.User.Identity.IsAuthenticated)
+				return RedirectToAction("Profile", "Home");
             ViewBag.ReturnUrl = returnUrl;
 
             ////HACK
@@ -112,7 +112,7 @@ namespace Planner.Controllers
             //        //userManager.AddToRole(admin.Id, role2.Name);
             //    }
             //}
-
+                
 
 
             return View();
@@ -199,27 +199,27 @@ namespace Planner.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult Register(string username)
-        {
-            if (username != null)
-            {
-                ViewBag.userAdd = "Користувач " + username + ", був створенний!";
-            }
-            using (new ApplicationDbContext())
-            {
-                return View();
-            }
-        }
+		[Authorize(Roles = "Admin")]
+		public ActionResult Register(string username)
+		{
+		    if (username != null)
+			{
+				ViewBag.userAdd = "Користувач " + username + ", був створенний!";
+			}
+		    using (new ApplicationDbContext())
+		    {
+		        return View();
+		    }
+		}
 
         //
-        // POST: /Account/Register
-        [HttpPost]
+		// POST: /Account/Register
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+		[Authorize(Roles = "Admin")]
+		public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+		    if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
@@ -228,9 +228,9 @@ namespace Planner.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     ThirdName = model.ThirdName,
-                    Degree = new Degree() { Value = model.DegreeEnum },
-                    Position = new Position() { Value = model.PositionEnum },
-                    AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum },
+                    Degree = new Degree() {Value = model.DegreeEnum},
+                    Position = new Position() {Value = model.PositionEnum},
+                    AcademicTitle = new AcademicTitle() {Value = model.AcademicTitleEnum},
                     ScholarLink = model.ScholarLink,
                     OrcidLink = model.OrcidLink,
                     DepartmentUsers = new List<DepartmentUser>
@@ -244,8 +244,8 @@ namespace Planner.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, model.Role);
-                    return RedirectToAction("Register", new { username = user.Email });
+					UserManager.AddToRole(user.Id, model.Role);
+                    return RedirectToAction("Register", new {username=user.Email });
                 }
                 AddErrors(result);
             }
@@ -323,7 +323,8 @@ namespace Planner.Controllers
                     ThirdName = user.ThirdName,
                     ScholarLink = user.ScholarLink,
                     OrcidLink = user.OrcidLink,
-                    Role = UserManager.GetRoles(user.Id).FirstOrDefault()
+					Role = UserManager.GetRoles(user.Id).FirstOrDefault()
+
                 };
 
                 if (user.Degree != null)
@@ -333,12 +334,12 @@ namespace Planner.Controllers
                 if (user.AcademicTitle != null)
                     model.AcademicTitleEnum = user.AcademicTitle.Value;
 
-                //logic for faculty and departments
-                if (user.DepartmentUsers != null)
-                {
-                    model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
-                    model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
-                }
+				//logic for faculty and departments
+				if (user.DepartmentUsers != null && user.DepartmentUsers.Count != 0)
+				{
+					model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
+					model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
+				}
 
                 return View(model);
             }
@@ -384,33 +385,33 @@ namespace Planner.Controllers
                 IdentityResult result = UserManager.Update(user);
                 if (result.Succeeded)
                 {
-                    if (User.IsInRole("Admin"))
-                    {
-                        IdentityResult result2 = UserManager.RemoveFromRole(user.Id, UserManager.GetRoles(user.Id).FirstOrDefault());
-                        if (result2.Succeeded)
-                        {
-                            IdentityResult result3 = UserManager.AddToRole(user.Id, model.Role);
+					if (User.IsInRole("Admin"))
+					{
+						IdentityResult result2 = UserManager.RemoveFromRole(user.Id, UserManager.GetRoles(user.Id).FirstOrDefault());
+						if (result2.Succeeded)
+						{
+							IdentityResult result3 = UserManager.AddToRole(user.Id, model.Role);
 
-                            if (result3.Succeeded)
-                            {
-                                AuthenticationManager.SignOut();
-                                return RedirectToAction("Login", "Account");
-                            }
-                            else
-                            {
-                                AddErrors(result3);
-                            }
-                        }
-                        else
-                        {
-                            AddErrors(result2);
-                        }
-                    }
-                    else
-                    {
-                        return RedirectToAction("Profile", "Home");
-                    }
-
+							if (result3.Succeeded)
+							{
+								AuthenticationManager.SignOut();
+								return RedirectToAction("Login", "Account");
+							}
+							else
+							{
+								AddErrors(result3);
+							}
+						}
+						else
+						{
+							AddErrors(result2);
+						}
+					}
+					else
+					{
+						return RedirectToAction("Profile", "Home");
+					}
+									
                 }
                 else
                 {

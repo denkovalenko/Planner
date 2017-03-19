@@ -4,10 +4,10 @@
         var model = [];
         for (var el in data) {
             if (data != null) {
-                model.push({ SchemaName: el, Value: data[el], Name: $scope.fieldFactory[el].name });
+                model.push({ SchemaName: el, Value: data[el] });
             }
         }
-        $http.post('/IndividualPlan/SaveScientificData', { model: model }).then(
+        $http.post('/IndividualPlan/SaveData', { model: model }).then(
             function (response) {
                 window.location.reload();
             }, function (response) {

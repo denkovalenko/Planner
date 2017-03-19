@@ -116,18 +116,18 @@ namespace Calculation
                     sl.SetCellValue("F" + rowNum, methodicalWorks[i].ActualVolume);
                 }
 
-                var scientificWorks = db.PlanScientificWorks.ToList();
-                currentRow = 17;
-                for (int i = 0; i < scientificWorks.Count; i++)
-                {
-                    int rowNum = currentRow + i;
-                    sl.SetCellValue("A" + rowNum, i + 1);
-                    sl.SetCellValue("B" + rowNum, scientificWorks[i].Content);
-                    sl.SetCellValue("C" + rowNum, scientificWorks[i].Result);
-                    sl.SetCellValue("D" + rowNum, scientificWorks[i].DurationTime);
-                    sl.SetCellValue("E" + rowNum, scientificWorks[i].PlannedVolume);
-                    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
-                }
+                //var scientificWorks = db.PlanScientificWorks.ToList();
+                //currentRow = 17;
+                //for (int i = 0; i < scientificWorks.Count; i++)
+                //{
+                //    int rowNum = currentRow + i;
+                //    sl.SetCellValue("A" + rowNum, i + 1);
+                //    sl.SetCellValue("B" + rowNum, scientificWorks[i].Content);
+                //    sl.SetCellValue("C" + rowNum, scientificWorks[i].Result);
+                //    sl.SetCellValue("D" + rowNum, scientificWorks[i].DurationTime);
+                //    sl.SetCellValue("E" + rowNum, scientificWorks[i].PlannedVolume);
+                //    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
+                //}
 
                 var organizationalWorks = db.PlanManagments.ToList();
                 currentRow = 31;
