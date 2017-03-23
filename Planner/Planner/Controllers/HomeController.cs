@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Planner.Filters;
 using Planner.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Planner.Controllers
 {
+	[IncompleteProfileFilter]
     public class HomeController : Controller
     {
         public ActionResult Dashboard()

@@ -183,6 +183,7 @@
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\TimetableController.cs" />
+    <Compile Include="Filters\IncompleteProfileFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2012,6 +2013,7 @@
     <Content Include="Views\IndividualPlan\PlanMethodicalWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanManagment.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Account\CompleteProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

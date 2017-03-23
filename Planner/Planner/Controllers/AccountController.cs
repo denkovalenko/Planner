@@ -357,8 +357,56 @@ namespace Planner.Controllers
             }
             else return null;
         }
-        // POST: /Account/Edit
-        [HttpPost]
+		public ActionResult CompleteProfile()
+		{
+			var user = UserManager.FindByName(User.Identity.GetUserName());
+			if(user == null)
+			{
+				ModelState.AddModelError("", "Користувач не зареєстрований.");
+				return View("Login");
+			}
+			EditModel model = new EditModel
+			{
+				Email = user.Email,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				ThirdName = user.ThirdName,
+				ScholarLink = user.ScholarLink,
+				OrcidLink = user.OrcidLink,
+				Role = UserManager.GetRoles(user.Id).FirstOrDefault()
+
+			};
+
+			if (user.Degree != null)
+				model.DegreeEnum = user.Degree.Value;
+			if (user.Position != null)
+				model.PositionEnum = user.Position.Value;
+			if (user.AcademicTitle != null)
+				model.AcademicTitleEnum = user.AcademicTitle.Value;
+
+			//logic for faculty and departments
+			if (user.DepartmentUsers != null && user.DepartmentUsers.Count != 0)
+			{
+				model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
+				model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
+			}
+
+			return View(model);
+		}
+		[HttpPost]
+		public ActionResult CompleteProfile(EditModel user)
+		{
+			// double check for EditModel
+			if (user.DepartmentId == null ||
+					user.FacultyId == null)
+			{
+				return RedirectToAction("CompleteProfile");
+			}
+			return Edit(user);
+		}
+
+		// POST: /Account/Edit
+		[HttpPost]
         public ActionResult Edit(EditModel model)
         {
             ApplicationUser user = UserManager.FindByEmail(model.Email);
