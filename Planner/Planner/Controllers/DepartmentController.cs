@@ -75,7 +75,7 @@ namespace Planner.Controllers
                 var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
                 return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
@@ -92,7 +92,7 @@ namespace Planner.Controllers
                 var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
                 return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Redirect("/Department/HalfYearDepartmentPublications");
             }

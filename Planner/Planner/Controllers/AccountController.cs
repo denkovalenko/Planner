@@ -129,14 +129,24 @@ namespace Planner.Controllers
             {
                 return View(model);
             }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = UserManager.FindByEmail(model.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Користувач не зареєстрований.");
+                return View(model);
+            }
+			if (!user.IsActive)
+			{
+				ModelState.AddModelError("", "Користувач був деактивований.");
+				return View(model);
+			}
+			// This doesn't count login failures towards account lockout
+			// To enable password failures to trigger account lockout, change to shouldLockout: true
+			var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Profile","Home");
+                    return RedirectToAction("Profile", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -264,29 +274,43 @@ namespace Planner.Controllers
             return View();
         }
 
-		[Authorize(Roles = "Admin")]
-		public JsonResult GetUsersData()
-		{
-			GetUsersModel model = new GetUsersModel
-			{
-				UserList = UserManager.Users.Select(u => new EditingUser
-				{
-					Id = u.Id,
-					Name = u.LastName + " " + u.FirstName + " " + u.ThirdName,
-					Email = u.Email,
-					PositionId = u.PositionId
-				})
-				.OrderBy(x => x.Name)
-				.ToList()
-			};
-			return new JsonResult()
-			{
-				JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-				Data = model
-			};
-		}
+        [Authorize(Roles = "Admin")]
+        public JsonResult GetUsersData()
+        {
+            GetUsersModel model = new GetUsersModel
+            {
+                UserList = UserManager.Users.Select(u => new EditingUser
+                {
+                    Id = u.Id,
+                    Name = u.LastName + " " + u.FirstName + " " + u.ThirdName,
+                    Email = u.Email,
+                    PositionId = u.PositionId,
+                    IsActive = u.IsActive
+                })
+                .OrderBy(x => x.Name)
+                .ToList()
+            };
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = model
+            };
+        }
 
-		public ActionResult Edit(string userName)
+        [Authorize(Roles = "Admin")]
+        public JsonResult ToggleActive(string userName)
+        {
+            var user = UserManager.FindByEmail(userName);
+            if (user == null)
+                return Json(new { success = false, message = "Користувач не iснує." });
+
+            user.IsActive = !user.IsActive;
+
+            IdentityResult result = UserManager.Update(user);
+            return result.Succeeded ? Json(new { success = true }) : Json(new { success = false, message = "Помилка пiд час запиту." });
+        }
+
+        public ActionResult Edit(string userName)
         {
             ApplicationUser user = UserManager.FindByEmail(userName);
             if (user != null)
@@ -311,7 +335,7 @@ namespace Planner.Controllers
                     model.AcademicTitleEnum = user.AcademicTitle.Value;
 
 				//logic for faculty and departments
-				if (user.DepartmentUsers != null)
+				if (user.DepartmentUsers != null && user.DepartmentUsers.Count != 0)
 				{
 					model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
 					model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
@@ -351,7 +375,7 @@ namespace Planner.Controllers
                 user.ScholarLink = model.ScholarLink;
                 user.OrcidLink = model.OrcidLink;
 
-                if(model.ProfilePicture != null)
+                if (model.ProfilePicture != null)
                 {
                     byte[] image = new byte[model.ProfilePicture.ContentLength];
                     model.ProfilePicture.InputStream.Read(image, 0, Convert.ToInt32(model.ProfilePicture.ContentLength));

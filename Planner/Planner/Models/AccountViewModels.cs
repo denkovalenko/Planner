@@ -123,6 +123,7 @@ namespace Planner.Models
 		public String Name { get; set; }
 		public String PositionId { get; set; }
 		public String Email { get; set; }
+        public bool IsActive { get; set; }
 	}
 
     public class EditModel

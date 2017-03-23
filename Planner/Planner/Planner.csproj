@@ -2004,7 +2004,6 @@
     <Content Include="Views\Plan\Index.cshtml" />
     <Content Include="Views\Account\GetUsers.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
-    <Content Include="Views\IndividualPlan\Index.cshtml" />
     <Content Include="Views\IndividualPlan\TrainingJob.cshtml" />
     <Content Include="Views\Ndr\Add.cshtml" />
     <Content Include="Views\Ndr\Index.cshtml" />

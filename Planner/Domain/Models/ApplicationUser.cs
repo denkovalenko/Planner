@@ -22,6 +22,7 @@ namespace Domain.Models
         public byte[] ProfilePicture { get; set; }
         public String BasicOrCompatible { get; set; }
         public String Document { get; set; }
+        public bool IsActive { get; set; }
 
         public String OrcidLink { get; set; }
 		[ForeignKey("PositionId")]
@@ -53,7 +54,7 @@ namespace Domain.Models
         public virtual ICollection<PlanManagment> PlanManagment { get; set; }
         public virtual ICollection<PlanMethodicalWork> PlanMethodicalWork { get; set; }
         public virtual ICollection<PlanRemark> PlanRemark { get; set; }
-        public virtual ICollection<PlanScientificWork> PlanScientificWork { get; set; }
+        public virtual ICollection<IndivPlanFieldsValue> IndivPlanFieldsValues { get; set; }
         public virtual ICollection<PlanTrainingJob> PlanTrainingJob { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

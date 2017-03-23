@@ -179,6 +179,14 @@
     <Compile Include="Migrations\201702282308010_UserToIndivPlan.Designer.cs">
       <DependentUpon>201702282308010_UserToIndivPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703040857529_AddIsActiveToApplicationUser.cs" />
+    <Compile Include="Migrations\201703040857529_AddIsActiveToApplicationUser.Designer.cs">
+      <DependentUpon>201703040857529_AddIsActiveToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703141932513_UpdateIndivPlanTables.cs" />
+    <Compile Include="Migrations\201703141932513_UpdateIndivPlanTables.Designer.cs">
+      <DependentUpon>201703141932513_UpdateIndivPlanTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -198,7 +206,7 @@
     <Compile Include="Models\PlanManagment.cs" />
     <Compile Include="Models\PlanMethodicalWork.cs" />
     <Compile Include="Models\PlanRemark.cs" />
-    <Compile Include="Models\PlanScientificWork.cs" />
+    <Compile Include="Models\IndivPlanFieldsValue.cs" />
     <Compile Include="Models\PlanTrainingJob.cs" />
     <Compile Include="Models\ResearchDoneType.cs" />
     <Compile Include="Models\Schedule.cs" />
@@ -276,6 +284,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702282308010_UserToIndivPlan.resx">
       <DependentUpon>201702282308010_UserToIndivPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703040857529_AddIsActiveToApplicationUser.resx">
+      <DependentUpon>201703040857529_AddIsActiveToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703141932513_UpdateIndivPlanTables.resx">
+      <DependentUpon>201703141932513_UpdateIndivPlanTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

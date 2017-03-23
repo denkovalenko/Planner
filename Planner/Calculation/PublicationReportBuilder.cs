@@ -30,60 +30,59 @@ namespace Calculation
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
                 // sl.DeleteRow(currentRow, 1);
 
-                foreach (var i in db.PlanTrainingJobs.ToList())
-                {
-                    //sl.CopyRow(currentRow + 1, currentRow + 2, currentRow + 2, false);
-
-                    sl.SetCellValue("B" + currentRow, i.OrderNumber);
-                    sl.SetCellValue("C" + currentRow, i.Subject);
-                    sl.SetCellValue("D" + currentRow, i.DSD);
-                    sl.SetCellValue("E" + currentRow, i.Course);
-                    sl.SetCellValue("F" + currentRow, i.CountStudent);
-                    sl.SetCellValue("G" + currentRow, i.GroupCode);
-                    sl.SetCellValue("H" + currentRow, i.PlannedLectures);
-                    sl.SetCellValue("I" + currentRow, i.DoneLectures);
-                    sl.SetCellValue("J" + currentRow, i.PlannedPract);
-                    sl.SetCellValue("K" + currentRow, i.DonePract);
-                    sl.SetCellValue("L" + currentRow, i.PlannedLaboratory);
-                    sl.SetCellValue("M" + currentRow, i.DoneLaboratory);
-                    sl.SetCellValue("N" + currentRow, i.PlannedSeminar);
-                    sl.SetCellValue("O" + currentRow, i.DoneSeminar);
-                    sl.SetCellValue("P" + currentRow, i.PlannedIndividual);
-                    sl.SetCellValue("Q" + currentRow, i.DoneIndividual);
-                    sl.SetCellValue("R" + currentRow, i.PlannedConsultation);
-                    sl.SetCellValue("S" + currentRow, i.DoneConsultation);
-                    sl.SetCellValue("T" + currentRow, i.PlannedExamConsultation);
-                    sl.SetCellValue("U" + currentRow, i.DoneExamConsultation);
-                    sl.SetCellValue("V" + currentRow, i.PlannedCheckControl);
-                    sl.SetCellValue("W" + currentRow, i.DoneCheckControl);
-                    sl.SetCellValue("X" + currentRow, i.PlannedCheckLectureControl);
-                    sl.SetCellValue("Y" + currentRow, i.DoneCheckLectureControl);
-                    sl.SetCellValue("Z" + currentRow, i.PlannedEAT);
-                    sl.SetCellValue("AA" + currentRow, i.DoneEAT);
-                    sl.SetCellValue("AB" + currentRow, i.PlannedCGS);
-                    sl.SetCellValue("AC" + currentRow, i.DoneCGS);
-                    sl.SetCellValue("AD" + currentRow, i.PlannedCoursework);
-                    sl.SetCellValue("AE" + currentRow, i.DoneCoursework);
-                    sl.SetCellValue("AF" + currentRow, i.PlannedOffsetting);
-                    sl.SetCellValue("AG" + currentRow, i.DoneOffsetting);
-                    sl.SetCellValue("AH" + currentRow, i.PlannedSemestrExam);
-                    sl.SetCellValue("AI" + currentRow, i.DoneSemestrExam);
-                    sl.SetCellValue("AJ" + currentRow, i.PlannedTrainingPract);
-                    sl.SetCellValue("AK" + currentRow, i.DoneTrainingPract);
-                    sl.SetCellValue("AL" + currentRow, i.PlannedStateExam);
-                    sl.SetCellValue("AM" + currentRow, i.DoneStateExam);
-                    sl.SetCellValue("AN" + currentRow, i.PlannedDiploma);
-                    sl.SetCellValue("AO" + currentRow, i.DoneDiploma);
-                    sl.SetCellValue("AP" + currentRow, i.PlannedPostgraduates);
-                    sl.SetCellValue("AQ" + currentRow, i.DonePostgraduates);
-
-                    currentRow++;
-                }
-
-
-
                 if (user != null)
                 {
+                    foreach (var i in db.PlanTrainingJobs.ToList())
+                    {
+                        //sl.CopyRow(currentRow + 1, currentRow + 2, currentRow + 2, false);
+
+                        sl.SetCellValue("B" + currentRow, i.OrderNumber);
+                        sl.SetCellValue("C" + currentRow, i.Subject);
+                        sl.SetCellValue("D" + currentRow, i.DSD);
+                        sl.SetCellValue("E" + currentRow, i.Course);
+                        sl.SetCellValue("F" + currentRow, i.CountStudent);
+                        sl.SetCellValue("G" + currentRow, i.GroupCode);
+                        sl.SetCellValue("H" + currentRow, i.PlannedLectures);
+                        sl.SetCellValue("I" + currentRow, i.DoneLectures);
+                        sl.SetCellValue("J" + currentRow, i.PlannedPract);
+                        sl.SetCellValue("K" + currentRow, i.DonePract);
+                        sl.SetCellValue("L" + currentRow, i.PlannedLaboratory);
+                        sl.SetCellValue("M" + currentRow, i.DoneLaboratory);
+                        sl.SetCellValue("N" + currentRow, i.PlannedSeminar);
+                        sl.SetCellValue("O" + currentRow, i.DoneSeminar);
+                        sl.SetCellValue("P" + currentRow, i.PlannedIndividual);
+                        sl.SetCellValue("Q" + currentRow, i.DoneIndividual);
+                        sl.SetCellValue("R" + currentRow, i.PlannedConsultation);
+                        sl.SetCellValue("S" + currentRow, i.DoneConsultation);
+                        sl.SetCellValue("T" + currentRow, i.PlannedExamConsultation);
+                        sl.SetCellValue("U" + currentRow, i.DoneExamConsultation);
+                        sl.SetCellValue("V" + currentRow, i.PlannedCheckControl);
+                        sl.SetCellValue("W" + currentRow, i.DoneCheckControl);
+                        sl.SetCellValue("X" + currentRow, i.PlannedCheckLectureControl);
+                        sl.SetCellValue("Y" + currentRow, i.DoneCheckLectureControl);
+                        sl.SetCellValue("Z" + currentRow, i.PlannedEAT);
+                        sl.SetCellValue("AA" + currentRow, i.DoneEAT);
+                        sl.SetCellValue("AB" + currentRow, i.PlannedCGS);
+                        sl.SetCellValue("AC" + currentRow, i.DoneCGS);
+                        sl.SetCellValue("AD" + currentRow, i.PlannedCoursework);
+                        sl.SetCellValue("AE" + currentRow, i.DoneCoursework);
+                        sl.SetCellValue("AF" + currentRow, i.PlannedOffsetting);
+                        sl.SetCellValue("AG" + currentRow, i.DoneOffsetting);
+                        sl.SetCellValue("AH" + currentRow, i.PlannedSemestrExam);
+                        sl.SetCellValue("AI" + currentRow, i.DoneSemestrExam);
+                        sl.SetCellValue("AJ" + currentRow, i.PlannedTrainingPract);
+                        sl.SetCellValue("AK" + currentRow, i.DoneTrainingPract);
+                        sl.SetCellValue("AL" + currentRow, i.PlannedStateExam);
+                        sl.SetCellValue("AM" + currentRow, i.DoneStateExam);
+                        sl.SetCellValue("AN" + currentRow, i.PlannedDiploma);
+                        sl.SetCellValue("AO" + currentRow, i.DoneDiploma);
+                        sl.SetCellValue("AP" + currentRow, i.PlannedPostgraduates);
+                        sl.SetCellValue("AQ" + currentRow, i.DonePostgraduates);
+
+                        currentRow++;
+                    }
+
+
                     sl.SelectWorksheet("ТИТУЛ");
 
                     //sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
@@ -117,18 +116,18 @@ namespace Calculation
                     sl.SetCellValue("F" + rowNum, methodicalWorks[i].ActualVolume);
                 }
 
-                var scientificWorks = db.PlanScientificWorks.ToList();
-                currentRow = 17;
-                for (int i = 0; i < scientificWorks.Count; i++)
-                {
-                    int rowNum = currentRow + i;
-                    sl.SetCellValue("A" + rowNum, i + 1);
-                    sl.SetCellValue("B" + rowNum, scientificWorks[i].Content);
-                    sl.SetCellValue("C" + rowNum, scientificWorks[i].Result);
-                    sl.SetCellValue("D" + rowNum, scientificWorks[i].DurationTime);
-                    sl.SetCellValue("E" + rowNum, scientificWorks[i].PlannedVolume);
-                    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
-                }
+                //var scientificWorks = db.PlanScientificWorks.ToList();
+                //currentRow = 17;
+                //for (int i = 0; i < scientificWorks.Count; i++)
+                //{
+                //    int rowNum = currentRow + i;
+                //    sl.SetCellValue("A" + rowNum, i + 1);
+                //    sl.SetCellValue("B" + rowNum, scientificWorks[i].Content);
+                //    sl.SetCellValue("C" + rowNum, scientificWorks[i].Result);
+                //    sl.SetCellValue("D" + rowNum, scientificWorks[i].DurationTime);
+                //    sl.SetCellValue("E" + rowNum, scientificWorks[i].PlannedVolume);
+                //    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
+                //}
 
                 var organizationalWorks = db.PlanManagments.ToList();
                 currentRow = 31;
@@ -184,7 +183,7 @@ namespace Calculation
         #region Отчет по всем публикациям юзера
         public static List<PublicationForm11> CreateForm11(ApplicationUser user)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            using (var db = new ApplicationDbContext())
             {
                 var model = new List<PublicationForm11>();
                 try
@@ -235,9 +234,9 @@ namespace Calculation
                     model = query;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
                 return model;
             }
@@ -295,6 +294,7 @@ namespace Calculation
 
             return sl;
 
+/*
             using (ExcelPackage pck = new ExcelPackage())
             {
                 var datasource = CreateForm11(user);
@@ -347,6 +347,7 @@ namespace Calculation
                 //return pck.GetAsByteArray();
                 //pck.SaveAs(new FileInfo(filepath));
             }
+*/
         }
         #endregion
 
@@ -429,9 +430,9 @@ namespace Calculation
                     model = result;
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
+                    // ignored
                 }
                 return model;
             }
