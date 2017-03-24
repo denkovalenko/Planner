@@ -15,11 +15,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.Helpers;
+using Planner.Filters;
 
 namespace Planner.Controllers
 {
     [Authorize]
-    public class NdrController : Controller
+	[IncompleteProfileFilter]
+	public class NdrController : Controller
     {
         public NdrController()
         {

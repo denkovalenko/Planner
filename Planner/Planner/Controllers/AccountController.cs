@@ -313,7 +313,12 @@ namespace Planner.Controllers
 
         public ActionResult Edit(string userName)
         {
+			if(userName == null)
+			{
+				return Redirect("~/");
+			}
             ApplicationUser user = UserManager.FindByEmail(userName);
+			
             if (user != null)
             {
                 EditModel model = new EditModel
@@ -399,7 +404,10 @@ namespace Planner.Controllers
 		{
 			// double check for EditModel
 			if (user.DepartmentId == null ||
-					user.FacultyId == null)
+					user.FacultyId == null || 
+					user.AcademicTitleEnum == 0 || 
+					user.DegreeEnum == 0 || 
+					user.PositionEnum == 0)
 			{
 				return RedirectToAction("CompleteProfile");
 			}
@@ -423,6 +431,13 @@ namespace Planner.Controllers
                 user.AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum };
                 user.ScholarLink = model.ScholarLink;
                 user.OrcidLink = model.OrcidLink;
+				if (model.FacultyId != null && model.DepartmentId != null)
+				{
+					using (var db = new ApplicationDbContext())
+					{
+						user.DepartmentUsers.Add(new DepartmentUser() { DepartmentId = model.DepartmentId, UserId = user.Id });
+					}
+				}
 
                 if (model.ProfilePicture != null)
                 {
