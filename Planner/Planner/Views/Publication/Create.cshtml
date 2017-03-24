@@ -4,7 +4,7 @@
 @model Planner.Models.CreatePublicationViewModel
 <div class="content-wrapper">
     <div class="form-group">
-        <div class="login-box-body" data-ng-controller="registerController as registerCtrl" data-ng-init="registerCtrl.init()">
+        <div class="login-box-body" data-ng-controller="registerController as registerCtrl" ng-cloak data-ng-init="registerCtrl.init()">
             @ViewBag.userEdit
             <p class="login-box-msg">Публікація</p>
                             <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">

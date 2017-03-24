@@ -233,6 +233,7 @@ namespace Planner.Controllers
                     AcademicTitle = new AcademicTitle() {Value = model.AcademicTitleEnum},
                     ScholarLink = model.ScholarLink,
                     OrcidLink = model.OrcidLink,
+                    IsActive=true,
                     DepartmentUsers = new List<DepartmentUser>
                     {
                         new DepartmentUser()
