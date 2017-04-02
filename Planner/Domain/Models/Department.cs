@@ -27,5 +27,7 @@ namespace Domain.Models
 
         public virtual ICollection<DayEntryLoad> DayEntryLoads { get; set; }
         public virtual ICollection<ExtramuralEntryLoad> ExtramuralEntryLoads { get; set; }
+
+        public virtual ICollection<LoadingList> LoadingList { get; set; }
     }
 }

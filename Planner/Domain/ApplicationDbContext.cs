@@ -32,6 +32,32 @@ namespace Domain.Models
         public DbSet<NMBD> NMBDs { get; set; }
         public DbSet<ScientificPublishing> ScientificPublishings { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Specialize> Specializes { get; set; }
+
+        public DbSet<Specialty> Specialties { get; set; }
+
+        public DbSet<Subject> Subjects { get; set; }
+
+        public DbSet<LoadingList> LoadingLists { get; set; }
+
+        public DbSet<DayEntryLoad> DayEntryLoads { get; set; }
+
+        public DbSet<DaySemester> DaySemesters { get; set; }
+
+        public DbSet<DayTeachLoad> DayTeachLoads { get; set; }
+
+        public DbSet<DDataStorage> DDataStorages { get; set; }
+
+        public DbSet<ExtramuralEntryLoad> ExtramuralEntryLoads { get; set; }
+
+        public DbSet<ExtramuralSemester> ExtramuralSemesters { get; set; }
+
+        public DbSet<ExtramuralTeachLoad> ExtramuralTeachLoads { get; set; }
+
+        public DbSet<EDataStorage> EDataStorages { get; set; }
+
 
         public DbSet<PublicationNMBD> PublicationNMBDs { get; set; }
         public DbSet<PublicationUser> PublicationUsers { get; set; }
