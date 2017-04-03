@@ -36,7 +36,6 @@ namespace Domain.Models
         public double Protection { get; set; }
         public double Total { get; set; }
         public double Active { get; set; }
-
         public String SubjectId { get; set; }
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }
