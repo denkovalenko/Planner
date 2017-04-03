@@ -46,6 +46,8 @@ namespace Domain.Models
         public virtual ExtramuralEntryLoad ExtramuralEntryLoad { get; set; }
 
         // as Teacher
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public String ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

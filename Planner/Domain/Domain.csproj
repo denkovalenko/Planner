@@ -187,6 +187,26 @@
     <Compile Include="Migrations\201703141932513_UpdateIndivPlanTables.Designer.cs">
       <DependentUpon>201703141932513_UpdateIndivPlanTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704021952463_DelExtramuralTeachLoad.cs" />
+    <Compile Include="Migrations\201704021952463_DelExtramuralTeachLoad.Designer.cs">
+      <DependentUpon>201704021952463_DelExtramuralTeachLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704021956262_DelDayEntryLoad.cs" />
+    <Compile Include="Migrations\201704021956262_DelDayEntryLoad.Designer.cs">
+      <DependentUpon>201704021956262_DelDayEntryLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704022016289_AddExtramuralTeachLoad.cs" />
+    <Compile Include="Migrations\201704022016289_AddExtramuralTeachLoad.Designer.cs">
+      <DependentUpon>201704022016289_AddExtramuralTeachLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704022018227_AddDayTeachLoad.cs" />
+    <Compile Include="Migrations\201704022018227_AddDayTeachLoad.Designer.cs">
+      <DependentUpon>201704022018227_AddDayTeachLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704022023225_AddLoadingList.cs" />
+    <Compile Include="Migrations\201704022023225_AddLoadingList.Designer.cs">
+      <DependentUpon>201704022023225_AddLoadingList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -290,6 +310,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703141932513_UpdateIndivPlanTables.resx">
       <DependentUpon>201703141932513_UpdateIndivPlanTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704021952463_DelExtramuralTeachLoad.resx">
+      <DependentUpon>201704021952463_DelExtramuralTeachLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704021956262_DelDayEntryLoad.resx">
+      <DependentUpon>201704021956262_DelDayEntryLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704022016289_AddExtramuralTeachLoad.resx">
+      <DependentUpon>201704022016289_AddExtramuralTeachLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704022018227_AddDayTeachLoad.resx">
+      <DependentUpon>201704022018227_AddDayTeachLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704022023225_AddLoadingList.resx">
+      <DependentUpon>201704022023225_AddLoadingList.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
