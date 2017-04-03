@@ -20,7 +20,6 @@ namespace Domain.Models
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
 
-
         public virtual ICollection<DayEntryLoad> DayEntryLoads { get; set; }
         public virtual ICollection<ExtramuralEntryLoad> ExtramuralEntryLoads { get; set; }
 
