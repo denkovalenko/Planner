@@ -11,6 +11,7 @@ using Domain.Models;
 using Planner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Planner.Filters;
 
 namespace Planner.Controllers
 {
@@ -411,6 +412,7 @@ namespace Planner.Controllers
 			{
 				return RedirectToAction("CompleteProfile");
 			}
+			Session.Remove(IncompleteProfileFilter.IncompleteUserKeyName);
 			return Edit(user);
 		}
 

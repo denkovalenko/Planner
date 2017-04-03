@@ -2451,3 +2451,6 @@ and (min-width : 1824px) {
 .complete-profile-box{
     margin:0 auto !important;
 }
+.center-block{
+    margin: 0 auto;
+}
