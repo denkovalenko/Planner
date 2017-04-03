@@ -37,13 +37,8 @@ namespace Domain.Models
         [ForeignKey("AcademicTitleId")]
         public virtual AcademicTitle AcademicTitle { get; set; }
 
-        public String DayTeachLoadId { get; set; }
-        [ForeignKey("DayTeachLoadId")]
-        public virtual DayTeachLoad DayTeachLoad { get; set; }
-
-        public String ExtramuralTeachLoadId { get; set; }
-        [ForeignKey("ExtramuralTeachLoadId")]
-        public virtual ExtramuralTeachLoad ExtramuralTeachLoad { get; set; }
+        public virtual ICollection<ExtramuralTeachLoad> ExtramuralTeachLoad { get; set; }
+        public virtual ICollection<DayTeachLoad> DayTeachLoad { get; set; }
 
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
         public virtual ICollection<NDR> NDRs { get; set; }

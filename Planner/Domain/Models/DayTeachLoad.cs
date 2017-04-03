@@ -36,7 +36,6 @@ namespace Domain.Models
         public double Protection { get; set; }
         public double Total { get; set; }
         public double Active { get; set; }
-
         public String SubjectId { get; set; }
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }
@@ -46,6 +45,8 @@ namespace Domain.Models
         public virtual DayEntryLoad DayEntryLoad { get; set; }
 
         // as Teacher
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public String ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
