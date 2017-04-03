@@ -300,6 +300,7 @@
     <Content Include="App_Data\Form11.xlsx" />
     <Content Include="App_Data\Blank_2017_Ind_plan.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
+    <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
     <Content Include="Scripts\gritter-conf.js" />
     <Content Include="Scripts\IndividualPlan\PlanManagment.js" />
