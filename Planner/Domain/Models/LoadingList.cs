@@ -15,7 +15,6 @@ namespace Domain.Models
         public String Id { get; set; }
         public String Comment { get; set; }
         public int Year { get; set; }
-
         public string DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         public virtual Department Department { get; set; }
