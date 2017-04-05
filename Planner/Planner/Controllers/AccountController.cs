@@ -11,6 +11,7 @@ using Domain.Models;
 using Planner.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Planner.Filters;
 
 namespace Planner.Controllers
 {
@@ -313,7 +314,12 @@ namespace Planner.Controllers
 
         public ActionResult Edit(string userName)
         {
+			if(userName == null)
+			{
+				return Redirect("~/");
+			}
             ApplicationUser user = UserManager.FindByEmail(userName);
+			
             if (user != null)
             {
                 EditModel model = new EditModel
@@ -358,8 +364,60 @@ namespace Planner.Controllers
             }
             else return null;
         }
-        // POST: /Account/Edit
-        [HttpPost]
+		public ActionResult CompleteProfile()
+		{
+			var user = UserManager.FindByName(User.Identity.GetUserName());
+			if(user == null)
+			{
+				ModelState.AddModelError("", "Користувач не зареєстрований.");
+				return View("Login");
+			}
+			EditModel model = new EditModel
+			{
+				Email = user.Email,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				ThirdName = user.ThirdName,
+				ScholarLink = user.ScholarLink,
+				OrcidLink = user.OrcidLink,
+				Role = UserManager.GetRoles(user.Id).FirstOrDefault()
+
+			};
+
+			if (user.Degree != null)
+				model.DegreeEnum = user.Degree.Value;
+			if (user.Position != null)
+				model.PositionEnum = user.Position.Value;
+			if (user.AcademicTitle != null)
+				model.AcademicTitleEnum = user.AcademicTitle.Value;
+
+			//logic for faculty and departments
+			if (user.DepartmentUsers != null && user.DepartmentUsers.Count != 0)
+			{
+				model.FacultyId = user.DepartmentUsers.FirstOrDefault().Department.FacultyId;
+				model.DepartmentId = user.DepartmentUsers.FirstOrDefault().DepartmentId;
+			}
+
+			return View(model);
+		}
+		[HttpPost]
+		public ActionResult CompleteProfile(EditModel user)
+		{
+			// double check for EditModel
+			if (user.DepartmentId == null ||
+					user.FacultyId == null || 
+					user.AcademicTitleEnum == 0 || 
+					user.DegreeEnum == 0 || 
+					user.PositionEnum == 0)
+			{
+				return RedirectToAction("CompleteProfile");
+			}
+			Session.Remove(IncompleteProfileFilter.IncompleteUserKeyName);
+			return Edit(user);
+		}
+
+		// POST: /Account/Edit
+		[HttpPost]
         public ActionResult Edit(EditModel model)
         {
             ApplicationUser user = UserManager.FindByEmail(model.Email);
@@ -375,6 +433,13 @@ namespace Planner.Controllers
                 user.AcademicTitle = new AcademicTitle() { Value = model.AcademicTitleEnum };
                 user.ScholarLink = model.ScholarLink;
                 user.OrcidLink = model.OrcidLink;
+				if (model.FacultyId != null && model.DepartmentId != null)
+				{
+					using (var db = new ApplicationDbContext())
+					{
+						user.DepartmentUsers.Add(new DepartmentUser() { DepartmentId = model.DepartmentId, UserId = user.Id });
+					}
+				}
 
                 if (model.ProfilePicture != null)
                 {

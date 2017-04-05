@@ -36,7 +36,7 @@ PlannerApp.controller('registerController', ['$scope', '$http', 'rolesFactory', 
 		if (newVal) {
 
 			$scope.departments = $scope.faculties.filter(function (element, index, array) {
-				return element.Id == newVal;
+				return element.Id == newVal.Id;
 			})[0].Departments;
 
 			if (window.userState && userState.departmentId)

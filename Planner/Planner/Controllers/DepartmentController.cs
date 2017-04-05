@@ -1,5 +1,6 @@
 ﻿using Calculation;
 using Domain.Models;
+using Planner.Filters;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Web.Mvc;
 namespace Planner.Controllers
 {
 	[Authorize]
-    public class DepartmentController : Controller
+	public class DepartmentController : Controller
     {
         [Authorize(Roles = "Admin,HeadOfStudies")]
         public ActionResult DepartmentPublications()

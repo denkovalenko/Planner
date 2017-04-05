@@ -183,6 +183,7 @@
     <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\PublicationController.cs" />
     <Compile Include="Controllers\TimetableController.cs" />
+    <Compile Include="Filters\IncompleteProfileFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,6 +300,7 @@
     <Content Include="App_Data\Form11.xlsx" />
     <Content Include="App_Data\Blank_2017_Ind_plan.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
+    <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
     <Content Include="Scripts\gritter-conf.js" />
     <Content Include="Scripts\IndividualPlan\PlanManagment.js" />
@@ -2012,6 +2014,7 @@
     <Content Include="Views\IndividualPlan\PlanMethodicalWork.cshtml" />
     <Content Include="Views\IndividualPlan\PlanManagment.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
+    <Content Include="Views\Account\CompleteProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

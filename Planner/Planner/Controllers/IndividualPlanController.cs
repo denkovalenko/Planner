@@ -8,6 +8,7 @@ using System.IO;
 using SpreadsheetLight;
 using Calculation;
 using Microsoft.AspNet.Identity;
+using Planner.Filters;
 
 namespace Planner.Controllers
 {
@@ -17,7 +18,8 @@ namespace Planner.Controllers
     }
 
     [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
-    public class IndividualPlanController : Controller
+	[IncompleteProfileFilter]
+	public class IndividualPlanController : Controller
     {
 
 
