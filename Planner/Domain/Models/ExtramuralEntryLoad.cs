@@ -33,6 +33,7 @@ namespace Domain.Models
         public string F_Evaluation { get; set; }
         public string F_KR { get; set; }
         public double F_Test { get; set; }
+        public double F_LimitOnProjects { get; set; } //+
         public double S_Lecture { get; set; }
         public double S_Practical { get; set; }
         public double S_Lab { get; set; }
@@ -41,6 +42,7 @@ namespace Domain.Models
         public string S_Evaluation { get; set; }
         public string S_KR { get; set; }
         public double S_Test { get; set; }
+        public double S_LimitOnProjects { get; set; } //+
 
         public String LoadingListId { get; set; }
         [ForeignKey("LoadingListId")]
