@@ -55,6 +55,7 @@ namespace Domain.Models
         public double KR_KP_DR { get; set; }
         public double Practice { get; set; }
         public double QuantityOfDek { get; set; }
+        public string FacultyName { get; set; } //+
 
         public String LoadingListId { get; set; }
         [ForeignKey("LoadingListId")]

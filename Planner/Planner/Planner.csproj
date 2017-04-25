@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DistributionController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualPlanController.cs" />
@@ -189,6 +190,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CreatePublicationViewModel.cs" />
+    <Compile Include="Models\DistributionViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ndrViewModel.cs" />
     <Compile Include="Models\PublicationCreate.cs" />
@@ -268,9 +270,11 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\App\App.js" />
     <Content Include="Scripts\App\Controllers\departmentController.js" />
+    <Content Include="Scripts\App\Controllers\distributionController.js" />
     <Content Include="Scripts\App\Controllers\individualPlanController.js" />
     <Content Include="Scripts\App\Controllers\getUsersController.js" />
     <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
+    <Content Include="Scripts\App\Controllers\tabController.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
@@ -2015,6 +2019,11 @@
     <Content Include="Views\IndividualPlan\PlanManagment.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Account\CompleteProfile.cshtml" />
+    <Content Include="Views\Distribution\DayEntryLoad.cshtml" />
+    <Content Include="Views\Distribution\ExtramuralEntryLoad.cshtml" />
+    <Content Include="Views\Distribution\Index.cshtml" />
+    <Content Include="Views\Distribution\TeachLoad.cshtml" />
+    <Content Include="Views\Distribution\UploadEntry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
@@ -2038,6 +2047,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{ac02d098-6598-4259-8811-17ddf45cdf54}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Load\Load.csproj">
+      <Project>{50499e8f-d565-49b5-acaa-3f72ca549a65}</Project>
+      <Name>Load</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

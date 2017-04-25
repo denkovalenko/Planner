@@ -14,7 +14,9 @@ namespace Domain.Models
         [Key]
         public String Id { get; set; }
         public String Name { get; set; }
-        public double? Code { get; set; }
+
+        // field for *.xls(x)
+        public double Code { get; set; } = 0;
 
         public String FacultyId { get; set; }
         [ForeignKey("FacultyId")]
@@ -22,8 +24,10 @@ namespace Domain.Models
 
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
+
         public virtual ICollection<DayEntryLoad> DayEntryLoads { get; set; }
         public virtual ICollection<ExtramuralEntryLoad> ExtramuralEntryLoads { get; set; }
+
         public virtual ICollection<LoadingList> LoadingList { get; set; }
     }
 }
