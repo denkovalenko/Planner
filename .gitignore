@@ -7,6 +7,9 @@
 /Planner/Console/bin
 /Planner/Domain/obj
 
+/Planner/Load/bin
+/Planner/Load/obj
+
 /Planner/ConsoleTest/bin
 /Planner/ConsoleTest/obj
 
