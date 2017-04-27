@@ -2448,3 +2448,9 @@ and (min-width : 1824px) {
 .navbar{
     border: none;
 }
+.complete-profile-box{
+    margin:0 auto !important;
+}
+.center-block{
+    margin: 0 auto;
+}
