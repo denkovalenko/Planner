@@ -145,7 +145,6 @@ namespace Planner.Models
 
         [Display(Name = "Аватар")]
         public HttpPostedFileBase ProfilePicture { get; set; }
-
         [Display(Name = "Вчена ступінь")]
         [Range(1, int.MaxValue, ErrorMessage = "Виберiть вчену ступiнь")]
         public AcademicTitleEnum AcademicTitleEnum { get; set; }
