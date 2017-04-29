@@ -160,7 +160,7 @@
                 <h5 class="centered">@User.Identity.Name</h5>
                 <li class="mt">
                     <a href="~/Home/Profile">
-                        <i class="fa fa-user-md"></i>
+                        <i class="fa fa-home"></i>
                         <span>Головна</span>
                     </a>
                 </li>
@@ -229,11 +229,41 @@
                 {
                     <li class="mt">
                         <a href="~/IndividualPlan/DownloadReport">
-                            <i class="fa fa-dashboard"></i>
+                            <i class="fa fa-mail-reply"></i>
                             <span>Звiт за факультетом</span>
                         </a>
                     </li>
                 }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Distribution/Index">
+                            <i class="fa fa-arrows"></i>
+                            <span>Розподілення навантаження</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Distribution/TeachLoad">
+                            <i class="fa fa-print"></i>
+                            <span>Навантаження на викладача</span>
+                        </a>
+                    </li>
+                }
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                {
+                    <li class="mt">
+                        <a href="~/Distribution/UploadEntry">
+                            <i class="fa fa-upload"></i>
+                            <span>Файл навантаження</span>
+                        </a>
+                    </li>
+                }
+
+
+
                 @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
                 {
                     <li class="sub-menu">
