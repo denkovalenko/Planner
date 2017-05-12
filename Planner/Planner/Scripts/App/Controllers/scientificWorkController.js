@@ -82,7 +82,7 @@ PlannerApp.controller('scientificWorkController', ['$scope', '$http', 'scientifi
 	            model.push({ SchemaName: el, Value: $scope.scientificWorkModel[el], Name: $scope.fieldFactory[el].name });
 	        }
 	    }
-	    $http.post('/IndividualPlan/SaveScientificData', { model: model }).then(
+	    $http.post('/IndividualPlan/SaveData', { model: model }).then(
             function (response) {
                 window.location.reload();
             }, function (response) {
