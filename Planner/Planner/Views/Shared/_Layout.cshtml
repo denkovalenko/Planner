@@ -75,7 +75,8 @@
                                 </div>
                                 <div class="site-branding">
                                     <p class="main-title" itemprop="headline">
-                                        <a href="http://www.nmr.hneu.edu.ua/" title="Планувальник   Харківского  національного економічного університету імені Семена Кузнеця" rel="home">Планувальник Харківского національного економічного університету імені Семена Кузнеця</a>
+                                        <c title="ПЛАНУВАЛЬНИК">ПЛАНУВАЛЬНИК</c><br/>
+                                        <b title="ХАРКІВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ ІМЕНІ СЕМЕНА КУЗНЕЦЯ">ХАРКІВСЬКИЙ НАЦІОНАЛЬНИЙ УНІВЕРСИТЕТ ІМЕНІ СЕМЕНА КУЗНЕЦЯ</b>
                                     </p>
                                 </div>
                             </div>
@@ -85,10 +86,10 @@
                         <div class="sidebar-toggle-box">
                             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
                         </div>
-                        <a href="~/Home/Profile" class="logo"><b>меню</b></a>
+                        <a href="~/Account/Edit?userName=@User.Identity.Name" class="logo"></a>
                         <div class="navbar-custom-menu">
                             <ul class="nav navbar-nav" style="left: 10%; position: relative;">
-                                <li><a href="~/Home/Profile">Головна</a></li>
+                                <li><a href="~/Account/Edit?userName=@User.Identity.Name">Головна</a></li>
 
                                 <li><a href="~/Publication/Index">Публікації</a></li>
                                 <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
@@ -159,7 +160,7 @@
                 </p>
                 <h5 class="centered">@User.Identity.Name</h5>
                 <li class="mt">
-                    <a href="~/Home/Profile">
+                    <a href="~/Account/Edit?userName=@User.Identity.Name">
                         <i class="fa fa-home"></i>
                         <span>Головна</span>
                     </a>
@@ -189,14 +190,14 @@
                         <span>Публікації</span>
                     </a>
                 </li>
-                @if (Request.IsAuthenticated)
+                @*@if (Request.IsAuthenticated)
                 {
                     <li class="mt">
                         <a href="~/Account/Edit?userName=@User.Identity.Name">
                             <i class="fa fa-pencil"></i> <span>Редагування даних</span>
                         </a>
                     </li>
-                }
+                }*@
 
                 @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
                 {
