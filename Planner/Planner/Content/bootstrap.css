@@ -3914,10 +3914,11 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > li > a {
   margin-right: 0;
   border-bottom: 1px solid #dddddd;
+  color: #666; 
 }
 
 .nav-tabs.nav-justified > .active > a {
-  border-bottom-color: #ffffff;
+  border-bottom-color: #dddddd;
 }
 
 .nav-pills > li {

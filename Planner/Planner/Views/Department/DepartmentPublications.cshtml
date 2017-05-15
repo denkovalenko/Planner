@@ -17,6 +17,7 @@
                     <div class="col-lg-3 col-xs-6">
                         <!-- small box -->
                         <div class="form-group has-feedback">
+                            <label for="from">Кафедра </label>
                             <select class="form-control" name="departmentId" data-ng-model="departmentForPub"
                                     data-ng-options="s.Name for s in departments track by s.Id">
                                 <option value="">--Виберiть кафедру--</option>
@@ -40,7 +41,7 @@
                     <div class="col-lg-2 col-xs-6" data-ng-if="publications.length > 0" ng-cloak>
                         <!-- small box -->
                         <div class="small-box bg-gray-light">
-                            <a href="#" type="submit" class="btn btn-primary btn-block btn-flat" ng-click="downloadDepartmentReport()">Завантажити звiт </a>
+                            <a href="#" type="submit" class="btn btn-primary btn-block btn-flat" ng-click="downloadDepartmentReport()">Друк звіту </a>
                         </div>
                     </div>
 

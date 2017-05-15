@@ -30,9 +30,10 @@
 
         <div class="tab-content">
             <div id="ParticipationInExpertCouncils" class="tab-pane fade in active">
-                <h6>НАУКОВО-ДОСЛІДНА РОБОТА</h6>
+                <h6>1. НАУКОВО-ДОСЛІДНА РОБОТА</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>1.1 Виконання планових наукових досліджень</p>
                         <p>{{fieldFactory["ImplementationPlannedResearchManager"].name}}</p>
                         
                         <input type="number" ng-model="scientificWorkModel.ImplementationPlannedResearchManager" required />
@@ -43,6 +44,7 @@
                         <input type="number" ng-model="scientificWorkModel.ImplementationPlannedResearchPerformer" required />
                     </li>
                     <li>
+                        <p>1.2 Виконання планових наукових досліджень</p>
                         <p>{{fieldFactory["DevelopmentInnovativeResearchProjectsManager"].name}}</p>
                         
                         <input type="number" ng-model="scientificWorkModel.DevelopmentInnovativeResearchProjectsManager" required />
@@ -56,9 +58,10 @@
                 
             </div>
             <div id="ResearchAndInventiveWork" class="tab-pane fade">
-                <h6>НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</h6>
+                <h6>2. НАУКОВО-ВИНАХІДНИЦЬКА РОБОТА</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>2.1 Винахідницька робота викладача</p>
                         <p>{{fieldFactory["InventiveJobTeachingInternationalPatents"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.InventiveJobTeachingInternationalPatents" required />
@@ -81,9 +84,22 @@
                 </ul>
             </div>
             <div id="ScientificPublishingWork" class="tab-pane fade">
-                <h6>НАУКОВО-ВИДАВНИЧА РОБОТА</h6>
+                <h6>3. НАУКОВО-ВИДАВНИЧА РОБОТА</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>3.1 Монографія опублікована</p>
+                        <p>3.1.1 Публікація монографій у вітчизняних видавництвах</p>
+                        <p>{{fieldFactory["CollectiveMonographForeignLanguagePublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.CollectiveMonographForeignLanguagePublishedInDomesticPublishing" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInDomesticPublishing"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.SoleForeignLanguageMonographPublishedInDomesticPublishing" required />
+                    </li>
+                    <li>
+
                         <p>{{fieldFactory["CollectiveMonographPublishedInDomesticPublishing"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.CollectiveMonographPublishedInDomesticPublishing" required />
@@ -92,6 +108,17 @@
                         <p>{{fieldFactory["SoleMonographPublishedInDomesticPublishing"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.SoleMonographPublishedInDomesticPublishing" required />
+                    </li>
+                    <li>
+                        <p>3.1.2 Публікація монографій у зарубіжних видавництвах</p>
+                        <p>{{fieldFactory["CollectiveMonographPublishedForeignLanguageForeignPublishers"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.CollectiveMonographPublishedForeignLanguageForeignPublishers" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInForeignPublishingHouses"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.SoleForeignLanguageMonographPublishedInForeignPublishingHouses" required />
                     </li>
                     <li>
                         <p>{{fieldFactory["CollectiveMonographPublishedInForeignPublishingHouses"].name}}</p>
@@ -103,20 +130,13 @@
 
                         <input type="number" ng-model="scientificWorkModel.SoleMonographPublishedInForeignPublishingHouses" required />
                     </li>
+                    
+
                     <li>
+                        <p>3.2 Публікація наукових статей</p>
                         <p>{{fieldFactory["PublicationScientificArticlesInJournals"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.PublicationScientificArticlesInJournals" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["InventiveWorkTeachersPatents"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.InventiveWorkTeachersPatents" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["InventiveWorkTeacherPatentUtilityModel"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.InventiveWorkTeacherPatentUtilityModel" required />
                     </li>
                     <li>
                         <p>{{fieldFactory["PublicationScientificArticlesAcademicEditions"].name}}</p>
@@ -137,36 +157,6 @@
                         <p>{{fieldFactory["PublicationScientificPapersNationaJournals"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.PublicationScientificPapersNationaJournals" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["PublicationAbstractsForeignJournals"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.PublicationAbstractsForeignJournals" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["PublicationAbstractsConferencesSymposiaSeminars"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.PublicationAbstractsConferencesSymposiaSeminars" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["CollectiveMonographForeignLanguagePublishedInDomesticPublishing"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.CollectiveMonographForeignLanguagePublishedInDomesticPublishing" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInDomesticPublishing"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.SoleForeignLanguageMonographPublishedInDomesticPublishing" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["CollectiveMonographPublishedForeignLanguageForeignPublishers"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.CollectiveMonographPublishedForeignLanguageForeignPublishers" required />
-                    </li>
-                    <li>
-                        <p>{{fieldFactory["SoleForeignLanguageMonographPublishedInForeignPublishingHouses"].name}}</p>
-
-                        <input type="number" ng-model="scientificWorkModel.SoleForeignLanguageMonographPublishedInForeignPublishingHouses" required />
                     </li>
                     <li>
                         <p>{{fieldFactory["PublicationScientificArticlesForeignLanguageJournalsScopusWeb"].name}}</p>
@@ -203,12 +193,25 @@
 
                         <input type="number" ng-model="scientificWorkModel.PublicationAbstractsForeignLanguageConferencesSymposiaSeminars" required />
                     </li>
+
+                    <li>
+                        <p>3.3 Публікація тез доповідей</p>
+                        <p>{{fieldFactory["PublicationAbstractsForeignJournals"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.PublicationAbstractsForeignJournals" required />
+                    </li>
+                    <li>
+                        <p>{{fieldFactory["PublicationAbstractsConferencesSymposiaSeminars"].name}}</p>
+
+                        <input type="number" ng-model="scientificWorkModel.PublicationAbstractsConferencesSymposiaSeminars" required />
+                    </li>
                 </ul>
             </div>
             <div id="PreparationTeachingStaff" class="tab-pane fade">
-                <h6>ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</h6>
+                <h6>4. ПІДГОТОВКА НАУКОВО-ПЕДАГОГІЧНИХ ПРАЦІВНИКІВ</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>4.1 Захист дисертацій</p>
                         <p>{{fieldFactory["ProtectingThesisForDegreeDoctorOfScience"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ProtectingThesisForDegreeDoctorOfScience" required />
@@ -219,6 +222,7 @@
                         <input type="number" ng-model="scientificWorkModel.DefendingTthesisForPhD" required />
                     </li>
                     <li>
+                        <p>4.2 Складання кандидатських екзаменів</p>
                         <p>{{fieldFactory["TheCandidateExams"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.TheCandidateExams" required />
@@ -226,9 +230,10 @@
                 </ul>
             </div>
             <div id="StudentsResearchWork" class="tab-pane fade">
-                <h6>НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</h6>
+                <h6>5. НАУКОВО-ДОСЛІДНА РОБОТА СТУДЕНТІВ</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>5.1 Керівництво науковою роботою студентів</p>
                         <p>{{fieldFactory["GuidStudentsInResearchWorkOnPreparationScientificArticles"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.GuidStudentsInResearchWorkOnPreparationScientificArticles" required />
@@ -243,7 +248,11 @@
 
                         <input type="number" ng-model="scientificWorkModel.GuidStudentsInResearchWorkOnPreparationApplicationsForSecurityDocuments" required />
                     </li>
+
+
                     <li>
+                        <p>5.2 Підготовка студентів-переможців до участі у заходах</p>
+                        <p>5.2.1 Підготовка студентів-переможців до участі у конкурсах</p>
                         <p>{{fieldFactory["StudentsWinnersParticipateInInternationalCompetitions"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.StudentsWinnersParticipateInInternationalCompetitions" required />
@@ -268,7 +277,10 @@
 
                         <input type="number" ng-model="scientificWorkModel.StudentsWinnersParticipateInUniversityLevel" required />
                     </li>
+
+
                     <li>
+                        <p>5.2.2 Підготовка студентів-переможців до участі в олімпіаді</p>
                         <p>{{fieldFactory["StudentsWinnersParticipateInInternationalOlympiad"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.StudentsWinnersParticipateInInternationalOlympiad" required />
@@ -293,7 +305,10 @@
 
                         <input type="number" ng-model="scientificWorkModel.StudentsWinnersParticipateInOlympiadUniversityLevel" required />
                     </li>
+
+
                     <li>
+                        <p>5.3 Керівництво студентським науковим гуртком, групою з науково-дослідної проблеми</p>
                         <p>{{fieldFactory["ManagementStudentScienceClub"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ManagementStudentScienceClub" required />
@@ -301,9 +316,11 @@
                 </ul>
             </div>
             <div id="ScientificAndOrganizationalWork" class="tab-pane fade">
-                <h6>НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</h6>
+                <h6>6. НАУКОВО-ОРГАНІЗАЦІЙНА РОБОТА</h6>
                 <ul class="scientificwork_form">
                     <li>
+                        <p>6.1 Організація та проведення наукових конференцій, симпозіумів, семінарів для студентів, аспірантів та викладачів</p>
+                        <p>6.1.1 Міжнародні заходи</p>
                         <p>{{fieldFactory["OrganizationAndHoldingInternationalEventsOrganizingCommitteeChairman"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingInternationalEventsOrganizingCommitteeChairman" required />
@@ -313,7 +330,10 @@
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingInternationalEventsSecretary" required />
                     </li>
+
+
                     <li>
+                        <p>6.1.2 Всеукраїнські заходи</p>
                         <p>{{fieldFactory["OrganizationAndHoldingUkrainianEventsOrganizingCommitteeChairman"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingUkrainianEventsOrganizingCommitteeChairman" required />
@@ -323,7 +343,9 @@
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingUkrainianEventsSecretary" required />
                     </li>
+
                     <li>
+                        <p>6.1.3 Міжуніверситетські, міжфакультетські, міжкафедральні заходи</p>
                         <p>{{fieldFactory["OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesOrganizingCommitteeChairman"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesOrganizingCommitteeChairman" required />
@@ -333,37 +355,52 @@
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationInterUniversityInterfacultyInterdepartmentalActivitiesSecretary" required />
                     </li>
+
+
                     <li>
+                        <p>6.2 Організація та проведення телеконференцій, вебінарів</p>
+                        <p>6.2.1 Міжнародні заходи</p>
                         <p>{{fieldFactory["OrganizationAndHoldingInternationalEvents"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingInternationalEvents" required />
                     </li>
                     <li>
+                        <p>6.2.2 Всеукраїнські заходи</p>
                         <p>{{fieldFactory["OrganizationAndHoldingUkrainianEvents"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.OrganizationAndHoldingUkrainianEvents" required />
                     </li>
+
                     <li>
+                        <p>6.3 Керівництво науковою школою</p>
                         <p>{{fieldFactory["ManagementStudentScienceSchool"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ManagementStudentScienceSchool" required />
                     </li>
+
                     <li>
+                        <p>6.4 Відповідальний за наукову роботу на кафедрі</p>
                         <p>{{fieldFactory["ResponsiblForScientificWorkDepartment"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ResponsiblForScientificWorkDepartment" required />
                     </li>
+
                     <li>
+                        <p>6.5 Рецензування</p>
+                        <p>6.5.1 Рецензування авторефератів на здобуття ступеня доктора філософії, доктора наук, періодичних видань, монографій, підручників, навчальних посібників, наукових статей, студентських наукових робіт</p>
                         <p>{{fieldFactory["ReviewingAbstractsForDegree"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ReviewingAbstractsForDegree" required />
                     </li>
                     <li>
+                        <p>6.5.2 Рецензування видань іноземною мовою (окрім російської)</p>
                         <p>{{fieldFactory["ReviewingForeignLanguagePublications"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ReviewingForeignLanguagePublications" required />
                     </li>
+
                     <li>
+                        <p>6.6 Робота в редколегіях наукових журналів, у редакційних радах збірників праць та ін.</p>
                         <p>{{fieldFactory["ChairmanEditorialBoardSscientificJournals"].name}}</p>
 
                         <input type="number" ng-model="scientificWorkModel.ChairmanEditorialBoardSscientificJournals" required />
