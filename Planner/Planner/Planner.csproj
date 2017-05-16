@@ -302,7 +302,7 @@
     <Content Include="App_Data\Dodatki.xlsx" />
     <Content Include="App_Data\DepartmentReport.xlsx" />
     <Content Include="App_Data\Form11.xlsx" />
-    <Content Include="App_Data\Blank_2017_Ind_plan.xlsx" />
+    <Content Include="App_Data\Blank_2017_IND_PLAN.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
@@ -2024,9 +2024,9 @@
     <Content Include="Views\Distribution\Index.cshtml" />
     <Content Include="Views\Distribution\TeachLoad.cshtml" />
     <Content Include="Views\Distribution\UploadEntry.cshtml" />
-    <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsx" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\AboutTeachLoad.cshtml" />
+    <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
