@@ -27,6 +27,17 @@ namespace Planner.Controllers
             }
         }
 
+        public ActionResult About()
+        {
+                return View();
+        }
+
+        public ActionResult AboutTeachLoad()
+        {
+            return View();
+        }
+
+
         public new ActionResult Profile()
         {
             if (!Request.IsAuthenticated)

@@ -2024,6 +2024,8 @@
     <Content Include="Views\Distribution\Index.cshtml" />
     <Content Include="Views\Distribution\TeachLoad.cshtml" />
     <Content Include="Views\Distribution\UploadEntry.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\AboutTeachLoad.cshtml" />
     <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsx" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,9 @@ using System.Drawing;
 using System.IO;
 using Calculation.Extensions;
 using SpreadsheetLight;
+using Microsoft.AspNet.Identity;
+using System.Globalization;
+using System.Threading;
 
 namespace Calculation
 {
@@ -23,11 +26,11 @@ namespace Calculation
             var path = Path.Combine(folder, "Blank_2017_Ind_plan.xlsx");
 
             SLDocument sl = new SLDocument(path, "НАВЧАЛЬНА РОБОТА");
-
             int currentRow = 5;
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var user = db.Users.FirstOrDefault(x => x.UserName == userName);
+
                 // sl.DeleteRow(currentRow, 1);
 
                 if (user != null)
@@ -84,13 +87,14 @@ namespace Calculation
 
 
                     sl.SelectWorksheet("ТИТУЛ");
-
+                    var date = DateTime.Now.Year.ToString();
+                    var now = Int32.Parse(date);
                     //sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
-                    sl.SetCellValue("B9", "Test Faculty");
+                    sl.SetCellValue("B9", "Test faculty");
                     //sl.SetCellValue("B12", user.DepartmentUsers.FirstOrDefault().Department.Name);
                     sl.SetCellValue("B12", "Test department");
                     sl.SetCellValue("A24", user.FirstName + " " + user.LastName + " " + user.ThirdName);
-                    sl.SetCellValue("A34", "2015 / 2016");
+                    sl.SetCellValue("A34", now-1 + " / " + DateTime.Now.Year.ToString());
                     //sl.SetCellValue("B34", user.Position.Value.ToString());
                     sl.SetCellValue("B34", "Test position");
                     //sl.SetCellValue("C34", user.AcademicTitle.Value.ToString());
@@ -103,19 +107,39 @@ namespace Calculation
 
                 sl.SelectWorksheet("МЕТОД+НАУК+ОРГАН");
 
-                var methodicalWorks = db.PlanMethodicalWorks.ToList();
-                currentRow = 3;
-                for (int i = 0; i < methodicalWorks.Count; i++)
-                {
-                    int rowNum = currentRow + i;
-                    sl.SetCellValue("A" + rowNum, i + 1);
-                    sl.SetCellValue("B" + rowNum, methodicalWorks[i].Content);
-                    sl.SetCellValue("C" + rowNum, methodicalWorks[i].Result);
-                    sl.SetCellValue("D" + rowNum, methodicalWorks[i].DurationTime);
-                    sl.SetCellValue("E" + rowNum, methodicalWorks[i].PlannedVolume);
-                    sl.SetCellValue("F" + rowNum, methodicalWorks[i].ActualVolume);
-                }
+                var indivWorks = db.IndivPlanFields.ToList();
+                var indivTime = db.IndivPlanFieldsValues.ToList();
+                currentRow = 2;
 
+                for (int i = 0; i < indivWorks.Count; i++)
+                {
+                    for (int j = 0; j < indivTime.Count; j++)
+                    {
+                        if (indivWorks[i].TypeId == "21972bd0-1081-4ab7-aab4-cc723b8a2c71" && indivWorks[i].SchemaName == indivTime[j].SchemaName )
+                        {
+                            int rowNum = currentRow + i;
+                            //sl.SetCellValue("A" + rowNum, i + 1);
+                            sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
+                            sl.SetCellValue("E" + rowNum, indivTime[j].Result);
+                            sl.SetCellValue("F" + rowNum, indivTime[j].Result);
+                        }
+                    }
+                }
+                currentRow = 28;
+                for (int i = 0; i < indivWorks.Count; i++)
+                {
+                    for (int j = 0; j < indivTime.Count; j++)
+                    {
+                        if (indivWorks[i].TypeId == "6e57da2e-de83-4c6c-b365-6e8aafa7d2ab" && indivWorks[i].SchemaName == indivTime[j].SchemaName)
+                        {
+                            int rowNum = currentRow + i;
+                            //sl.SetCellValue("A" + rowNum, i + 1);
+                            sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
+                            sl.SetCellValue("E" + rowNum, indivTime[j].Result);
+                            sl.SetCellValue("F" + rowNum, indivTime[j].Result);
+                        }
+                    }
+                }
                 //var scientificWorks = db.PlanScientificWorks.ToList();
                 //currentRow = 17;
                 //for (int i = 0; i < scientificWorks.Count; i++)
@@ -129,18 +153,18 @@ namespace Calculation
                 //    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
                 //}
 
-                var organizationalWorks = db.PlanManagments.ToList();
-                currentRow = 31;
-                for (int i = 0; i < organizationalWorks.Count; i++)
-                {
-                    int rowNum = currentRow + i;
-                    sl.SetCellValue("A" + rowNum, i + 1);
-                    sl.SetCellValue("B" + rowNum, organizationalWorks[i].Content);
-                    sl.SetCellValue("C" + rowNum, organizationalWorks[i].Result);
-                    sl.SetCellValue("D" + rowNum, organizationalWorks[i].DurationTime);
-                    sl.SetCellValue("E" + rowNum, organizationalWorks[i].PlannedVolume);
-                    sl.SetCellValue("F" + rowNum, organizationalWorks[i].ActualVolume);
-                }
+                //var organizationalWorks = db.PlanManagments.ToList();
+                //currentRow = 31;
+                //for (int i = 0; i < organizationalWorks.Count; i++)
+                //{
+                //    int rowNum = currentRow + i;
+                //    sl.SetCellValue("A" + rowNum, i + 1);
+                //    sl.SetCellValue("B" + rowNum, organizationalWorks[i].Content);
+                //    sl.SetCellValue("C" + rowNum, organizationalWorks[i].Result);
+                //    sl.SetCellValue("D" + rowNum, organizationalWorks[i].DurationTime);
+                //    sl.SetCellValue("E" + rowNum, organizationalWorks[i].PlannedVolume);
+                //    sl.SetCellValue("F" + rowNum, organizationalWorks[i].ActualVolume);
+                //}
 
                 sl.SelectWorksheet("ЗМІНИ ТА ВИСНОВКИ");
 
