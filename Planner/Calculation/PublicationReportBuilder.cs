@@ -89,20 +89,20 @@ namespace Calculation
                     sl.SelectWorksheet("ТИТУЛ");
                     var date = DateTime.Now.Year.ToString();
                     var now = Int32.Parse(date);
-                    //sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
+                    sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
                     sl.SetCellValue("B9", "Test faculty");
-                    //sl.SetCellValue("B12", user.DepartmentUsers.FirstOrDefault().Department.Name);
+                    sl.SetCellValue("B12", user.DepartmentUsers.FirstOrDefault().Department.Name);
                     sl.SetCellValue("B12", "Test department");
                     sl.SetCellValue("A24", user.FirstName + " " + user.LastName + " " + user.ThirdName);
                     sl.SetCellValue("A34", now-1 + " / " + DateTime.Now.Year.ToString());
-                    //sl.SetCellValue("B34", user.Position.Value.ToString());
-                    sl.SetCellValue("B34", "Test position");
-                    //sl.SetCellValue("C34", user.AcademicTitle.Value.ToString());
-                    sl.SetCellValue("C34", "Test AcademicTitle");
-                    //sl.SetCellValue("D34", user.Degree.Value.ToString());
-                    sl.SetCellValue("D34", "Test Degree");
-                    //sl.SetCellValue("E34", user.DepartmentUsers.FirstOrDefault().Rate.Value);
-                    sl.SetCellValue("E34", "Test Rate");
+                    sl.SetCellValue("B34", user.Position.Value.ToString().FirstOrDefault());
+                    //sl.SetCellValue("B34", "Test position");
+                    sl.SetCellValue("C34", user.AcademicTitle.Value.ToString().FirstOrDefault());
+                    //sl.SetCellValue("C34", "Test AcademicTitle");
+                    sl.SetCellValue("D34", user.Degree.Value.ToString().FirstOrDefault());
+                    //sl.SetCellValue("D34", "Test Degree");
+                    sl.SetCellValue("E34", user.DepartmentUsers.Select(x => x.Rate).ToString());
+                    //sl.SetCellValue("E34", "Test Rate");
                 }
 
                 sl.SelectWorksheet("МЕТОД+НАУК+ОРГАН");
