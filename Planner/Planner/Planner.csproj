@@ -220,6 +220,7 @@
     <Content Include="Content\Images\photo2.png" />
     <Content Include="Content\Images\photo3.jpg" />
     <Content Include="Content\Images\photo4.jpg" />
+    <Content Include="Content\Images\tezis-print2.jpg" />
     <Content Include="Content\Images\user.png" />
     <Content Include="Content\Images\user1-128x128.jpg" />
     <Content Include="Content\Images\user2-160x160.jpg" />
