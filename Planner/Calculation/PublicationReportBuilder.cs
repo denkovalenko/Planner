@@ -90,19 +90,14 @@ namespace Calculation
                     var date = DateTime.Now.Year.ToString();
                     var now = Int32.Parse(date);
                     sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
-                    sl.SetCellValue("B9", "Test faculty");
                     sl.SetCellValue("B12", user.DepartmentUsers.FirstOrDefault().Department.Name);
-                    sl.SetCellValue("B12", "Test department");
                     sl.SetCellValue("A24", user.FirstName + " " + user.LastName + " " + user.ThirdName);
                     sl.SetCellValue("A34", now-1 + " / " + DateTime.Now.Year.ToString());
                     sl.SetCellValue("B34", user.Position.Value.ToString().FirstOrDefault());
-                    //sl.SetCellValue("B34", "Test position");
                     sl.SetCellValue("C34", user.AcademicTitle.Value.ToString().FirstOrDefault());
-                    //sl.SetCellValue("C34", "Test AcademicTitle");
                     sl.SetCellValue("D34", user.Degree.Value.ToString().FirstOrDefault());
-                    //sl.SetCellValue("D34", "Test Degree");
-                    sl.SetCellValue("E34", user.DepartmentUsers.Select(x => x.Rate).ToString());
-                    //sl.SetCellValue("E34", "Test Rate");
+                    //sl.SetCellValue("E34", user.DepartmentUsers.Select(x => x.Rate).ToString());
+                    sl.SetCellValue("E34", "");
                 }
 
                 sl.SelectWorksheet("МЕТОД+НАУК+ОРГАН");
@@ -117,54 +112,29 @@ namespace Calculation
                     {
                         if (indivWorks[i].TypeId == "21972bd0-1081-4ab7-aab4-cc723b8a2c71" && indivWorks[i].SchemaName == indivTime[j].SchemaName )
                         {
-                            int rowNum = currentRow + i;
-                            //sl.SetCellValue("A" + rowNum, i + 1);
+                            int rowNum = currentRow + j;
+                            //sl.SetCellValue("A" + rowNum, j + 1);
                             sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
-                            sl.SetCellValue("E" + rowNum, indivTime[j].Result);
-                            sl.SetCellValue("F" + rowNum, indivTime[j].Result);
+                            sl.SetCellValue("E" + rowNum, Convert.ToInt32(indivTime[j].Result));
+                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].Result));
                         }
                     }
                 }
-                currentRow = 28;
+                currentRow = 27;
                 for (int i = 0; i < indivWorks.Count; i++)
                 {
                     for (int j = 0; j < indivTime.Count; j++)
                     {
                         if (indivWorks[i].TypeId == "6e57da2e-de83-4c6c-b365-6e8aafa7d2ab" && indivWorks[i].SchemaName == indivTime[j].SchemaName)
                         {
-                            int rowNum = currentRow + i;
-                            //sl.SetCellValue("A" + rowNum, i + 1);
+                            int rowNum = currentRow + j;
+                            //sl.SetCellValue("A" + rowNum, j + 1);
                             sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
-                            sl.SetCellValue("E" + rowNum, indivTime[j].Result);
-                            sl.SetCellValue("F" + rowNum, indivTime[j].Result);
+                            sl.SetCellValue("E" + rowNum, Convert.ToInt32(indivTime[j].Result));
+                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].Result));
                         }
                     }
                 }
-                //var scientificWorks = db.PlanScientificWorks.ToList();
-                //currentRow = 17;
-                //for (int i = 0; i < scientificWorks.Count; i++)
-                //{
-                //    int rowNum = currentRow + i;
-                //    sl.SetCellValue("A" + rowNum, i + 1);
-                //    sl.SetCellValue("B" + rowNum, scientificWorks[i].Content);
-                //    sl.SetCellValue("C" + rowNum, scientificWorks[i].Result);
-                //    sl.SetCellValue("D" + rowNum, scientificWorks[i].DurationTime);
-                //    sl.SetCellValue("E" + rowNum, scientificWorks[i].PlannedVolume);
-                //    sl.SetCellValue("F" + rowNum, scientificWorks[i].ActualVolume);
-                //}
-
-                //var organizationalWorks = db.PlanManagments.ToList();
-                //currentRow = 31;
-                //for (int i = 0; i < organizationalWorks.Count; i++)
-                //{
-                //    int rowNum = currentRow + i;
-                //    sl.SetCellValue("A" + rowNum, i + 1);
-                //    sl.SetCellValue("B" + rowNum, organizationalWorks[i].Content);
-                //    sl.SetCellValue("C" + rowNum, organizationalWorks[i].Result);
-                //    sl.SetCellValue("D" + rowNum, organizationalWorks[i].DurationTime);
-                //    sl.SetCellValue("E" + rowNum, organizationalWorks[i].PlannedVolume);
-                //    sl.SetCellValue("F" + rowNum, organizationalWorks[i].ActualVolume);
-                //}
 
                 sl.SelectWorksheet("ЗМІНИ ТА ВИСНОВКИ");
 

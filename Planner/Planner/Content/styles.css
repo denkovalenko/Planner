@@ -2307,7 +2307,7 @@ label {
 
 }
 .main-title c {
-    color: white;
+    color: white !important;
     font-size: 40px;
     font-family: Verdana;
     text-align: left !important;
