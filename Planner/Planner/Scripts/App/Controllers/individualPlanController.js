@@ -23,8 +23,12 @@ PlannerApp.controller('individualPlanController', ['$scope', 'indivPlanService',
             $scope.model = {};
             $scope.data.forEach(function (type) {
                 type.Fields.forEach(function (el) {
+                    if (!$scope.model[el.SchemaName])
+                        $scope.model[el.SchemaName] = {};
                     if (el.Result)
-                        $scope.model[el.SchemaName] = el.Result;
+                        $scope.model[el.SchemaName].Result = el.Result;
+                    if (el.PlannedValue)
+                        $scope.model[el.SchemaName].PlannedValue = el.PlannedValue;
                 });
             });
             $scope.currentTab = $scope.data[0].TabName;

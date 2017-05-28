@@ -16,7 +16,14 @@ namespace Domain.Models
         [Key]
         public String Id { get; set; }
         public string SchemaName { get; set; }
+        /// <summary>
+        /// Фактический обьем
+        /// </summary>
         public string Result { get; set; }
+        /// <summary>
+        /// Плановый обьем обьем
+        /// </summary>
+        public string PlannedValue { get; set; }
         public String ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }

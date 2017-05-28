@@ -18,8 +18,8 @@ namespace Planner.Controllers
     }
 
     [Authorize(Roles = "Teacher,Admin,TeacherModerator,HeadOfMethodologyDepartment")]
-	[IncompleteProfileFilter]
-	public class IndividualPlanController : Controller
+    [IncompleteProfileFilter]
+    public class IndividualPlanController : Controller
     {
 
 
@@ -57,19 +57,19 @@ namespace Planner.Controllers
             var userId = User.Identity.GetUserId();
             var fields = db.IndivPlanFields
                         .Join(db.IndPlanTypes, f => f.TypeId, t => t.Id, (f, t) => new { f, t })
-                        .Where(x => x.t.Name.Equals(type))
-                        .ToList();
+                        .Where(x => x.t.Name.Equals(type));
             var grouped = fields.GroupBy(x => x.f.TabName, x => x, (key, res) => new
             {
                 TabName = key,
                 TabKey = Guid.NewGuid(),
-                Fields = res.ToList().Select(x => new
+                Fields = res.Select(x => new
                 {
                     x.f.Id,
                     x.f.DisplayName,
                     x.f.SchemaName,
                     x.f.TabName,
-                    Result = db.IndivPlanFieldsValues.Where(z => z.SchemaName == x.f.SchemaName && z.ApplicationUserId == userId).Select(vv => vv.Result).FirstOrDefault()
+                    Result = db.IndivPlanFieldsValues.Where(z => z.SchemaName == x.f.SchemaName && z.ApplicationUserId == userId).Select(vv => vv.Result).FirstOrDefault(),
+                    PlannedValue = db.IndivPlanFieldsValues.Where(z => z.SchemaName == x.f.SchemaName && z.ApplicationUserId == userId).Select(vv => vv.PlannedValue).FirstOrDefault()
                 })
             }).ToList();
             return Json(grouped);
@@ -147,7 +147,14 @@ namespace Planner.Controllers
         {
             using (var db = new ApplicationDbContext())
             {
-                var data = db.IndivPlanFieldsValues.ToList();
+                var userId = User.Identity.GetUserId();
+                var data = db.IndivPlanFieldsValues.Where(x => x.ApplicationUserId == userId).Select(z => new
+                {
+                    z.Id,
+                    z.PlannedValue,
+                    z.Result,
+                    z.SchemaName
+                }).ToList();
                 return JsonConvert.SerializeObject(data);
             }
         }
@@ -186,15 +193,16 @@ namespace Planner.Controllers
                     if (userData.Select(x => x.SchemaName).Contains(el.SchemaName))
                     {
                         var update = userData.FirstOrDefault(x => x.SchemaName == el.SchemaName);
-                        if (update != null && el.Value != null)
+                        if (update != null)
                         {
                             update.Result = el.Value;
+                            update.PlannedValue = el.PlannedValue;
                         }
                     }
                     else
                     {
-                        if (el.Value != null)
-                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, SchemaName = el.SchemaName, ApplicationUserId = userId });
+                        if (el.Value != null || el.PlannedValue != null)
+                            db.IndivPlanFieldsValues.Add(new IndivPlanFieldsValue { Result = el.Value, PlannedValue = el.PlannedValue, SchemaName = el.SchemaName, ApplicationUserId = userId });
                     }
                 });
                 db.SaveChanges();
@@ -304,5 +312,6 @@ namespace Planner.Controllers
         public string SchemaName { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
+        public string PlannedValue { get; set; }
     }
 }
