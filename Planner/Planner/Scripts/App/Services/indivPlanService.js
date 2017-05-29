@@ -3,8 +3,8 @@
     self.saveData = function (data) {
         var model = [];
         for (var el in data) {
-            if (data != null) {
-                model.push({ SchemaName: el, Value: data[el] });
+            if (data[el] != null) {
+                model.push({ SchemaName: el, Value: data[el].Result, PlannedValue: data[el].PlannedValue });
             }
         }
         $http.post('/IndividualPlan/SaveData', { model: model }).then(

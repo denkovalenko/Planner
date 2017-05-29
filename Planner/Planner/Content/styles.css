@@ -2443,18 +2443,18 @@ and (min-width : 1824px) {
 .scientificwork_form li{
 
 }
-.scientificwork_form li p{
-    text-align:left;
-    display:inline-block;
-    width:800px;
-}
+    .scientificwork_form li p {
+        text-align: left;
+        display: inline-block;
+        width: 850px;
+    }
 .scientificwork_form li span{
     display:none;
 }
 
 .scientificwork_form li input{
     display:inline-block;
-    width:50px
+    width:55px
 }
 
 .navbar{
