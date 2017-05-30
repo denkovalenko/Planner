@@ -71,7 +71,7 @@ namespace Load.Builder
                             OutActive = des.Active,
                             OutTotal = des.Total 
 
-                        }).ToList();
+                        }).Where(s => s.Faculty == "ЕІ").ToList();
             }
             return data;
         }

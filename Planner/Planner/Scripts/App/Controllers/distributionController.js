@@ -8,7 +8,7 @@
     $scope.extra = false;
     $scope.Detail = [];
     $scope.teachers = [];
-
+    $scope.SuccessfulResult = '';
     $scope.semesters = [
         { Caption: "Перший семестр", Value: 1 },
         { Caption: "Другий семестр", Value: 2 }];
@@ -136,7 +136,8 @@
             .then(function (response) {
                 $scope.detailDayEntryLoad(dE);
                 $scope.clear();
-                alert('Данні успішно оновлені!');
+                //alert('Данні успішно оновлені!');
+                $scope.SuccessfulResult = 'Данні успішно оновлені!';
             },
                 function (response) {
                     alert(error.message);
@@ -206,7 +207,9 @@
                 });
     }
 
-
+    $scope.clearResult = function () {
+        $scope.SuccessfulResult = '';
+    }
 
     $scope.clear = function () {
         $scope.Lecture = '';
@@ -258,15 +261,15 @@
         console.log('downloadCommonDayFormatReport after');
     };
 
-    $scope.downloadCommonExtraFormatReport = function() {
+    $scope.downloadCommonExtraFormatReport = function () {
         window.location.assign(`/Distribution/DownloadCommonExtraFormatReport?loadingId=${$scope.selectedExtraEntryLoading}`);
     };
 
-    $scope.downloadDayFormatReportBySemester = function() {
+    $scope.downloadDayFormatReportBySemester = function () {
         window.location.assign(`/Department/DownloadDayFormatReportBySemester?loadingId=${$scope.selectedDayEntryLoading}&semester=${$scope.selectedDaySemester}`);
     };
 
-    $scope.downloadExtraFormatReportBySemester = function() {
+    $scope.downloadExtraFormatReportBySemester = function () {
         window.location.assign(`/Department/DownloadExtraFormatReportBySemester?loadingId=${$scope.selectedExtraEntryLoading}&semester=${$scope.selectedExtraSemester}`);
     }
 

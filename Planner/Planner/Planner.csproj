@@ -304,6 +304,10 @@
     <Content Include="App_Data\DepartmentReport.xlsx" />
     <Content Include="App_Data\Form11.xlsx" />
     <Content Include="App_Data\Blank_2017_Ind_plan.xlsx" />
+    <Content Include="App_Data\CommonDayFormatReport.xlsx" />
+    <Content Include="App_Data\CommonExtraFormatReport.xlsx" />
+    <Content Include="App_Data\DayTeachLoadReport.xlsx" />
+    <Content Include="App_Data\ExtramuralTeachLoadReport.xlsx" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />

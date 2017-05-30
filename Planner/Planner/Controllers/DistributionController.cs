@@ -84,7 +84,7 @@ namespace Planner.Controllers
         [HttpGet]
         public ActionResult DownloadCommonExtraFormatReport(string loadingId)
         {
-            var report = _reportService.Construct(ReportType.CommonExtraFormatReport, new EntryQueryContext { Loading = loadingId, Semester = (byte)SemesterType.Both});
+            var report = _reportService.Construct(ReportType.CommonExtraFormatReport, new EntryQueryContext { Loading = loadingId, Semester = (byte)SemesterType.Both });
             var stream = new MemoryStream();
             report.Document.SaveAs(stream);
             stream.Position = 0;
@@ -131,13 +131,13 @@ namespace Planner.Controllers
         [HttpGet]
         public JsonResult GetLoadings()
         {
-            ApplicationDbContext ctx =   new ApplicationDbContext();
-            
-            var data = (from obj in ctx.LoadingLists
-                orderby obj.Year
-                select new {Id = obj.Id, Year = obj.Year, Comment = obj.Comment});
+            ApplicationDbContext ctx = new ApplicationDbContext();
 
-            return this.Json(data,JsonRequestBehavior.AllowGet);
+            var data = (from obj in ctx.LoadingLists
+                        orderby obj.Year
+                        select new { Id = obj.Id, Year = obj.Year, Comment = obj.Comment });
+
+            return this.Json(data, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetSubjects()
@@ -155,17 +155,17 @@ namespace Planner.Controllers
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
                 var teachers = (from us in ctx.Users
-                                //from tc in ctx.DepartmentUsers
-                                //join dep in ctx.Departments on tc.DepartmentId equals dep.Id
-                                //join us in ctx.Users on tc.UserId equals us.Id
-                                //where tc.DepartmentId != null
+                                    //from tc in ctx.DepartmentUsers
+                                    //join dep in ctx.Departments on tc.DepartmentId equals dep.Id
+                                    //join us in ctx.Users on tc.UserId equals us.Id
+                                    //where tc.DepartmentId != null
                                 select new
                                 {
                                     Id = us.Id,
                                     FirstName = us.FirstName,
                                     LastName = us.LastName,
                                     ThirdName = us.ThirdName
-                                }).Distinct().OrderBy(s=> s.LastName).ToList();
+                                }).Distinct().OrderBy(s => s.LastName).ToList();
 
                 return this.Json(teachers, JsonRequestBehavior.AllowGet);
             }
@@ -177,82 +177,82 @@ namespace Planner.Controllers
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
                 dayEntry = (from del in ctx.DayEntryLoads
-                    join sb in ctx.Subjects on del.SubjectId equals sb.Id
-                    join spt in ctx.Specialties on del.SpecialtyId equals spt.Id
-                    join spl in ctx.Specializes on del.SpecializeId equals spl.Id
-                    join cs in ctx.Courses on del.CourseId equals cs.Id
-                    join ds in ctx.DaySemesters on del.Id equals ds.DayEntryLoadId
-                    where (del.LoadingListId == loadingId && ds.Semester == semester)
-                    select new DayEntryViewModel()
-                    {
-                        #region Fields
-                        DayEntryId = del.Id,
-                        Faculty = del.FacultyName,
-                        Specialty = spt.Code,
-                        Specialization = spl.Cipher,
-                        Course = cs.Literal,
-                        EducationDegree = del.EducationDegree,
-                        StudentsCount = del.QuantityOfStudents,
-                        ForeignersCount = del.QuantityOfForeigners,
-                        GroupsCipher = del.CipherOfGroups,
-                        QuantityOfGroupsA = del.QuantityOfGroupsCritOne,
-                        RealQuantityOfGroups = del.RealQuantityOfGroups,
-                        QuantityOfGroupsB = del.QuantityOfGroupsCritTwo,
-                        QuantityOfThreads = del.QuantityOfThreads,
-                        ConflatedThreads = del.ConflatedThreads,
-                        Notes = del.Note,
-                        Subject = sb.Name,
-                        QuantityOfCredits = del.CountOfCredits,
-                        Hours = del.CountOfHours,
-                        Language = del.Language,
-                        QuantityOfWeeksFs = del.FS_CountOfWeeks,
-                        QuantityOfWeeksSs = del.SS_CountOfWeeks,
+                            join sb in ctx.Subjects on del.SubjectId equals sb.Id
+                            join spt in ctx.Specialties on del.SpecialtyId equals spt.Id
+                            join spl in ctx.Specializes on del.SpecializeId equals spl.Id
+                            join cs in ctx.Courses on del.CourseId equals cs.Id
+                            join ds in ctx.DaySemesters on del.Id equals ds.DayEntryLoadId
+                            where (del.LoadingListId == loadingId && ds.Semester == semester)
+                            select new DayEntryViewModel()
+                            {
+                                #region Fields
+                                DayEntryId = del.Id,
+                                Faculty = del.FacultyName,
+                                Specialty = spt.Code,
+                                Specialization = spl.Cipher,
+                                Course = cs.Literal,
+                                EducationDegree = del.EducationDegree,
+                                StudentsCount = del.QuantityOfStudents,
+                                ForeignersCount = del.QuantityOfForeigners,
+                                GroupsCipher = del.CipherOfGroups,
+                                QuantityOfGroupsA = del.QuantityOfGroupsCritOne,
+                                RealQuantityOfGroups = del.RealQuantityOfGroups,
+                                QuantityOfGroupsB = del.QuantityOfGroupsCritTwo,
+                                QuantityOfThreads = del.QuantityOfThreads,
+                                ConflatedThreads = del.ConflatedThreads,
+                                Notes = del.Note,
+                                Subject = sb.Name,
+                                QuantityOfCredits = del.CountOfCredits,
+                                Hours = del.CountOfHours,
+                                Language = del.Language,
+                                QuantityOfWeeksFs = del.FS_CountOfWeeks,
+                                QuantityOfWeeksSs = del.SS_CountOfWeeks,
 
-                        DeS = new DayEntrySemester()
-                        {
-                            TotalHours = semester == (byte) SemesterType.First ? del.F_TotalHour : del.S_TotalHour,
-                            Total = semester == (byte) SemesterType.First ? del.F_Total : del.S_Total,
-                            Lectures = semester == (byte) SemesterType.First ? del.F_Lectures : del.S_Lectures,
-                            Labs = semester == (byte) SemesterType.First ? del.F_Labs : del.S_Labs,
-                            Practices = semester == (byte) SemesterType.First ? del.F_Practical : del.S_Practical,
-                            IndependentWorks = semester == (byte) SemesterType.First ? del.F_IndividualWork : del.S_IndividualWork,
-                            Courses = semester == (byte) SemesterType.First ? del.F_CourseProjects : del.S_CourseProjects,
-                            Exam = semester == (byte) SemesterType.First ? del.F_Exams : del.S_Exams,
-                            Evaluation = semester == (byte) SemesterType.First ? del.F_Evaluation : del.S_Evaluation
-                        },
+                                DeS = new DayEntrySemester()
+                                {
+                                    TotalHours = semester == (byte)SemesterType.First ? del.F_TotalHour : del.S_TotalHour,
+                                    Total = semester == (byte)SemesterType.First ? del.F_Total : del.S_Total,
+                                    Lectures = semester == (byte)SemesterType.First ? del.F_Lectures : del.S_Lectures,
+                                    Labs = semester == (byte)SemesterType.First ? del.F_Labs : del.S_Labs,
+                                    Practices = semester == (byte)SemesterType.First ? del.F_Practical : del.S_Practical,
+                                    IndependentWorks = semester == (byte)SemesterType.First ? del.F_IndividualWork : del.S_IndividualWork,
+                                    Courses = semester == (byte)SemesterType.First ? del.F_CourseProjects : del.S_CourseProjects,
+                                    Exam = semester == (byte)SemesterType.First ? del.F_Exams : del.S_Exams,
+                                    Evaluation = semester == (byte)SemesterType.First ? del.F_Evaluation : del.S_Evaluation
+                                },
 
-                        DaySemesterId = ds.Id,
-                        Dd = new DayDistribution()
-                        {
-                            Semester = ds.Semester,
-                            Lecture = ds.Lecture,
-                            Practice = ds.Practice,
-                            Lab = ds.Lab,
-                            ConsultInSemester = ds.ConsultInSemester,
-                            ConsultForExam = ds.ConsultForExam,
-                            VerifyingOfTests = ds.VerifyingOfTests,
-                            KR_KP = ds.KR_KP,
-                            ControlEvaluation = ds.ControlEvaluation,
-                            ControlExam = ds.ControlExam,
-                            PracticePreparation = ds.PracticePreparation,
-                            Dek = ds.Dek,
-                            StateExam = ds.StateExam,
-                            ManagedDiploma = ds.ManagedDiploma,
-                            Other = ds.Other,
-                            Total = ds.Total,
-                            Active = ds.Active,
-                            EnglishBonus = ds.EnglishBonus
-                        },
+                                DaySemesterId = ds.Id,
+                                Dd = new DayDistribution()
+                                {
+                                    Semester = ds.Semester,
+                                    Lecture = ds.Lecture,
+                                    Practice = ds.Practice,
+                                    Lab = ds.Lab,
+                                    ConsultInSemester = ds.ConsultInSemester,
+                                    ConsultForExam = ds.ConsultForExam,
+                                    VerifyingOfTests = ds.VerifyingOfTests,
+                                    KR_KP = ds.KR_KP,
+                                    ControlEvaluation = ds.ControlEvaluation,
+                                    ControlExam = ds.ControlExam,
+                                    PracticePreparation = ds.PracticePreparation,
+                                    Dek = ds.Dek,
+                                    StateExam = ds.StateExam,
+                                    ManagedDiploma = ds.ManagedDiploma,
+                                    Other = ds.Other,
+                                    Total = ds.Total,
+                                    Active = ds.Active,
+                                    EnglishBonus = ds.EnglishBonus
+                                },
 
-                        CoeficientFs = del.FSemCoefficient,
-                        CoeficientSs = del.SSemCoefficient,
-                        DepartmentCipher = del.DepartmentCipher,
-                        Projects = del.KR_KP_DR,
-                        Practices = del.Practice,
-                        QuantityOfMembers = del.QuantityOfDek
-                        #endregion
+                                CoeficientFs = del.FSemCoefficient,
+                                CoeficientSs = del.SSemCoefficient,
+                                DepartmentCipher = del.DepartmentCipher,
+                                Projects = del.KR_KP_DR,
+                                Practices = del.Practice,
+                                QuantityOfMembers = del.QuantityOfDek
+                                #endregion
 
-                    }).ToList();
+                            }).Where(s => s.Faculty == "ЕІ").ToList();
                 return new JsonResult() { Data = dayEntry, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -375,23 +375,23 @@ namespace Planner.Controllers
                                        Ed = new ExtraDistribution()
                                        {
                                            Lectures = es.Lecture,
-                                           Practices = es.Practice, 
+                                           Practices = es.Practice,
                                            Labs = es.Lab,
                                            SemesterConsults = es.ConsultInSemester,
-                                           ExamConsults = es.ConsultForExam, 
+                                           ExamConsults = es.ConsultForExam,
                                            WrittenWorks = es.WrittenWork,
-                                           AnalyticalWorks = es.CalcWorks, 
-                                           Projects = es.CourseProjects, 
-                                           Evaluation = es.Evaluation, 
-                                           OralExams = es.OralExam, 
-                                           WrittenExams = es.WrittenExam, 
-                                           CheckingTests = es.VerifyingOfTest, 
-                                           DiplomManagement = es.ManagedDiploma, 
-                                           DekParticipation = es.Dek, 
-                                           CheckWriteWorks = es.VerifyingOfWrittenWorks, 
-                                           Protection = es.Protection, 
-                                           Total = es.Total, 
-                                           Active = es.Active, 
+                                           AnalyticalWorks = es.CalcWorks,
+                                           Projects = es.CourseProjects,
+                                           Evaluation = es.Evaluation,
+                                           OralExams = es.OralExam,
+                                           WrittenExams = es.WrittenExam,
+                                           CheckingTests = es.VerifyingOfTest,
+                                           DiplomManagement = es.ManagedDiploma,
+                                           DekParticipation = es.Dek,
+                                           CheckWriteWorks = es.VerifyingOfWrittenWorks,
+                                           Protection = es.Protection,
+                                           Total = es.Total,
+                                           Active = es.Active,
                                            Semester = es.Semester
                                            #endregion
                                        }
@@ -514,35 +514,35 @@ namespace Planner.Controllers
                                     Specialization = spl.Cipher,
                                     Active = dt.Active,
                                     LastName = us.LastName,
-                                    FirstName = us.FirstName.Substring(0,1),
+                                    FirstName = us.FirstName.Substring(0, 1),
                                     ThirdName = us.ThirdName.Substring(0, 1),
                                     CourseLiteral = cs.Literal,
                                     EducationDegree = del.EducationDegree,
                                     StudentsCount = del.QuantityOfStudents,
                                     GroupsCipher = del.CipherOfGroups,
                                     CalcWorks = dt.CalcWorks,
-                                    ConsultForExam = dt.ConsultForExam, 
-                                    ConsultInSemester = dt.ConsultInSemester, 
+                                    ConsultForExam = dt.ConsultForExam,
+                                    ConsultInSemester = dt.ConsultInSemester,
                                     Course = dt.Course,
-                                    CourseProjects = dt.CourseProjects,  
+                                    CourseProjects = dt.CourseProjects,
                                     Dek = dt.Dek,
                                     Evaluation = dt.Evaluation,
-                                    Lab = dt.Lab, 
-                                    Lecture = dt.Lecture, 
+                                    Lab = dt.Lab,
+                                    Lecture = dt.Lecture,
                                     ManagedDiploma = dt.ManagedDiploma,
                                     OralExam = dt.OralExam,
-                                    Practice = dt.Practice, 
+                                    Practice = dt.Practice,
                                     Protection = dt.Protection,
-                                    Semester = dt.Semester, 
+                                    Semester = dt.Semester,
                                     Specialty = spt.Code,
                                     SubjectName = sb.Name,
                                     Total = dt.Total,
-                                    VerifyingOfTest = dt.VerifyingOfTest, 
+                                    VerifyingOfTest = dt.VerifyingOfTest,
                                     VerifyingOfWrittenWorks = dt.VerifyingOfWrittenWorks,
                                     WrittenExam = dt.WrittenExam,
-                                    WrittenWork = dt.WrittenWork 
+                                    WrittenWork = dt.WrittenWork
                                     #endregion
-                                }).Distinct().OrderBy(s=> s.LastName).ToList();
+                                }).Distinct().OrderBy(s => s.LastName).ToList();
                 return new JsonResult() { Data = dayTeachLoad, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -560,41 +560,41 @@ namespace Planner.Controllers
                                        join ext in ctx.ExtramuralTeachLoads on eel.Id equals ext.ExtramuralEntryLoadId
                                        join dep in ctx.Departments on eel.DepartmentId equals dep.Id
                                        join us in ctx.Users on ext.ApplicationUserId equals us.Id
-                                where (eel.LoadingListId == loadingId && ext.Semester == semester)
-                                select new ExtramuralTeachLoads()
-                                {
-                                    #region Fields
-                                    ExtramuralEntryLoadId = eel.Id,
-                                    ExtramuralTeachLoadsId = ext.Id,
-                                    Active = ext.Active,
-                                    LastName = us.LastName, 
-                                    FirstName = us.FirstName.Substring(0, 1),
-                                    ThirdName = us.ThirdName.Substring(0, 1),
-                                    CourseLiteral = eel.Course,
-                                    StudentsCount =  eel.QuantityOfStudents,
-                                    CalcWorks = ext.CalcWorks,
-                                    ConsultForExam = ext.ConsultForExam, 
-                                    ConsultInSemester = ext.ConsultInSemester,
-                                    Course = ext.Course,
-                                    CourseProjects = ext.CourseProjects,
-                                    Dek = ext.Dek,
-                                    Evaluation = ext.Evaluation,
-                                    Lab = ext.Lab, 
-                                    Lecture = ext.Lecture, 
-                                    ManagedDiploma = ext.ManagedDiploma,
-                                    OralExam = ext.OralExam,
-                                    Practice = ext.Practice, 
-                                    Protection = ext.Protection,
-                                    Semester = ext.Semester, 
-                                    Specialty = spt.Code,
-                                    SubjectName = sb.Name,
-                                    Total = ext.Total,
-                                    VerifyingOfTest = ext.VerifyingOfTest, 
-                                    VerifyingOfWrittenWorks = ext.VerifyingOfWrittenWorks,
-                                    WrittenExam = ext.WrittenExam,
-                                    WrittenWork = ext.WrittenWork
-                                    #endregion
-                                }).Distinct().OrderBy(s => s.LastName).ToList();
+                                       where (eel.LoadingListId == loadingId && ext.Semester == semester)
+                                       select new ExtramuralTeachLoads()
+                                       {
+                                           #region Fields
+                                           ExtramuralEntryLoadId = eel.Id,
+                                           ExtramuralTeachLoadsId = ext.Id,
+                                           Active = ext.Active,
+                                           LastName = us.LastName,
+                                           FirstName = us.FirstName.Substring(0, 1),
+                                           ThirdName = us.ThirdName.Substring(0, 1),
+                                           CourseLiteral = eel.Course,
+                                           StudentsCount = eel.QuantityOfStudents,
+                                           CalcWorks = ext.CalcWorks,
+                                           ConsultForExam = ext.ConsultForExam,
+                                           ConsultInSemester = ext.ConsultInSemester,
+                                           Course = ext.Course,
+                                           CourseProjects = ext.CourseProjects,
+                                           Dek = ext.Dek,
+                                           Evaluation = ext.Evaluation,
+                                           Lab = ext.Lab,
+                                           Lecture = ext.Lecture,
+                                           ManagedDiploma = ext.ManagedDiploma,
+                                           OralExam = ext.OralExam,
+                                           Practice = ext.Practice,
+                                           Protection = ext.Protection,
+                                           Semester = ext.Semester,
+                                           Specialty = spt.Code,
+                                           SubjectName = sb.Name,
+                                           Total = ext.Total,
+                                           VerifyingOfTest = ext.VerifyingOfTest,
+                                           VerifyingOfWrittenWorks = ext.VerifyingOfWrittenWorks,
+                                           WrittenExam = ext.WrittenExam,
+                                           WrittenWork = ext.WrittenWork
+                                           #endregion
+                                       }).Distinct().OrderBy(s => s.LastName).ToList();
                 return new JsonResult() { Data = extramuralTeachLoad, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -690,7 +690,7 @@ namespace Planner.Controllers
                     {
                         ctx.Entry(newDaySemester).State = System.Data.Entity.EntityState.Modified;
                     }
-                    
+
                     ctx.SaveChanges();
                 }
                 else
@@ -767,7 +767,7 @@ namespace Planner.Controllers
                                                SubjectId = eel.SubjectId
                                            }).FirstOrDefault();
 
-                if(extramuralTeachLoad == null)
+                if (extramuralTeachLoad == null)
                 {
                     var extTL = (from eel in ctx.ExtramuralEntryLoads
                                  join sb in ctx.Subjects on eel.SubjectId equals sb.Id
@@ -811,7 +811,7 @@ namespace Planner.Controllers
                 exs.Protection,
                         Active = exs.Lecture + exs.Practice + exs.Lab + exs.ConsultForExam + exs.Evaluation + exs.OralExam
                 + exs.Dek
-                };
+                    };
                     ctx.Entry(crExtramuralTeachLoad).State = System.Data.Entity.EntityState.Added;
 
                     #region Fields Extramural Semester
