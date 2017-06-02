@@ -57,8 +57,6 @@
                     <div class="serchheder">
                         <div class="social-wrapper">
                             <div class="footer-top">
-
-                                <a class="social-link" href="https://vk.com/eihneu"><i class="fa fa-2x fa-vk" aria-hidden="true"></i></a>
                                 <a class="social-link" href="https://www.youtube.com/user/MrBAlexN"><i class="fa fa-2x fa-youtube" aria-hidden="true"></i></a>
                                 <a class="social-link" href="https://www.facebook.com/eihneu"><i class="fa fa-2x fa-facebook" aria-hidden="true"></i></a>
                                 <a class="social-link" href="https://twitter.com/eihneu"><i class="fa fa-2x fa-twitter" aria-hidden="true"></i></a>
@@ -161,7 +159,7 @@
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered">
-                    <a href="profile.html"><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                    <a><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
                 </p>
                 <h5 class="centered">@User.Identity.Name</h5>
                 <li class="mt">

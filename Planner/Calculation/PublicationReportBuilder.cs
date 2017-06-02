@@ -116,7 +116,7 @@ namespace Calculation
                             //sl.SetCellValue("A" + rowNum, j + 1);
                             sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
                             sl.SetCellValue("E" + rowNum, Convert.ToInt32(indivTime[j].Result));
-                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].Result));
+                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].PlannedValue));
                         }
                     }
                 }
@@ -131,7 +131,7 @@ namespace Calculation
                             //sl.SetCellValue("A" + rowNum, j + 1);
                             sl.SetCellValue("B" + rowNum, indivWorks[i].DisplayName);
                             sl.SetCellValue("E" + rowNum, Convert.ToInt32(indivTime[j].Result));
-                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].Result));
+                            sl.SetCellValue("F" + rowNum, Convert.ToInt32(indivTime[j].PlannedValue));
                         }
                     }
                 }
