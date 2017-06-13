@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201705281232163_UpdateIndivPlan.Designer.cs">
       <DependentUpon>201705281232163_UpdateIndivPlan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706122336034_DEK.cs" />
+    <Compile Include="Migrations\201706122336034_DEK.Designer.cs">
+      <DependentUpon>201706122336034_DEK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -339,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705281232163_UpdateIndivPlan.resx">
       <DependentUpon>201705281232163_UpdateIndivPlan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706122336034_DEK.resx">
+      <DependentUpon>201706122336034_DEK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

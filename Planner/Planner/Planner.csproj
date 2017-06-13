@@ -214,6 +214,7 @@
     <Content Include="Content\Images\boxed-bg.jpg" />
     <Content Include="Content\Images\boxed-bg.png" />
     <Content Include="Content\Images\default-50x50.gif" />
+    <Content Include="Content\Images\house.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\nemYH_iKHtw.jpg" />
     <Content Include="Content\Images\photo1.png" />
@@ -308,6 +309,7 @@
     <Content Include="App_Data\CommonExtraFormatReport.xlsx" />
     <Content Include="App_Data\DayTeachLoadReport.xlsx" />
     <Content Include="App_Data\ExtramuralTeachLoadReport.xlsx" />
+    <Content Include="App_Data\Blank_2017_Ind_plan.xlsm" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
@@ -2032,6 +2034,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\AboutTeachLoad.cshtml" />
     <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsx" />
+    <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
