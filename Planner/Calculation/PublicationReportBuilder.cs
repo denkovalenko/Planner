@@ -23,7 +23,7 @@ namespace Calculation
         public static SLDocument FacultyReportBuild(string userName)
         {
             var folder = AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-            var path = Path.Combine(folder, "Blank_2017_Ind_plan.xlsx");
+            var path = Path.Combine(folder, "Blank_2017_Ind_plan.xlsm");
 
             SLDocument sl = new SLDocument(path, "НАВЧАЛЬНА РОБОТА");
             int currentRow = 5;
@@ -51,37 +51,38 @@ namespace Calculation
                         sl.SetCellValue("K" + currentRow, i.DonePract);
                         sl.SetCellValue("L" + currentRow, i.PlannedLaboratory);
                         sl.SetCellValue("M" + currentRow, i.DoneLaboratory);
-                        sl.SetCellValue("N" + currentRow, i.PlannedSeminar);
-                        sl.SetCellValue("O" + currentRow, i.DoneSeminar);
-                        sl.SetCellValue("P" + currentRow, i.PlannedIndividual);
-                        sl.SetCellValue("Q" + currentRow, i.DoneIndividual);
-                        sl.SetCellValue("R" + currentRow, i.PlannedConsultation);
-                        sl.SetCellValue("S" + currentRow, i.DoneConsultation);
-                        sl.SetCellValue("T" + currentRow, i.PlannedExamConsultation);
-                        sl.SetCellValue("U" + currentRow, i.DoneExamConsultation);
-                        sl.SetCellValue("V" + currentRow, i.PlannedCheckControl);
-                        sl.SetCellValue("W" + currentRow, i.DoneCheckControl);
-                        sl.SetCellValue("X" + currentRow, i.PlannedCheckLectureControl);
-                        sl.SetCellValue("Y" + currentRow, i.DoneCheckLectureControl);
-                        sl.SetCellValue("Z" + currentRow, i.PlannedEAT);
-                        sl.SetCellValue("AA" + currentRow, i.DoneEAT);
-                        sl.SetCellValue("AB" + currentRow, i.PlannedCGS);
-                        sl.SetCellValue("AC" + currentRow, i.DoneCGS);
-                        sl.SetCellValue("AD" + currentRow, i.PlannedCoursework);
-                        sl.SetCellValue("AE" + currentRow, i.DoneCoursework);
-                        sl.SetCellValue("AF" + currentRow, i.PlannedOffsetting);
-                        sl.SetCellValue("AG" + currentRow, i.DoneOffsetting);
-                        sl.SetCellValue("AH" + currentRow, i.PlannedSemestrExam);
-                        sl.SetCellValue("AI" + currentRow, i.DoneSemestrExam);
-                        sl.SetCellValue("AJ" + currentRow, i.PlannedTrainingPract);
-                        sl.SetCellValue("AK" + currentRow, i.DoneTrainingPract);
-                        sl.SetCellValue("AL" + currentRow, i.PlannedStateExam);
-                        sl.SetCellValue("AM" + currentRow, i.DoneStateExam);
-                        sl.SetCellValue("AN" + currentRow, i.PlannedDiploma);
-                        sl.SetCellValue("AO" + currentRow, i.DoneDiploma);
-                        sl.SetCellValue("AP" + currentRow, i.PlannedPostgraduates);
-                        sl.SetCellValue("AQ" + currentRow, i.DonePostgraduates);
-
+                        //sl.SetCellValue("N" + currentRow, i.PlannedSeminar);
+                        //sl.SetCellValue("O" + currentRow, i.DoneSeminar);
+                        //sl.SetCellValue("N" + currentRow, i.PlannedIndividual);
+                        //sl.SetCellValue("O" + currentRow, i.DoneIndividual);
+                        sl.SetCellValue("N" + currentRow, i.PlannedConsultation);
+                        sl.SetCellValue("O" + currentRow, i.DoneConsultation);
+                        sl.SetCellValue("P" + currentRow, i.PlannedExamConsultation);
+                        sl.SetCellValue("Q" + currentRow, i.DoneExamConsultation);
+                        sl.SetCellValue("R" + currentRow, i.PlannedCheckControl);
+                        sl.SetCellValue("S" + currentRow, i.DoneCheckControl);
+                        //sl.SetCellValue("T" + currentRow, i.PlannedCheckLectureControl);
+                        //sl.SetCellValue("W" + currentRow, i.DoneCheckLectureControl);
+                        sl.SetCellValue("T" + currentRow, i.PlannedEAT);
+                        sl.SetCellValue("U" + currentRow, i.DoneEAT);
+                        sl.SetCellValue("V" + currentRow, i.PlannedCGS);
+                        sl.SetCellValue("W" + currentRow, i.DoneCGS);
+                        sl.SetCellValue("X" + currentRow, i.PlannedCoursework);
+                        sl.SetCellValue("Y" + currentRow, i.DoneCoursework);
+                        sl.SetCellValue("Z" + currentRow, i.PlannedOffsetting);
+                        sl.SetCellValue("AA" + currentRow, i.DoneOffsetting);
+                        sl.SetCellValue("AB" + currentRow, i.PlannedSemestrExam);
+                        sl.SetCellValue("AC" + currentRow, i.DoneSemestrExam);
+                        sl.SetCellValue("AD" + currentRow, i.PlannedTrainingPract);
+                        sl.SetCellValue("AE" + currentRow, i.DoneTrainingPract);
+                        sl.SetCellValue("AF" + currentRow, i.PlannedDEK);
+                        sl.SetCellValue("AG" + currentRow, i.DoneDEK);
+                        sl.SetCellValue("AH" + currentRow, i.PlannedStateExam);
+                        sl.SetCellValue("AI" + currentRow, i.DoneStateExam);
+                        sl.SetCellValue("AJ" + currentRow, i.PlannedDiploma);
+                        sl.SetCellValue("AK" + currentRow, i.DoneDiploma);
+                        sl.SetCellValue("AL" + currentRow, i.PlannedPostgraduates);
+                        sl.SetCellValue("AM" + currentRow, i.DonePostgraduates);
                         currentRow++;
                     }
 
@@ -91,11 +92,14 @@ namespace Calculation
                     var now = Int32.Parse(date);
                     sl.SetCellValue("B9", user.DepartmentUsers.FirstOrDefault().Department.Faculty.Name);
                     sl.SetCellValue("B12", user.DepartmentUsers.FirstOrDefault().Department.Name);
-                    sl.SetCellValue("A24", user.FirstName + " " + user.LastName + " " + user.ThirdName);
-                    sl.SetCellValue("A34", now-1 + " / " + DateTime.Now.Year.ToString());
-                    sl.SetCellValue("B34", user.Position.Value.ToString().FirstOrDefault());
-                    sl.SetCellValue("C34", user.AcademicTitle.Value.ToString().FirstOrDefault());
-                    sl.SetCellValue("D34", user.Degree.Value.ToString().FirstOrDefault());
+                    sl.SetCellValue("A24", user.LastName + " " + user.FirstName + " " + user.ThirdName);
+                    sl.SetCellValue("A34", now - 1 + " / " + DateTime.Now.Year.ToString());
+                    sl.SetCellValue("C28", DateTime.Now.Date.ToString("dd/MM/yyyy"));
+                    sl.SetCellValue("E28", DateTime.Now.Date.ToString("dd/MM/yyyy"));
+                    //sl.SetCellValue("B34", user.Position.Value.ToString().FirstOrDefault());
+                    //sl.SetCellValue("C34", user.AcademicTitle.Value.ToString().FirstOrDefault());
+                    sl.SetCellValue("C34", "Доцент кафедри");
+                    //sl.SetCellValue("D34", user.Degree.Value.ToString().FirstOrDefault());
                     //sl.SetCellValue("E34", user.DepartmentUsers.Select(x => x.Rate).ToString());
                     sl.SetCellValue("E34", "");
                 }
