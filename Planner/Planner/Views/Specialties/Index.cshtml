@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Domain.Models.Specialty>
+
+@{
+    ViewBag.Title = "Список спеціальностей";
+}
+
+<h2>Список спеціальностей</h2>
+
+<p>
+    @Html.ActionLink("Створити", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Детальніше", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

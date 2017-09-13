@@ -1,0 +1,64 @@
+﻿@model Domain.Models.IndivPlanFields
+
+@{
+    ViewBag.Title = "Видалити";
+}
+
+<h2>Видалити</h2>
+
+<h3>Ви впевнені, що хочете видалити даний запис?</h3>
+<div>
+    <h4>Список робіт інливідульного плану</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IndPlanType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IndPlanType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchemaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchemaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Suffix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Suffix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TabName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TabName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Повернутися до списку", "Index")
+        </div>
+    }
+</div>

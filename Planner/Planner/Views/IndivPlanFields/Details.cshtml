@@ -1,0 +1,58 @@
+﻿@model Domain.Models.IndivPlanFields
+
+@{
+    ViewBag.Title = "Детальна інформація";
+}
+
+<h2>Детальніше</h2>
+
+<div>
+    <h4>Список робіт інливідульного плану</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IndPlanType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IndPlanType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchemaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchemaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Suffix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Suffix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TabName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TabName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редагування", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Повернутися до списку", "Index")
+</p>

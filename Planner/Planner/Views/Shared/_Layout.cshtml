@@ -145,6 +145,64 @@
                                         <li><a href="~/Home/AboutTeachLoad">Навантаження на викладача</a></li>
                                     </ul>
                                 </li>
+
+                                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
+                                {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Адміністративний модуль<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Courses/Index">Список курсів</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Departments/Index">Список кафедр</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Faculties/Index">Список факультетів</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/IndivPlanFields/Index">Список робіт індивідуального плану</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/NMBDs/Index">Список індексів цитувань</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/PlanChanges/Index">Зміни до індивідуального плану</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/PlanConclusions/Index">Висновки до індивідуального плану</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/PlanRemarks/Index">Зауваження до індивідуального плану</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/PlanTrainingJobs/Index">Список навчальних робіт</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Specializes/Index">Список спеціалізацій</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Specialties/Index">Список спеціальностей</a></li>
+                                            }
+                                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                                            {
+                                                <li><a href="~/Subjects/Index">Список предметів</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+
                                 <li> <a href="/Account/Logoff">Вийти</a> </li>
                             </ul>
                         </div>
@@ -308,6 +366,64 @@
                         </ul>
                     </li>
                 }
+
+                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment")))
+                {
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Адміністративний модуль<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Courses/Index">Список курсів</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Departments/Index">Список кафедр</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Faculties/Index">Список факультетів</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/IndivPlanFields/Index">Список робіт індивідуального плану</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/NMBDs/Index">Список індексів цитувань</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/PlanChanges/Index">Зміни до індивідуального плану</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/PlanConclusions/Index">Висновки до індивідуального плану</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/PlanRemarks/Index">Зауваження до індивідуального плану</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/PlanTrainingJobs/Index">Список навчальних робіт</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Specializes/Index">Список спеціалізацій</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Specialties/Index">Список спеціальностей</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("TeacherModerator"))
+                            {
+                                <li><a href="~/Subjects/Index">Список предметів</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+
                 @if (Request.IsAuthenticated)
                 {
                     <li class="mt">

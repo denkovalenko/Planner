@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Domain.Models.Specialize>
+
+@{
+    ViewBag.Title = "Список спеціалізацій";
+}
+
+<h2>Список спеціалізацій</h2>
+
+<p>
+    @Html.ActionLink("Створити", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cipher)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cipher)
+        </td>
+        <td>
+            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Детальніше", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
