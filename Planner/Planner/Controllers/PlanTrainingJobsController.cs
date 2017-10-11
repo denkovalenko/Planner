@@ -39,7 +39,7 @@ namespace Planner.Controllers
         // GET: PlanTrainingJobs/Create
         public ActionResult Create()
         {
-            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FirstName");
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace Planner.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FirstName", planTrainingJob.ApplicationUserId);
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FirstName", planTrainingJob.ApplicationUserId);
             return View(planTrainingJob);
         }
 
@@ -73,7 +73,7 @@ namespace Planner.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FirstName", planTrainingJob.ApplicationUserId);
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FirstName", planTrainingJob.ApplicationUserId);
             return View(planTrainingJob);
         }
 
@@ -90,7 +90,7 @@ namespace Planner.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ApplicationUserId = new SelectList(db.ApplicationUsers, "Id", "FirstName", planTrainingJob.ApplicationUserId);
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "FirstName", planTrainingJob.ApplicationUserId);
             return View(planTrainingJob);
         }
 
