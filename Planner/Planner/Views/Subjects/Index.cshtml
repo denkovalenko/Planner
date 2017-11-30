@@ -1,33 +1,36 @@
 ﻿@model IEnumerable<Domain.Models.Subject>
 
 @{
-    ViewBag.Title = "Предмети";
+    ViewBag.Title = "Список предметів";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<h2>Список предметів</h2>
+<div class="content-wrapper">
+    <div style="width:600px; margin: 0 auto;">
+        <p style="font-size: 24px!important" class="login-box-msg">Список предметів</p>
+        <br />
+    </div>
+    <table class="table">
+        <tr>
+            <td width="400"><h2>Список предметів</h2></td>
+            <td><a href="~/Subjects/Create" style="font-size: 16px!important" class="btn btn-primary">Створити</a></td>
+        </tr>
 
-<p>
-    @Html.ActionLink("Створити", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }, new { @style = "font-size: 16px!important", @class = "btn btn-primary" })
+                    @Html.ActionLink("Детальніше", "Details", new { id = item.Id }, new { @style = "font-size: 16px!important", @class = "btn btn-primary" })
+                    @Html.ActionLink("Видалити", "Delete", new { id = item.Id }, new { @style = "font-size: 16px!important", @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Детальніше", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
 
-</table>
+    </table>
+</div>
