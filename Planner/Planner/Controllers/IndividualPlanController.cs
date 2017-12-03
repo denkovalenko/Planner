@@ -31,7 +31,7 @@ namespace Planner.Controllers
 
         public ActionResult DownloadReport()
         {
-            string fileName = "Ind_plan.xlsx";
+            string fileName = "Ind_plan.xlsm";
             SLDocument doc = PublicationReportBuilder.FacultyReportBuild(User.Identity.Name);
             var ms = new MemoryStream();
             doc.SaveAs(ms);

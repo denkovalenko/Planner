@@ -30,29 +30,36 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+ 
+
 </head>
+
 <body class="hold-transition login-page">
+
     <div class="header-widget">
         <div class="site-logo">
             <a href="http://www.hneu.edu.ua/" title="Харківский  національний економічний університет імені Семена Кузнеця" rel="home">
-                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 140px;">
+                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 120px;float:left">
             </a>
-        </div>
-    </div>
-        <div class="login-box">
             <div class="login-logo">
                 <p class="main-title" itemprop="headline">
-                    <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА</c><br />
+                    <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧІВ <br>ХАРКІВСЬКИЙ НАЦІОНАЛНИЙ УНІВЕРСИТЕТ ІМЕНІ СЕМЕНА КУЗНЕЦЯ</c><br>
                 </p>
-                @*<b>ПЛАНУВАЛЬНИК<br /> НАВАНТАЖЕННЯ ВИКЛАДАЧА</b><br />
-                <b1 href="/">ХНЄУ ІМ. С. КУЗНЕЦЯ</b1>*@
-            </div><!-- /.login-logo -->
-            <div class="login-box-body">
-                <p class="login-box-msg">Авторизуйтеся для подальшої роботи</p>
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
-            {
-                    @Html.AntiForgeryToken()
-                    <hr />
+            </div>
+        </div>
+        
+    </div>
+   
+    <div class="container body-content" style="width: 600px">
+        <div id="background-img" class="background-img">
+            <img id="house" src="~/Content/Images/house.png" style="height: 450px;">
+        </div>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", style = "background-color: rgba(0,0,0,0.5);padding: 25px;border-radius: 9px;" }))
+        {
+
+            @Html.AntiForgeryToken()
+            
+            <label for="usr" style="color: white">Авторизуйтеся для подальшої роботи</label>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group has-feedback">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Електронна адреса" })
@@ -76,66 +83,12 @@
                             <button type="submit" class="btn btn-primary btn-block btn-flat">Увійти</button>
                         </div><!-- /.col -->
                     </div>
-                }
-
-            </div><!-- /.login-box-body -->
-        </div><!-- /.login-box -->
-        @*<div class="row">
-                <div class="col-md-8">
-                    <section id="loginForm">
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <h4>Use a local account to log in.</h4>
-                            <hr />
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <div class="checkbox">
-                                        @Html.CheckBoxFor(m => m.RememberMe)
-                                        @Html.LabelFor(m => m.RememberMe)
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Log in" class="btn btn-default" />
-                                </div>
-                            </div>
-                            <p>
-                                @Html.ActionLink("Register as a new user", "Register")
-                            </p>
-                             Enable this once you have account confirmation enabled for password reset functionality
-                                <p>
-                                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                                </p>
-                        }
-                    </section>
-                </div>
-                <div class="col-md-4">
-                    <section id="socialLoginForm">
-                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                    </section>
-                </div>
-            </div>*@
-
-        @*@section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-            }*@
+        }
+        
+       @*<footer>
+            <p style="color: white">© 2017 - Планувальник навантаження викладачів ХНЄУ ім. С. Кузнеця</p>
+        </footer>*@
+    </div>        
 
         <script src="~/Scripts/plugins/jQuery/jQuery-2.1.4.min.js"></script>
         <script src="~/Scripts/plugins/iCheck/icheck.min.js"></script>
