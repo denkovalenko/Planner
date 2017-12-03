@@ -155,6 +155,7 @@ namespace Planner.Controllers
             using (ApplicationDbContext ctx = new ApplicationDbContext())
             {
                 var teachers = (from us in ctx.Users
+                                //join s in ctx.FactTeachersRates on us.Id equals s.UserId
                                     //from tc in ctx.DepartmentUsers
                                     //join dep in ctx.Departments on tc.DepartmentId equals dep.Id
                                     //join us in ctx.Users on tc.UserId equals us.Id
@@ -168,6 +169,21 @@ namespace Planner.Controllers
                                 }).Distinct().OrderBy(s => s.LastName).ToList();
 
                 return this.Json(teachers, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpGet]
+        public JsonResult GetRates()
+        {
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                var rates = (from rt in ctx.Rates
+                                select new
+                                {
+                                    Id = rt.Id,
+                                    Value = rt.Value,
+                                }).OrderBy(s => s.Value).ToList();
+
+                return this.Json(rates, JsonRequestBehavior.AllowGet);
             }
         }
         [HttpGet]
@@ -930,6 +946,162 @@ namespace Planner.Controllers
             }
             return "Данные обновлены!";
         }
+
+        [HttpPost]
+        public string AddTeachersRate(TeachersRate tr)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (ApplicationDbContext ctx = new ApplicationDbContext())
+                    {
+                        ctx.TeachersRates.Add(tr);
+                        FactTeachersRate ft = new FactTeachersRate()
+                        {
+                            RateId = tr.RateId,
+                            UserId = tr.UserId,
+                            Total = tr.Total
+                        };
+                        ctx.FactTeachersRates.Add(ft);
+                        ctx.SaveChanges();
+                        return "Данные добавлены!";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error" + ex.Message);
+                }
+            }
+
+            return "Что-то пошло не так!";
+
+        }
+
+        #endregion
+
+        #region Teachers rate
+        [HttpGet]
+        public ActionResult TeachersRate()
+        {
+            return View();
+        }
+
+        public JsonResult AllTeachersRate()
+        {
+            List<TeachersRateViewModel> tcRatesList;
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                tcRatesList = (from tr in ctx.TeachersRates
+                                   join us in ctx.Users on tr.UserId equals us.Id
+                                   join rt in ctx.Rates on tr.RateId equals rt.Id
+                                   select new TeachersRateViewModel()
+                                   {
+                                       Id = tr.Id,
+                                       RateValue = rt.Value,
+                                       UserName = us.LastName + " " + us.FirstName + us.ThirdName,
+                                       Total = tr.Total
+                                   }).ToList();
+            }
+            return new JsonResult() { Data = tcRatesList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+        [HttpGet]
+        public ActionResult CurrTeachersRate()
+        {
+            return View();
+        }
+        [HttpGet]
+        public JsonResult CurrentTeachersRate()
+        {
+            List<TeachersRateViewModel> list;
+
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                
+                list = (from s in ctx.FactTeachersRates
+                          join s2 in ctx.Rates on s.RateId equals s2.Id
+                          select new TeachersRateViewModel
+                          {
+                              TeacherId = s.UserId,
+                              Current = (ctx.DayTeachLoads.Where(s1=> s1.ApplicationUserId == s.UserId).Sum(q=> q.Total)== null ? 0: ctx.DayTeachLoads.Where(s1 => s1.ApplicationUserId == s.UserId).Sum(q => q.Total)) + (ctx.ExtramuralTeachLoads.Where(s1 => s1.ApplicationUserId == s.UserId).Sum(q => q.Total) == null ? 0 : ctx.ExtramuralTeachLoads.Where(s1 => s1.ApplicationUserId == s.UserId).Sum(q => q.Total)),
+                              //Current = ctx.ExtramuralTeachLoads.Where(s1 => s1.ApplicationUserId== s.UserId).Sum(q => q.Total) == null ? 0 : ctx.ExtramuralTeachLoads.Where(s1 => s1.ApplicationUserId == s.UserId).Sum(q => q.Total),
+                              //Current = ctx.DayTeachLoads.Where(s1 => s1.ApplicationUserId == s.UserId).Sum(q => q.Total),
+                              Total = s.Total,
+                              RateValue = s2.Value
+                          }).ToList();
+          
+
+                list = (from s in list
+                        group s by s.TeacherId into g
+                        select new TeachersRateViewModel
+                        {
+                            UserName = ctx.Users.Where(s => s.Id == g.Key).Select(s => s.FirstName + " " + s.LastName + " " + s.ThirdName).FirstOrDefault(),
+                            Total = g.Sum(s => s.Total),
+                            Current = list.Where(a=> a.TeacherId == g.Key).Select(s=> s.Current).FirstOrDefault(),
+                            RateValue = g.Sum(s => s.RateValue)
+                        }).ToList();
+            }
+            return new JsonResult() { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        public JsonResult FactTeachersRate()
+        {
+            List<TeachersRateViewModel> tcRatesList;
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                tcRatesList = (from tr in ctx.FactTeachersRates
+                               join us in ctx.Users on tr.UserId equals us.Id
+                               join rt in ctx.Rates on tr.RateId equals rt.Id
+                               select new TeachersRateViewModel()
+                               {
+                                   Id = tr.Id,
+                                   RateValue = rt.Value,
+                                   UserName = us.LastName + " " + us.FirstName + us.ThirdName,
+                                   Total = tr.Total
+                               }).ToList();
+            }
+            return new JsonResult() { Data = tcRatesList, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+        [HttpGet]
+        public JsonResult GetFactTeachersRateById(String Id)
+        {
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                TeachersRateViewModel factTach;
+               // var fact = ctx.FactTeachersRates.Where(s=> s.Id == Id);
+                factTach = (from tr in ctx.FactTeachersRates
+                               join us in ctx.Users on tr.UserId equals us.Id
+                               join rt in ctx.Rates on tr.RateId equals rt.Id
+                               where(tr.Id == Id)
+                               select new TeachersRateViewModel()
+                               {
+                                   Id = tr.Id,
+                                   RateValue = rt.Value,
+                                   UserName = us.LastName + " " + us.FirstName + us.ThirdName,
+                                   Total = tr.Total
+                               }).FirstOrDefault();
+
+                //var dt = mp.MappProduct(product);
+                return new JsonResult() { Data = factTach, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            
+        }
+
+        [HttpPost]
+        public string EditFactTeachersRate(TeachersRate rate)
+        {
+            using (ApplicationDbContext ctx = new ApplicationDbContext())
+            {
+                var getById = ctx.FactTeachersRates.Where(s => s.Id == rate.Id).FirstOrDefault();
+                getById.Total = rate.Total;
+                ctx.Entry(getById).State = System.Data.Entity.EntityState.Modified;
+                ctx.SaveChanges();
+            }
+
+                return "Data successfully added";
+        }
+
         #endregion
     }
 }
