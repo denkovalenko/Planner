@@ -233,11 +233,17 @@
     <Content Include="Content\Images\Y-mX4M0z0hQ.jpg" />
     <Content Include="Content\jquery.gritter.css" />
     <Content Include="Content\Images\nav-expand.png" />
+    <Content Include="Content\ngDialog-theme-default.css" />
+    <Content Include="Content\ngDialog.css" />
+    <Content Include="Content\ngDialog.min.css" />
     <Content Include="Content\skin-blue-light.min.css" />
     <Content Include="Content\style-responsive.css" />
     <Content Include="Content\style.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\Templates\IndivPlanTable.html" />
+    <Content Include="Content\ui-grid.css" />
+    <Content Include="Content\ui-grid.min.css" />
+    <Content Include="Content\ui-grid.svg" />
     <Content Include="Content\zabuto_calendar.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="favicon.ico" />
@@ -276,6 +282,7 @@
     <Content Include="Scripts\App\Controllers\getUsersController.js" />
     <Content Include="Scripts\App\Controllers\scientificWorkController.js" />
     <Content Include="Scripts\App\Controllers\tabController.js" />
+    <Content Include="Scripts\App\Controllers\teachersRatesContoller.js" />
     <Content Include="Scripts\App\Controllers\timetableController.js" />
     <Content Include="Scripts\App\Controllers\registerController.js" />
     <Content Include="Scripts\App\Controllers\sidebarController.js" />
@@ -285,6 +292,7 @@
     <Content Include="Scripts\App\Factories\validationFactory.js" />
     <Content Include="Scripts\App\Services\keeperService.js" />
     <Content Include="Scripts\App\Services\indivPlanService.js" />
+    <Content Include="Scripts\App\Services\teachersRateService.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\common-scripts.js" />
@@ -308,6 +316,9 @@
     <Content Include="App_Data\CommonExtraFormatReport.xlsx" />
     <Content Include="App_Data\DayTeachLoadReport.xlsx" />
     <Content Include="App_Data\ExtramuralTeachLoadReport.xlsx" />
+    <Content Include="Content\ui-grid.woff" />
+    <Content Include="Content\ui-grid.ttf" />
+    <Content Include="Content\ui-grid.eot" />
     <None Include="Properties\PublishProfiles\neyhome.pubxml" />
     <None Include="Properties\PublishProfiles\vlad.pubxml" />
     <None Include="Properties\PublishProfiles\фів.pubxml" />
@@ -1218,6 +1229,8 @@
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\ngDialog.js" />
+    <Content Include="Scripts\ngDialog.min.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Scripts\plugins\bootstrap-slider\slider.css" />
     <Content Include="Scripts\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -1939,6 +1952,8 @@
     <Content Include="Scripts\plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Scripts\zabuto_calendar.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -2032,6 +2047,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\AboutTeachLoad.cshtml" />
     <Content Include="UploadedFiles\Blank_2017_Ind_plan.xlsx" />
+    <Content Include="Views\Distribution\TeachersRate.cshtml" />
+    <Content Include="Views\Distribution\CurrTeachersRate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />

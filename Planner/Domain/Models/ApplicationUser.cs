@@ -51,6 +51,8 @@ namespace Domain.Models
         public virtual ICollection<PlanRemark> PlanRemark { get; set; }
         public virtual ICollection<IndivPlanFieldsValue> IndivPlanFieldsValues { get; set; }
         public virtual ICollection<PlanTrainingJob> PlanTrainingJob { get; set; }
+        public virtual ICollection<TeachersRate> TeachersRates { get; set; }
+        public virtual ICollection<FactTeachersRate> FactTeachersRates { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
