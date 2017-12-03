@@ -30,10 +30,6 @@
         return save;
     }
 
-    //this.getWareHouseId = function (WareHouseId) {
-    //    return $http.get("/WareHouse/GetWareHouseById?WareHouseId=" + WareHouseId);
-    //}
-
     this.editFactTeachersRate = function (TeacRate) {
         var save = $http({
             method: 'POST',
@@ -42,27 +38,5 @@
         });
         return save;
     }
-
-
-    //this.editWareHouse = function (WareHouses) {
-    //    var save = $http({
-    //        method: 'POST',
-    //        url: '/WareHouse/EditWareHouse/',
-    //        data: WareHouses
-    //    });
-    //    return save;
-    //}
-
-    //this.deleteWareHouse = function (WareHouseId) {
-    //    var deleterecord = $http({
-    //        method: 'POST',
-    //        url: "/WareHouse/DeleteWareHouse?WareHouseId=" + WareHouseId
-    //    });
-    //    return deleterecord;
-    //}
-
-    //this.getProducts = function () {
-    //    return $http.get("/WareHouse/GetProducts");
-    //}
 
 });

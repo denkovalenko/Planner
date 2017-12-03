@@ -1,29 +1,10 @@
 ﻿PlannerApp.controller('teachersRatesController', function ($scope, teacherservice,ngDialog) {
 
-    //var WareHouses = crud.getAllWareHouses();
     var TeacRate = teacherservice.getAllTeachersRate();
     var FactTeacRate = teacherservice.getFactTeachersRate();
     var CurrentTeachersRate = teacherservice.currentTeachersRate();
     $scope.TeacRates = [];
 
-    //$scope.selectedProduct;
-    //$scope.selectionChanged = function (rowChanged) {
-    //    if (rowChanged.isSelected) {
-
-    //        alert("Information about WareHouse");
-    //    }
-    //};
-
-    //loadProd();
-    //function loadProd() {
-    //    var prod = crud.getProducts();
-    //    prod.then(function (data) {
-    //        $scope.products = data.data;
-    //    },
-    //        function () {
-    //            console("Oops..", "Error occured while loading", "error");
-    //        });
-    //}
 
 
     $scope.gridCurrentTeachersRate = {
@@ -208,6 +189,7 @@
             var saveTeacRate = teacherservice.saveTeachersRate(TeacRate);
             saveTeacRate.then(function (d) {
                 loadTeachersRate();
+                loadFactTeachersRate();
             });
         });
     }
