@@ -65,8 +65,7 @@ namespace Domain.Models
         public DbSet<NDR> NDR { get; set; }
         public DbSet<IndivPlanFields> IndivPlanFields { get; set; }
         public DbSet<IndPlanType> IndPlanTypes { get; set; }
-        public DbSet<TeachersRate> TeachersRates { get; set; }
-        public DbSet<FactTeachersRate> FactTeachersRates { get; set; }
+        //public DbSet<TeachersRate> TeachersRates { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

@@ -18,7 +18,7 @@ namespace Planner.Controllers
         public ActionResult Index()
         {
             var indivPlanFields = db.IndivPlanFields.Include(i => i.IndPlanType);
-            return View(indivPlanFields.ToList());
+            return View(db.IndivPlanFields.OrderBy(item => item.DisplayName).ToList());
         }
 
         // GET: IndivPlanFields/Details/5

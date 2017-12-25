@@ -17,7 +17,7 @@ namespace Planner.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            return View(db.Courses.ToList());
+            return View(db.Courses.OrderBy(item => item.Literal).ToList());
         }
 
         // GET: Courses/Details/5

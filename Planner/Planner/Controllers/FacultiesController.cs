@@ -17,7 +17,7 @@ namespace Planner.Controllers
         // GET: Faculties
         public ActionResult Index()
         {
-            return View(db.Faculties.ToList());
+            return View(db.Faculties.OrderBy(item => item.Name).ToList());
         }
 
         // GET: Faculties/Details/5

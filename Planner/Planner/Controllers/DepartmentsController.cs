@@ -18,7 +18,7 @@ namespace Planner.Controllers
         public ActionResult Index()
         {
             var departments = db.Departments.Include(d => d.Faculty);
-            return View(departments.ToList());
+            return View(db.Departments.OrderBy(item => item.Code).ToList());
         }
 
         // GET: Departments/Details/5

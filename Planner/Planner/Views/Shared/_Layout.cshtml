@@ -289,7 +289,7 @@
                         </a>
                     </li>
                 }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
+                @*@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
                 {
                     <li class="mt">
                         <a href="~/Distribution/CurrTeachersRate">
@@ -306,7 +306,7 @@
                             <span>Ставка викладача</span>
                         </a>
                     </li>
-                }
+                }*@
 
 
 
@@ -322,24 +322,6 @@
                                 <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
                                 <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
                                 <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
-                        </ul>
-                    </li>
-                }
-
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
-                {
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Адміністративний модуль<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-
-                            <li><a href="~/Courses/Index">Список курсів</a></li>
-                            <li><a href="~/Departments/Index">Список кафедр</a></li>
-                            <li><a href="~/Faculties/Index">Список факультетів</a></li>
-                            <li><a href="~/IndivPlanFields/Index">Список робіт індивідуального плану</a></li>
-                            <li><a href="~/NMBDs/Index">Список індексів цитувань</a></li>
-                            <li><a href="~/Specializes/Index">Список спеціалізацій</a></li>
-                            <li><a href="~/Specialties/Index">Список спеціальностей</a></li>
-                            <li><a href="~/Subjects/Index">Список предметів</a></li>
                         </ul>
                     </li>
                 }
