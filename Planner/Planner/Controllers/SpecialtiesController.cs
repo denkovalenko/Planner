@@ -17,7 +17,7 @@ namespace Planner.Controllers
         // GET: Specialties
         public ActionResult Index()
         {
-            return View(db.Specialties.ToList());
+            return View(db.Specialties.OrderBy(item => item.Code).ToList());
         }
 
         // GET: Specialties/Details/5

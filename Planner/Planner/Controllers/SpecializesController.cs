@@ -17,7 +17,7 @@ namespace Planner.Controllers
         // GET: Specializes
         public ActionResult Index()
         {
-            return View(db.Specializes.ToList());
+            return View(db.Specializes.OrderBy(item => item.Cipher).ToList());
         }
 
         // GET: Specializes/Details/5

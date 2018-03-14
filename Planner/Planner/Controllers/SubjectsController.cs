@@ -17,7 +17,7 @@ namespace Planner.Controllers
         // GET: Subjects
         public ActionResult Index()
         {
-            return View(db.Subjects.ToList());
+            return View(db.Subjects.OrderBy(item => item.Name).ToList());
         }
 
         // GET: Subjects/Details/5
