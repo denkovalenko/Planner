@@ -250,4 +250,25 @@ namespace Planner.Models
         public double StudentsCount { get; set; }
         public double CourseLiteral { get; set; }
     }
+
+    public class TeachersRateViewModel
+    {
+        public String Id { get; set; }
+        public Double? Total { get; set; }
+        public Double RateValue { get; set; }
+        public String UserName { get; set; }
+        public String TeacherId { get; set; }
+        public Double? Current { get; set; }
+    }
+
+    public class CurrentTeachersRateViewModel
+    {
+        public String Id { get; set; }
+        public String DayTeachLoadId { get; set; }
+        public String ExtramuralTeachLoadsId { get; set; }
+        public Double Total { get; set; }
+        public Double RateValue { get; set; }
+        public Double Current { get; set; }
+        public String UserName { get; set; }
+    }
 }

@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201706122336034_DEK.Designer.cs">
       <DependentUpon>201706122336034_DEK.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712052318574_NewMigration.cs" />
+    <Compile Include="Migrations\201712052318574_NewMigration.Designer.cs">
+      <DependentUpon>201712052318574_NewMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712251101486_UpdateDB.cs" />
+    <Compile Include="Migrations\201712251101486_UpdateDB.Designer.cs">
+      <DependentUpon>201712251101486_UpdateDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\DayEntryLoad.cs" />
     <Compile Include="Models\DaySemester.cs" />
@@ -346,6 +354,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706122336034_DEK.resx">
       <DependentUpon>201706122336034_DEK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712052318574_NewMigration.resx">
+      <DependentUpon>201712052318574_NewMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712251101486_UpdateDB.resx">
+      <DependentUpon>201712251101486_UpdateDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

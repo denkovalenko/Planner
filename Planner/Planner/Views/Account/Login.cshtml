@@ -35,16 +35,17 @@
 </head>
 
 <body class="hold-transition login-page">
+
     <div class="header-widget">
-        <div class="login-logo">
+        <div class="site-logo">
             <a href="http://www.hneu.edu.ua/" title="Харківский  національний економічний університет імені Семена Кузнеця" rel="home">
-                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 140px;">
+                <img class="header-image" src="http://www.ei.hneu.edu.ua/images/logo2.png" style="width: 120px;float:left">
             </a>
-
-            <p class="main-title" itemprop="headline">
-                <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧІВ <br>ХАРКІВСЬКИЙ НАЦІОНАЛНИЙ УНІВЕРСИТЕТ ІМЕНІ СЕМЕНА КУЗНЕЦЯ</c><br>
-            </p>
-
+            <div class="login-logo">
+                <p class="main-title" itemprop="headline">
+                    <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧІВ <br>ХАРКІВСЬКИЙ НАЦІОНАЛНИЙ УНІВЕРСИТЕТ ІМЕНІ СЕМЕНА КУЗНЕЦЯ</c><br>
+                </p>
+            </div>
         </div>
         
     </div>
@@ -53,11 +54,11 @@
         <div id="background-img" class="background-img">
             <img id="house" src="~/Content/Images/house.png" style="height: 450px;">
         </div>
-        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
-            {
-            
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form", style = "background-color: rgba(0,0,0,0.5);padding: 25px;border-radius: 9px;" }))
+        {
+
             @Html.AntiForgeryToken()
-            <hr />
+            
             <label for="usr" style="color: white">Авторизуйтеся для подальшої роботи</label>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group has-feedback">
@@ -83,7 +84,7 @@
                         </div><!-- /.col -->
                     </div>
         }
-        <hr id="bot">
+        
        @*<footer>
             <p style="color: white">© 2017 - Планувальник навантаження викладачів ХНЄУ ім. С. Кузнеця</p>
         </footer>*@
