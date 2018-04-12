@@ -2466,3 +2466,9 @@ and (min-width : 1824px) {
 .center-block{
     margin: 0 auto;
 }
+
+.change-password-link {
+    font-size: 12pt;
+    text-decoration: underline;
+    padding-bottom: 5px;
+}
