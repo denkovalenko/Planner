@@ -56,9 +56,9 @@ namespace Planner.Controllers
                             FirstName = user.FirstName,
                             LastName = user.LastName,
                             ThirdName = user.ThirdName,
-                            //DegreeEnum = user.Degree.Value,
-                            //PositionEnum = user.Position.Value,
-                            //AcademicTitleEnum = user.AcademicTitle.Value,
+                            DegreeEnum = user.Degree.Value,
+                            PositionEnum = user.Position.Value,
+                            AcademicTitleEnum = user.AcademicTitle.Value,
                             ScholarLink = user.ScholarLink,
                             OrcidLink = user.OrcidLink,
                         };
