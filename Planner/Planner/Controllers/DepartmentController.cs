@@ -98,5 +98,35 @@ namespace Planner.Controllers
                 return Redirect("/Department/HalfYearDepartmentPublications");
             }
         }
+
+        public JsonResult UniversityDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public ActionResult PrintUniversityDepartmentReport(string depId, int year, int half)
+        {
+            try
+            {
+                var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
+                SLDocument doc = PublicationReportBuilder.PrintHalfReport(model);
+                var ms = new MemoryStream();
+                doc.SaveAs(ms);
+                ms.Position = 0;
+                var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
+                return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
+            }
+            catch (Exception)
+            {
+                return Redirect("/Department/HalfYearDepartmentPublications");
+            }
+        }
     }
 }

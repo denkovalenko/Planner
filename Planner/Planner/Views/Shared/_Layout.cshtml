@@ -48,14 +48,14 @@
     <script src="~/Scripts/i18n/angular-locale_ru.js"></script>
 
 
-        
+
     @*<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <link href="~/Content/ui-grid.min.css" rel="stylesheet" />
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
-    <script src="~/Scripts/ui-grid.min.js"></script>
-    <script src="~/Scripts/ui-grid.js"></script>*@    
+        <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+        <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+        <link href="~/Content/ui-grid.min.css" rel="stylesheet" />
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+        <script src="~/Scripts/ui-grid.min.js"></script>
+        <script src="~/Scripts/ui-grid.js"></script>*@
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
@@ -100,13 +100,35 @@
                                 </div>
                                 <div class="site-branding">
                                     <p class="main-title" itemprop="headline">
-                                        <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА</c><br/>
+                                        <c title="ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА">ПЛАНУВАЛЬНИК НАВАНТАЖЕННЯ ВИКЛАДАЧА</c><br />
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="wrapper">
+                        <div class="pull-right" style="font-size: 25px; padding-top: 5px;">
+                            @if (User.IsInRole("HeadOfMethodologyDepartment"))
+                            {
+                                <a href="~/Content/Manuals/Planuvalnik_KhNEU_Golova_metodichnogo_viddilu.docx" style="color: white;"><i class="fa fa-question-circle"></i></a>
+                            }
+                            @if (User.IsInRole("HeadOfScientificSector"))
+                            {
+                                <i class="fa fa-question-circle"><a href="~/Content/Manuals/Planuvalnik_KhNEU_Golova_naukovogo_sektora.docx" style="color: white;"></a></i>
+                            }
+                            @if (User.IsInRole("HeadOfStudies"))
+                            {
+                                <i class="fa fa-question-circle"><a href="~/Content/Manuals/Planuvalnik_KhNEU_Golova_navchalnoyi_chastini.docx" style="color: white;"></a></i>
+                            }
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <i class="fa fa-question-circle"><a href="~/Content/Manuals/Planuvalnik_KhNEU_Vikladach.docx" style="color: white;"></a></i>
+                            }
+                            @if (User.IsInRole("TeacherModerator"))
+                            {
+                                <i class="fa fa-question-circle"><a href="~/Content/Manuals/Planuvalnik_KhNEU_Vikladach_moderator.docx" style="color: white;"></a></i>
+                            }
+                        </div>
                         <div class="sidebar-toggle-box">
                             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Згорнути/Розгорнути меню"></div>
                         </div>
@@ -116,264 +138,263 @@
                                 <li><a href="~/Home/Profile">Головна</a></li>
                                 @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
                                 {
-                                <li><a href="~/Publication/Index">Публікації</a></li>
+                                    <li><a href="~/Publication/Index">Публікації</a></li>
                                 }
                                 <li><a href="https://scholar.google.com.ua/ " target="_blank">Google Scholar</a></li>
                                 <li><a href="https://orcid.org" target="_blank">ORCID</a></li>
-                               @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
-                               {
+                                @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
+                                {
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Звіти<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             @if (Request.IsAuthenticated && (User.IsInRole("HeadOfStudies") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
                                             {
-                                            <li><a href="~/Department/DepartmentPublications">Звіт за кафедрою</a></li>
-                                            <li><a href="~/Department/HalfYearDepartmentPublications">Звіт за півріччя</a></li>
+                                                <li><a href="~/Department/DepartmentPublications">Звіт за кафедрою</a></li>
+                                                <li><a href="~/Department/HalfYearDepartmentPublications">Звіт за півріччя</a></li>
+                                                @*<li><a href="~/Department/HalfYearDepartmentPublications">Звіт за університетом</a></li>*@
                                             }
                                             <li><a href="~/IndividualPlan/DownloadReport">Індивідуальний план викладача</a></li>
                                         </ul>
                                     </li>
-                               }
+                                }
                                 @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
                                 {
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Індивідуальний план<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                                <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
-                                                <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
-                                                <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
-                                                <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
+                                            <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
+                                            <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
+                                            <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
+                                            <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
                                         </ul>
                                     </li>
                                 }
-                                @if (Request.IsAuthenticated && (User.IsInRole("HeadOfStudies") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
-                                {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Довідка<span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="~/Home/About">Розподілення навантаження по кафедрі</a></li>
-                                        <li><a href="~/Home/AboutTeachLoad">Навантаження на викладача</a></li>
-                                    </ul>
-                                </li>
-                                } 
-
-                                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
+                                @*@if (Request.IsAuthenticated && (User.IsInRole("HeadOfStudies") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
+                                    {
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Довідка<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="~/Home/About">Розподілення навантаження по кафедрі</a></li>
+                                            <li><a href="~/Home/AboutTeachLoad">Навантаження на викладача</a></li>
+                                        </ul>
+                                    </li>
+                                    }*@@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
                                 {
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Адміністративний модуль<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
 
-                                                <li><a href="~/Courses/Index">Список курсів</a></li>
-                                                <li><a href="~/Departments/Index">Список кафедр</a></li>
-                                                <li><a href="~/Faculties/Index">Список факультетів</a></li>
-                                                <li><a href="~/IndivPlanFields/Index">Список робіт індивідуального плану</a></li>
-                                                <li><a href="~/NMBDs/Index">Список індексів цитувань</a></li>
-                                                <li><a href="~/Specializes/Index">Список спеціалізацій</a></li>
-                                                <li><a href="~/Specialties/Index">Список спеціальностей</a></li>
-                                                <li><a href="~/Subjects/Index">Список предметів</a></li>
+                                            <li><a href="~/Courses/Index">Список курсів</a></li>
+                                            <li><a href="~/Departments/Index">Список кафедр</a></li>
+                                            <li><a href="~/Faculties/Index">Список факультетів</a></li>
+                                            <li><a href="~/IndivPlanFields/Index">Список робіт індивідуального плану</a></li>
+                                            <li><a href="~/NMBDs/Index">Список індексів цитувань</a></li>
+                                            <li><a href="~/Specializes/Index">Список спеціалізацій</a></li>
+                                            <li><a href="~/Specialties/Index">Список спеціальностей</a></li>
+                                            <li><a href="~/Subjects/Index">Список предметів</a></li>
                                         </ul>
                                     </li>
                                 }
 
-                                <li> <a href="/Account/Logoff">Вийти</a> </li>
-                            </ul>
+                                    <li> <a href="/Account/Logoff">Вийти</a> </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </header>
+                    </header>
+                </div>
             </div>
-        </div>
 
 
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu" id="nav-accordion">
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered">
-                    <a><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
-                </p>
-                <h5 class="centered">@User.Identity.Name</h5>
-                <li class="mt">
-                    <a href="~/Home/Profile">
-                        <i class="fa fa-home"></i>
-                        <span>Головна</span>
-                    </a>
-                </li>
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
-                {
+                    <p class="centered">
+                        <a><img src="@Url.Action("GetProfilePic", "Account", new { userName = @User.Identity.Name })" class="img-circle"></a>
+                    </p>
+                    <h5 class="centered">@User.Identity.Name</h5>
                     <li class="mt">
-                        <a href="~/Account/Register">
-                            <i class="fa fa-user-md"></i>
-                            <span>Нові користувачі</span>
+                        <a href="~/Home/Profile">
+                            <i class="fa fa-home"></i>
+                            <span>Головна</span>
                         </a>
                     </li>
-                }
-               @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
-               {
-                    <li class="mt">
-                        <a href="~/Account/GetUsers">
-                            <i class="fa fa-users"></i>
-                            <span>Користувачі</span>
-                        </a>
-                    </li>
-                }
-@if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
-{
-                <li class="mt">
-                    <a href="~/Publication/Index">
-                        <i class="fa fa-pencil-square"></i>
-                        <span>Публікації</span>
-                    </a>
-                </li>
-}
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
+                    {
+                        <li class="mt">
+                            <a href="~/Account/Register">
+                                <i class="fa fa-user-md"></i>
+                                <span>Нові користувачі</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfStudies")))
+                    {
+                        <li class="mt">
+                            <a href="~/Account/GetUsers">
+                                <i class="fa fa-users"></i>
+                                <span>Користувачі</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
+                    {
+                        <li class="mt">
+                            <a href="~/Publication/Index">
+                                <i class="fa fa-pencil-square"></i>
+                                <span>Публікації</span>
+                            </a>
+                        </li>
+                    }
 
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Ndr/Index">
-                            <i class="fa fa-search"></i>
-                            <span>Результати НДР студентів</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Department/DepartmentPublications">
-                            <i class="fa fa-database"></i>
-                            <span>Звіт за кафедрою</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Department/HalfYearDepartmentPublications">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Звіт за півріччя</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
-                {
-                    <li class="mt">
-                        <a href="~/IndividualPlan/DownloadReport">
-                            <i class="fa fa-mail-reply"></i>
-                            <span>Індивідуальний план<br/>викладача</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Distribution/Index">
-                            <i class="fa fa-arrows"></i>
-                            <span>Розподілення навантаження<wbr>по кафедрі</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Distribution/TeachLoad">
-                            <i class="fa fa-print"></i>
-                            <span>Навантаження на викладача</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Distribution/UploadEntry">
-                            <i class="fa fa-upload"></i>
-                            <span>Файл навантаження</span>
-                        </a>
-                    </li>
-                }
-                @*@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Distribution/CurrTeachersRate">
-                            <i class="fa fa-book"></i>
-                            <span>Поточні часи <br/>викладача</span>
-                        </a>
-                    </li>
-                }
-                @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
-                {
-                    <li class="mt">
-                        <a href="~/Distribution/TeachersRate">
-                            <i class="fa fa-server"></i>
-                            <span>Ставка викладача</span>
-                        </a>
-                    </li>
-                }*@
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Ndr/Index">
+                                <i class="fa fa-search"></i>
+                                <span>Результати НДР студентів</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Department/DepartmentPublications">
+                                <i class="fa fa-database"></i>
+                                <span>Звіт за кафедрою</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Department/HalfYearDepartmentPublications">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Звіт за півріччя</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
+                    {
+                        <li class="mt">
+                            <a href="~/IndividualPlan/DownloadReport">
+                                <i class="fa fa-mail-reply"></i>
+                                <span>Індивідуальний план<br />викладача</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Distribution/Index">
+                                <i class="fa fa-arrows"></i>
+                                <span>Розподілення навантаження<wbr>по кафедрі</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Distribution/TeachLoad">
+                                <i class="fa fa-print"></i>
+                                <span>Навантаження на викладача</span>
+                            </a>
+                        </li>
+                    }
+                    @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("HeadOfStudies") || User.IsInRole("TeacherModerator")))
+                    {
+                        <li class="mt">
+                            <a href="~/Distribution/UploadEntry">
+                                <i class="fa fa-upload"></i>
+                                <span>Файл навантаження</span>
+                            </a>
+                        </li>
+                    }
+                    @*@if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
+                        {
+                            <li class="mt">
+                                <a href="~/Distribution/CurrTeachersRate">
+                                    <i class="fa fa-book"></i>
+                                    <span>Поточні часи <br/>викладача</span>
+                                </a>
+                            </li>
+                        }
+                        @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("TeacherModerator")))
+                        {
+                            <li class="mt">
+                                <a href="~/Distribution/TeachersRate">
+                                    <i class="fa fa-server"></i>
+                                    <span>Ставка викладача</span>
+                                </a>
+                            </li>
+                        }*@
 
 
 
-               @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
-               {
-                    <li class="sub-menu">
-                        <a href="javascript:;">
-                            <i class="fa fa-user"></i>
-                            <span>Індивідуальний план</span>
-                        </a>
-                        <ul class="sub">
+                    @if (Request.IsAuthenticated && (User.IsInRole("Teacher") || User.IsInRole("Admin") || User.IsInRole("TeacherModerator") || User.IsInRole("HeadOfMethodologyDepartment") || User.IsInRole("HeadOfScientificSector") || User.IsInRole("HeadOfStudies")))
+                    {
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-user"></i>
+                                <span>Індивідуальний план</span>
+                            </a>
+                            <ul class="sub">
                                 <li><a href="~/IndividualPlan/TrainingJob">Навчальна робота</a></li>
                                 <li><a href="~/IndividualPlan/PlanMethodicalWork">Методична робота</a></li>
                                 <li><a href="~/IndividualPlan/PlanScientificWork">Наукова робота</a></li>
                                 <li><a href="~/IndividualPlan/PlanManagment">Організаційна робота</a></li>
-                        </ul>
-                    </li>
-                }
+                            </ul>
+                        </li>
+                    }
 
-                @if (Request.IsAuthenticated)
-                {
-                    <li class="mt">
-                        <a href="~/Timetable/Index">
-                            <i class="fa fa-dashboard"></i>
-                            <span>Розклад</span>
-                        </a>
-                    </li>
-                }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="mt">
+                            <a href="~/Timetable/Index">
+                                <i class="fa fa-dashboard"></i>
+                                <span>Розклад</span>
+                            </a>
+                        </li>
+                    }
 
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
 
-        @RenderBody()
-        <footer></footer>
-    </section>
-    @*@Scripts.Render("~/bundles/jquery")*@
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    @RenderSection("scripts", required: false)
-    <script src="~/Scripts/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-    @*
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>*@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="~/Scripts/plugins/daterangepicker/moment.min.js"></script>
-    <script src="~/Scripts/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="~/Scripts/plugins/fastclick/fastclick.min.js"></script>
-    @*
-        <script src="~/Scripts/plugins/morris/morris.min.js"></script>*@
-    <script src="~/Scripts/plugins/knob/jquery.knob.js"></script>
-    <script src="~/Scripts/plugins/sparkline/jquery.sparkline.min.js"></script>
-    <script src="~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <script src="~/Scripts/app.js"></script>
-    @*
-        <script src="~/Scripts/dashboard.js"></script>*@
-    <script src="~/Scripts/demo.js"></script>
-    <script src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="~/Scripts/jquery.scrollTo.min.js"></script>
-    <script src="~/Scripts/jquery.sparkline.js"></script>
-    <script src="~/Scripts/jquery.nicescroll.js"></script>
-    <script src="~/Scripts/common-scripts.js"></script>
-    <script src="~/Scripts/jquery.gritter.js"></script>
-    <script src="~/Scripts/gritter-conf.js"></script>
-    <script src="~/Scripts/zabuto_calendar.js"></script>
+            @RenderBody()
+            <footer></footer>
+        </section>
+        @*@Scripts.Render("~/bundles/jquery")*@
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        @RenderSection("scripts", required: false)
+        <script src="~/Scripts/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        @*
+            <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="~/Scripts/plugins/daterangepicker/moment.min.js"></script>
+        <script src="~/Scripts/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="~/Scripts/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="~/Scripts/plugins/fastclick/fastclick.min.js"></script>
+        @*
+            <script src="~/Scripts/plugins/morris/morris.min.js"></script>*@
+        <script src="~/Scripts/plugins/knob/jquery.knob.js"></script>
+        <script src="~/Scripts/plugins/sparkline/jquery.sparkline.min.js"></script>
+        <script src="~/Scripts/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="~/Scripts/app.js"></script>
+        @*
+            <script src="~/Scripts/dashboard.js"></script>*@
+        <script src="~/Scripts/demo.js"></script>
+        <script src="~/Scripts/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="~/Scripts/jquery.scrollTo.min.js"></script>
+        <script src="~/Scripts/jquery.sparkline.js"></script>
+        <script src="~/Scripts/jquery.nicescroll.js"></script>
+        <script src="~/Scripts/common-scripts.js"></script>
+        <script src="~/Scripts/jquery.gritter.js"></script>
+        <script src="~/Scripts/gritter-conf.js"></script>
+        <script src="~/Scripts/zabuto_calendar.js"></script>
 
 
-</body>
+    </body>
 </html>
