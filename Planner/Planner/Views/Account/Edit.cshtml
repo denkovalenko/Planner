@@ -73,9 +73,10 @@
                 if (User.IsInRole("Admin"))
                 {
                     <div class="form-group has-feedback">
-                        <select class="form-control" name="role">
-                            <option value="User" selected>--Виберiть роль користувача--</option>
-                            <option ng-repeat="role in roles" value="{{role.Name}}">{{rolesFactory[role.Name]}}</option>
+                        <select class="form-control" name="role" required>
+                            <option value="" selected>--Виберiть роль користувача--</option>
+                            <option value="@Model.Role" selected>{{rolesFactory["@Model.Role"]}}</option>
+                            <option ng-repeat="role in roles" value="{{role.Name}}" ng-if="'@Model.Role' != role.Name">{{rolesFactory[role.Name]}}</option>
                         </select>
                     </div>
                 }
