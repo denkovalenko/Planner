@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Models
 {
@@ -20,8 +19,6 @@ namespace Domain.Models
 
         public string Signature { get; set; }
 
-        public String ApplicationUserId { get; set; }
-        [ForeignKey("ApplicationUserId")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

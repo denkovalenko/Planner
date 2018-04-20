@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using Planner.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +8,7 @@ using System.Web.Routing;
 
 namespace Planner.Controllers
 {
-	[IncompleteProfileFilter]
-	public class TimetableController : Controller
+    public class TimetableController : Controller
     {
         private ApplicationUser user;
         protected override void Initialize(RequestContext requestContext)

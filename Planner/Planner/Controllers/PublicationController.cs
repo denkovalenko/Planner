@@ -14,11 +14,9 @@ using System.Web.Routing;
 using Calculation;
 using System.IO;
 using SpreadsheetLight;
-using Planner.Filters;
 
 namespace Planner.Controllers
 {
-	[IncompleteProfileFilter]
 	public class PublicationController : Controller
 	{
 		private ApplicationUser user;
@@ -53,17 +51,7 @@ namespace Planner.Controllers
 
 		}
 
-        public ActionResult SendToDspace(string error)
-        {
-            var model = new DspacePublicationModel
-            {
-                Error = error
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
+		[HttpPost]
 		public ActionResult Create(PublicationCreate model, HttpPostedFileBase file)
 		{
 			if (file == null)
@@ -167,7 +155,7 @@ namespace Planner.Controllers
 			}
 		}
 
-        public ActionResult PrintForm11()
+		public ActionResult PrintForm11()
 		{
             var model = PublicationReportBuilder.CreateForm11(user);
             if (model.Count > 0)

@@ -5,11 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using Domain.Models;
-using Planner.Filters;
 
 namespace Planner.Controllers
 {
-	public class FacultyController : Controller
+    public class FacultyController : Controller
     {
         // GET: Faculty
         public JsonResult Get()

@@ -17,10 +17,5 @@ namespace Domain.Models
 		public String Id { get; set; }
 		public String Name { get; set; }
         public virtual ICollection<PublicationNMBD> PublicationNMBDs { get; set; }
-
-        public object ToList()
-        {
-            throw new NotImplementedException();
-        }
-    }
+	}
 }
