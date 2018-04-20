@@ -1,129 +1,150 @@
 ﻿@{
     ViewBag.Title = "Створення публікації";
 }
-@model Planner.Models.CreatePublicationViewModel
+@model Planner.Models.DspacePublicationModel
 <div class="content-wrapper">
+    <script>
+        function onClick(elementId, elementClass, elementPlaceholder) {
+            var div = document.getElementById(elementId);
+            var inp = document.createElement("input");
+            inp.type = "text";
+            inp.className = "form-control";
+            inp.name = elementClass;
+            inp.placeholder = elementPlaceholder;
+            inp.style = "margin-top: 15px;";
+            div.appendChild(inp);
+        }
+    </script>
     <div class="form-group">
         <div class="login-box-body" data-ng-controller="registerController as registerCtrl" ng-cloak data-ng-init="registerCtrl.init()">
             @ViewBag.userEdit
             <p class="login-box-msg">Публікація</p>
-                            <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
-                                <form action="http://212.111.199.233/Home/Create" method="post" name="SendToDspace" enctype="multipart/form-data" novalidate>
-                                    @if (!string.IsNullOrEmpty(Model.Error))
-                                    {
-                                        <div class="form-group">
-                                            <p class="panel panel-heading panel-danger alert-danger">@Model.Error</p>
-                                        </div>}
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" ng-model="name" name="name" placeholder="Назва" ng-pattern="validators.string" required>
-                                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
-                                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" ng-model="pages" name="pages" placeholder="Об'єм" ng-pattern="validators.float" required>
-                                        <span ng-show="CreatePublication.pages.$error.required && CreatePublication.pages.$touched">{{ validationErrors.required }}</span>
-                                        <span ng-show="CreatePublication.pages.$error.pattern">{{ validationErrors.float }}</span>
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="NMBDId" class="form-control">
-                                            <option value="">НМБД</option>
-                                            @foreach (var nmbd in Model.NMDBs)
-                                            {
-                                                <option value="@nmbd.Id">@nmbd.Name</option>
-                                            }
+            <div class="box-body" ng-controller="mainController as mainCtrl" ng-init="mainCtrl.init()">
+                <form action="http://212.111.199.233:411/Home/Create" method="post" name="SendToDspace" enctype="multipart/form-data" novalidate>
+                    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+                <div class="form-group">
+                    <p class="panel panel-heading panel-danger alert-danger">@Model.Error</p>
+                </div>}
 
-                                        </select>
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        @Html.EnumDropDownListFor(m => m.StoringType, "Тип", new { @class = "form-control", @required = "required" })
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        @Html.EnumDropDownListFor(m => m.PublicationType, "Тип видання", new { @class = "form-control", @required = "required" })
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" ng-model="output" name="output" placeholder="Вихідні дані" ng-pattern="validators.string" required>
-                                        <span ng-show="CreatePublication.output.$error.required && CreatePublication.output.$touched">{{ validationErrors.required }}</span>
-                                        <span ng-show="CreatePublication.output.$error.pattern">{{ validationErrors.string }}</span>
-                                    </div>
+                    <input type="button" value="Додати автора" class="btn btn-primary btn-block btn-flat" onclick="onClick('authorBlock', 'Authors', 'Автор, співавтори')" style="width: 200px; margin-bottom: 15px;">
 
-                                    <div class="form-group">
-                                        Закордонне видання:
-                                        <select name="IsOverseas" required>
-                                            <option value="false">Нi</option>
-                                            <option value="true">Так</option>
-                                        </select>
-                                    </div>
+                    <div class="form-group" id="authorBlock">
+                        <input type="text" class="form-control" ng-model="Author" name="Authors" placeholder="Автор, співавтори" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" ng-model="CitationNumberNMBD" name="CitationNumberNMBD" placeholder="Кількість цитувань у виданнях, що входять до НМБД" ng-pattern="validators.integer" required>
-                                        <span ng-show="CreatePublication.CitationNumberNMBD.$error.required && CreatePublication.CitationNumberNMBD.$touched">{{ validationErrors.required }}</span>
-                                        <span ng-show="CreatePublication.CitationNumberNMBD.$error.pattern">{{ validationErrors.integer }}</span>
-                                    </div>
+                    <input type="button" value="Додати ідентифікатор" class="btn btn-primary btn-block btn-flat" onclick="onClick('identifierBlock', 'Identifiers', 'Ідентифікатор')" style="width: 300px; margin-bottom: 15px;">
 
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" ng-model="ImpactFactorNMBD" name="ImpactFactorNMBD" placeholder="Імпакт-фактор видання, тільки з НМБД" ng-pattern="validators.float">
-                                        <span ng-show="CreatePublication.ImpactFactorNMBD.$error.required && CreatePublication.ImpactFactorNMBD.$touched">{{ validationErrors.required }}</span>
-                                        <span ng-show="CreatePublication.ImpactFactorNMBD.$error.pattern">{{ validationErrors.float }}</span>
-                                    </div>
+                    <div class="form-group" id="identifierBlock">
+                        <input type="text" class="form-control" ng-model="Identifier" name="Identifiers" placeholder="Ідентифікатор" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
-                                    <div class="form-group has-feedback">
-                                        @Html.EnumDropDownListFor(m => m.ResearchDoneType, "За якою НДР виконано", new { @class = "form-control", @required = "required" })
-                                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.EnumDropDownListFor(m => m.Language, "Мова", new { @class = "form-control", @required = "required" })
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.EnumDropDownListFor(m => m.Type, "Характер або жанр змісту ресурсу", new { @class = "form-control", @required = "required" })
+                    </div>
 
-                                    <div class="form-group">
-                                        <input type="date" class="form-control" name="PublishedAt" placeholder="Дата публікації">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="Title" name="Title" placeholder="Назва" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
-                                    </div>
+                    <input type="button" value="Додати альтернативна назву" class="btn btn-primary btn-block btn-flat" onclick="onClick('alternativeTitleBlock', 'AlternativeTitles', 'Альтернативна назва')" style="width: 400px; margin-bottom: 15px;">
 
-                                    <div class="form-group">
-                                        <div ng-show="mainCtrl.collaborators.length > 0">
-                                            <!--Selected collaborators-->
-                                            <div class="form-inline form-group">
-                                                <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.collaborators">
-                                                    <input value="{{collab.Name}}" type="text" class="panel panel-title text-primary collab-title" readonly>
-                                                    <input value="{{collab.UserId != null ? collab.UserId : collab.CollaboratorId}}" type="hidden" name="CollaboratorsIds" readonly>
-                                                    <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromCollaborators($index)">X</button>
-                                                </div>
-                                            </div>
+                    <div class="form-group" id="alternativeTitleBlock">
+                        <input type="text" class="form-control" ng-model="AlternativeTitles" name="AlternativeTitles" placeholder="Альтернативна назва" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
-                                        </div>
-                                        <div ng-show="mainCtrl.newCollaborators.length > 0">
-                                            <!--New collaborators-->
-                                            <div class="form-inline form-group">
-                                                <div class="form-group collab-tag" ng-repeat="collab in mainCtrl.newCollaborators">
-                                                    <input value="{{collab}}" type="text" class="panel panel-title text-primary collab-title" name="NewCollaboratorsNames">
-                                                    <button class="btn btn-danger cancel-collab" ng-click="mainCtrl.deleteFromNewCollaborators($index)">X</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="SerialNumber" name="SerialNumber" placeholder="Номер серії" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="ReportNumber" name="ReportNumber" placeholder="Номер звіту" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
-                                        <input type="text" class="form-control" placeholder="Співавтор" ng-model="query" ng-enter="mainCtrl.addNewCollaborators(this.query)">
-                                        <div class="autocomplete-block" ng-class="{'showblock': query.length > 0 }" ng-hide="mainCtrl.teachersList.length==0 || query == ''">
-                                            <div class="autocomplete-row" ng-repeat="teacher in mainCtrl.teachersList | filter:query " ng-click="mainCtrl.addCollaborators(teacher.UserId)">
-                                                {{teacher.Name}}
-                                            </div>
-                                        </div>
-                                     
-                                    </div>
+                    <input type="button" value="Додати УДК" class="btn btn-primary btn-block btn-flat" onclick="onClick('udkBlock', 'UDK', 'УДК')" style="width: 200px; margin-bottom: 15px;">
 
-                                    <div class="fonts-size">
-                                        <div class="form-control">
-                                            <span>Документ публикацiї</span>
-                                            <input type="file" name="file" style="display: inline-block; float: right" required aria-required="true">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-8">
-                                        </div><!-- /.col -->
-                                        <div class="col-xs-4">
-                                            <button type="submit" class="btn btn-primary btn-block btn-flat">Підтвердити</button>
-                                        </div><!-- /.col -->
-                                    </div>
-                                </form>
-                            </div>
+                    <div class="form-group" id="udkBlock">
+                        <input type="text" class="form-control" ng-model="UDK" name="UDK" placeholder="УДК" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
 
+                    <input type="button" value="Додати ББК" class="btn btn-primary btn-block btn-flat" onclick="onClick('bbkBlock', 'BBK', 'ББК')" style="width: 200px; margin-bottom: 15px;">
+
+                    <div class="form-group" id="bbkBlock">
+                        <input type="text" class="form-control" ng-model="BBK" name="BBK" placeholder="ББК" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
+
+                    <input type="button" value="Додати тематику і ключові слова" class="btn btn-primary btn-block btn-flat" onclick="onClick('keywordBlock', 'Keywords', 'Тематика і ключові слова')" style="width: 500px; margin-bottom: 15px;">
+
+                    <div class="form-group" id="keywordBlock">
+                        <input type="text" class="form-control" ng-model="Keywords" name="Keywords" placeholder="Тематика і ключові слова" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="Sponsor" name="Sponsor" placeholder="Спонсорьска підтримка" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
+
+                    <input type="button" value="Додати анотацію" class="btn btn-primary btn-block btn-flat" onclick="onClick('annotationBlock', 'Annotation', 'Анотація')" style="width: 300px; margin-bottom: 15px;">
+
+                    <div class="form-group" id="annotationBlock">
+                        <input type="text" class="form-control" ng-model="Annotation" name="Annotation" placeholder="Анотація" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="Description" name="Description" placeholder="Опис" ng-pattern="validators.string" required>
+                        <span ng-show="CreatePublication.name.$error.required && CreatePublication.name.$touched">{{ validationErrors.required }}</span>
+                        <span ng-show="CreatePublication.name.$error.pattern">{{ validationErrors.string }}</span>
+                    </div>
+
+                    <div class="fonts-size">
+                        <div class="form-control">
+                            <span>Документ публикацiї</span>
+                            <input type="file" name="file" style="display: inline-block; float: right" required aria-required="true">
                         </div>
+                    </div>
 
-                </div><!-- /.row (main row) -->
-        </div><!-- /.content-wrapper -->
+                    <div class="fonts-size">
+                        <div class="form-control">
+                            <span>Файл лiцензiї</span>
+                            <input type="file" name="licence" style="display: inline-block; float: right" required aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-8">
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Відправити</button>
+                        </div><!-- /.col -->
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div><!-- /.row (main row) -->
+</div><!-- /.content-wrapper -->

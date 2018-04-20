@@ -55,16 +55,12 @@ namespace Planner.Controllers
 
         public ActionResult SendToDspace(string error)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            var model = new DspacePublicationModel
             {
-                var model = new CreatePublicationViewModel
-                {
-                    NMDBs = db.NMBDs.ToList(),
-                    Error = error
-                };
+                Error = error
+            };
 
-                return View(model);
-            }
+            return View(model);
         }
 
         [HttpPost]
