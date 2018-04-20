@@ -18,6 +18,5 @@ namespace Domain.Models
         public String Id { get; set; }
         public Double Value { get; set; }
         public virtual ICollection<DepartmentUser> DepartmentUsers { get; set; }
-        //public virtual ICollection<TeachersRate> TeachersRates { get; set; }
     }
 }

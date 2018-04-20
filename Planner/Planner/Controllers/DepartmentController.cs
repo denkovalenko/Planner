@@ -1,6 +1,5 @@
 ﻿using Calculation;
 using Domain.Models;
-using Planner.Filters;
 using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
@@ -12,16 +11,15 @@ using System.Web.Mvc;
 namespace Planner.Controllers
 {
 	[Authorize]
-	public class DepartmentController : Controller
+    public class DepartmentController : Controller
     {
-        [Authorize(Roles = "Admin,HeadOfStudies")]
+        // GET: Department
         public ActionResult DepartmentPublications()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin,HeadOfStudies")]
-        public ActionResult HalfYearDepartmentPublications()
+		public ActionResult HalfYearDepartmentPublications()
 		{
 			return View();
 		}
@@ -76,7 +74,7 @@ namespace Planner.Controllers
                 var model = PublicationReportBuilder.ScientificPublishing(depId, year, half);
                 return new JsonResult() { Data = model, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -93,7 +91,7 @@ namespace Planner.Controllers
                 var name = "Звiт за пiврiччя-" + DateTime.UtcNow.ToLongDateString() + ".xlsx";
                 return File(ms, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", name);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Redirect("/Department/HalfYearDepartmentPublications");
             }
